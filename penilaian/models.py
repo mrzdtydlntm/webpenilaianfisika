@@ -5,21 +5,21 @@ from django.urls import reverse
 # Create your models here.
 
 class Reviewer(models.Model):
-    reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
+    reviewer = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     nip = models.CharField(max_length=18, verbose_name='Nomor Induk Pegawai', default=None)
 
     def __str__(self):
         return f"{self.reviewer}"
 
 class Admin(models.Model):
-    admin = models.ForeignKey(User, on_delete=models.CASCADE)
+    admin = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return f"{self.admin}"
     
 
 class UploadBerkasJurnal(models.Model):
-    pengusul = models.ForeignKey(User, related_name='user_jurnal_pengusul', on_delete=models.CASCADE)
+    pengusul = models.ForeignKey(User, related_name='user_jurnal_pengusul', on_delete=models.CASCADE, default=None)
     judul = models.CharField(max_length=255, verbose_name='Judul Jurnal', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
     jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Penulis (selain CA dan PU)')
@@ -39,11 +39,11 @@ class UploadBerkasJurnal(models.Model):
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
     upload_jurnal = models.FileField(upload_to='jurnal/isi/', verbose_name='Upload Jurnal (isi)')
     upload_cover = models.FileField(upload_to='jurnal/cover/', verbose_name='Upload Jurnal (cover)', blank=True, null=True)
-    corresponding_author = models.ForeignKey(User, related_name='user_jurnal_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author')
-    penulis_utama = models.ForeignKey(User, related_name='user_jurnal_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama')
+    corresponding_author = models.ForeignKey(User, related_name='user_jurnal_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', default=None)
+    penulis_utama = models.ForeignKey(User, related_name='user_jurnal_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', default=None)
     penulis_lain = models.ManyToManyField(User, blank=True)
     is_verificated = models.BooleanField(default=False, blank=True, null=True)
-    reviewer = models.ForeignKey(Reviewer, related_name='user_jurnal_reviewer', on_delete=models.CASCADE, blank=True, null=True)
+    reviewer = models.ForeignKey(Reviewer, related_name='user_jurnal_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(blank=True, editable=False, unique=True)
 
@@ -60,7 +60,7 @@ class UploadBerkasJurnal(models.Model):
         
 
 class UploadBerkasProsiding(models.Model):
-    pengusul = models.ForeignKey(User, related_name='user_prosiding_pengusul', on_delete=models.CASCADE)
+    pengusul = models.ForeignKey(User, related_name='user_prosiding_pengusul', on_delete=models.CASCADE, default=None)
     judul = models.CharField(max_length=255, verbose_name='Judul Jurnal', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
     jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Penulis (selain CA dan PU)')
@@ -76,11 +76,11 @@ class UploadBerkasProsiding(models.Model):
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
     upload_prosiding = models.FileField(upload_to='prosiding/isi/', verbose_name='Upload Prosiding (isi)')
     upload_cover = models.FileField(upload_to='prosiding/cover/', verbose_name='Upload Prosiding (cover)', blank=True, null=True)
-    corresponding_author = models.ForeignKey(User, related_name='user_prosiding_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author')
-    penulis_utama = models.ForeignKey(User, related_name='user_prosiding_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama')
+    corresponding_author = models.ForeignKey(User, related_name='user_prosiding_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', default=None)
+    penulis_utama = models.ForeignKey(User, related_name='user_prosiding_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', default=None)
     penulis_lain = models.ManyToManyField(User, blank=True)
     is_verificated = models.BooleanField(default=False, blank=True, null=True)
-    reviewer = models.ForeignKey(Reviewer, related_name='user_prosiding_reviewer', on_delete=models.CASCADE, blank=True, null=True)
+    reviewer = models.ForeignKey(Reviewer, related_name='user_prosiding_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(blank=True, editable=False, unique=True)
 
@@ -96,7 +96,7 @@ class UploadBerkasProsiding(models.Model):
         return reverse('penilaian:detail_berkas_prosiding', kwargs= url_slug)
 
 class UploadBerkasBuku(models.Model):
-    pengusul = models.ForeignKey(User, related_name='user_buku_pengusul', on_delete=models.CASCADE)
+    pengusul = models.ForeignKey(User, related_name='user_buku_pengusul', on_delete=models.CASCADE, default=None)
     judul = models.CharField(max_length=255, verbose_name='Judul Buku', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
     jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Penulis (selain penulis utama)')
@@ -111,10 +111,10 @@ class UploadBerkasBuku(models.Model):
     ]
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
     upload_buku = models.FileField(upload_to='buku/isi/', verbose_name='Upload Buku (isi)')
-    penulis_utama = models.ForeignKey(User, related_name='user_buku_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama')
+    penulis_utama = models.ForeignKey(User, related_name='user_buku_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', default=None)
     penulis_lain = models.ManyToManyField(User, blank=True)
     is_verificated = models.BooleanField(default=False, blank=True, null=True)
-    reviewer = models.ForeignKey(Reviewer, related_name='user_buku_reviewer', on_delete=models.CASCADE, blank=True, null=True)
+    reviewer = models.ForeignKey(Reviewer, related_name='user_buku_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(blank=True, editable=False, unique=True)
 
@@ -130,7 +130,7 @@ class UploadBerkasBuku(models.Model):
         return reverse('penilaian:detail_berkas_buku', kwargs= url_slug)
 
 class UploadBerkasHaki(models.Model):
-    pengusul = models.ForeignKey(User, related_name='user_pengusul', on_delete=models.CASCADE)
+    pengusul = models.ForeignKey(User, related_name='user_pengusul', on_delete=models.CASCADE, default=None)
     judul = models.CharField(max_length=255, verbose_name='Nama Berkas', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Pemegang Berkas')
     jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Pemegang Berkas Lain (selain pemegang berkas utama)')
@@ -145,10 +145,10 @@ class UploadBerkasHaki(models.Model):
     ]
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
     upload_berkas = models.FileField(upload_to='haki/isi/', verbose_name='Upload Berkas')
-    pemegang_berkas_utama = models.ForeignKey(User, related_name='user_pemegang_berkas_utama', on_delete=models.CASCADE, verbose_name='Pemegang Paten Utama')
+    pemegang_berkas_utama = models.ForeignKey(User, related_name='user_pemegang_berkas_utama', on_delete=models.CASCADE, verbose_name='Pemegang Paten Utama', default=None)
     penulis_lain = models.ManyToManyField(User, blank=True)
     is_verificated = models.BooleanField(default=False, blank=True, null=True)
-    reviewer = models.ForeignKey(Reviewer, related_name='user_haki_reviewer', on_delete=models.CASCADE, blank=True, null=True)
+    reviewer = models.ForeignKey(Reviewer, related_name='user_haki_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(blank=True, editable=False, unique=True)
 
