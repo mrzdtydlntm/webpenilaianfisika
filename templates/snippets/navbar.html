@@ -1,12 +1,5 @@
 <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
-      
-      <!-- <h1 class="logo mr-auto"><a href="{% url 'home' %}"> -->
-        <!-- <img class="mr-auto" src="/assets/img/logo-unpad1.png" alt="" style="width: 55px;"> -->
-        <!-- Departemen Fisika -->
-      <!-- </a></h1> -->
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo mr-auto"><img src="static/img/logo.png" alt="" class="img-fluid"></a>-->
       <img class="mr-auto" src="/assets/img/logo-unpad1.png" alt="" style="width: 60px;">
       <nav class="nav-menu d-none d-lg-block">
         <ul>
@@ -26,15 +19,35 @@
                 <li><a href="{% url 'penilaian:list_berkas_jurnal' %}">Histori Pengajuan</a></li>
               </ul>
             </li>
-            <li class="drop-down"><a href="#">Penilaian</a>
-              <ul>
-                <li><a href="{% url 'penilaian:plagiasi_linieritas' %}">Plagiasi dan Linieritas</a></li>
-                <li><a href="{% url 'penilaian:penilaian_jurnal' %}">Penilaian Jurnal</a></li>
-                <li><a href="{% url 'penilaian:penilaian_prosiding' %}">Penilaian Prosiding</a></li>
-                <li><a href="{% url 'penilaian:penilaian_buku' %}">Penilaian Buku</a></li>
-                <li><a href="{% url 'penilaian:penilaian_haki' %}">Penilaian Haki</a></li>
-              </ul>
-            </li>
+            
+            {% for group in user.groups.all %}
+              {% if group.name == 'SuperAdmin' %}
+                <li class="drop-down"><a href="#">Penilaian</a>
+                  <ul>
+                    <li><a href="{% url 'penilaian:plagiasi_linieritas' %}">Plagiasi dan Linieritas</a></li>
+                    <li><a href="{% url 'penilaian:penilaian_jurnal' %}">Penilaian Jurnal</a></li>
+                    <li><a href="{% url 'penilaian:penilaian_prosiding' %}">Penilaian Prosiding</a></li>
+                    <li><a href="{% url 'penilaian:penilaian_buku' %}">Penilaian Buku</a></li>
+                    <li><a href="{% url 'penilaian:penilaian_haki' %}">Penilaian Haki</a></li>
+                  </ul>
+                </li>
+              {% elif group.name == 'Reviewer' %}  
+                <li class="drop-down"><a href="#">Penilaian</a>
+                  <ul>
+                    <li><a href="{% url 'penilaian:penilaian_jurnal' %}">Penilaian Jurnal</a></li>
+                    <li><a href="{% url 'penilaian:penilaian_prosiding' %}">Penilaian Prosiding</a></li>
+                    <li><a href="{% url 'penilaian:penilaian_buku' %}">Penilaian Buku</a></li>
+                    <li><a href="{% url 'penilaian:penilaian_haki' %}">Penilaian Haki</a></li>
+                  </ul>
+                </li>
+              {% elif group.name == 'Admin' %}
+                <li class="drop-down"><a href="#">Penilaian</a>
+                  <ul>
+                    <li><a href="{% url 'penilaian:plagiasi_linieritas' %}">Plagiasi dan Linieritas</a></li>
+                  </ul>
+                </li>
+              {% endif %}
+            {% endfor %}
           {% endif %}
           {% if user.is_authenticated %}
             <li class="drop-down"><a href="#"><strong>{{user.first_name}}</strong></a>
