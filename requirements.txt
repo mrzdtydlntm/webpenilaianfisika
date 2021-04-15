@@ -19,11 +19,11 @@ gunicorn==20.1.0
 html5lib==1.1
 jmespath==0.10.0
 mysqlclient==2.0.3
+pdfkit==0.6.1
 Pillow==8.2.0
 psycopg2==2.8.6
 psycopg2-binary==2.8.6
 pycparser==2.20
-PyPDF2==1.26.0
 Pyphen==0.10.0
 python-bidi==0.4.2
 python-dateutil==2.8.1
