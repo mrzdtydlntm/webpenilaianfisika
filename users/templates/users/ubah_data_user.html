@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubah Data User</title>
+    {% include 'snippets/style.html' %}
+</head>
+<body>
+    {% include 'snippets/navbar.html' %}
+    <section id="portfolio" class="portfolio login">
+        <br>
+        <div class="section-title" data-aos="zoom-in">
+            <h2 class="text-white">Ubah Profil</h2>
+        </div>
+        <div class="container d-flex justify-content-center" data-aos="zoom-in">
+            <div class="card">
+                <article class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <p><label for="{{form.username.id_for_label}}">Nomor Induk Pegawai:</label> <input type="text" name="{{form.username.name}}" value={{user.username}} class="form-control" maxlength="{{form.username.max}}" required id="{{form.username.id_for_label}}"></p>
+                        <p><label for="{{form.first_name.id_for_label}}">Nama:</label> <input type="text" name="{{form.first_name.name}}" value={{user.first_name}} class="form-control" maxlength="{{form.first_name.max}}" required id="{{form.first_name.id_for_label}}"></p>
+                        <p><label for="{{form.email.id_for_label}}">Email:</label> <input type="email" name="{{form.email.name}}" value={{user.email}} class="form-control" required id="{{form.email.id_for_label}}"></p>
+                        <p><label>Password:</label><a href="{% url 'users:ubah_password' %}">&emsp;Ubah Password</a></p>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Update  </button>
+                        </div> 
+                    </form>
+                </article>
+            </div>
+        </div>    
+    </section>
+
+    {% include 'snippets/script.html' %}
+</body>
+</html>

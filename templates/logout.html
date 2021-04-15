@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    {% include 'snippets/style.html' %}
+</head>
+<body>
+    <div class="jumbotron text-center">
+        <h1 class="display-3">Apakah anda yakin ingin logout?</h1>
+        <p class="lead">Jika ya, klik tombol logout. Jika tidak, klik tombol cancel</p>
+        <hr>
+        <br>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="submit" class="btn btn-danger" id="logout" name="logout" value="Logout">
+                </div>
+                <div class="col-md-6">
+                    <input type="submit" class="btn btn-warning" id="logout" name="logout" value="Cancel">
+                </div>
+            </div>
+            <!-- <button type="submit">Logout</button> -->
+        </form>
+      </div>
+
+    {% include 'snippets/script.html' %}
+</body>
+</html>

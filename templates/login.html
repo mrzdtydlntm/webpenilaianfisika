@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% include 'snippets/style.html' %}
+</head>
+<body>
+    {% include 'snippets/navbar.html' %}
+    <section id="portfolio" class="portfolio login">
+        <br>
+        <div class="section-title" data-aos="zoom-in">
+            <h2 class="text-white">Login Site</h2>
+        </div>
+        <div class="container d-flex justify-content-center" data-aos="zoom-in">
+            <div class="card">
+                <article class="card-body">
+                <a href="{% url 'users:register' %}" class="float-right btn btn-outline-warning">Register</a>
+                <h4 class="card-title mb-4 mt-1">Sign in</h4>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Username :</label>
+                        <input type="text" name="username" id="username" class="form-control" placeholder="Nomor Induk Pegawai">
+                    </div> <!-- form-group// -->
+                    <div class="form-group">
+                        <label>Password :</label>
+                        <input name="password" id="password" class="form-control" placeholder="Password" type="password">
+                    </div> <!-- form-group// -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Login </button>
+                    </div> <!-- form-group// -->                                                           
+                </form>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    {% include 'snippets/script.html' %}
+</body>
+</html>

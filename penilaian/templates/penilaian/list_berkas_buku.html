@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histori Pengajuan</title>
+    {% include 'snippets/style.html' %}
+</head>
+<body>
+  {% include 'snippets/navbar.html' %}
+    <section id="portfolio" class="portfolio">
+      <div class="container" data-aos="fade-up">
+        <br>
+        <div class="section-title">
+          <h2 class="text-white">Histori Pengajuan Buku</h2>
+          <p class="text-white">Tabel pengajuan berkas buku</p>
+        </div>
+      </div>
+      <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+        <li><a class="text-white" href="{% url 'penilaian:list_berkas_jurnal' %}">Jurnal</a></li>
+        <li><a class="text-white" href="{% url 'penilaian:list_berkas_prosiding' %}">Prosiding</a></li>
+        <li><a class="text-white" href="{% url 'penilaian:list_berkas_buku' %}">Buku</a></li>
+        <li><a class="text-white" href="{% url 'penilaian:list_berkas_haki' %}">HaKI</a></li>
+      </ul>
+    </section><!-- End Portfolio Section -->
+    <br>
+    
+    <div class="container">
+      <div class="scrollmenu">
+        <table class="table" data-aos="zoom-in">
+          <thead>
+            <tr>
+              <th>Judul Buku</th>
+              <th>Penulis Utama</th>
+              <th>Detail</th>
+              <th>Status</th>
+              <th>Hasil Penilaian</th>
+              {% for list in list_user %}
+                
+                {% if user == list.reviewer %}
+                  <th>Reviewer</th>
+                {% endif %}
+                  
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for berkas in list_berkas_buku %}
+                <tr>
+                    <td>{{berkas.judul}}</td>
+                    <td>{{berkas.penulis_utama.first_name}}</td>
+                    <!-- <td>{{berkas.upload_berkas}}</td> -->
+                    <td>
+                        <a href="{% url 'penilaian:detail_berkas_buku' berkas.slug%}" class="btn btn-primary" target="_blank">Detail</a>
+                    </td>
+                    <td>
+                      {% if berkas.is_verificated == True %}
+                        <button disabled class="btn btn-success">Terverifikasi</button>
+                      {% else %}
+                        {% if user.is_superuser %}
+                          <a class="btn btn-warning" href="{% url 'penilaian:verifikasi_berkas_buku' berkas.pk%}">Verifikasi?</a>
+                        {% else %}
+                          <button disabled class="btn btn-secondary">Proses</button>
+                        {% endif %}
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if berkas.is_verificated == True %}
+                        <a class="btn btn-primary" href="{% url 'penilaian:rekap_buku' berkas.slug %}">Download</a>
+                      {% else %}
+                        <button disabled class="btn btn-secondary btn-sm">Belum Diverifikasi</button>
+                      {% endif %}
+                    </td>
+                    {% for list in list_user %}
+                      {% if user == list.reviewer %}
+                        <td>{{berkas.reviewer}}</td>
+                      {% endif %}
+                    {% endfor %}
+                </tr>     
+            {% endfor %} 
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+    
+      
+
+
+    {% include 'snippets/script.html' %}
+</body>
+</html>

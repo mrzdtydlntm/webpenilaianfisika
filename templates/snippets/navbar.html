@@ -1,0 +1,57 @@
+<header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
+      
+      <!-- <h1 class="logo mr-auto"><a href="{% url 'home' %}"> -->
+        <!-- <img class="mr-auto" src="/assets/img/logo-unpad1.png" alt="" style="width: 55px;"> -->
+        <!-- Departemen Fisika -->
+      <!-- </a></h1> -->
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo mr-auto"><img src="static/img/logo.png" alt="" class="img-fluid"></a>-->
+      <img class="mr-auto" src="/assets/img/logo-unpad1.png" alt="" style="width: 60px;">
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          {% if user.is_authenticated %}
+          <li class=""><a href="{% url 'home' %}">Home</a></li>
+            <li class="drop-down"><a href="#">Pemberkasan</a>
+              <ul>
+                <li class="drop-down drop-down-deep"><a href="#">Upload Berkas</a>
+                  <ul>
+                    <li><a href="{% url 'penilaian:upload_berkas_jurnal' %}">Upload Berkas Jurnal</a></li>
+                    <li><a href="{% url 'penilaian:upload_berkas_prosiding' %}">Upload Berkas Prosiding</a></li>
+                    <li><a href="{% url 'penilaian:upload_berkas_buku' %}">Upload Berkas Buku</a></li>
+                    <li><a href="{% url 'penilaian:upload_berkas_haki' %}">Upload Berkas HaKI</a></li>
+                  </ul>
+                </li>
+                <div class="dropdown-divider"></div>
+                <li><a href="{% url 'penilaian:list_berkas_jurnal' %}">Histori Pengajuan</a></li>
+              </ul>
+            </li>
+            <li class="drop-down"><a href="#">Penilaian</a>
+              <ul>
+                <li><a href="{% url 'penilaian:plagiasi_linieritas' %}">Plagiasi dan Linieritas</a></li>
+                <li><a href="{% url 'penilaian:penilaian_jurnal' %}">Penilaian Jurnal</a></li>
+                <li><a href="{% url 'penilaian:penilaian_prosiding' %}">Penilaian Prosiding</a></li>
+                <li><a href="{% url 'penilaian:penilaian_buku' %}">Penilaian Buku</a></li>
+                <li><a href="{% url 'penilaian:penilaian_haki' %}">Penilaian Haki</a></li>
+              </ul>
+            </li>
+          {% endif %}
+          {% if user.is_authenticated %}
+            <li class="drop-down"><a href="#"><strong>{{user.first_name}}</strong></a>
+              <ul>
+                <li><a href="{% url 'users:ubah_data_user' %}">Ubah Data User</a></li>
+                <div class="dropdown-divider"></div>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </li>
+          {% else %}
+            <a href="{% url 'login' %}" class="get-started-btn scrollto">Login</a>
+          {% endif %}
+        </ul>       
+      </nav><!-- .nav-menu -->
+      
+      
+        
+
+    </div>
+</header><!-- End Header -->

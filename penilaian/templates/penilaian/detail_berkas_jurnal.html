@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Berkas</title>
+    {% include 'snippets/style.html' %}
+</head>
+<body>
+    {% include 'snippets/navbar.html' %}
+    <section id="portfolio" class="portfolio">
+        <div class="container" data-aos="fade-up">
+          <br><br>
+          <div class="section-title">
+            <h2 class="text-white">Detail Berkas</h2>
+          </div>
+        </div>
+    </section><!-- End Portfolio Section -->
+    <div class="container" data-aos="zoom-in">
+      <br>
+        <table class="table table-hover d-flex justify-content-center">
+            <tbody>
+              <tr>
+                <td><h3>Waktu Upload</h3></td>
+                <td><h4>: {{detail_berkas_jurnal.uploaded}}</h4></td>
+              </tr>
+              <tr>
+                <td><h3>Judul</h3></td>
+                <td><h4>: {{detail_berkas_jurnal.judul}}</h4></td>
+              </tr>
+              <tr>
+                <td><h3>Pengusul</h3></td>
+                <td><h4>: {{detail_berkas_jurnal.pengusul.first_name}}</h4></td>
+              </tr>
+              <tr>
+                <td><h3>Kategori Publikasi</h3></td>
+                <td><h4>: {{detail_berkas_jurnal.kategori_publikasi}}</h4></td>
+              </tr>
+              <tr>
+                <td><h3>Nomor ISSN</h3></td>
+                {% if detail_berkas_jurnal.nomor_issn == None %}
+                    <td><h4>: -</h4></td>
+                {% else %}
+                    <td><h4>: {{detail_berkas_jurnal.nomor_issn}}</h4></td>
+                {% endif %}
+              </tr>
+              <tr>
+                <td><h3>Vol/No/Bulan/Tahun</h3></td>
+                {% if detail_berkas_jurnal.vol_no_bln_thn == None %}
+                    <td><h4>: -</h4></td>
+                {% else %}
+                    <td><h4>: {{detail_berkas_jurnal.vol_no_bln_thn}}</h4></td>
+                {% endif %}
+              </tr>
+              <tr>
+                <td><h3>Penerbit</h3></td>
+                {% if detail_berkas_jurnal.penerbit == None %}
+                    <td><h4>: -</h4></td>
+                {% else %}
+                    <td><h4>: {{detail_berkas_jurnal.penerbit}}</h4></td>
+                {% endif %}
+              </tr>
+              <tr>
+                <td><h3>DOI Artikel</h3></td>
+                {% if detail_berkas_jurnal.doi_artikel == None %}
+                    <td><h4>: -</h4></td>
+                {% else %}
+                    <td><h4>: {{detail_berkas_jurnal.doi_artikel}}</h4></td>
+                {% endif %}
+              </tr>
+              <tr>
+                <td><h3>URL Jurnal</h3></td>
+                {% if detail_berkas_jurnal.url_jurnal == None %}
+                    <td><h4>: -</h4></td>
+                {% else %}
+                    <td><h4>: {{detail_berkas_jurnal.url_jurnal}}</h4></td>
+                {% endif %}
+              </tr>
+              <tr>
+                <td><h3>Indeks Jurnal</h3></td>
+                {% if detail_berkas_jurnal.indeks_jurnal == None %}
+                    <td><h4>: -</h4></td>
+                {% else %}
+                    <td><h4>: {{detail_berkas_jurnal.indeks_jurnal}}</h4></td>
+                {% endif %}
+              </tr>
+              <tr>
+                <td><h3>Corresponding Author</h3></td>
+                <td><h4>: {{detail_berkas_jurnal.corresponding_author.first_name}}</h4></td>
+              </tr>
+              <tr>
+                <td><h3>Penulis Utama</h3></td>
+                <td><h4>: {{detail_berkas_jurnal.penulis_utama.first_name}}</h4></td>
+              </tr>
+              <tr>
+                <td><h3>Penulis Lain</h3></td>
+                <td><h4>:
+                  {% for penulis in detail_berkas_jurnal.penulis_lain.all %}
+                    {{penulis.first_name}} <br>
+                  {% endfor %}
+                </h4></td>
+              </tr>
+              <tr>
+                <td><h3>Download Jurnal</h3></td>
+                <td><a href="{{detail_berkas_jurnal.upload_jurnal.url}}" class="btn btn-primary" target="_blank">Download</a></td>
+              </tr>
+              <tr>
+                <td><h3>Download Cover</h3></td>
+                <td>
+                    {% if berkas.upload_cover %}
+                        <a href="{{detail_berkas_jurnal.upload_cover.url}}" class="btn btn-primary" target="_blank">Download</a>
+                        {% else %}
+                        <button type="button" class="btn btn-warning" disabled>Belum Ada</button>
+                    {% endif %}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+          
+
+
+    {% include 'snippets/script.html' %}
+</body>
+</html>

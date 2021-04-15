@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Jurnal</title>
+    {% include 'snippets/style.html' %}
+</head>
+<body>
+    {% include 'snippets/navbar.html' %}
+    <section id="portfolio" class="portfolio">
+        <div class="container" data-aos="fade-up">
+          <br>
+          <div class="section-title">
+            <h2 class="text-white">Upload Berkas Prosiding</h2>
+            <p class="text-white">Harap upload prosiding sesuai persyaratan</p>
+          </div>
+        </div>
+    </section><!-- End Portfolio Section -->
+    <div class="container text-center">
+        <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
+            {% csrf_token %}
+            <br>
+            <p>
+                <label for="{{form.pengusul.id_for_label}}">Pengusul:</label>
+                <select name="{{form.pengusul.name}}" required id="{{form.pengusul.id_for_label}}">
+                    <option value="{{user.id}}" selected>{{user.first_name}}</option>
+                </select>
+            </p>
+            <p><label for="{{form.jmlh_penulis.id_for_label}}">Jumlah Penulis:</label> <input type="number" name="{{form.jmlh_penulis.name}}" min="0" required id="{{form.jmlh_penulis.id_for_label}}"></p>
+              <p><label for="{{form.jmlh_penulis_lain.id_for_label}}">Jumlah Penulis Lain (selain CA dan PU):</label> <input type="number" name="{{form.jmlh_penulis_lain.name}}" min="0" required id="{{form.jmlh_penulis_lain.id_for_label}}"></p>
+              <p><label for="{{form.judul.id_for_label}}">Judul Jurnal:</label> <input type="text" name="{{form.judul.name}}" maxlength="{{form.judul.max}}" required id="{{form.judul.id_for_label}}"></p>
+              <p><label for="{{form.nomor_isbn.id_for_label}}">Nomor ISBN:</label> <input type="text" name="{{form.nomor_isbn.name}}" maxlength="{{form.nomor_isbn.max}}" id="{{form.nomor_isbn.id_for_label}}"></p>
+              <p><label for="{{form.tahun_terbit.id_for_label}}">Tahun Terbit:</label> <input type="text" name="{{form.tahun_terbit.name}}" maxlength="255" id="{{form.tahun_terbit.id_for_label}}"></p>
+              <p><label for="{{form.penerbit.id_for_label}}">Penerbit:</label> <input type="text" name="{{form.penerbit.name}}" maxlength="{{form.penerbit.max}}" id="{{form.penerbit.id_for_label}}"></p>
+              <p><label for="{{form.url_repository.id_for_label}}">Link Jurnal:</label> <input type="url" name="{{form.url_repository.name}}" maxlength="{{form.url_repository.max}}" id="{{form.url_repository.id_for_label}}"></p>
+              <p><label for="{{form.indeks_prosiding.id_for_label}}">Indeks Scopus dan Scimagor:</label> <input type="text" name="{{form.indeks_prosiding.name}}" maxlength="{{form.indeks_prosiding.max}}" id="{{form.indeks_prosiding.id_for_label}}"></p>
+            <p><label for="{{form.kategori_publikasi.id_for_label}}">Kategori Publikasi:</label> <select name="{{form.kategori_publikasi.name}}" id="{{form.kategori_publikasi.id_for_label}}">
+                <option value="" selected>---------</option>
+                <option value="Prosiding Forum Ilmiah Internasional">Prosiding Forum Ilmiah Internasional</option>
+                <option value="Prosiding Forum Ilmiah Nasional">Prosiding Forum Ilmiah Nasional</option>
+            </select></p>
+            <p><label for="{{form.upload_prosiding.id_for_label}}">Upload Prosiding (isi):</label> <input type="file" name="{{form.upload_prosiding.name}}" required id="{{form.upload_prosiding.id_for_label}}"></p>
+            <p><label for="{{form.upload_cover.id_for_label}}">Upload Jurnal (cover):</label> <input type="file" name="{{form.upload_cover.name}}" id="{{form.upload_cover.id_for_label}}"></p>
+              <p>
+                  <label for="{{form.corresponding_author.id_for_label}}">Corresponding Author:</label>
+                  <select class="selectpicker border rounded mh" name="{{form.corresponding_author.name}}" required id="{{form.corresponding_author.id_for_label}}" data-live-search="true">
+                        <option value="" selected>---------</option>
+                        {% for usr in list_user %}
+                            <option value="{{usr.id}}">{{usr.first_name}}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <p>
+                  <label for="{{form.penulis_utama.id_for_label}}">Penulis Utama:</label>
+                  <select name="{{form.penulis_utama.name}}" required id="{{form.penulis_utama.id_for_label}}" class="selectpicker border rounded mh" data-live-search="true">
+                        <option value="" selected>---------</option>
+                        {% for usr in list_user %}
+                            <option value="{{usr.id}}">{{usr.first_name}}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <p>
+                    <label for="{{form.penulis_lain.id_for_label}}">Penulis lain:</label>
+                    <select class="selectpicker border rounded mh" name="{{form.penulis_lain.name}}" id="{{form.penulis_lain.id_for_label}}" multiple data-live-search="true">
+                        {% for usr in list_user %}
+                            <option value="{{usr.id}}">{{usr.first_name}}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+            <br>
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <br>
+            <br>
+        </form>
+    </div>
+
+    {% include 'snippets/script.html' %}
+</body>
+</html>

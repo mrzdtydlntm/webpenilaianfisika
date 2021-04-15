@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabel Pengajuan</title>
+    {% include 'snippets/style.html' %}
+</head>
+<body>
+  {% include 'snippets/navbar.html' %}
+    <section id="portfolio" class="portfolio">
+      <div class="container" data-aos="fade-up">
+        <br>
+        <div class="section-title">
+          <h2 class="text-white">Tabel Jurnal</h2>
+        </div>
+      </div>
+    </section><!-- End Portfolio Section -->
+    <br>
+    
+    <div class="container">
+        <div class="scrollmenu">
+            <table class="table" data-aos="zoom-in">
+              <thead>
+                <tr>
+                  <th>Judul Jurnal</th>
+                  <th>Corresponding Author</th>
+                  <th>Penulis Utama</th>
+                  <th>Reviewer</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for berkas in list_berkas_jurnal %}
+                    <tr>
+                        <td>{{berkas.judul}}</td>
+                        <td>{{berkas.corresponding_author.first_name}}</td>
+                        <td>{{berkas.penulis_utama.first_name}}</td>
+                        <td>{{berkas.reviewer}}</td>
+                    </tr>     
+                {% endfor %} 
+              </tbody>
+            </table>
+          </div>
+
+      
+    </div>
+    
+
+    {% include 'snippets/script.html' %}
+</body>
+</html>

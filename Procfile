@@ -1,0 +1,1 @@
+web: gunicorn webfisika.wsgi --log-file -

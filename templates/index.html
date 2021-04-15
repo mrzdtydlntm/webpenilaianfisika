@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Selamat Datang!</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  {% include 'snippets/style.html' %}
+  <!-- =======================================================
+  * Template Name: Arsha - v2.3.1
+  * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+  {% include 'snippets/navbar.html' %}
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+          <h1>Website Penilaian dan Pengajuan Berkas</h1>
+          <h2>Jurnal, Buku, Prosiding dan Paten</h2>
+          <div class="d-lg-flex">
+            <a href="#about" class="btn-get-started scrollto">About Us</a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="/assets/img/hero-img.png" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>About Us</h2>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-6">
+            <img style="width: 100%;" src="/assets/img/fisika.jpg" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <p>
+              Jurusan Fisika didirikan pada tahun 1959 berdasarkan 
+              SK Menteri Pendidikan dan Kebudayaan No. 102333/S tanggal 
+              22 Oktober 1958. Selanjutnya berdasarkan SK Direktur Jenderal 
+              Pendidikan Tinggi No. 217/DIKTI/Kep/1996 tanggal 11 Juli 1996 
+              Jurusan Fisika terdiri dari satu program studi yaitu Program Studi 
+              (PS) Fisika. Pada tahun 2010, Jurusan Fisika membuka PS baru yaitu 
+              Geofisika dan menjadi jurusan terpisah dari Fisika pada tahun 2014. 
+              Pada tahun yang sama, Jurusan Fisika berubah nama menjadi Departemen 
+              Fisika yang terdiri dari satu program studi sarjana yaitu PS Fisika. 
+              
+            </p>
+            <a href="https://phys.unpad.ac.id/program-2/sarjana" target="_blank" class="btn-learn-more">Learn More</a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top" data-aos="fade-up">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Departemen Fisika</h3>
+            <p>
+              Universitas Padjadjaran <br>
+              Kampus Jatinangor <br>
+              Jln. Raya Bandung-Sumedang Km. 21 <br>
+              Jatinangor, Kab. Sumedang 45363 <br>
+              Jawa Barat <br> <br>
+              <strong>Phone:</strong> (022) 842 88888<br>
+              <strong>Email:</strong> humas@unpad.ac.id<br>
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://siat.unpad.ac.id/index.php/login">SIAT Unpad</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://phys.unpad.ac.id/">Website Fisika Unpad</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="http://ika-fisika.or.id/">Website IKA Fisika Unpad</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'admin:index' %}">Admin Site</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="{% url 'penilaian:tabel_user' %}">Tabel User</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Find Us!</h3>
+            <iframe class="maps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.691078373772!2d107.77145831421167!3d-6.927480569731207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68c4ae73e42ed3%3A0x547bfec4d2c2ff32!2sDepartemen%20Fisika%20FMIPA%20Unpad!5e0!3m2!1sen!2sid!4v1616595306914!5m2!1sen!2sid" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bg">
+      <div class="container footer-bottom clearfix">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Departemen Fisika</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+  <div id="preloader"></div>
+
+  {% include 'snippets/script.html' %}
+
+</body>
+
+</html>
