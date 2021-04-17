@@ -35,11 +35,11 @@ class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
         kwargs.update(self.extra_context)
         return super().get_context_data(*args, **kwargs)
 
-    # def post(self,request, *args, **kwargs):
-        # subject = 'Konfirmasi Upload Berkas Jurnal'
-        # message = 'Terimakasih telah mensubmit berkas jurnal anda. Berkas akan kami proses dan secepatnya akan dinilai.'
-        # send_mail(subject, message, EMAIL_HOST_USER, [request.user.email], fail_silently = False)
-        # return super().post(request, *args, **kwargs)
+    def post(self,request, *args, **kwargs):
+        subject = 'Konfirmasi Upload Berkas Jurnal'
+        message = 'Terimakasih telah mensubmit berkas jurnal anda. Berkas akan kami proses dan secepatnya akan dinilai.'
+        send_mail(subject, message, EMAIL_HOST_USER, [request.user.email], fail_silently = False)
+        return super().post(request, *args, **kwargs)
 
 class ListBerkasJurnalView(LoginRequiredMixin,ListView):
     model = UploadBerkasJurnal
