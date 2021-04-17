@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.fields import CharField
 from django.utils.text import slugify
 from django.urls import reverse
 # Create your models here.
@@ -28,7 +27,7 @@ class UploadBerkasJurnal(models.Model):
     vol_no_bln_thn = models.CharField(max_length=255, verbose_name='Volume/No/Bulan/Tahun', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
     doi_artikel = models.CharField(max_length=255, verbose_name='DOI Artikel', null=True, blank=True)
-    url_jurnal = CharField(max_length=150,verbose_name='Link Jurnal', null=True, blank=True)
+    url_jurnal = models.CharField(max_length=150,verbose_name='Link Jurnal', null=True, blank=True)
     indeks_jurnal = models.CharField(max_length=255, verbose_name='Indeks Scopus dan Scimagor', null=True, blank=True)
     kategori = [
         ('Jurnal Ilmiah Internasional Bereputasi Berdampak','Jurnal Ilmiah Internasional Bereputasi Berdampak'),
@@ -74,7 +73,7 @@ class UploadBerkasProsiding(models.Model):
     nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', unique=True)
     tahun_terbit = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
-    url_repository = CharField(max_length=150,verbose_name='Link Repository', null=True, blank=True)
+    url_repository = models.CharField(max_length=150,verbose_name='Link Repository', null=True, blank=True)
     indeks_prosiding = models.CharField(max_length=255, verbose_name='Terindeks di', null=True, blank=True)
     kategori = [
         ('Presentasi Oral dan Dipublikasikan','Presentasi Oral dan Dipublikasikan'),
