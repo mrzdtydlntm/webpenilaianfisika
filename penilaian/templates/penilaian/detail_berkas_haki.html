@@ -23,22 +23,26 @@
             <tbody>
               <tr>
                 <td><h3>Judul</h3></td>
-                <td><h4>: {{detail_berkas_buku.judul}}</h4></td>
+                <td><h4>: {{detail_berkas_haki.judul}}</h4></td>
               </tr>
               <tr>
                 <td><h3>Pengusul</h3></td>
-                <td><h4>: {{detail_berkas_buku.pengusul.first_name}}</h4></td>
+                <td><h4>: {{detail_berkas_haki.pengusul.first_name}}</h4></td>
+              </tr>
+              <tr>
+                <td><h3>Jumlah Penulis</h3></td>
+                <td><h4>: {{detail_berkas_jurnal.jmlh_penulis}}</h4></td>
               </tr>
               <tr>
                 <td><h3>Kategori Publikasi</h3></td>
-                <td><h4>: {{detail_berkas_buku.kategori_publikasi}}</h4></td>
+                <td><h4>: {{detail_berkas_haki.kategori_publikasi}}</h4></td>
               </tr>
               <tr>
                 <td><h3>Pemegang Berkas Utama</h3></td>
-                <td><h4>: {{detail_berkas_buku.pemegang_berkas_utama.first_name}}</h4></td>
+                <td><h4>: {{detail_berkas_haki.pemegang_berkas_utama.first_name}}</h4></td>
               </tr>
               <tr>
-                <td><h3>Pemegang Berkas Lain Lain</h3></td>
+                <td><h3>Pemegang Berkas Lain</h3></td>
                 <td><h4>: 
                   {% for penulis in detail_berkas_jurnal.penulis_lain.all %}
                       {{penulis.first_name}} <br>
@@ -46,8 +50,8 @@
                 </h4></td>
               </tr>
               <tr>
-                <td><h3>Download Berkas</h3></td>
-                <td><a href="{{berkas.upload_buku.url}}" class="btn btn-primary" target="_blank">Download</a></td>
+                <td><h3>Berkas HaKI</h3></td>
+                <td><a href="{{detail_berkas_haki.upload_berkas.url}}" class="btn btn-primary" target="_blank">Lihat</a></td>
               </tr>
             </tbody>
           </table>

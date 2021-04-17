@@ -30,6 +30,10 @@
                 <td><h4>: {{detail_berkas_buku.pengusul.first_name}}</h4></td>
               </tr>
               <tr>
+                <td><h3>Jumlah Penulis</h3></td>
+                <td><h4>: {{detail_berkas_jurnal.jmlh_penulis}}</h4></td>
+              </tr>
+              <tr>
                 <td><h3>Kategori Publikasi</h3></td>
                 <td><h4>: {{detail_berkas_buku.kategori_publikasi}}</h4></td>
               </tr>
@@ -86,8 +90,8 @@
                 </h4></td>
               </tr>
               <tr>
-                <td><h3>Download Buku</h3></td>
-                <td><a href="{{berkas.upload_buku.url}}" class="btn btn-primary" target="_blank">Download</a></td>
+                <td><h3>Berkas Buku</h3></td>
+                <td><a href="{{detail_berkas_buku.upload_buku.url}}" class="btn btn-primary" target="_blank">Lihat</a></td>
               </tr>
             </tbody>
           </table>

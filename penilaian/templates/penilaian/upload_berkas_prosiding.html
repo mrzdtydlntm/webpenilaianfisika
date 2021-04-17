@@ -29,18 +29,27 @@
                 </select>
             </p>
             <p><label for="{{form.jmlh_penulis.id_for_label}}">Jumlah Penulis:</label> <input type="number" name="{{form.jmlh_penulis.name}}" min="0" required id="{{form.jmlh_penulis.id_for_label}}"></p>
-              <p><label for="{{form.jmlh_penulis_lain.id_for_label}}">Jumlah Penulis Lain (selain CA dan PU):</label> <input type="number" name="{{form.jmlh_penulis_lain.name}}" min="0" required id="{{form.jmlh_penulis_lain.id_for_label}}"></p>
               <p><label for="{{form.judul.id_for_label}}">Judul Jurnal:</label> <input type="text" name="{{form.judul.name}}" maxlength="{{form.judul.max}}" required id="{{form.judul.id_for_label}}"></p>
               <p><label for="{{form.nomor_isbn.id_for_label}}">Nomor ISBN:</label> <input type="text" name="{{form.nomor_isbn.name}}" maxlength="{{form.nomor_isbn.max}}" id="{{form.nomor_isbn.id_for_label}}"></p>
               <p><label for="{{form.tahun_terbit.id_for_label}}">Tahun Terbit:</label> <input type="text" name="{{form.tahun_terbit.name}}" maxlength="255" id="{{form.tahun_terbit.id_for_label}}"></p>
               <p><label for="{{form.penerbit.id_for_label}}">Penerbit:</label> <input type="text" name="{{form.penerbit.name}}" maxlength="{{form.penerbit.max}}" id="{{form.penerbit.id_for_label}}"></p>
               <p><label for="{{form.url_repository.id_for_label}}">Link Jurnal:</label> <input type="url" name="{{form.url_repository.name}}" maxlength="{{form.url_repository.max}}" id="{{form.url_repository.id_for_label}}"></p>
               <p><label for="{{form.indeks_prosiding.id_for_label}}">Indeks Scopus dan Scimagor:</label> <input type="text" name="{{form.indeks_prosiding.name}}" maxlength="{{form.indeks_prosiding.max}}" id="{{form.indeks_prosiding.id_for_label}}"></p>
-            <p><label for="{{form.kategori_publikasi.id_for_label}}">Kategori Publikasi:</label> <select name="{{form.kategori_publikasi.name}}" id="{{form.kategori_publikasi.id_for_label}}">
+              <p><label for="{{form.kategori_publikasi.id_for_label}}">Kategori Publikasi:</label> <select name="{{form.kategori_publikasi.name}}" id="{{form.kategori_publikasi.id_for_label}}">
                 <option value="" selected>---------</option>
-                <option value="Prosiding Forum Ilmiah Internasional">Prosiding Forum Ilmiah Internasional</option>
-                <option value="Prosiding Forum Ilmiah Nasional">Prosiding Forum Ilmiah Nasional</option>
-            </select></p>
+                <option value="Presentasi Oral dan Dipublikasikan">Presentasi Oral dan Dipublikasikan</option>
+                <option value="Poster dan Dipublikasikan dalam Prosiding">Poster dan Dipublikasikan dalam Prosiding</option>
+                <option value="Diseminarkan Namun Tidak Terpublikasi">Diseminarkan Namun Tidak Terpublikasi</option>
+                <option value="Tidak Diseminarkan Namun Terpublikasi">Tidak Diseminarkan Namun Terpublikasi</option>
+                <option value="Terpublikasi dalam Koran/Majalah">Terpublikasi dalam Koran/Majalah</option>
+              </select></p>
+              <p><label for="{{form.tingkat_publikasi.id_for_label}}">Tingkat Publikasi:</label> <select name="{{form.tingkat_publikasi.name}}" id="{{form.tingkat_publikasi.id_for_label}}">
+                <option value="" selected>---------</option>
+                <option value="Internasional Terindeks Scimagor &amp; Scopus">Internasional Terindeks Scimagor &amp; Scopus</option>
+                <option value="Internasional Terindeks Scopus / IEEE">Internasional Terindeks Scopus / IEEE</option>
+                <option value="Internasional">Internasional</option>
+                <option value="Nasional">Nasional</option>
+              </select></p>
             <p><label for="{{form.upload_prosiding.id_for_label}}">Upload Prosiding (isi):</label> <input type="file" name="{{form.upload_prosiding.name}}" required id="{{form.upload_prosiding.id_for_label}}"></p>
             <p><label for="{{form.upload_cover.id_for_label}}">Upload Jurnal (cover):</label> <input type="file" name="{{form.upload_cover.name}}" id="{{form.upload_cover.id_for_label}}"></p>
               <p>

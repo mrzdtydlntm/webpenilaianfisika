@@ -30,8 +30,16 @@
                 <td><h4>: {{detail_berkas_prosiding.pengusul.first_name}}</h4></td>
               </tr>
               <tr>
+                <td><h3>Jumlah Penulis</h3></td>
+                <td><h4>: {{detail_berkas_jurnal.jmlh_penulis}}</h4></td>
+              </tr>
+              <tr>
                 <td><h3>Kategori Publikasi</h3></td>
                 <td><h4>: {{detail_berkas_prosiding.kategori_publikasi}}</h4></td>
+              </tr>
+              <tr>
+                <td><h3>Tingkat Publikasi</h3></td>
+                <td><h4>: {{detail_berkas_prosiding.tingkat_publikasi}}</h4></td>
               </tr>
               <tr>
                 <td><h3>Nomor ISBN</h3></td>
@@ -90,14 +98,14 @@
                 </h4></td>
               </tr>
               <tr>
-                <td><h3>Download Prosiding</h3></td>
-                <td><a href="{{berkas.upload_prosiding.url}}" class="btn btn-primary" target="_blank">Download</a></td>
+                <td><h3>Berkas Prosiding</h3></td>
+                <td><a href="{{detail_berkas_prosiding.upload_prosiding.url}}" class="btn btn-primary" target="_blank">Lihat</a></td>
               </tr>
               <tr>
-                <td><h3>Download Cover</h3></td>
+                <td><h3>Berkas Cover</h3></td>
                 <td>
                     {% if berkas.upload_cover %}
-                        <a href="{{berkas.upload_cover.url}}" class="btn btn-primary" target="_blank">Download</a>
+                        <a href="{{detail_berkas_prosiding.upload_cover.url}}" class="btn btn-primary" target="_blank">Lihat</a>
                         {% else %}
                         <button type="button" class="btn btn-warning" disabled>Belum Ada</button>
                     {% endif %}

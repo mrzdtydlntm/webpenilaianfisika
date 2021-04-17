@@ -20,19 +20,21 @@ class Admin(models.Model):
 
 class UploadBerkasJurnal(models.Model):
     pengusul = models.ForeignKey(User, related_name='user_jurnal_pengusul', on_delete=models.CASCADE, default=None)
-    judul = models.CharField(max_length=255, verbose_name='Judul Jurnal', unique=True)
+    judul = models.CharField(max_length=255, verbose_name='Judul Jurnal')
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
-    jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Penulis (selain CA dan PU)')
-    nomor_issn = models.CharField(max_length=255, verbose_name='Nomor ISSN', null=True, blank=True)
+    jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Penulis (selain CA dan PU)',null=True, blank=True)
+    nomor_issn = models.CharField(max_length=255, verbose_name='Nomor ISSN', unique=True)
     vol_no_bln_thn = models.CharField(max_length=255, verbose_name='Volume/No/Bulan/Tahun', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
     doi_artikel = models.CharField(max_length=255, verbose_name='DOI Artikel', null=True, blank=True)
     url_jurnal = models.URLField(verbose_name='Link Jurnal', null=True, blank=True)
     indeks_jurnal = models.CharField(max_length=255, verbose_name='Indeks Scopus dan Scimagor', null=True, blank=True)
     kategori = [
+        ('Jurnal Ilmiah Internasional Bereputasi Berdampak','Jurnal Ilmiah Internasional Bereputasi Berdampak'),
         ('Jurnal Ilmiah Internasional Bereputasi','Jurnal Ilmiah Internasional Bereputasi'),
         ('Jurnal Ilmiah Internasional','Jurnal Ilmiah Internasional'),
         ('Jurnal Ilmiah Nasional Terakreditasi','Jurnal Ilmiah Nasional Terakreditasi'),
+        ('Jurnal Ilmiah Nasional Berbahasa PBB','Jurnal Ilmiah Nasional Berbahasa PBB'),
         ('Jurnal Ilmiah Nasional Tidak Terakreditasi','Jurnal Ilmiah Nasional Tidak Terakreditasi'),
         ('Jurnal Ilmiah Nasional terindeks di DOAJ dll','Jurnal Ilmiah Nasional terindeks di DOAJ dll'),
     ]
@@ -50,9 +52,13 @@ class UploadBerkasJurnal(models.Model):
     def __str__(self):
         return f"{self.judul}"
     
-    def save(self):
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.judul)
-        super().save()
+        if self.corresponding_author == self.penulis_utama:
+            self.jmlh_penulis_lain = self.jmlh_penulis - 1
+        else:
+            self.jmlh_penulis_lain = self.jmlh_penulis
+        super(UploadBerkasJurnal, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
@@ -61,19 +67,29 @@ class UploadBerkasJurnal(models.Model):
 
 class UploadBerkasProsiding(models.Model):
     pengusul = models.ForeignKey(User, related_name='user_prosiding_pengusul', on_delete=models.CASCADE, default=None)
-    judul = models.CharField(max_length=255, verbose_name='Judul Jurnal', unique=True)
+    judul = models.CharField(max_length=255, verbose_name='Judul Jurnal')
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
-    jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Penulis (selain CA dan PU)')
-    nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', null=True, blank=True)
+    jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Penulis (selain CA dan PU)', null=True, blank=True)
+    nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', unique=True)
     tahun_terbit = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
     url_repository = models.URLField(verbose_name='Link Repository', null=True, blank=True)
     indeks_prosiding = models.CharField(max_length=255, verbose_name='Terindeks di', null=True, blank=True)
     kategori = [
-        ('Prosiding Forum Ilmiah Internasional','Prosiding Forum Ilmiah Internasional'),
-        ('Prosiding Forum Ilmiah Nasional','Prosiding Forum Ilmiah Nasional'),
+        ('Presentasi Oral dan Dipublikasikan','Presentasi Oral dan Dipublikasikan'),
+        ('Poster dan Dipublikasikan dalam Prosiding','Poster dan Dipublikasikan dalam Prosiding'),
+        ('Diseminarkan Namun Tidak Terpublikasi','Diseminarkan Namun Tidak Terpublikasi'),
+        ('Tidak Diseminarkan Namun Terpublikasi','Tidak Diseminarkan Namun Terpublikasi'),
+        ('Terpublikasi dalam Koran/Majalah','Terpublikasi dalam Koran/Majalah'),
+    ]
+    tingkat = [
+        ('Internasional Terindeks Scimagor & Scopus','Internasional Terindeks Scimagor & Scopus'),
+        ('Internasional Terindeks Scopus / IEEE','Internasional Terindeks Scopus / IEEE'),
+        ('Internasional','Internasional'),
+        ('Nasional','Nasional'),
     ]
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
+    tingkat_publikasi = models.CharField(max_length=100, choices=tingkat, default=None, verbose_name='Tingkat Publikasi', blank=True, null=True)
     upload_prosiding = models.FileField(upload_to='prosiding/isi/', verbose_name='Upload Prosiding (isi)')
     upload_cover = models.FileField(upload_to='prosiding/cover/', verbose_name='Upload Prosiding (cover)', blank=True, null=True)
     corresponding_author = models.ForeignKey(User, related_name='user_prosiding_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', default=None)
@@ -87,9 +103,13 @@ class UploadBerkasProsiding(models.Model):
     def __str__(self):
         return f"{self.judul}"
     
-    def save(self):
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.judul)
-        super().save()
+        if self.corresponding_author == self.penulis_utama:
+            self.jmlh_penulis_lain = self.jmlh_penulis - 1
+        else:
+            self.jmlh_penulis_lain = self.jmlh_penulis
+        super(UploadBerkasProsiding, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
@@ -97,10 +117,10 @@ class UploadBerkasProsiding(models.Model):
 
 class UploadBerkasBuku(models.Model):
     pengusul = models.ForeignKey(User, related_name='user_buku_pengusul', on_delete=models.CASCADE, default=None)
-    judul = models.CharField(max_length=255, verbose_name='Judul Buku', unique=True)
+    judul = models.CharField(max_length=255, verbose_name='Judul Buku')
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
-    jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Penulis (selain penulis utama)')
-    nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', null=True, blank=True)
+    jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Penulis (selain penulis utama)', null=True, blank=True)
+    nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', unique=True)
     edisi = models.CharField(max_length=255, verbose_name='Edisi', null=True, blank=True)
     tahun_terbit = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
@@ -108,6 +128,8 @@ class UploadBerkasBuku(models.Model):
     kategori = [
         ('Buku Referensi','Buku Referensi'),
         ('Buku Monograf','Buku Monograf'),
+        ('Book Chapter Internasional','Book Chapter Internasional'),
+        ('Book Chapter Nasional','Book Chapter Nasional'),
     ]
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
     upload_buku = models.FileField(upload_to='buku/isi/', verbose_name='Upload Buku (isi)')
@@ -121,9 +143,10 @@ class UploadBerkasBuku(models.Model):
     def __str__(self):
         return f"{self.judul}"
     
-    def save(self):
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.judul)
-        super().save()
+        self.jmlh_penulis_lain = self.jmlh_penulis - 1
+        super(UploadBerkasBuku, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
@@ -133,7 +156,7 @@ class UploadBerkasHaki(models.Model):
     pengusul = models.ForeignKey(User, related_name='user_pengusul', on_delete=models.CASCADE, default=None)
     judul = models.CharField(max_length=255, verbose_name='Nama Berkas', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Pemegang Berkas')
-    jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Pemegang Berkas Lain (selain pemegang berkas utama)')
+    jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Pemegang Berkas Lain (selain pemegang berkas utama)', null=True, blank=True)
     kategori = [
         ('Internasional (sudah diimplementasikan di industri)','Internasional (sudah diimplementasikan di industri)'),
         ('Internasional','Internasional'),
@@ -155,9 +178,10 @@ class UploadBerkasHaki(models.Model):
     def __str__(self):
         return f"{self.judul}"
     
-    def save(self):
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.judul)
-        super().save()
+        self.jmlh_penulis_lain = self.jmlh_penulis - 1
+        super(UploadBerkasHaki, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
@@ -270,8 +294,8 @@ class PenilaianBerkasBuku(models.Model):
 
 class PenilaianBerkasHaki(models.Model):
     berkas = models.OneToOneField(UploadBerkasHaki, on_delete=models.CASCADE)
-    unsur_isi = models.PositiveIntegerField(verbose_name='Kelengkapan Unsur Isi Buku')
-    cmnt_unsur_isi = models.TextField(verbose_name='Komentar Kelengkapan Unsur Isi Buku')
+    unsur_isi = models.PositiveIntegerField(verbose_name='Kelengkapan Unsur Isi Deskripsi')
+    cmnt_unsur_isi = models.TextField(verbose_name='Komentar Kelengkapan Unsur Isi Deskripsi')
     pembahasan = models.PositiveIntegerField(verbose_name='Ruang Lingkup dan Kedalaman Pembahasan')
     cmnt_pembahasan = models.TextField(verbose_name='Komentar Ruang Lingkup dan Kedalaman Pembahasan')
     informasi = models.PositiveIntegerField(verbose_name='Kecukupan dan Kemutahiran Data/Informasi dan Metodologi')

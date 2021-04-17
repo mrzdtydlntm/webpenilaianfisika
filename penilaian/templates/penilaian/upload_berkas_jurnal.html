@@ -29,7 +29,6 @@
                 </select>
             </p>
             <p><label for="{{form.jmlh_penulis.id_for_label}}">Jumlah Penulis:</label> <input type="number" name="{{form.jmlh_penulis.name}}" min="0" required id="{{form.jmlh_penulis.id_for_label}}"></p>
-              <p><label for="{{form.jmlh_penulis_lain.id_for_label}}">Jumlah Penulis Lain (selain CA dan PU):</label> <input type="number" name="{{form.jmlh_penulis_lain.name}}" min="0" required id="{{form.jmlh_penulis_lain.id_for_label}}"></p>
               <p><label for="{{form.judul.id_for_label}}">Judul Jurnal:</label> <input type="text" name="{{form.judul.name}}" maxlength="{{form.judul.max}}" required id="{{form.judul.id_for_label}}"></p>
               <p><label for="{{form.nomor_issn.id_for_label}}">Nomor ISSN:</label> <input type="text" name="{{form.nomor_issn.name}}" maxlength="{{form.nomor_issn.max}}" id="{{form.nomor_issn.id_for_label}}"></p>
               <p><label for="{{form.vol_no_bln_thn.id_for_label}}">Volume/No/Bulan/Tahun:</label> <input type="text" name="{{form.vol_no_bln_thn.name}}" maxlength="255" id="{{form.vol_no_bln_thn.id_for_label}}"></p>
@@ -42,9 +41,11 @@
                     <option value="" selected>---------</option>
                     <option value="Jurnal Ilmiah Internasional Bereputasi">Jurnal Ilmiah Internasional Bereputasi</option>
                     <option value="Jurnal Ilmiah Internasional">Jurnal Ilmiah Internasional</option>
-                    <option value="Jurnal Ilmiah Nasional Terakreditasi">Jurnal Ilmiah Nasional Terakreditasi</option>
-                    <option value="Jurnal Ilmiah Nasional Tidak Terakreditasi">Jurnal Ilmiah Nasional Tidak Terakreditasi</option>
+                    <option value="Jurnal Ilmiah Nasional Terakreditasi (Peringkat 1&2)">Jurnal Ilmiah Nasional Terakreditasi (Peringkat 1&2)</option>
+                    <option value="Jurnal Ilmiah (B. Inggris) Nasional Terakreditasi (Peringkat 3&4)">Jurnal Ilmiah (B. Inggris) Nasional Terakreditasi (Peringkat 3&4)</option>
+                    <option value="Jurnal Ilmiah Nasional Terakreditasi (Peringkat 3&4)">Jurnal Ilmiah Nasional Terakreditasi (Peringkat 3&4)</option>
                     <option value="Jurnal Ilmiah Nasional terindeks di DOAJ dll">Jurnal Ilmiah Nasional terindeks di DOAJ dll</option>
+                    <option value="Jurnal Ilmiah Nasional Tidak Terakreditasi">Jurnal Ilmiah Nasional Tidak Terakreditasi</option>
                 </select>
               </p>
               <p><label for="{{form.upload_jurnal.id_for_label}}">Upload Jurnal (isi):</label> <input type="file" name="{{form.upload_jurnal.name}}" required id="{{form.upload_jurnal.id_for_label}}"></p>

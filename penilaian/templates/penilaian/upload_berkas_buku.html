@@ -30,7 +30,6 @@
             </p>
             <p><label for="{{form.judul.id_for_label}}">Judul Buku:</label> <input type="text" name="{{form.judul.name}}" maxlength="{{form.judul.max}}" required id="{{form.judul.id_for_label}}"></p>
             <p><label for="{{form.jmlh_penulis.id_for_label}}">Jumlah Penulis:</label> <input type="number" name="{{form.jmlh_penulis.name}}" min="0" required id="{{form.jmlh_penulis.id_for_label}}"></p>
-            <p><label for="{{form.jmlh_penulis_lain.id_for_label}}">Jumlah Penulis (selain penulis utama):</label> <input type="number" name="{{form.jmlh_penulis_lain.name}}" min="0" required id="{{form.jmlh_penulis_lain.id_for_label}}"></p>
             <p><label for="{{form.nomor_isbn.id_for_label}}">Nomor ISBN:</label> <input type="text" name="{{form.nomor_isbn.name}}" maxlength="{{form.nomor_isbn.max}}" id="{{form.nomor_isbn.id_for_label}}"></p>
             <p><label for="{{form.id_edisi.id_for_label}}">Edisi:</label> <input type="text" name="{{form.edisi.name}}" maxlength="{{form.edisi.max}}" id="{{form.id_edisi.id_for_label}}"></p>
             <p><label for="{{form.tahun_terbit.id_for_label}}">Tahun Terbit:</label> <input type="text" name="{{form.tahun_terbit.name}}" maxlength="{{form.tahun_terbit.max}}" id="{{form.tahun_terbit.id_for_label}}"></p>
@@ -40,6 +39,8 @@
                 <option value="" selected>---------</option>
                 <option value="Buku Referensi">Buku Referensi</option>
                 <option value="Buku Monograf">Buku Monograf</option>
+                <option value="Book Chapter Internasional">Book Chapter Internasional</option>
+                <option value="Book Chapter Nasional">Book Chapter Nasional</option>
             </select></p>
             <p><label for="{{form.upload_buku.id_for_label}}">Upload Buku (isi):</label> <input type="file" name="{{form.upload_buku.name}}" required id="{{form.upload_buku.id_for_label}}"></p>
             <p>

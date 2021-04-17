@@ -7,7 +7,6 @@ class UploadBerkasJurnalForm(forms.ModelForm):
         fields = [
             'pengusul',
             'jmlh_penulis',
-            'jmlh_penulis_lain',
             'judul',
             'nomor_issn',
             'vol_no_bln_thn',
@@ -94,13 +93,13 @@ class PenilaianBerkasJurnalForm(forms.ModelForm):
         ]
         widgets = {
             'jurnal':forms.Select(attrs={'class':'form-control'}),
-            'unsur_isi':forms.NumberInput(attrs={'class':'form-control'}),
+            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks'}),
             'cmnt_unsur_isi':forms.Textarea(attrs={'class':'form-control'}),
-            'pembahasan':forms.NumberInput(attrs={'class':'form-control'}),
+            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
             'cmnt_pembahasan':forms.Textarea(attrs={'class':'form-control'}),
-            'informasi':forms.NumberInput(attrs={'class':'form-control'}),
+            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
             'cmnt_informasi':forms.Textarea(attrs={'class':'form-control'}),
-            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control'}),
+            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
             'cmnt_kualitas_penerbit':forms.Textarea(attrs={'class':'form-control'}),
         }
 
@@ -113,7 +112,6 @@ class UploadBerkasProsidingForm(forms.ModelForm):
         fields = [
             'pengusul',
             'jmlh_penulis',
-            'jmlh_penulis_lain',
             'judul',
             'nomor_isbn',
             'tahun_terbit',
@@ -121,6 +119,7 @@ class UploadBerkasProsidingForm(forms.ModelForm):
             'url_repository',
             'indeks_prosiding',
             'kategori_publikasi',
+            'tingkat_publikasi',
             'upload_prosiding',
             'upload_cover',
             'corresponding_author',
@@ -142,6 +141,7 @@ class VerifikasiBerkasProsidingForm(forms.ModelForm):
             'url_repository',
             'indeks_prosiding',
             'kategori_publikasi',
+            'tingkat_publikasi',
             'upload_prosiding',
             'upload_cover',
             'corresponding_author',
@@ -161,6 +161,7 @@ class VerifikasiBerkasProsidingForm(forms.ModelForm):
             'url_repository':forms.TextInput(attrs={'class':'form-control'}),
             'indeks_prosiding':forms.TextInput(attrs={'class':'form-control'}),
             'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
+            'tingkat_publikasi':forms.Select(attrs={'class':'form-control mh'}),
             'corresponding_author':forms.Select(attrs={'class':'form-control mh'}),
             'penulis_utama':forms.Select(attrs={'class':'form-control mh'}),
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh'}),
@@ -183,13 +184,13 @@ class PenilaianBerkasProsidingForm(forms.ModelForm):
         ]
         widgets = {
             'prosiding':forms.Select(attrs={'class':'form-control'}),
-            'unsur_isi':forms.NumberInput(attrs={'class':'form-control'}),
+            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks'}),
             'cmnt_unsur_isi':forms.Textarea(attrs={'class':'form-control'}),
-            'pembahasan':forms.NumberInput(attrs={'class':'form-control'}),
+            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
             'cmnt_pembahasan':forms.Textarea(attrs={'class':'form-control'}),
-            'informasi':forms.NumberInput(attrs={'class':'form-control'}),
+            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
             'cmnt_informasi':forms.Textarea(attrs={'class':'form-control'}),
-            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control'}),
+            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
             'cmnt_kualitas_penerbit':forms.Textarea(attrs={'class':'form-control'}),
         }
 
@@ -202,7 +203,6 @@ class UploadBerkasBukuForm(forms.ModelForm):
             'pengusul',
             'judul',
             'jmlh_penulis',
-            'jmlh_penulis_lain',
             'nomor_isbn',
             'edisi',
             'tahun_terbit',
@@ -268,13 +268,13 @@ class PenilaianBerkasBukuForm(forms.ModelForm):
         ]
         widgets = {
             'buku':forms.Select(attrs={'class':'form-control'}),
-            'unsur_isi':forms.NumberInput(attrs={'class':'form-control'}),
+            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks'}),
             'cmnt_unsur_isi':forms.Textarea(attrs={'class':'form-control'}),
-            'pembahasan':forms.NumberInput(attrs={'class':'form-control'}),
+            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
             'cmnt_pembahasan':forms.Textarea(attrs={'class':'form-control'}),
-            'informasi':forms.NumberInput(attrs={'class':'form-control'}),
+            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
             'cmnt_informasi':forms.Textarea(attrs={'class':'form-control'}),
-            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control'}),
+            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
             'cmnt_kualitas_penerbit':forms.Textarea(attrs={'class':'form-control'}),
         }
 
@@ -287,7 +287,6 @@ class UploadBerkasHakiForm(forms.ModelForm):
             'pengusul',
             'judul',
             'jmlh_penulis',
-            'jmlh_penulis_lain',
             'kategori_publikasi',
             'upload_berkas',
             'pemegang_berkas_utama',
@@ -336,13 +335,13 @@ class PenilaianBerkasHakiForm(forms.ModelForm):
         ]
         widgets = {
             'berkas':forms.Select(attrs={'class':'form-control'}),
-            'unsur_isi':forms.NumberInput(attrs={'class':'form-control'}),
+            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks'}),
             'cmnt_unsur_isi':forms.Textarea(attrs={'class':'form-control'}),
-            'pembahasan':forms.NumberInput(attrs={'class':'form-control'}),
+            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
             'cmnt_pembahasan':forms.Textarea(attrs={'class':'form-control'}),
-            'informasi':forms.NumberInput(attrs={'class':'form-control'}),
+            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
             'cmnt_informasi':forms.Textarea(attrs={'class':'form-control'}),
-            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control'}),
+            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
             'cmnt_kualitas_penerbit':forms.Textarea(attrs={'class':'form-control'}),
         }
     

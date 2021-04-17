@@ -18,6 +18,9 @@
         </div>
     </section><!-- End Portfolio Section -->
     <div class="container">
+        <br>
+        <a class="float-right btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#KetentuanProsiding" data-aos="zoom-in">Ketentuan</a>
+        <br>
         <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
             <div class="form-group">
                 {% csrf_token %}
@@ -27,6 +30,7 @@
             </div>
         </form>
     </div>
+    {% include 'snippets/modals.html' %}
     {% include 'snippets/script.html' %}
 </body>
 </html>
