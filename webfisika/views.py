@@ -31,4 +31,4 @@ def logoutView(request):
             return redirect('home')
         else:
             return redirect('home')
-    return render(request, 'logout.html')
+    return render(request, 'index.html')

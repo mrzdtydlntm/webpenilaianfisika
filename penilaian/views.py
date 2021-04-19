@@ -78,7 +78,15 @@ class PlagiasiLinieritasView(LoginRequiredMixin,CreateView):
     model = PlagiasiLinieritas
     form_class = PlagiasiLinieritasForm
     template_name = 'penilaian/penilaian_plagiasi_linieritas.html'
+    data = PlagiasiLinieritas.objects.all()
     success_url = reverse_lazy('home')
+    extra_context = {
+        'data':data,
+    }
+
+    def get_context_data(self, *args, **kwargs):
+        kwargs.update(self.extra_context)
+        return super().get_context_data(*args, **kwargs)
 
 class PenilaianBerkasJurnalView(LoginRequiredMixin,CreateView):
     model = PenilaianBerkasJurnal

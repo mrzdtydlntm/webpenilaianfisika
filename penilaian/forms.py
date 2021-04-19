@@ -5,9 +5,8 @@ class UploadBerkasJurnalForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasJurnal
         fields = [
-            'pengusul',
-            'jmlh_penulis',
             'judul',
+            'jmlh_penulis',
             'nomor_issn',
             'vol_no_bln_thn',
             'penerbit',
@@ -21,15 +20,27 @@ class UploadBerkasJurnalForm(forms.ModelForm):
             'penulis_utama',
             'penulis_lain',
         ]
+        widgets = {
+            'judul':forms.TextInput(attrs={'class':'form-control'}),
+            'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
+            'nomor_issn':forms.TextInput(attrs={'class':'form-control'}),
+            'vol_no_bln_thn':forms.TextInput(attrs={'class':'form-control'}),
+            'penerbit':forms.TextInput(attrs={'class':'form-control'}),
+            'doi_artikel':forms.TextInput(attrs={'class':'form-control'}),
+            'url_jurnal':forms.TextInput(attrs={'class':'form-control'}),
+            'indeks_jurnal':forms.TextInput(attrs={'class':'form-control'}),
+            'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
+            'corresponding_author':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'penulis_utama':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+        }
 
 class VerifikasiBerkasJurnalForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasJurnal
         fields = [
-            'pengusul',
             'judul',
             'jmlh_penulis',
-            'jmlh_penulis_lain',
             'nomor_issn',
             'vol_no_bln_thn',
             'penerbit',
@@ -46,10 +57,8 @@ class VerifikasiBerkasJurnalForm(forms.ModelForm):
             'reviewer'
         ]
         widgets = {
-            'pengusul':forms.Select(attrs={'class':'form-control mh'}),
             'judul':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
-            'jmlh_penulis_lain':forms.TextInput(attrs={'class':'form-control'}),
             'nomor_issn':forms.TextInput(attrs={'class':'form-control'}),
             'vol_no_bln_thn':forms.TextInput(attrs={'class':'form-control'}),
             'penerbit':forms.TextInput(attrs={'class':'form-control'}),
@@ -105,14 +114,12 @@ class PenilaianBerkasJurnalForm(forms.ModelForm):
 
 ################### End of Jurnal ######################
         
-
 class UploadBerkasProsidingForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasProsiding
         fields = [
-            'pengusul',
-            'jmlh_penulis',
             'judul',
+            'jmlh_penulis',
             'nomor_isbn',
             'tahun_terbit',
             'penerbit',
@@ -126,15 +133,28 @@ class UploadBerkasProsidingForm(forms.ModelForm):
             'penulis_utama',
             'penulis_lain',
         ]
+        widgets = {
+            'judul':forms.TextInput(attrs={'class':'form-control'}),
+            'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
+            'nomor_isbn':forms.TextInput(attrs={'class':'form-control'}),
+            'tahun_terbit':forms.TextInput(attrs={'class':'form-control'}),
+            'penerbit':forms.TextInput(attrs={'class':'form-control'}),
+            'url_repository':forms.TextInput(attrs={'class':'form-control'}),
+            'indeks_prosiding':forms.TextInput(attrs={'class':'form-control'}),
+            'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
+            'tingkat_publikasi':forms.Select(attrs={'class':'form-control mh'}),
+            'corresponding_author':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'penulis_utama':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+        }
 
 class VerifikasiBerkasProsidingForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasProsiding
         fields = [
-            'pengusul',
-            'jmlh_penulis',
-            'jmlh_penulis_lain',
             'judul',
+            'jmlh_penulis',
+
             'nomor_isbn',
             'tahun_terbit',
             'penerbit',
@@ -151,10 +171,8 @@ class VerifikasiBerkasProsidingForm(forms.ModelForm):
             'reviewer'
         ]
         widgets = {
-            'pengusul':forms.Select(attrs={'class':'form-control mh'}),
             'judul':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
-            'jmlh_penulis_lain':forms.TextInput(attrs={'class':'form-control'}),
             'nomor_isbn':forms.TextInput(attrs={'class':'form-control'}),
             'tahun_terbit':forms.TextInput(attrs={'class':'form-control'}),
             'penerbit':forms.TextInput(attrs={'class':'form-control'}),
@@ -200,7 +218,6 @@ class UploadBerkasBukuForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasBuku
         fields = [
-            'pengusul',
             'judul',
             'jmlh_penulis',
             'nomor_isbn',
@@ -213,15 +230,26 @@ class UploadBerkasBukuForm(forms.ModelForm):
             'penulis_utama',
             'penulis_lain',
         ]
+        widgets = {
+            'judul':forms.TextInput(attrs={'class':'form-control'}),
+            'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
+            'nomor_isbn':forms.TextInput(attrs={'class':'form-control'}),
+            'edisi':forms.TextInput(attrs={'class':'form-control'}),
+            'tahun_terbit':forms.TextInput(attrs={'class':'form-control'}),
+            'penerbit':forms.TextInput(attrs={'class':'form-control'}),
+            'jumlah_halaman':forms.TextInput(attrs={'class':'form-control'}),
+            'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
+            'penulis_utama':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+        }
 
 class VerifikasiBerkasBukuForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasBuku
         fields = [
-            'pengusul',
             'judul',
             'jmlh_penulis',
-            'jmlh_penulis_lain',
+
             'nomor_isbn',
             'edisi',
             'tahun_terbit',
@@ -235,10 +263,8 @@ class VerifikasiBerkasBukuForm(forms.ModelForm):
             'reviewer'
         ]
         widgets = {
-            'pengusul':forms.Select(attrs={'class':'form-control mh'}),
             'judul':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
-            'jmlh_penulis_lain':forms.TextInput(attrs={'class':'form-control'}),
             'nomor_issn':forms.TextInput(attrs={'class':'form-control'}),
             'vol_no_bln_thn':forms.TextInput(attrs={'class':'form-control'}),
             'penerbit':forms.TextInput(attrs={'class':'form-control'}),
@@ -284,7 +310,6 @@ class UploadBerkasHakiForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasHaki
         fields = [
-            'pengusul',
             'judul',
             'jmlh_penulis',
             'kategori_publikasi',
@@ -292,15 +317,21 @@ class UploadBerkasHakiForm(forms.ModelForm):
             'pemegang_berkas_utama',
             'penulis_lain',
         ]
+        widgets = {
+            'judul':forms.TextInput(attrs={'class':'form-control'}),
+            'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
+            'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
+            'pemegang_berkas_utama':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+        }
 
 class VerifikasiBerkasHakiForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasHaki
         fields = [
-            'pengusul',
             'judul',
             'jmlh_penulis',
-            'jmlh_penulis_lain',
+
             'kategori_publikasi',
             'upload_berkas',
             'pemegang_berkas_utama',
@@ -309,10 +340,8 @@ class VerifikasiBerkasHakiForm(forms.ModelForm):
             'reviewer'
         ]
         widgets = {
-            'pengusul':forms.Select(attrs={'class':'form-control mh'}),
             'judul':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
-            'jmlh_penulis_lain':forms.TextInput(attrs={'class':'form-control'}),
             'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
             'pemegang_berkas_utama':forms.Select(attrs={'class':'form-control mh'}),
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh'}),

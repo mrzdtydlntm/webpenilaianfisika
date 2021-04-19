@@ -5,6 +5,8 @@
 * License: https://bootstrapmade.com/license/
 */
 
+
+
 $.ajax({
   type:'GET',
   url:'/data_json/',

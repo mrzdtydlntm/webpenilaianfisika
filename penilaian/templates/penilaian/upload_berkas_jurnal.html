@@ -18,64 +18,11 @@
           </div>
         </div>
     </section><!-- End Portfolio Section -->
-    <div class="container text-center">
+    <div class="container">
         <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
             {% csrf_token %}
             <br>
-            <p>
-                <label for="{{form.pengusul.id_for_label}}">Pengusul:</label>
-                <select name="{{form.pengusul.name}}" required id="{{form.pengusul.id_for_label}}">
-                    <option value="{{user.id}}" selected>{{user.first_name}}</option>
-                </select>
-            </p>
-            <p><label for="{{form.jmlh_penulis.id_for_label}}">Jumlah Penulis:</label> <input type="number" name="{{form.jmlh_penulis.name}}" min="0" required id="{{form.jmlh_penulis.id_for_label}}"></p>
-              <p><label for="{{form.judul.id_for_label}}">Judul Jurnal:</label> <input type="text" name="{{form.judul.name}}" maxlength="{{form.judul.max}}" required id="{{form.judul.id_for_label}}"></p>
-              <p><label for="{{form.nomor_issn.id_for_label}}">Nomor ISSN:</label> <input type="text" name="{{form.nomor_issn.name}}" maxlength="{{form.nomor_issn.max}}" required id="{{form.nomor_issn.id_for_label}}"></p>
-              <p><label for="{{form.vol_no_bln_thn.id_for_label}}">Volume/No/Bulan/Tahun:</label> <input type="text" name="{{form.vol_no_bln_thn.name}}" maxlength="255" id="{{form.vol_no_bln_thn.id_for_label}}"></p>
-              <p><label for="{{form.penerbit.id_for_label}}">Penerbit:</label> <input type="text" name="{{form.penerbit.name}}" maxlength="{{form.penerbit.max}}" id="{{form.penerbit.id_for_label}}"></p>
-              <p><label for="{{form.doi_artikel.id_for_label}}">DOI Artikel:</label> <input type="text" name="{{form.doi_artikel.name}}" maxlength="{{form.doi_artikel.max}}" id="{{form.doi_artikel.id_for_label}}"></p>
-              <p><label for="{{form.url_jurnal.id_for_label}}">Link Jurnal:</label> <input type="text" name="{{form.url_jurnal.name}}" maxlength="{{form.url_jurnal.max}}" id="{{form.url_jurnal.id_for_label}}"></p>
-              <p><label for="{{form.indeks_jurnal.id_for_label}}">Indeks Scopus dan Scimagor:</label> <input type="text" name="{{form.indeks_jurnal.name}}" maxlength="{{form.indeks_jurnal.max}}" id="{{form.indeks_jurnal.id_for_label}}"></p>
-              <p><label for="{{form.kategori_publikasi.id_for_label}}">Kategori Publikasi:</label> 
-                <select name="{{form.kategori_publikasi.name}}" id="{{form.kategori_publikasi.id_for_label}}" required>
-                    <option value="" selected>---------</option>
-                    <option value="Jurnal Ilmiah Internasional Bereputasi">Jurnal Ilmiah Internasional Bereputasi</option>
-                    <option value="Jurnal Ilmiah Internasional">Jurnal Ilmiah Internasional</option>
-                    <option value="Jurnal Ilmiah Nasional Terakreditasi (Peringkat 1&2)">Jurnal Ilmiah Nasional Terakreditasi (Peringkat 1&2)</option>
-                    <option value="Jurnal Ilmiah (B. Inggris) Nasional Terakreditasi (Peringkat 3&4)">Jurnal Ilmiah (B. Inggris) Nasional Terakreditasi (Peringkat 3&4)</option>
-                    <option value="Jurnal Ilmiah Nasional Terakreditasi (Peringkat 3&4)">Jurnal Ilmiah Nasional Terakreditasi (Peringkat 3&4)</option>
-                    <option value="Jurnal Ilmiah Nasional terindeks di DOAJ dll">Jurnal Ilmiah Nasional terindeks di DOAJ dll</option>
-                    <option value="Jurnal Ilmiah Nasional Tidak Terakreditasi">Jurnal Ilmiah Nasional Tidak Terakreditasi</option>
-                </select>
-              </p>
-              <p><label for="{{form.upload_jurnal.id_for_label}}">Upload Jurnal (isi):</label> <input type="file" name="{{form.upload_jurnal.name}}" required id="{{form.upload_jurnal.id_for_label}}"></p>
-              <p><label for="{{form.upload_cover.id_for_label}}">Upload Jurnal (cover):</label> <input type="file" name="{{form.upload_cover.name}}" id="{{form.upload_cover.id_for_label}}"></p>
-              <p>
-                  <label for="{{form.corresponding_author.id_for_label}}">Corresponding Author:</label>
-                  <select class="selectpicker border rounded mh" name="{{form.corresponding_author.name}}" required id="{{form.corresponding_author.id_for_label}}" data-live-search="true">
-                        <option value="" selected>---------</option>
-                        {% for usr in list_user %}
-                            <option value="{{usr.id}}">{{usr.first_name}}</option>
-                        {% endfor %}
-                    </select>
-                </p>
-                <p>
-                  <label for="{{form.penulis_utama.id_for_label}}">Penulis Utama:</label>
-                  <select name="{{form.penulis_utama.name}}" required id="{{form.penulis_utama.id_for_label}}" class="selectpicker border rounded mh" data-live-search="true">
-                        <option value="" selected>---------</option>
-                        {% for usr in list_user %}
-                            <option value="{{usr.id}}">{{usr.first_name}}</option>
-                        {% endfor %}
-                    </select>
-                </p>
-                <p>
-                    <label for="{{form.penulis_lain.id_for_label}}">Penulis lain:</label>
-                    <select class="selectpicker border rounded mh" name="{{form.penulis_lain.name}}" id="{{form.penulis_lain.id_for_label}}" multiple data-live-search="true">
-                        {% for usr in list_user %}
-                            <option value="{{usr.id}}">{{usr.first_name}}</option>
-                        {% endfor %}
-                    </select>
-                </p>
+            {{form.as_p}}
             <br>
             <button class="btn btn-primary" type="submit">Submit</button>
             <br>

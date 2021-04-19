@@ -19,10 +19,8 @@ class Admin(models.Model):
     
 
 class UploadBerkasJurnal(models.Model):
-    pengusul = models.ForeignKey(User, related_name='user_jurnal_pengusul', on_delete=models.CASCADE, default=None)
     judul = models.CharField(max_length=255, verbose_name='Judul Jurnal')
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
-    jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Penulis (selain CA dan PU)',null=True, blank=True)
     nomor_issn = models.CharField(max_length=255, verbose_name='Nomor ISSN', unique=True)
     vol_no_bln_thn = models.CharField(max_length=255, verbose_name='Volume/No/Bulan/Tahun', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
@@ -54,10 +52,6 @@ class UploadBerkasJurnal(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.judul)
-        if self.corresponding_author == self.penulis_utama:
-            self.jmlh_penulis_lain = self.jmlh_penulis - 1
-        else:
-            self.jmlh_penulis_lain = self.jmlh_penulis
         super(UploadBerkasJurnal, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
@@ -66,10 +60,8 @@ class UploadBerkasJurnal(models.Model):
         
 
 class UploadBerkasProsiding(models.Model):
-    pengusul = models.ForeignKey(User, related_name='user_prosiding_pengusul', on_delete=models.CASCADE, default=None)
     judul = models.CharField(max_length=255, verbose_name='Judul Jurnal')
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
-    jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Penulis (selain CA dan PU)', null=True, blank=True)
     nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', unique=True)
     tahun_terbit = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
@@ -105,10 +97,6 @@ class UploadBerkasProsiding(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.judul)
-        if self.corresponding_author == self.penulis_utama:
-            self.jmlh_penulis_lain = self.jmlh_penulis - 1
-        else:
-            self.jmlh_penulis_lain = self.jmlh_penulis
         super(UploadBerkasProsiding, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -116,10 +104,8 @@ class UploadBerkasProsiding(models.Model):
         return reverse('penilaian:detail_berkas_prosiding', kwargs= url_slug)
 
 class UploadBerkasBuku(models.Model):
-    pengusul = models.ForeignKey(User, related_name='user_buku_pengusul', on_delete=models.CASCADE, default=None)
     judul = models.CharField(max_length=255, verbose_name='Judul Buku')
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
-    jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Penulis (selain penulis utama)', null=True, blank=True)
     nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', unique=True)
     edisi = models.CharField(max_length=255, verbose_name='Edisi', null=True, blank=True)
     tahun_terbit = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
@@ -145,7 +131,6 @@ class UploadBerkasBuku(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.judul)
-        self.jmlh_penulis_lain = self.jmlh_penulis - 1
         super(UploadBerkasBuku, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -153,10 +138,8 @@ class UploadBerkasBuku(models.Model):
         return reverse('penilaian:detail_berkas_buku', kwargs= url_slug)
 
 class UploadBerkasHaki(models.Model):
-    pengusul = models.ForeignKey(User, related_name='user_pengusul', on_delete=models.CASCADE, default=None)
     judul = models.CharField(max_length=255, verbose_name='Nama Berkas', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Pemegang Berkas')
-    jmlh_penulis_lain = models.PositiveIntegerField(verbose_name='Jumlah Pemegang Berkas Lain (selain pemegang berkas utama)', null=True, blank=True)
     kategori = [
         ('Internasional (sudah diimplementasikan di industri)','Internasional (sudah diimplementasikan di industri)'),
         ('Internasional','Internasional'),
@@ -168,7 +151,7 @@ class UploadBerkasHaki(models.Model):
     ]
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
     upload_berkas = models.FileField(upload_to='haki/isi/', verbose_name='Upload Berkas')
-    pemegang_berkas_utama = models.ForeignKey(User, related_name='user_pemegang_berkas_utama', on_delete=models.CASCADE, verbose_name='Pemegang Paten Utama', default=None)
+    pemegang_berkas_utama = models.ForeignKey(User, related_name='user_pemegang_berkas_utama', on_delete=models.CASCADE, verbose_name='Pemegang Berkas Utama', default=None)
     penulis_lain = models.ManyToManyField(User, blank=True)
     is_verificated = models.BooleanField(default=False, blank=True, null=True)
     reviewer = models.ForeignKey(Reviewer, related_name='user_haki_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
@@ -180,7 +163,6 @@ class UploadBerkasHaki(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.judul)
-        self.jmlh_penulis_lain = self.jmlh_penulis - 1
         super(UploadBerkasHaki, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -201,6 +183,7 @@ class PenilaianBerkasJurnal(models.Model):
     nilai_ca = models.PositiveIntegerField(verbose_name='Nilai Corresponding Author', blank=True, null=True)
     nilai_pu = models.PositiveIntegerField(verbose_name='Nilai Penulis Utama', blank=True, null=True)
     nilai_pl = models.PositiveIntegerField(verbose_name='Nilai Penulis Lainnya', blank=True, null=True)
+    jmlh_penulis_lain = models.PositiveIntegerField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(blank=True, editable=False, unique=True)
 
@@ -209,14 +192,19 @@ class PenilaianBerkasJurnal(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.jurnal)
+        if self.jurnal.penulis_lain != None:
+            if self.jurnal.corresponding_author == self.jurnal.penulis_utama:
+                self.jmlh_penulis_lain = self.jurnal.jmlh_penulis - 1
+            else:
+                self.jmlh_penulis_lain = self.jurnal.jmlh_penulis
         self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
-        if self.jurnal.penulis_lain.all().exists() == False:
+        if self.jmlh_penulis_lain == None:
             self.nilai_ca = self.total * 0.5
             self.nilai_pu = self.total * 0.5
         else:
             self.nilai_ca = self.total * 0.4
             self.nilai_pu = self.total * 0.4
-            self.nilai_pl = self.total * 0.2 / self.jurnal.jmlh_penulis_lain
+            self.nilai_pl = self.total * 0.2 / self.jmlh_penulis_lain
         super(PenilaianBerkasJurnal, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
@@ -237,6 +225,7 @@ class PenilaianBerkasProsiding(models.Model):
     nilai_ca = models.PositiveIntegerField(verbose_name='Nilai Corresponding Author', blank=True, null=True)
     nilai_pu = models.PositiveIntegerField(verbose_name='Nilai Penulis Utama', blank=True, null=True)
     nilai_pl = models.PositiveIntegerField(verbose_name='Nilai Penulis Lainnya', blank=True, null=True)
+    jmlh_penulis_lain = models.PositiveIntegerField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(blank=True, editable=False, unique=True)
 
@@ -245,14 +234,19 @@ class PenilaianBerkasProsiding(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.prosiding)
+        if self.prosiding.penulis_lain != None:
+            if self.prosiding.corresponding_author == self.prosiding.penulis_utama:
+                self.jmlh_penulis_lain = self.prosiding.jmlh_penulis - 1
+            else:
+                self.jmlh_penulis_lain = self.prosiding.jmlh_penulis
         self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
-        if self.prosiding.penulis_lain.all().exists() == False:
+        if self.jmlh_penulis_lain == None:
             self.nilai_ca = self.total * 0.5
             self.nilai_pu = self.total * 0.5
         else:
             self.nilai_ca = self.total * 0.4
             self.nilai_pu = self.total * 0.4
-            self.nilai_pl = self.total * 0.2 / self.prosiding.jmlh_penulis_lain
+            self.nilai_pl = self.total * 0.2 / self.jmlh_penulis_lain
         super(PenilaianBerkasProsiding, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
@@ -272,6 +266,7 @@ class PenilaianBerkasBuku(models.Model):
     total = models.PositiveIntegerField(verbose_name='Total Nilai', blank=True, null=True)
     nilai_pu = models.PositiveIntegerField(verbose_name='Nilai Penulis Utama', blank=True, null=True)
     nilai_pl = models.PositiveIntegerField(verbose_name='Nilai Penulis Lainnya', blank=True, null=True)
+    jmlh_penulis_lain = models.PositiveIntegerField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(blank=True, editable=False, unique=True)
 
@@ -280,12 +275,14 @@ class PenilaianBerkasBuku(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.buku)
+        if self.buku.penulis_lain != None:
+            self.jmlh_penulis_lain == self.buku.jmlh_penulis-1
         self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
-        if self.buku.penulis_lain.all().exists() == False:
+        if self.jmlh_penulis_lain == None:
             self.nilai_pu = self.total
         else:
             self.nilai_pu = self.total * 0.8
-            self.nilai_pl = self.total * 0.2 / self.buku.jmlh_penulis_lain
+            self.nilai_pl = self.total * 0.2 / self.jmlh_penulis_lain
         super(PenilaianBerkasBuku, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
@@ -305,6 +302,7 @@ class PenilaianBerkasHaki(models.Model):
     total = models.PositiveIntegerField(verbose_name='Total Nilai', blank=True, null=True)
     nilai_pu = models.PositiveIntegerField(verbose_name='Nilai Pemegang Berkas Utama', blank=True, null=True)
     nilai_pl = models.PositiveIntegerField(verbose_name='Nilai Pemegang Berkas Lainnya', blank=True, null=True)
+    jmlh_penulis_lain = models.PositiveIntegerField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(blank=True, editable=False, unique=True)
 
@@ -313,12 +311,14 @@ class PenilaianBerkasHaki(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.berkas)
+        if self.berkas.penulis_lain != None:
+            self.jmlh_penulis_lain == self.berkas.jmlh_penulis-1
         self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
-        if self.berkas.penulis_lain.all().exists() == False:
+        if self.jmlh_penulis_lain == None:
             self.nilai_pu = self.total
         else:
             self.nilai_pu = self.total * 0.8
-            self.nilai_pl = self.total * 0.2 / self.berkas.jmlh_penulis_lain
+            self.nilai_pl = self.total * 0.2 / self.jmlh_penulis_lain
         super(PenilaianBerkasHaki, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
