@@ -3,8 +3,8 @@
       <img class="mr-auto" src="/assets/img/logo-unpad1.png" alt="" style="width: 60px;">
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          {% if user.is_authenticated %}
           <li class=""><a href="{% url 'home' %}">Home</a></li>
+          {% if user.is_authenticated %}
             <li class="drop-down"><a href="#">Pemberkasan</a>
               <ul>
                 <li class="drop-down drop-down-deep"><a href="#">Upload Berkas</a>

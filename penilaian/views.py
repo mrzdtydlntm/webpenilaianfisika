@@ -97,7 +97,7 @@ class PenilaianBerkasJurnalView(LoginRequiredMixin,CreateView):
 
 class HasilPenilaianJurnalView(DetailView):
     model = PenilaianBerkasJurnal
-    template_name = 'penilaian/hasil_rekap_jurnal.html'
+    template_name = 'penilaian/lembar.html'
     context_object_name = 'rekap_jurnal'
     rev = User.objects.all()
     plaglin = PlagiasiLinieritas.objects.all()
