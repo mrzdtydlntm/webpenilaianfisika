@@ -24,7 +24,6 @@
               {% if group.name == 'SuperAdmin' %}
                 <li class="drop-down"><a href="#">Penilaian</a>
                   <ul>
-                    <li><a href="{% url 'penilaian:plagiasi_linieritas' %}">Plagiasi dan Linieritas</a></li>
                     <li><a href="{% url 'penilaian:penilaian_jurnal' %}">Penilaian Jurnal</a></li>
                     <li><a href="{% url 'penilaian:penilaian_prosiding' %}">Penilaian Prosiding</a></li>
                     <li><a href="{% url 'penilaian:penilaian_buku' %}">Penilaian Buku</a></li>
@@ -38,12 +37,6 @@
                     <li><a href="{% url 'penilaian:penilaian_prosiding' %}">Penilaian Prosiding</a></li>
                     <li><a href="{% url 'penilaian:penilaian_buku' %}">Penilaian Buku</a></li>
                     <li><a href="{% url 'penilaian:penilaian_haki' %}">Penilaian Haki</a></li>
-                  </ul>
-                </li>
-              {% elif group.name == 'Admin' %}
-                <li class="drop-down"><a href="#">Penilaian</a>
-                  <ul>
-                    <li><a href="{% url 'penilaian:plagiasi_linieritas' %}">Plagiasi dan Linieritas</a></li>
                   </ul>
                 </li>
               {% endif %}

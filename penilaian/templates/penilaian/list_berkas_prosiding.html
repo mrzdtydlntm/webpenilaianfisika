@@ -31,7 +31,7 @@
         <table class="table" data-aos="zoom-in">
           <thead>
             <tr>
-              <th>Judul Prosiding</th>
+              <th>Judul Artikel</th>
               <th>Corresponding Author</th>
               <th>Penulis Utama</th>
               <th>Detail</th>
@@ -49,7 +49,7 @@
           <tbody>
             {% for berkas in list_berkas_prosiding %}
                 <tr>
-                    <td>{{berkas.judul}}</td>
+                    <td>{{berkas.judul_artikel}}</td>
                     <td>{{berkas.corresponding_author.first_name}}</td>
                     <td>{{berkas.penulis_utama.first_name}}</td>
                     <td>
@@ -58,6 +58,12 @@
                     <td>
                       {% if berkas.is_verificated == True %}
                         <button disabled class="btn btn-success">Terverifikasi</button>
+                      {% elif berkas.is_verificated == False%}
+                        {% if user.is_superuser %}
+                          <a href="{% url 'penilaian:verifikasi_berkas_prosiding' berkas.pk%}" class="btn btn-danger">Perlu Revisi</a>
+                        {% else %}
+                          <button disabled class="btn btn-danger">Perlu Revisi</button>
+                        {% endif %}
                       {% else %}
                         {% if user.is_superuser %}
                           <a class="btn btn-warning" href="{% url 'penilaian:verifikasi_berkas_prosiding' berkas.pk%}">Verifikasi?</a>
@@ -67,13 +73,13 @@
                       {% endif %}
                     </td>
                     <td>
-                      
-                      {% if berkas.is_verificated == True %}
-                        <a class="btn btn-primary" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}">Download</a>
-                      {% else %}
-                        <button disabled class="btn btn-secondary btn-sm">Belum Diverifikasi</button>
-                      {% endif %}
-                        
+                      {% for judul in list_berkas %}
+                        {% if judul.prosiding.id == berkas.id %}
+                          <a class="btn btn-primary" href="{% url 'penilaian:rekap_jurnal' berkas.slug %}">Download</a>
+                        {% else %}
+                          <button disabled class="btn btn-secondary btn-sm">Belum Ada</button>
+                        {% endif %}
+                      {% endfor %}
                     </td>
                     {% for list in list_user %}
                       {% if user == list.reviewer %}

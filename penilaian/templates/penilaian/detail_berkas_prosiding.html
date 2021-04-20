@@ -19,15 +19,20 @@
     </section><!-- End Portfolio Section -->
     <div class="container" data-aos="zoom-in">
         <br>
+        <a class="float-right btn btn-warning btn-sm" href="{% url 'penilaian:edit_berkas_prosiding' detail_berkas_prosiding.pk%}" data-aos="zoom-in">Edit</a>
         <table class="table table-hover d-flex justify-content-center">
             <tbody>
               <tr>
-                <td><h3>Judul</h3></td>
-                <td><h4>: {{detail_berkas_prosiding.judul}}</h4></td>
+                <td><h3>Judul Artikel</h3></td>
+                <td><h4>: {{detail_berkas_prosiding.judul_artikel}}</h4></td>
               </tr>
               <tr>
                 <td><h3>Jumlah Penulis</h3></td>
-                <td><h4>: {{detail_berkas_jurnal.jmlh_penulis}}</h4></td>
+                <td><h4>: {{detail_berkas_prosiding.jmlh_penulis}}</h4></td>
+              </tr>
+              <tr>
+                <td><h3>Nama Prosiding</h3></td>
+                <td><h4>: {{detail_berkas_prosiding.nama_prosiding}}</h4></td>
               </tr>
               <tr>
                 <td><h3>Kategori Publikasi</h3></td>
@@ -88,7 +93,7 @@
               <tr>
                 <td><h3>Penulis Lain</h3></td>
                 <td><h4>: 
-                  {% for penulis in detail_berkas_jurnal.penulis_lain.all %}
+                  {% for penulis in detail_berkas_prosiding.penulis_lain.all %}
                     {{penulis.first_name}} <br>
                   {% endfor %}
                 </h4></td>

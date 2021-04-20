@@ -35,19 +35,21 @@ class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
         kwargs.update(self.extra_context)
         return super().get_context_data(*args, **kwargs)
 
-    def post(self,request, *args, **kwargs):
-        subject = 'Konfirmasi Upload Berkas Jurnal'
-        message = 'Terimakasih telah mensubmit berkas jurnal anda. Berkas akan kami proses dan secepatnya akan dinilai.'
-        send_mail(subject, message, EMAIL_HOST_USER, [request.user.email], fail_silently = False)
-        return super().post(request, *args, **kwargs)
+    # def post(self,request, *args, **kwargs):
+        # subject = 'Konfirmasi Upload Berkas Jurnal'
+        # message = 'Terimakasih telah mensubmit berkas jurnal anda. Berkas akan kami proses dan secepatnya akan dinilai.'
+        # send_mail(subject, message, EMAIL_HOST_USER, [request.user.email], fail_silently = False)
+        # return super().post(request, *args, **kwargs)
 
 class ListBerkasJurnalView(LoginRequiredMixin,ListView):
     model = UploadBerkasJurnal
     template_name = 'penilaian/list_berkas_jurnal.html'
     context_object_name = 'list_berkas_jurnal'
     nama_reviewer = Reviewer.objects.all()
+    list_berkas = PenilaianBerkasJurnal.objects.all()
     extra_context = {
-        'list_user':nama_reviewer
+        'list_user':nama_reviewer,
+        'list_berkas':list_berkas,
     }
 
     def get_context_data(self, *args, **kwargs):
@@ -58,6 +60,18 @@ class DetailBerkasJurnalView(LoginRequiredMixin,DetailView):
     model = UploadBerkasJurnal
     template_name = 'penilaian/detail_berkas_jurnal.html'
     context_object_name = 'detail_berkas_jurnal'
+
+class EditBerkasJurnalView(LoginRequiredMixin, UpdateView):
+    model = UploadBerkasJurnal
+    form_class = EditBerkasJurnalForm
+    template_name = 'penilaian/edit_berkas_jurnal.html'
+    success_url = reverse_lazy('penilaian:list_berkas_jurnal')
+
+class PlagiasiLinieritasView(LoginRequiredMixin, UpdateView):
+    model = UploadBerkasJurnal
+    form_class = PlagiasiLinieritasForm
+    template_name = 'penilaian/plagiasi_linieritas.html'
+    success_url = reverse_lazy('penilaian:list_berkas_jurnal')
 
 class VerifikasiBerkasJurnalView(LoginRequiredMixin,UpdateView):
     model = UploadBerkasJurnal
@@ -74,20 +88,6 @@ class VerifikasiBerkasJurnalView(LoginRequiredMixin,UpdateView):
         kwargs.update(self.extra_context)
         return super().get_context_data(*args, **kwargs)
 
-class PlagiasiLinieritasView(LoginRequiredMixin,CreateView):
-    model = PlagiasiLinieritas
-    form_class = PlagiasiLinieritasForm
-    template_name = 'penilaian/penilaian_plagiasi_linieritas.html'
-    data = PlagiasiLinieritas.objects.all()
-    success_url = reverse_lazy('home')
-    extra_context = {
-        'data':data,
-    }
-
-    def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
-
 class PenilaianBerkasJurnalView(LoginRequiredMixin,CreateView):
     model = PenilaianBerkasJurnal
     form_class = PenilaianBerkasJurnalForm
@@ -97,13 +97,11 @@ class PenilaianBerkasJurnalView(LoginRequiredMixin,CreateView):
 
 class HasilPenilaianJurnalView(DetailView):
     model = PenilaianBerkasJurnal
-    template_name = 'penilaian/lembar.html'
+    template_name = 'penilaian/hasil_rekap_jurnal.html'
     context_object_name = 'rekap_jurnal'
     rev = User.objects.all()
-    plaglin = PlagiasiLinieritas.objects.all()
     extra_context = {
         'list_rev':rev,
-        'plaglin':plaglin
     }
 
     def get_context_data(self, *args, **kwargs):
@@ -130,21 +128,22 @@ class UploadBerkasProsidingView(LoginRequiredMixin, CreateView):
         kwargs.update(self.extra_context)
         return super().get_context_data(*args, **kwargs) 
     
-    def post(self,request, *args, **kwargs):
-        subject = 'Konfirmasi Upload Berkas Prosiding'
-        message = 'Terimakasih telah mensubmit berkas prosiding anda. Berkas akan kami proses dan secepatnya akan dinilai.'
-        send_mail(subject, message, EMAIL_HOST_USER, [request.user.email], fail_silently = False)
-        return super().post(request, *args, **kwargs)
+    # def post(self,request, *args, **kwargs):
+        # subject = 'Konfirmasi Upload Berkas Prosiding'
+        # message = 'Terimakasih telah mensubmit berkas prosiding anda. Berkas akan kami proses dan secepatnya akan dinilai.'
+        # send_mail(subject, message, EMAIL_HOST_USER, [request.user.email], fail_silently = False)
+        # return super().post(request, *args, **kwargs)
 
 class ListBerkasProsidingView(LoginRequiredMixin,ListView):
     model = UploadBerkasProsiding
     template_name = 'penilaian/list_berkas_prosiding.html'
     context_object_name = 'list_berkas_prosiding'
     nama_reviewer = Reviewer.objects.all()
+    list_berkas = PenilaianBerkasProsiding.objects.all()
     extra_context = {
-        'list_user':nama_reviewer
+        'list_user':nama_reviewer,
+        'list_berkas':list_berkas,
     }
-
     def get_context_data(self, *args, **kwargs):
         kwargs.update(self.extra_context)
         return super().get_context_data(*args, **kwargs)
@@ -153,6 +152,12 @@ class DetailBerkasProsidingView(LoginRequiredMixin,DetailView):
     model = UploadBerkasProsiding
     template_name = 'penilaian/detail_berkas_prosiding.html'
     context_object_name = 'detail_berkas_prosiding'
+
+class EditBerkasProsidingView(LoginRequiredMixin, UpdateView):
+    model = UploadBerkasProsiding
+    form_class = EditBerkasProsidingForm
+    template_name = 'penilaian/edit_berkas_prosiding.html'
+    success_url = reverse_lazy('penilaian:list_berkas_prosiding')
 
 class VerifikasiBerkasProsidingView(LoginRequiredMixin,UpdateView):
     model = UploadBerkasProsiding
@@ -213,19 +218,21 @@ class UploadBerkasBukuView(LoginRequiredMixin, CreateView):
         kwargs.update(self.extra_context)
         return super().get_context_data(*args, **kwargs)
     
-    def post(self,request, *args, **kwargs):
-        subject = 'Konfirmasi Upload Berkas Buku'
-        message = 'Terimakasih telah mensubmit berkas buku anda. Berkas akan kami proses dan secepatnya akan dinilai.'
-        send_mail(subject, message, EMAIL_HOST_USER, [request.user.email], fail_silently = False)
-        return super().post(request, *args, **kwargs)
+    # def post(self,request, *args, **kwargs):
+        # subject = 'Konfirmasi Upload Berkas Buku'
+        # message = 'Terimakasih telah mensubmit berkas buku anda. Berkas akan kami proses dan secepatnya akan dinilai.'
+        # send_mail(subject, message, EMAIL_HOST_USER, [request.user.email], fail_silently = False)
+        # return super().post(request, *args, **kwargs)
 
 class ListBerkasBukuView(LoginRequiredMixin,ListView):
     model = UploadBerkasBuku
     template_name = 'penilaian/list_berkas_buku.html'
     context_object_name = 'list_berkas_buku'
     nama_reviewer = Reviewer.objects.all()
+    list_berkas = PenilaianBerkasBuku.objects.all()
     extra_context = {
-        'list_user':nama_reviewer
+        'list_user':nama_reviewer,
+        'list_berkas':list_berkas,
     }
 
     def get_context_data(self, *args, **kwargs):
@@ -236,6 +243,12 @@ class DetailBerkasBukuView(LoginRequiredMixin,DetailView):
     model = UploadBerkasBuku
     template_name = 'penilaian/detail_berkas_buku.html'
     context_object_name = 'detail_berkas_buku'
+
+class EditBerkasBukuView(LoginRequiredMixin, UpdateView):
+    model = UploadBerkasBuku
+    form_class = EditBerkasBukuForm
+    template_name = 'penilaian/edit_berkas_buku.html'
+    success_url = reverse_lazy('penilaian:list_berkas_buku')
 
 class VerifikasiBerkasBukuView(LoginRequiredMixin,UpdateView):
     model = UploadBerkasBuku
@@ -296,19 +309,21 @@ class UploadBerkasHakiView(LoginRequiredMixin, CreateView):
         kwargs.update(self.extra_context)
         return super().get_context_data(*args, **kwargs)
 
-    def post(self,request, *args, **kwargs):
-        subject = 'Konfirmasi Upload Berkas Haki'
-        message = 'Terimakasih telah mensubmit berkas Haki anda. Berkas akan kami proses dan secepatnya akan dinilai.'
-        send_mail(subject, message, EMAIL_HOST_USER, [request.user.email], fail_silently = False)
-        return super().post(request, *args, **kwargs)
+    # def post(self,request, *args, **kwargs):
+        # subject = 'Konfirmasi Upload Berkas Haki'
+        # message = 'Terimakasih telah mensubmit berkas Haki anda. Berkas akan kami proses dan secepatnya akan dinilai.'
+        # send_mail(subject, message, EMAIL_HOST_USER, [request.user.email], fail_silently = False)
+        # return super().post(request, *args, **kwargs)
 
 class ListBerkasHakiView(LoginRequiredMixin,ListView):
     model = UploadBerkasHaki
     template_name = 'penilaian/list_berkas_haki.html'
     context_object_name = 'list_berkas_haki'
     nama_reviewer = Reviewer.objects.all()
+    list_berkas = PenilaianBerkasHaki.objects.all()
     extra_context = {
-        'list_user':nama_reviewer
+        'list_user':nama_reviewer,
+        'list_berkas':list_berkas,
     }
 
     def get_context_data(self, *args, **kwargs):
@@ -319,6 +334,12 @@ class DetailBerkasHakiView(LoginRequiredMixin,DetailView):
     model = UploadBerkasHaki
     template_name = 'penilaian/detail_berkas_haki.html'
     context_object_name = 'detail_berkas_haki'
+    
+class EditBerkasHakiView(LoginRequiredMixin, UpdateView):
+    model = UploadBerkasHaki
+    form_class = EditBerkasHakiForm
+    template_name = 'penilaian/edit_berkas_haki.html'
+    success_url = reverse_lazy('penilaian:list_berkas_haki')
 
 class VerifikasiBerkasHakiView(LoginRequiredMixin,UpdateView):
     model = UploadBerkasHaki
@@ -363,16 +384,16 @@ class HasilPenilaianHakiView(DetailView):
         return HttpResponse(pdf, content_type='application/pdf')
 ############# End of Haki #############
 ################################################################################################################
-class AllView(View):
-    def get(self,request):
-        qs_jurnal = UploadBerkasJurnal.objects.all()
-        qs_prosiding = UploadBerkasProsiding.objects.all()
-        qs_buku = UploadBerkasBuku.objects.all()
-        qs_haki = UploadBerkasHaki.objects.all()
-        data_jurnal = serializers.serialize('json', qs_jurnal)
-        data_prosiding = serializers.serialize('json', qs_prosiding)
-        data_buku = serializers.serialize('json', qs_buku)
-        data_haki = serializers.serialize('json', qs_haki)
-        return JsonResponse({'data_jurnal':data_jurnal, 'data_prosiding':data_prosiding, 'data_buku':data_buku, 'data_haki':data_haki}, safe=False)
+# class AllView(View):
+    # def get(self,request):
+        # qs_jurnal = UploadBerkasJurnal.objects.all()
+        # qs_prosiding = UploadBerkasProsiding.objects.all()
+        # qs_buku = UploadBerkasBuku.objects.all()
+        # qs_haki = UploadBerkasHaki.objects.all()
+        # data_jurnal = serializers.serialize('json', qs_jurnal)
+        # data_prosiding = serializers.serialize('json', qs_prosiding)
+        # data_buku = serializers.serialize('json', qs_buku)
+        # data_haki = serializers.serialize('json', qs_haki)
+        # return JsonResponse({'data_jurnal':data_jurnal, 'data_prosiding':data_prosiding, 'data_buku':data_buku, 'data_haki':data_haki}, safe=False)
 
 ################################################################################################################

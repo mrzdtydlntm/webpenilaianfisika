@@ -19,6 +19,7 @@
     </section><!-- End Portfolio Section -->
     <div class="container" data-aos="zoom-in">
       <br>
+      <a class="float-right btn btn-warning btn-sm" href="{% url 'penilaian:edit_berkas_jurnal' detail_berkas_jurnal.pk%}" data-aos="zoom-in">Edit</a>
         <table class="table table-hover d-flex justify-content-center">
             <tbody>
               <tr>
@@ -26,12 +27,16 @@
                 <td><h4>: {{detail_berkas_jurnal.uploaded}}</h4></td>
               </tr>
               <tr>
-                <td><h3>Judul</h3></td>
-                <td><h4>: {{detail_berkas_jurnal.judul}}</h4></td>
+                <td><h3>Judul Artikel</h3></td>
+                <td><h4>: {{detail_berkas_jurnal.judul_artikel}}</h4></td>
               </tr>
               <tr>
                 <td><h3>Jumlah Penulis</h3></td>
                 <td><h4>: {{detail_berkas_jurnal.jmlh_penulis}}</h4></td>
+              </tr>
+              <tr>
+                <td><h3>Nama Jurnal</h3></td>
+                <td><h4>: {{detail_berkas_jurnal.nama_jurnal}}</h4></td>
               </tr>
               <tr>
                 <td><h3>Kategori Publikasi</h3></td>
@@ -83,6 +88,14 @@
                     <td><h4>: -</h4></td>
                 {% else %}
                     <td><h4>: {{detail_berkas_jurnal.indeks_jurnal}}</h4></td>
+                {% endif %}
+              </tr>
+              <tr>
+                <td><h3>Tingkat Jurnal</h3></td>
+                {% if detail_berkas_jurnal.tingkat_jurnal == None %}
+                    <td><h4>: -</h4></td>
+                {% else %}
+                    <td><h4>: {{detail_berkas_jurnal.tingkat_jurnal}}</h4></td>
                 {% endif %}
               </tr>
               <tr>

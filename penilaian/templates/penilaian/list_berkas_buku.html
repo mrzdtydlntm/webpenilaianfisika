@@ -57,20 +57,28 @@
                     <td>
                       {% if berkas.is_verificated == True %}
                         <button disabled class="btn btn-success">Terverifikasi</button>
+                      {% elif berkas.is_verificated == False%}
+                        {% if user.is_superuser %}
+                          <a href="{% url 'penilaian:verifikasi_berkas_prosiding' berkas.pk%}" class="btn btn-danger">Perlu Revisi</a>
+                        {% else %}
+                          <button disabled class="btn btn-danger">Perlu Revisi</button>
+                        {% endif %}
                       {% else %}
                         {% if user.is_superuser %}
-                          <a class="btn btn-warning" href="{% url 'penilaian:verifikasi_berkas_buku' berkas.pk%}">Verifikasi?</a>
+                          <a class="btn btn-warning" href="{% url 'penilaian:verifikasi_berkas_prosiding' berkas.pk%}">Verifikasi?</a>
                         {% else %}
                           <button disabled class="btn btn-secondary">Proses</button>
                         {% endif %}
                       {% endif %}
                     </td>
                     <td>
-                      {% if berkas.is_verificated == True %}
-                        <a class="btn btn-primary" href="{% url 'penilaian:rekap_buku' berkas.slug %}">Download</a>
-                      {% else %}
-                        <button disabled class="btn btn-secondary btn-sm">Belum Diverifikasi</button>
-                      {% endif %}
+                      {% for judul in list_berkas %}
+                        {% if judul.buku.id == berkas.id %}
+                          <a class="btn btn-primary" href="{% url 'penilaian:rekap_buku' berkas.slug %}">Download</a>
+                        {% else %}
+                          <button disabled class="btn btn-secondary btn-sm">Belum Ada</button>
+                        {% endif %}
+                      {% endfor %}
                     </td>
                     {% for list in list_user %}
                       {% if user == list.reviewer %}
