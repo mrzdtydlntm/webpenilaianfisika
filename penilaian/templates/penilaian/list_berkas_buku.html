@@ -90,7 +90,7 @@
                 </tr>     
               {% elif berkas.penulis_lain.exists %}
                 {% for penulis in berkas.penulis_lain.all %}
-                  {% if penulis.users.id %}
+                  {% if penulis.users.id == user.id %}
                     <tr>
                       <td>{{berkas.judul}}</td>
                       <td>{{berkas.penulis_utama}}</td>
