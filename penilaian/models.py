@@ -50,7 +50,7 @@ class UploadBerkasJurnal(models.Model):
         ('Discontinued dan Cancelled','Discontinued dan Cancelled'),
         ('Tidak Terindeks','Tidak Terindeks'),
     ]
-    indeks_jurnal = models.CharField(choices=indeks,max_length=100, verbose_name='Indeks Jurnal', null=True, blank=True)
+    indeks_jurnal = models.CharField(choices=indeks,max_length=100, verbose_name='Indeks Jurnal')
     tingkat_jurnal = models.CharField(max_length=100, verbose_name='Tingkat Jurnal', null=True, blank=True)
     kategori = [
         ('Jurnal Ilmiah Internasional Bereputasi Berdampak','Jurnal Ilmiah Internasional Bereputasi Berdampak'),
@@ -62,7 +62,7 @@ class UploadBerkasJurnal(models.Model):
         ('Jurnal Ilmiah Nasional terindeks di DOAJ dll','Jurnal Ilmiah Nasional terindeks di DOAJ dll'),
     ]
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
-    upload_jurnal = models.FileField(upload_to='jurnal/isi/', verbose_name='Upload Jurnal (isi)')
+    upload_jurnal = models.FileField(upload_to='jurnal/isi/', verbose_name='Upload Jurnal')
     upload_cover = models.FileField(upload_to='jurnal/cover/', verbose_name='Upload Jurnal (cover)', blank=True, null=True)
     corresponding_author = models.ForeignKey(Users, related_name='user_jurnal_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', null=True, blank=True)
     corresponding_author_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='ca_selain', null=True, blank=True)
@@ -98,7 +98,7 @@ class UploadBerkasProsiding(models.Model):
     judul_artikel = models.CharField(max_length=255, verbose_name='Judul Artikel', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
     nama_prosiding = models.CharField(max_length=255, verbose_name='Nama Prosiding', null=True, blank=True)
-    nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN')
+    nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', null=True, blank=True)
     tahun_terbit = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
     url_repository = models.CharField(max_length=150,verbose_name='Link Repository', null=True, blank=True)
@@ -109,7 +109,7 @@ class UploadBerkasProsiding(models.Model):
         ('Discontinued dan Cancelled','Discontinued dan Cancelled'),
         ('Tidak Terindeks','Tidak Terindeks'),
     ]
-    indeks_prosiding = models.CharField(choices=indeks, max_length=255, verbose_name='Terindeks di', null=True, blank=True)
+    indeks_prosiding = models.CharField(choices=indeks, max_length=255, verbose_name='Terindeks di')
     kategori = [
         ('Presentasi Oral dan Dipublikasikan','Presentasi Oral dan Dipublikasikan'),
         ('Poster dan Dipublikasikan dalam Prosiding','Poster dan Dipublikasikan dalam Prosiding'),
@@ -122,7 +122,7 @@ class UploadBerkasProsiding(models.Model):
         ('Nasional','Nasional'),
     ]
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
-    tingkat_publikasi = models.CharField(max_length=100, choices=tingkat, default=None, verbose_name='Tingkat Publikasi', blank=True, null=True)
+    tingkat_publikasi = models.CharField(max_length=100, choices=tingkat, default=None, verbose_name='Tingkat Publikasi')
     upload_prosiding = models.FileField(upload_to='prosiding/isi/', verbose_name='Upload Prosiding (isi)')
     upload_cover = models.FileField(upload_to='prosiding/cover/', verbose_name='Upload Prosiding (cover)', blank=True, null=True)
     corresponding_author = models.ForeignKey(Users, related_name='user_prosiding_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', default=None, blank=True, null=True)
@@ -162,7 +162,7 @@ class UploadBerkasBuku(models.Model):
         ('Book Chapter Nasional','Book Chapter Nasional'),
     ]
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
-    upload_buku = models.FileField(upload_to='buku/isi/', verbose_name='Upload Buku (isi)')
+    upload_buku = models.FileField(upload_to='buku/isi/', verbose_name='Upload Buku')
     penulis_utama = models.ForeignKey(Users, related_name='user_buku_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', default=None)
     penulis_utama_selain = models.ForeignKey(PenulisLain, verbose_name='Penulis Utama Selain Dosen', related_name='pu_lain_buku', null=True, blank=True, on_delete=models.CASCADE)
     penulis_lain = models.ManyToManyField(Users, blank=True)
@@ -343,8 +343,8 @@ class PenilaianBerkasBuku(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.buku)
-        if self.buku.jmlh_penulis > 1:
-            self.jmlh_penulis_lain == self.buku.jmlh_penulis - 1
+        if self.buku.jmlh_penulis != 1:
+            self.jmlh_penulis_lain = self.buku.jmlh_penulis - 1
         self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
         if self.jmlh_penulis_lain == None:
             self.nilai_pu = self.total
@@ -379,8 +379,8 @@ class PenilaianBerkasHaki(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.berkas)
-        if self.berkas.penulis_lain.exists() == True or self.berkas.pemegang_berkas_selain.exists() == True:
-            self.jmlh_penulis_lain == self.berkas.jmlh_penulis-1
+        if self.berkas.jmlh_penulis != 1:
+            self.jmlh_penulis_lain = self.berkas.jmlh_penulis - 1
         self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
         if self.jmlh_penulis_lain == None:
             self.nilai_pu = self.total

@@ -22,18 +22,18 @@
         <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
             {% csrf_token %}
             <br>
-            <p><label for="id_judul">Judul Buku:</label> <input type="text" name="judul" class="form-control" maxlength="255" required id="id_judul"></p>
-            <p><label for="id_jmlh_penulis">Jumlah Penulis:</label> <input type="text" name="jmlh_penulis" class="form-control" required id="id_jmlh_penulis"></p>
-            <p><label for="id_nomor_isbn">Nomor ISBN:</label> <input type="text" name="nomor_isbn" class="form-control" maxlength="255" required id="id_nomor_isbn"></p>
+            <p><label for="id_judul">Judul Buku *:</label> <input type="text" name="judul" class="form-control" maxlength="255" required id="id_judul"></p>
+            <p><label for="id_jmlh_penulis">Jumlah Penulis *:</label> <input type="text" name="jmlh_penulis" class="form-control" required id="id_jmlh_penulis"></p>
+            <p><label for="id_nomor_isbn">Nomor ISBN *:</label> <input type="text" name="nomor_isbn" class="form-control" maxlength="255" required id="id_nomor_isbn"></p>
             <p><label for="id_edisi">Edisi:</label> <input type="text" name="edisi" class="form-control" maxlength="255" id="id_edisi"></p>
             <p><label for="id_tahun_terbit">Tahun Terbit:</label> <input type="text" name="tahun_terbit" class="form-control" maxlength="255" id="id_tahun_terbit"></p>
             <p><label for="id_penerbit">Penerbit:</label> <input type="text" name="penerbit" class="form-control" maxlength="255" id="id_penerbit"></p>
             <p><label for="id_jumlah_halaman">Jumlah Halaman:</label> <input type="text" name="jumlah_halaman" class="form-control" maxlength="255" id="id_jumlah_halaman"></p>
-            <p><label for="id_kategori_publikasi">Kategori Publikasi:</label>
+            <p><label for="id_kategori_publikasi">Kategori Publikasi *:</label>
                 {{form.kategori_publikasi}}
             </p>
-            <p><label for="id_upload_buku">Upload Buku (isi):</label> <input type="file" name="upload_buku" required id="id_upload_buku"></p>
-            <p><label for="id_penulis_utama">Penulis Utama:</label>
+            <p><label for="id_upload_buku">Upload Buku *:</label> <input type="file" name="upload_buku" required id="id_upload_buku"></p>
+            <p><label for="id_penulis_utama">Penulis Utama *:</label>
                 {{form.penulis_utama}}
             </p>
             <div class="add-pu">

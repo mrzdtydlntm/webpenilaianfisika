@@ -92,7 +92,7 @@
                     </td>
                     <td>
                       {% for judul in list_berkas %}
-                        {% if judul.prosiding.id == berkas.id %}
+                        {% if berkas.id == judul.prosiding.id %}
                           <a class="btn btn-primary" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}">Download</a>
                         {% endif %}
                       {% endfor %}
@@ -151,7 +151,7 @@
                       </td>
                       <td>
                         {% for judul in list_berkas %}
-                          {% if judul.prosiding.id == berkas.id %}
+                          {% if berkas.id == judul.prosiding.id  %}
                             <a class="btn btn-primary" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}">Download</a>
                           {% endif %}
                         {% endfor %}

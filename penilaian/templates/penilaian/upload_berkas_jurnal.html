@@ -22,24 +22,24 @@
         <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
             {% csrf_token %}
             <br>
-            <p><label for="id_judul_artikel">Judul Artikel:</label> <input type="text" name="judul_artikel" class="form-control" maxlength="255" required id="id_judul_artikel"></p>
-            <p><label for="id_jmlh_penulis">Jumlah Penulis:</label> <input type="text" name="jmlh_penulis" class="form-control" required id="id_jmlh_penulis"></p>
-            <p><label for="id_nama_jurnal">Nama Jurnal:</label> <input type="text" name="nama_jurnal" class="form-control" maxlength="255" required id="id_nama_jurnal"></p>
+            <p><label for="id_judul_artikel">Judul Artikel*:</label> <input type="text" name="judul_artikel" class="form-control" maxlength="255" required id="id_judul_artikel"></p>
+            <p><label for="id_jmlh_penulis">Jumlah Penulis*:</label> <input type="text" name="jmlh_penulis" class="form-control" required id="id_jmlh_penulis"></p>
+            <p><label for="id_nama_jurnal">Nama Jurnal*:</label> <input type="text" name="nama_jurnal" class="form-control" maxlength="255" required id="id_nama_jurnal"></p>
             <p><label for="id_nomor_issn">Nomor ISSN:</label> <input type="text" name="nomor_issn" class="form-control" maxlength="255" id="id_nomor_issn"></p>
             <p><label for="id_vol_no_bln_thn">Volume/No/Bulan/Tahun:</label> <input type="text" name="vol_no_bln_thn" class="form-control" maxlength="255" id="id_vol_no_bln_thn"></p>
             <p><label for="id_penerbit">Penerbit:</label> <input type="text" name="penerbit" class="form-control" maxlength="255" id="id_penerbit"></p>
             <p><label for="id_doi_artikel">DOI Artikel:</label> <input type="text" name="doi_artikel" class="form-control" maxlength="255" id="id_doi_artikel"></p>
             <p><label for="id_url_jurnal">Link Jurnal:</label> <input type="text" name="url_jurnal" class="form-control" maxlength="150" id="id_url_jurnal"></p>
-            <p><label for="id_indeks_jurnal">Indeks Jurnal:</label>
+            <p><label for="id_indeks_jurnal">Indeks Jurnal*:</label>
                 {{form.indeks_jurnal}}
             </p>
             <p><label for="id_tingkat_jurnal">Tingkat Jurnal:</label> <input type="text" name="tingkat_jurnal" class="form-control" maxlength="100" id="id_tingkat_jurnal"></p>
-            <p><label for="id_kategori_publikasi">Kategori Publikasi:</label>
+            <p><label for="id_kategori_publikasi">Kategori Publikasi*:</label>
                 {{form.kategori_publikasi}}
             </p>
-            <p><label for="id_upload_jurnal">Upload Jurnal (isi):</label> <input type="file" name="upload_jurnal" required id="id_upload_jurnal"></p>
+            <p><label for="id_upload_jurnal">Upload Jurnal (isi)*:</label> <input type="file" name="upload_jurnal" required id="id_upload_jurnal"></p>
             <p><label for="id_upload_cover">Upload Jurnal (cover):</label> <input type="file" name="upload_cover" id="id_upload_cover"></p>
-            <p><label for="id_penulis_utama">Penulis Utama:</label>
+            <p><label for="id_penulis_utama">Penulis Utama*:</label>
                 {{form.penulis_utama}}
             </p>
             <div class="add-pu">
