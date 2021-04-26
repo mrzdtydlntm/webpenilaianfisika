@@ -22,7 +22,40 @@
         <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
             {% csrf_token %}
             <br>
-            {{form.as_p}}
+            <p><label for="id_judul">Nama Berkas:</label> <input type="text" name="judul" class="form-control" maxlength="255" required id="id_judul"></p>
+            <p><label for="id_jmlh_penulis">Jumlah Pemegang Berkas:</label> <input type="text" name="jmlh_penulis" class="form-control" required id="id_jmlh_penulis"></p>
+            <p><label for="id_jenis_haki">Jenis HaKI:</label></th><td><input type="text" name="jenis_haki" class="form-control" maxlength="50" required id="id_jenis_haki"></p>
+            <p><label for="id_nomor_paten">Nomor Paten:</label></th><td><input type="text" name="nomor_paten" class="form-control" maxlength="20" id="id_nomor_paten"></p>
+            <p><label for="id_tanggal">Tanggal Berkas:</label></th><td><input type="text" name="tanggal" class="form-control" maxlength="50" id="id_tanggal"></p>
+            <p><label for="id_penerbit">Penerbit:</label></th><td><input type="text" name="penerbit" class="form-control" maxlength="100" id="id_penerbit"></p>
+            <p><label for="id_status_paten">Status Paten:</label></th><td><input type="text" name="status_paten" class="form-control" maxlength="100" id="id_status_paten"></p>
+            <p><label for="id_url_repository">Alamat Repository:</label></th><td><input type="text" name="url_repository" class="form-control" maxlength="100" id="id_url_repository"></p>
+            <p><label for="id_kategori_publikasi">Kategori Publikasi:</label>
+                {{form.kategori_publikasi}}
+            </p>
+            <p><label for="id_upload_berkas">Upload Berkas:</label> <input type="file" name="upload_berkas" required id="id_upload_berkas"></p>
+            <p><label for="id_pemegang_berkas_utama">Pemegang Berkas Utama:</label>
+                {{form.pemegang_berkas_utama}}
+            </p>
+            <div class="add-pu">
+                <img style="width: 15px;" src="/assets/img/plus.jpeg" alt="">
+                <small>PU Selain Dosen</small>
+                <div></div>
+            </div>
+            <p class="pu-lain"><label for="id_pemegang_berkas_utama_selain">Pemegang Berkas Utama Selain Dosen:</label>
+                {{form.pemegang_berkas_utama_selain}}
+            </p>
+            <p><label for="id_penulis_lain">Pemegang Berkas Lain:</label>
+                {{form.penulis_lain}}
+            </p>
+            <div class="add-penulis">
+                <img style="width: 15px;" src="/assets/img/plus.jpeg" alt="">
+                <small>PL Selain Dosen</small>
+                <div></div>
+            </div>
+            <p class="penulis-lain"><label for="id_pemegang_berkas_selain">Pemegang Berkas Selain Dosen:</label>
+                {{form.pemegang_berkas_selain}}
+            </p>
             <br>
             <button class="btn btn-primary" type="submit">Submit</button>
             <br>

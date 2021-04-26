@@ -17,9 +17,22 @@ $.ajax({
     console.log(error)
   }
 })
-
-// $(".penulis-lain").slice(0,1).show();
 $('select').selectpicker();
+$(".add-ca").on("click", function() {
+  $(".ca-lain:hidden").slice(0,1).show();
+
+  if($(".ca-lain:hidden").length == 0) {
+      $(".add-ca").fadeOut();
+  }
+})
+$(".add-pu").on("click", function() {
+  $(".pu-lain:hidden").slice(0,1).show();
+
+  if($(".pu-lain:hidden").length == 0) {
+      $(".add-pu").fadeOut();
+  }
+})
+// $(".penulis-lain").slice(0,1).show();
 $(".add-penulis").on("click", function() {
     $(".penulis-lain:hidden").slice(0,1).show();
 

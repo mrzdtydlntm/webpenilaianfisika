@@ -38,22 +38,38 @@
               <th>Status</th>
               <th>Plagiasi</th>
               <th>Hasil Penilaian</th>
-              
               {% for list in list_user %}
-                
                 {% if user == list.reviewer %}
                   <th>Reviewer</th>
                 {% endif %}
-                  
               {% endfor %}
+              {% if user.is_superuser %}
+                <th>Reviewer</th>
+              {% endif %}
             </tr>
           </thead>
           <tbody>
             {% for berkas in list_berkas_jurnal %}
+              {% if user.id == berkas.corresponding_author.users.id or user.id == berkas.penulis_utama.users.id or user.is_superuser %}
                 <tr>
                     <td>{{berkas.judul_artikel}}</td>
-                    <td>{{berkas.corresponding_author.first_name}}</td>
-                    <td>{{berkas.penulis_utama.first_name}}</td>
+                    <td>
+                      {% if berkas.corresponding_author != None %}
+                        {{berkas.corresponding_author}}
+                      {% elif berkas_corresponding_author_selain != None %}
+                        {{berkas.corresponding_author_selain}}
+                      {% else %}
+                        {% if berkas.penulis_utama != None %}
+                          {{berkas.penulis_utama}}
+                        {% else %}
+                          {{berkas.penulis_utama_selain}}
+                      {% endif %}
+                    {% endif %}</td>
+                    <td>{% if berkas.penulis_utama != None %}
+                      {{berkas.penulis_utama}}
+                    {% else %}
+                      {{berkas.penulis_utama_selain}}
+                    {% endif %}</td>
                     <td>
                         <a href="{% url 'penilaian:detail_berkas_jurnal' berkas.slug%}" class="btn btn-primary">Detail</a>
                     </td>
@@ -85,10 +101,8 @@
                     </td>
                     <td>
                       {% for judul in list_berkas %}
-                        {% if judul.jurnal.id == berkas.id %}
+                        {% if berkas.id == judul.jurnal.id %}
                           <a class="btn btn-primary" href="{% url 'penilaian:rekap_jurnal' berkas.slug %}">Download</a>
-                        {% else %}
-                          <button disabled class="btn btn-secondary btn-sm">Belum Ada</button>
                         {% endif %}
                       {% endfor %}
                     </td>
@@ -97,8 +111,81 @@
                         <td>{{berkas.reviewer}}</td>
                       {% endif %}
                     {% endfor %}
-                </tr>     
-            {% endfor %} 
+                    {% if user.is_superuser %}
+                      <td>{{berkas.reviewer}}</td>
+                    {% endif %}
+                </tr>
+              {% elif berkas.penulis_lain.exists %}
+                {% for penulis in berkas.penulis_lain.all %}
+                  {% if user.id == penulis.users.id %}
+                    <tr>
+                      <td>{{berkas.judul_artikel}}</td>
+                      <td>
+                        {% if berkas.corresponding_author != None %}
+                          {{berkas.corresponding_author}}
+                        {% elif berkas_corresponding_author_selain != None %}
+                          {{berkas.corresponding_author_selain}}
+                        {% else %}
+                          {% if berkas.penulis_utama != None %}
+                            {{berkas.penulis_utama}}
+                          {% else %}
+                            {{berkas.penulis_utama_selain}}
+                        {% endif %}
+                      {% endif %}</td>
+                      <td>{% if berkas.penulis_utama != None %}
+                        {{berkas.penulis_utama}}
+                      {% else %}
+                        {{berkas.penulis_utama_selain}}
+                      {% endif %}</td>
+                      <td>
+                          <a href="{% url 'penilaian:detail_berkas_jurnal' berkas.slug%}" class="btn btn-primary">Detail</a>
+                      </td>
+                      <td>
+                        {% if berkas.is_verificated == True %}
+                          <button disabled class="btn btn-success">Terverifikasi</button>
+                        {% elif berkas.is_verificated == False%}
+                          {% if user.is_superuser %}
+                            <a href="{% url 'penilaian:verifikasi_berkas_jurnal' berkas.pk%}" class="btn btn-danger">Perlu Revisi</a>
+                          {% else %}
+                            <button disabled class="btn btn-danger">Perlu Revisi</button>
+                          {% endif %}
+                        {% else %}
+                          {% if user.is_superuser %}
+                            <a class="btn btn-warning" href="{% url 'penilaian:verifikasi_berkas_jurnal' berkas.pk%}">Verifikasi?</a>
+                          {% else %}
+                            <button disabled class="btn btn-secondary">Proses</button>
+                          {% endif %}
+                        {% endif %}
+                      </td>
+                      <td>
+                        
+                        {% if berkas.plagiasi != None %}
+                          <a href="{{berkas.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
+                        {% else %}
+                          <a class="btn btn-warning" href="{% url 'penilaian:plagiasi' berkas.pk %}">Belum Ada</a>
+                        {% endif %}
+                          
+                      </td>
+                      <td>
+                        {% for judul in list_berkas %}
+                          {% if judul.jurnal.id == berkas.id %}
+                            <a class="btn btn-primary" href="{% url 'penilaian:rekap_jurnal' berkas.slug %}">Download</a>
+                          {% endif %}
+                        {% endfor %}
+                      </td>
+                      {% for list in list_user %}
+                        {% if user == list.reviewer %}
+                          <td>{{berkas.reviewer}}</td>
+                        {% endif %}
+                      {% endfor %}
+                      {% if user.is_superuser %}
+                        <td>{{berkas.reviewer}}</td>
+                      {% endif %}
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
           </tbody>
         </table>
       </div>

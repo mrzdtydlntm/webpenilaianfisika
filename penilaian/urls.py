@@ -43,6 +43,7 @@ urlpatterns = [
     path('rekap_buku/<slug>/',views.HasilPenilaianBukuView.as_view(), name='rekap_buku'),
     path('rekap_haki/<slug>/',views.HasilPenilaianHakiView.as_view(), name='rekap_haki'),
     ######### End of Hasil Rekap #########
+    path('tambah_penulis/', views.PenulisLainView.as_view(), name='tambah_penulis'),
     # path('data_json/', views.AllView.as_view(), name='data_json')
 ]
 

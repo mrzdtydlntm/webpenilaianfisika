@@ -1,12 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import tree
 from django.utils.text import slugify
 from django.urls import reverse
 # Create your models here.
 
+class Users(models.Model):
+    users = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        return f"{self.users}"
+
 class Reviewer(models.Model):
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     nip = models.CharField(max_length=18, verbose_name='Nomor Induk Pegawai', default=None)
+    unit_kerja = models.CharField(max_length=100, verbose_name='Unit Kerja')
+    bidang_ilmu = models.CharField(max_length=100, verbose_name='Bidang Ilmu')
+    jabatan_pangkat = models.CharField(max_length=100, verbose_name='Jabatan/Pangkat')
 
     def __str__(self):
         return f"{self.reviewer}"
@@ -16,6 +26,12 @@ class Admin(models.Model):
 
     def __str__(self):
         return f"{self.admin}"
+
+class PenulisLain(models.Model):
+    penulis = models.CharField(max_length=100, verbose_name='Penulis Lain')
+
+    def __str__(self):
+        return f"{self.penulis}"
     
 
 class UploadBerkasJurnal(models.Model):
@@ -48,9 +64,12 @@ class UploadBerkasJurnal(models.Model):
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
     upload_jurnal = models.FileField(upload_to='jurnal/isi/', verbose_name='Upload Jurnal (isi)')
     upload_cover = models.FileField(upload_to='jurnal/cover/', verbose_name='Upload Jurnal (cover)', blank=True, null=True)
-    corresponding_author = models.ForeignKey(User, related_name='user_jurnal_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', default=None)
-    penulis_utama = models.ForeignKey(User, related_name='user_jurnal_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', default=None)
-    penulis_lain = models.ManyToManyField(User, blank=True)
+    corresponding_author = models.ForeignKey(Users, related_name='user_jurnal_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', null=True, blank=True)
+    corresponding_author_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='ca_selain', null=True, blank=True)
+    penulis_utama = models.ForeignKey(Users, related_name='user_jurnal_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', null=True, blank=True)
+    penulis_utama_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='pu_selain', null=True, blank=True)
+    penulis_lain = models.ManyToManyField(Users, blank=True)
+    penulis_selain = models.ManyToManyField(PenulisLain, verbose_name='Penulis Lain Selain Dosen', blank=True)
     plagiasi = models.PositiveIntegerField(verbose_name='Similarity Index', null=True, blank=True)
     bukti_plagiasi = models.FileField(upload_to='plagiasi/', verbose_name='Upload Bukti Plagiasi', blank=True, null=True)
     linier = [
@@ -99,8 +118,6 @@ class UploadBerkasProsiding(models.Model):
         ('Terpublikasi dalam Koran/Majalah','Terpublikasi dalam Koran/Majalah'),
     ]
     tingkat = [
-        ('Internasional Terindeks Scimagojr & Scopus','Internasional Terindeks Scimagojr & Scopus'),
-        ('Internasional Terindeks Scopus / IEEE','Internasional Terindeks Scopus / IEEE'),
         ('Internasional','Internasional'),
         ('Nasional','Nasional'),
     ]
@@ -108,9 +125,12 @@ class UploadBerkasProsiding(models.Model):
     tingkat_publikasi = models.CharField(max_length=100, choices=tingkat, default=None, verbose_name='Tingkat Publikasi', blank=True, null=True)
     upload_prosiding = models.FileField(upload_to='prosiding/isi/', verbose_name='Upload Prosiding (isi)')
     upload_cover = models.FileField(upload_to='prosiding/cover/', verbose_name='Upload Prosiding (cover)', blank=True, null=True)
-    corresponding_author = models.ForeignKey(User, related_name='user_prosiding_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', default=None)
-    penulis_utama = models.ForeignKey(User, related_name='user_prosiding_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', default=None)
-    penulis_lain = models.ManyToManyField(User, blank=True)
+    corresponding_author = models.ForeignKey(Users, related_name='user_prosiding_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', default=None, blank=True, null=True)
+    corresponding_author_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='ca_lain_prosiding', verbose_name='Corresponding Author Selain Dosen', blank=True, null=True)
+    penulis_utama = models.ForeignKey(Users, related_name='user_prosiding_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama')
+    penulis_utama_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='pu_lain_prosiding', verbose_name='Penulis Utama Selain Dosen', blank=True, null=True)
+    penulis_lain = models.ManyToManyField(Users, blank=True)
+    penulis_selain = models.ManyToManyField(PenulisLain, blank=True, verbose_name='Penulis Lain Selain Dosen',)
     is_verificated = models.BooleanField(default=None, blank=True, null=True)
     reviewer = models.ForeignKey(Reviewer, related_name='user_prosiding_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
@@ -143,8 +163,10 @@ class UploadBerkasBuku(models.Model):
     ]
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
     upload_buku = models.FileField(upload_to='buku/isi/', verbose_name='Upload Buku (isi)')
-    penulis_utama = models.ForeignKey(User, related_name='user_buku_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', default=None)
-    penulis_lain = models.ManyToManyField(User, blank=True)
+    penulis_utama = models.ForeignKey(Users, related_name='user_buku_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', default=None)
+    penulis_utama_selain = models.ForeignKey(PenulisLain, verbose_name='Penulis Utama Selain Dosen', related_name='pu_lain_buku', null=True, blank=True, on_delete=models.CASCADE)
+    penulis_lain = models.ManyToManyField(Users, blank=True)
+    penulis_lain_selain = models.ManyToManyField(PenulisLain, verbose_name='Penulis Lain Selain Dosen', blank=True)
     is_verificated = models.BooleanField(default=None, blank=True, null=True)
     reviewer = models.ForeignKey(Reviewer, related_name='user_buku_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
@@ -164,6 +186,12 @@ class UploadBerkasBuku(models.Model):
 class UploadBerkasHaki(models.Model):
     judul = models.CharField(max_length=255, verbose_name='Nama Berkas', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Pemegang Berkas')
+    jenis_haki = models.CharField(max_length=50, verbose_name='Jenis HaKI')
+    nomor_paten = models.CharField(max_length=20, verbose_name='Nomor Paten', blank=True, null=True)
+    tanggal = models.CharField(max_length=50, verbose_name='Tanggal Berkas', blank=True, null=True)
+    penerbit = models.CharField(max_length=100, verbose_name='Penerbit', blank=True, null=True)
+    status_paten = models.CharField(max_length=100, verbose_name='Status Paten', blank=True, null=True)
+    url_repository = models.CharField(max_length=100, verbose_name='Alamat Repository', blank=True, null=True)
     kategori = [
         ('Internasional (sudah diimplementasikan di industri)','Internasional (sudah diimplementasikan di industri)'),
         ('Internasional','Internasional'),
@@ -175,8 +203,10 @@ class UploadBerkasHaki(models.Model):
     ]
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
     upload_berkas = models.FileField(upload_to='haki/isi/', verbose_name='Upload Berkas')
-    pemegang_berkas_utama = models.ForeignKey(User, related_name='user_pemegang_berkas_utama', on_delete=models.CASCADE, verbose_name='Pemegang Berkas Utama', default=None)
-    penulis_lain = models.ManyToManyField(User, blank=True)
+    pemegang_berkas_utama = models.ForeignKey(Users, related_name='user_pemegang_berkas_utama', on_delete=models.CASCADE, verbose_name='Pemegang Berkas Utama', default=None)
+    pemegang_berkas_utama_selain = models.ForeignKey(PenulisLain, verbose_name='Pemegang Berkas Utama Selain Dosen', related_name='pb_lain_haki', null=True, blank=True, on_delete=models.CASCADE)
+    penulis_lain = models.ManyToManyField(Users, blank=True, verbose_name='Pemegang Berkas Lain')
+    pemegang_berkas_selain = models.ManyToManyField(PenulisLain, verbose_name='Pemegang Berkas Selain Dosen', blank=True)
     is_verificated = models.BooleanField(default=None, blank=True, null=True)
     reviewer = models.ForeignKey(Reviewer, related_name='user_haki_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
@@ -216,19 +246,26 @@ class PenilaianBerkasJurnal(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.jurnal)
-        if self.jurnal.penulis_lain != None:
-            if self.jurnal.corresponding_author == self.jurnal.penulis_utama:
+        if self.jurnal.penulis_lain.exists() or self.jurnal.penulis_selain.exists():
+            if self.jurnal.corresponding_author == None and self.jurnal.corresponding_author_selain == None:
                 self.jmlh_penulis_lain = self.jurnal.jmlh_penulis - 1
             else:
-                self.jmlh_penulis_lain = self.jurnal.jmlh_penulis
+                self.jmlh_penulis_lain = self.jurnal.jmlh_penulis - 2
         self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
-        if self.jmlh_penulis_lain == None:
-            self.nilai_ca = self.total * 0.5
-            self.nilai_pu = self.total * 0.5
-        else:
-            self.nilai_ca = self.total * 0.4
-            self.nilai_pu = self.total * 0.4
-            self.nilai_pl = self.total * 0.2 / self.jmlh_penulis_lain
+        if self.jurnal.corresponding_author != None or self.jurnal.corresponding_author_selain != None: #CA != PU
+            if self.jmlh_penulis_lain == None:
+                self.nilai_ca = self.total * 0.5
+                self.nilai_pu = self.total * 0.5
+            else:
+                self.nilai_ca = self.total * 0.4
+                self.nilai_pu = self.total * 0.4
+                self.nilai_pl = self.total * 0.2 / self.jmlh_penulis_lain
+        else: #CA = PU
+            if self.jmlh_penulis_lain == None:
+                self.nilai_pu = self.total
+            else:
+                self.nilai_pu = self.total * 0.6
+                self.nilai_pl = self.total * 0.4 / self.jmlh_penulis_lain
         super(PenilaianBerkasJurnal, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
@@ -258,19 +295,26 @@ class PenilaianBerkasProsiding(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.prosiding)
-        if self.prosiding.penulis_lain != None:
-            if self.prosiding.corresponding_author == self.prosiding.penulis_utama:
+        if self.prosiding.penulis_lain.exists() or self.prosiding.penulis_selain.exists():
+            if self.prosiding.corresponding_author == None and self.prosiding.corresponding_author_selain == None:
                 self.jmlh_penulis_lain = self.prosiding.jmlh_penulis - 1
             else:
-                self.jmlh_penulis_lain = self.prosiding.jmlh_penulis
+                self.jmlh_penulis_lain = self.prosiding.jmlh_penulis - 2
         self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
-        if self.jmlh_penulis_lain == None:
-            self.nilai_ca = self.total * 0.5
-            self.nilai_pu = self.total * 0.5
-        else:
-            self.nilai_ca = self.total * 0.4
-            self.nilai_pu = self.total * 0.4
-            self.nilai_pl = self.total * 0.2 / self.jmlh_penulis_lain
+        if self.prosiding.corresponding_author != None: #CA != PU
+            if self.jmlh_penulis_lain == None:
+                self.nilai_ca = self.total * 0.5
+                self.nilai_pu = self.total * 0.5
+            else:
+                self.nilai_ca = self.total * 0.4
+                self.nilai_pu = self.total * 0.4
+                self.nilai_pl = self.total * 0.2 / self.jmlh_penulis_lain
+        else: #CA = PU
+            if self.jmlh_penulis_lain == None:
+                self.nilai_pu = self.total
+            else:
+                self.nilai_pu = self.total * 0.6
+                self.nilai_pl = self.total * 0.4 / self.jmlh_penulis_lain
         super(PenilaianBerkasProsiding, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
@@ -299,8 +343,8 @@ class PenilaianBerkasBuku(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.buku)
-        if self.buku.penulis_lain != None:
-            self.jmlh_penulis_lain == self.buku.jmlh_penulis-1
+        if self.buku.jmlh_penulis > 1:
+            self.jmlh_penulis_lain == self.buku.jmlh_penulis - 1
         self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
         if self.jmlh_penulis_lain == None:
             self.nilai_pu = self.total
@@ -335,7 +379,7 @@ class PenilaianBerkasHaki(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.berkas)
-        if self.berkas.penulis_lain != None:
+        if self.berkas.penulis_lain.exists() == True or self.berkas.pemegang_berkas_selain.exists() == True:
             self.jmlh_penulis_lain == self.berkas.jmlh_penulis-1
         self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
         if self.jmlh_penulis_lain == None:

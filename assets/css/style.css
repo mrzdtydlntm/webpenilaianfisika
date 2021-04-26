@@ -21,6 +21,14 @@ body {
   display: none;
 }
 
+.pu-lain{
+  display: none;
+}
+
+.ca-lain{
+  display: none;
+}
+
 .penilaian{
   background-color: #37517e;
   height: 30vh;

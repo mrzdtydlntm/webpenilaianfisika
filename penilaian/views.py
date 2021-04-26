@@ -16,7 +16,7 @@ from django.core.mail import send_mail
 # Create your views here.
 
 class UserView(ListView):
-    model = User
+    model = Users
     template_name = 'penilaian/user_table.html'
     context_object_name = 'list_user'
 ################################################################################################################
@@ -28,7 +28,7 @@ class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
     nama = User.objects.all()
     extra_context = {
         'form':form_class,
-        'list_user':nama
+        'list_user':nama,
     }
 
     def get_context_data(self, *args, **kwargs):
@@ -99,14 +99,12 @@ class HasilPenilaianJurnalView(DetailView):
     model = PenilaianBerkasJurnal
     template_name = 'penilaian/hasil_rekap_jurnal.html'
     context_object_name = 'rekap_jurnal'
-    rev = User.objects.all()
-    extra_context = {
-        'list_rev':rev,
-    }
 
     def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
+        context = super().get_context_data(*args, **kwargs)
+        context['usrlogin'] = self.request.user
+        return context
+
     def render_to_response(self, context, **kwargs):
         pdf = render_to_pdf(self.template_name, context)
         return HttpResponse(pdf, content_type='application/pdf')
@@ -185,18 +183,12 @@ class HasilPenilaianProsidingView(LoginRequiredMixin,DetailView):
     model = PenilaianBerkasProsiding
     template_name = 'penilaian/hasil_rekap_prosiding.html'
     context_object_name = 'rekap_prosiding'
-    rev = User.objects.all()
-    extra_context = {
-        'list_rev':rev
-    }
 
     def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
+        context = super().get_context_data(*args, **kwargs)
+        context['usrlogin'] = self.request.user
+        return context
 
-    def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
     def render_to_response(self, context, **kwargs):
         pdf = render_to_pdf(self.template_name, context)
         return HttpResponse(pdf, content_type='application/pdf')
@@ -276,18 +268,12 @@ class HasilPenilaianBukuView(LoginRequiredMixin,DetailView):
     model = PenilaianBerkasBuku
     template_name = 'penilaian/hasil_rekap_buku.html'
     context_object_name = 'rekap_buku'
-    rev = User.objects.all()
-    extra_context = {
-        'list_rev':rev
-    }
 
     def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
+        context = super().get_context_data(*args, **kwargs)
+        context['usrlogin'] = self.request.user
+        return context
 
-    def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
     def render_to_response(self, context, **kwargs):
         pdf = render_to_pdf(self.template_name, context)
         return HttpResponse(pdf, content_type='application/pdf')
@@ -367,23 +353,23 @@ class HasilPenilaianHakiView(DetailView):
     model = PenilaianBerkasHaki
     template_name = 'penilaian/hasil_rekap_haki.html'
     context_object_name = 'rekap_haki'
-    rev = User.objects.all()
-    extra_context = {
-        'list_rev':rev
-    }
 
     def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
-
-    def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
+        context = super().get_context_data(*args, **kwargs)
+        context['usrlogin'] = self.request.user
+        return context
+        
     def render_to_response(self, context, **kwargs):
         pdf = render_to_pdf(self.template_name, context)
         return HttpResponse(pdf, content_type='application/pdf')
 ############# End of Haki #############
 ################################################################################################################
+class PenulisLainView(CreateView):
+    model = PenulisLain
+    form_class = PenulisLainForm
+    template_name = 'penilaian/tambah_penulis.html'
+    success_url = reverse_lazy('home')
+
 # class AllView(View):
     # def get(self,request):
         # qs_jurnal = UploadBerkasJurnal.objects.all()

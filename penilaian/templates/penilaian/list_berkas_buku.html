@@ -37,20 +37,21 @@
               <th>Status</th>
               <th>Hasil Penilaian</th>
               {% for list in list_user %}
-                
                 {% if user == list.reviewer %}
                   <th>Reviewer</th>
                 {% endif %}
-                  
               {% endfor %}
+              {% if user.is_superuser %}
+                <th>Reviewer</th>
+              {% endif %}
             </tr>
           </thead>
           <tbody>
             {% for berkas in list_berkas_buku %}
+              {% if user.id == berkas.penulis_utama.users.id or user.is_superuser %}
                 <tr>
                     <td>{{berkas.judul}}</td>
-                    <td>{{berkas.penulis_utama.first_name}}</td>
-                    <!-- <td>{{berkas.upload_berkas}}</td> -->
+                    <td>{{berkas.penulis_utama}}</td>
                     <td>
                         <a href="{% url 'penilaian:detail_berkas_buku' berkas.slug%}" class="btn btn-primary" target="_blank">Detail</a>
                     </td>
@@ -59,13 +60,13 @@
                         <button disabled class="btn btn-success">Terverifikasi</button>
                       {% elif berkas.is_verificated == False%}
                         {% if user.is_superuser %}
-                          <a href="{% url 'penilaian:verifikasi_berkas_prosiding' berkas.pk%}" class="btn btn-danger">Perlu Revisi</a>
+                          <a href="{% url 'penilaian:verifikasi_berkas_buku' berkas.pk%}" class="btn btn-danger">Perlu Revisi</a>
                         {% else %}
                           <button disabled class="btn btn-danger">Perlu Revisi</button>
                         {% endif %}
                       {% else %}
                         {% if user.is_superuser %}
-                          <a class="btn btn-warning" href="{% url 'penilaian:verifikasi_berkas_prosiding' berkas.pk%}">Verifikasi?</a>
+                          <a class="btn btn-warning" href="{% url 'penilaian:verifikasi_berkas_buku' berkas.pk%}">Verifikasi?</a>
                         {% else %}
                           <button disabled class="btn btn-secondary">Proses</button>
                         {% endif %}
@@ -75,8 +76,6 @@
                       {% for judul in list_berkas %}
                         {% if judul.buku.id == berkas.id %}
                           <a class="btn btn-primary" href="{% url 'penilaian:rekap_buku' berkas.slug %}">Download</a>
-                        {% else %}
-                          <button disabled class="btn btn-secondary btn-sm">Belum Ada</button>
                         {% endif %}
                       {% endfor %}
                     </td>
@@ -85,7 +84,55 @@
                         <td>{{berkas.reviewer}}</td>
                       {% endif %}
                     {% endfor %}
+                    {% if user.is_superuser %}
+                      <td>{{berkas.reviewer}}</td>
+                    {% endif %}
                 </tr>     
+              {% elif berkas.penulis_lain.exists %}
+                {% for penulis in berkas.penulis_lain.all %}
+                  {% if penulis.users.id %}
+                    <tr>
+                      <td>{{berkas.judul}}</td>
+                      <td>{{berkas.penulis_utama}}</td>
+                      <td>
+                          <a href="{% url 'penilaian:detail_berkas_buku' berkas.slug%}" class="btn btn-primary" target="_blank">Detail</a>
+                      </td>
+                      <td>
+                        {% if berkas.is_verificated == True %}
+                          <button disabled class="btn btn-success">Terverifikasi</button>
+                        {% elif berkas.is_verificated == False%}
+                          {% if user.is_superuser %}
+                            <a href="{% url 'penilaian:verifikasi_berkas_buku' berkas.pk%}" class="btn btn-danger">Perlu Revisi</a>
+                          {% else %}
+                            <button disabled class="btn btn-danger">Perlu Revisi</button>
+                          {% endif %}
+                        {% else %}
+                          {% if user.is_superuser %}
+                            <a class="btn btn-warning" href="{% url 'penilaian:verifikasi_berkas_buku' berkas.pk%}">Verifikasi?</a>
+                          {% else %}
+                            <button disabled class="btn btn-secondary">Proses</button>
+                          {% endif %}
+                        {% endif %}
+                      </td>
+                      <td>
+                        {% for judul in list_berkas %}
+                          {% if judul.buku.id == berkas.id %}
+                            <a class="btn btn-primary" href="{% url 'penilaian:rekap_buku' berkas.slug %}">Download</a>
+                          {% endif %}
+                        {% endfor %}
+                      </td>
+                      {% for list in list_user %}
+                        {% if user == list.reviewer %}
+                          <td>{{berkas.reviewer}}</td>
+                        {% endif %}
+                      {% endfor %}
+                      {% if user.is_superuser %}
+                        <td>{{berkas.reviewer}}</td>
+                      {% endif %}
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+              {% endif %}
             {% endfor %} 
           </tbody>
         </table>

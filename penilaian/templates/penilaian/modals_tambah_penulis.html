@@ -1,0 +1,22 @@
+<div class="modal fade" id="tambah_penulis" tabindex="-1" role="dialog" aria-labelledby="tambah_penulis" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Tambah Penulis</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{% url 'penilaian:tambah_penulis' %}" method="POST">
+            <div class="modal-body">
+            {{form2.as_p}}
+            </div>
+            <div class="modal-footer">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>

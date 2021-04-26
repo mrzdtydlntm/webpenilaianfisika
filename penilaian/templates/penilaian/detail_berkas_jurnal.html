@@ -100,18 +100,30 @@
               </tr>
               <tr>
                 <td><h3>Corresponding Author</h3></td>
-                <td><h4>: {{detail_berkas_jurnal.corresponding_author.first_name}}</h4></td>
+                {% if detail_berkas_jurnal.corresponding_author != None %}
+                  <td><h4>: {{detail_berkas_jurnal.corresponding_author}}</h4></td>
+                {% else %}
+                  <td><h4>: {{detail_berkas_jurnal.corresponding_author_selain}}</h4></td>
+                {% endif %}
               </tr>
               <tr>
                 <td><h3>Penulis Utama</h3></td>
-                <td><h4>: {{detail_berkas_jurnal.penulis_utama.first_name}}</h4></td>
+                {% if detail_berkas_jurnal.penulis_utama != None %}
+                  <td><h4>: {{detail_berkas_jurnal.penulis_utama}}</h4></td>
+                {% else %}
+                  <td><h4>: {{detail_berkas_jurnal.penulis_utama_selain}}</h4></td>
+                {% endif %}
               </tr>
               <tr>
                 <td><h3>Penulis Lain</h3></td>
                 <td><h4>:
                   {% for penulis in detail_berkas_jurnal.penulis_lain.all %}
-                    {{penulis.first_name}} <br>
+                    {{penulis}} <br>
                   {% endfor %}
+                  {% for penulis_lain in detail_berkas_jurnal.penulis_selain.all %}
+                    {{penulis_lain}} <br>
+                  {% endfor %}
+                    
                 </h4></td>
               </tr>
               <tr>

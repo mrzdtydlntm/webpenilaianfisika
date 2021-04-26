@@ -28,10 +28,10 @@
                 </tr>
             </thead>
                 <tbody>
-                  {% for user in list_user %}
+                  {% for usr in list_user %}
                     <tr>
-                        <td>{{user.username}}</td>
-                        <td>{{user.first_name}}</td>
+                      <td>{{usr.users.username}}</td>
+                      <td>{{usr}}</td>
                     </tr> 
                   {% endfor %}
                 </tbody>
