@@ -20,117 +20,119 @@
     <div class="container" data-aos="zoom-in">
         <br>
         <a class="float-right btn btn-warning btn-sm" href="{% url 'penilaian:edit_berkas_prosiding' detail_berkas_prosiding.pk%}" data-aos="zoom-in">Edit</a>
-        <table class="table table-hover d-flex justify-content-center">
-            <tbody>
-              <tr>
-                <td><h3>Judul Artikel</h3></td>
-                <td><h4>: {{detail_berkas_prosiding.judul_artikel}}</h4></td>
-              </tr>
-              <tr>
-                <td><h3>Jumlah Penulis</h3></td>
-                <td><h4>: {{detail_berkas_prosiding.jmlh_penulis}}</h4></td>
-              </tr>
-              <tr>
-                <td><h3>Nama Prosiding</h3></td>
-                <td><h4>: {{detail_berkas_prosiding.nama_prosiding}}</h4></td>
-              </tr>
-              <tr>
-                <td><h3>Kategori Publikasi</h3></td>
-                <td><h4>: {{detail_berkas_prosiding.kategori_publikasi}}</h4></td>
-              </tr>
-              <tr>
-                <td><h3>Tingkat Publikasi</h3></td>
-                <td><h4>: {{detail_berkas_prosiding.tingkat_publikasi}}</h4></td>
-              </tr>
-              <tr>
-                <td><h3>Nomor ISBN</h3></td>
-                {% if detail_berkas_prosiding.nomor_isbn == None %}
-                    <td><h4>: -</h4></td>
-                {% else %}
-                    <td><h4>: {{detail_berkas_prosiding.nomor_isbn}}</h4></td>
-                {% endif %}
-              </tr>
-              <tr>
-                <td><h3>Tahun Terbit</h3></td>
-                {% if detail_berkas_prosiding.tahun_terbit == None %}
-                    <td><h4>: -</h4></td>
-                {% else %}
-                    <td><h4>: {{detail_berkas_prosiding.tahun_terbit}}</h4></td>
-                {% endif %}
-              </tr>
-              <tr>
-                <td><h3>Penerbit</h3></td>
-                {% if detail_berkas_prosiding.penerbit == None %}
-                    <td><h4>: -</h4></td>
-                {% else %}
-                    <td><h4>: {{detail_berkas_prosiding.penerbit}}</h4></td>
-                {% endif %}
-              </tr>
-              <tr>
-                <td><h3>URL Repository</h3></td>
-                {% if detail_berkas_prosiding.url_repository == None %}
-                    <td><h4>: -</h4></td>
-                {% else %}
-                    <td><h4>: {{detail_berkas_prosiding.url_repository}}</h4></td>
-                {% endif %}
-              </tr>
-              <tr>
-                <td><h3>Indeks Prosiding</h3></td>
-                {% if detail_berkas_prosiding.indeks_prosiding == None %}
-                    <td><h4>: -</h4></td>
-                {% else %}
-                    <td><h4>: {{detail_berkas_prosiding.indeks_prosiding}}</h4></td>
-                {% endif %}
-              </tr>
-              <tr>
-                <td><h3>Corresponding Author</h3></td>
-                {% if detail_berkas_prosiding.corresponding_author.exist %}
-                  <td><h4>: {{detail_berkas_prosiding.corresponding_author}}</h4></td>
-                {% elif detail_berkas_prosiding.corresponding_author_selain.exist %}
-                  <td><h4>: {{detail_berkas_prosiding.corresponding_author_selain}}</h4></td>
-                {% else %}
-                  {% if detail_berkas_prosiding.penulis_utama != None %}
-                    <td><h4>: {{detail_berkas_prosiding.penulis_utama}}</h4></td>
+        <div class="scrollmenu">
+            <table class="table table-hover">
+              <tbody>
+                <tr>
+                  <td><h4>Judul Artikel</h4></td>
+                  <td><h5>: {{detail_berkas_prosiding.judul_artikel}}</h5></td>
+                </tr>
+                <tr>
+                  <td><h4>Jumlah Penulis</h4></td>
+                  <td><h5>: {{detail_berkas_prosiding.jmlh_penulis}}</h5></td>
+                </tr>
+                <tr>
+                  <td><h4>Nama Prosiding</h4></td>
+                  <td><h5>: {{detail_berkas_prosiding.nama_prosiding}}</h5></td>
+                </tr>
+                <tr>
+                  <td><h4>Kategori Publikasi</h4></td>
+                  <td><h5>: {{detail_berkas_prosiding.kategori_publikasi}}</h5></td>
+                </tr>
+                <tr>
+                  <td><h4>Tingkat Publikasi</h4></td>
+                  <td><h5>: {{detail_berkas_prosiding.tingkat_publikasi}}</h5></td>
+                </tr>
+                <tr>
+                  <td><h4>Nomor ISBN</h4></td>
+                  {% if detail_berkas_prosiding.nomor_isbn == None %}
+                      <td><h5>: -</h5></td>
                   {% else %}
-                    <td><h4>:{{detail_berkas_prosiding.penulis_utama_selain}}</h4></td>
+                      <td><h5>: {{detail_berkas_prosiding.nomor_isbn}}</h5></td>
                   {% endif %}
-                {% endif %}
-              </tr>
-              <tr>
-                <td><h3>Penulis Utama</h3></td>
-                {% if detail_berkas_prosiding.penulis_utama != None %}
-                    <td><h4>: {{detail_berkas_prosiding.penulis_utama}}</h4></td>
-                {% else %}
-                    <td><h4>:{{detail_berkas_prosiding.penulis_utama_selain}}</h4></td>
-                {% endif %}
-              </tr>
-              <tr>
-                <td><h3>Penulis Lain</h3></td>
-                <td><h4>: 
-                  {% for penulis in detail_berkas_prosiding.penulis_lain.all %}
-                    {{penulis}},
-                  {% endfor %}
-                  {% for penulis_lain in detail_berkas_prosiding.penulis_selain.all %}
-                    {{penulis_lain}},
-                  {% endfor %}
-                </h4></td>
-              </tr>
-              <tr>
-                <td><h3>Berkas Prosiding</h3></td>
-                <td><a href="{{detail_berkas_prosiding.upload_prosiding.url}}" class="btn btn-primary" target="_blank">Lihat</a></td>
-              </tr>
-              <tr>
-                <td><h3>Berkas Cover</h3></td>
-                <td>
-                    {% if berkas.upload_cover %}
-                        <a href="{{detail_berkas_prosiding.upload_cover.url}}" class="btn btn-primary" target="_blank">Lihat</a>
-                        {% else %}
-                        <button type="button" class="btn btn-warning" disabled>Belum Ada</button>
+                </tr>
+                <tr>
+                  <td><h4>Tahun Terbit</h4></td>
+                  {% if detail_berkas_prosiding.tahun_terbit == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: {{detail_berkas_prosiding.tahun_terbit}}</h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
+                  <td><h4>Penerbit</h4></td>
+                  {% if detail_berkas_prosiding.penerbit == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: {{detail_berkas_prosiding.penerbit}}</h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
+                  <td><h4>URL Repository</h4></td>
+                  {% if detail_berkas_prosiding.url_repository == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: {{detail_berkas_prosiding.url_repository}}</h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
+                  <td><h4>Indeks Prosiding</h4></td>
+                  {% if detail_berkas_prosiding.indeks_prosiding == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: {{detail_berkas_prosiding.indeks_prosiding}}</h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
+                  <td><h4>Corresponding Author</h4></td>
+                  {% if detail_berkas_prosiding.corresponding_author.exist %}
+                    <td><h5>: {{detail_berkas_prosiding.corresponding_author}}</h5></td>
+                  {% elif detail_berkas_prosiding.corresponding_author_selain.exist %}
+                    <td><h5>: {{detail_berkas_prosiding.corresponding_author_selain}}</h5></td>
+                  {% else %}
+                    {% if detail_berkas_prosiding.penulis_utama != None %}
+                      <td><h5>: {{detail_berkas_prosiding.penulis_utama}}</h5></td>
+                    {% else %}
+                      <td><h5>:{{detail_berkas_prosiding.penulis_utama_selain}}</h5></td>
                     {% endif %}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  {% endif %}
+                </tr>
+                <tr>
+                  <td><h4>Penulis Utama</h4></td>
+                  {% if detail_berkas_prosiding.penulis_utama != None %}
+                      <td><h5>: {{detail_berkas_prosiding.penulis_utama}}</h5></td>
+                  {% else %}
+                      <td><h5>:{{detail_berkas_prosiding.penulis_utama_selain}}</h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
+                  <td><h4>Penulis Lain</h4></td>
+                  <td><h5>: 
+                    {% for penulis in detail_berkas_prosiding.penulis_lain.all %}
+                      {{penulis}},
+                    {% endfor %}
+                    {% for penulis_lain in detail_berkas_prosiding.penulis_selain.all %}
+                      {{penulis_lain}},
+                    {% endfor %}
+                  </h5></td>
+                </tr>
+                <tr>
+                  <td><h4>Berkas Prosiding</h4></td>
+                  <td><a href="{{detail_berkas_prosiding.upload_prosiding.url}}" class="btn btn-primary" target="_blank">Lihat</a></td>
+                </tr>
+                <tr>
+                  <td><h4>Berkas Cover</h4></td>
+                  <td>
+                      {% if berkas.upload_cover %}
+                          <a href="{{detail_berkas_prosiding.upload_cover.url}}" class="btn btn-primary" target="_blank">Lihat</a>
+                          {% else %}
+                          <button type="button" class="btn btn-warning" disabled>Belum Ada</button>
+                      {% endif %}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
     </div>
           
 

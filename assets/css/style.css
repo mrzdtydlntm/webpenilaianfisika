@@ -13,6 +13,16 @@ body {
   color: #444444;
 }
 
+.pilihan, li ul{
+  margin: 0;
+  padding-left: 0 !important;
+  list-style: none;
+}
+
+.pilihan li{
+  display: inline-block;
+}
+
 .mh .dropdown-menu {
   max-height: 200px;
 }
@@ -1020,7 +1030,7 @@ section {
 }
 
 .portfolio #portfolio-flters {
-  list-style: none;
+  list-style: unset;
   margin-bottom: 20px;
 }
 
@@ -1030,6 +1040,7 @@ section {
 
 .portfolio #portfolio-flters li {
   cursor: pointer;
+  text-align: center;
   display: inline-block;
   margin: 10px 5px;
   font-size: 15px;
