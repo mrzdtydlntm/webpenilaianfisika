@@ -47,9 +47,12 @@ class ListBerkasJurnalView(LoginRequiredMixin,ListView):
     context_object_name = 'list_berkas_jurnal'
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasJurnal.objects.all()
+    coba = []
+    for berkas in list_berkas:
+        coba.append(berkas.jurnal.id)
     extra_context = {
         'list_user':nama_reviewer,
-        'list_berkas':list_berkas,
+        'list_berkas':coba,
     }
 
     def get_context_data(self, *args, **kwargs):
@@ -140,9 +143,12 @@ class ListBerkasProsidingView(LoginRequiredMixin,ListView):
     context_object_name = 'list_berkas_prosiding'
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasProsiding.objects.all()
+    coba = []
+    for berkas in list_berkas:
+        coba.append(berkas.prosiding.id)
     extra_context = {
         'list_user':nama_reviewer,
-        'list_berkas':list_berkas,
+        'list_berkas':coba,
     }
     def get_context_data(self, *args, **kwargs):
         kwargs.update(self.extra_context)
@@ -226,9 +232,12 @@ class ListBerkasBukuView(LoginRequiredMixin,ListView):
     context_object_name = 'list_berkas_buku'
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasBuku.objects.all()
+    coba = []
+    for berkas in list_berkas:
+        coba.append(berkas.buku.id)
     extra_context = {
         'list_user':nama_reviewer,
-        'list_berkas':list_berkas,
+        'list_berkas':coba,
     }
 
     def get_context_data(self, *args, **kwargs):
@@ -313,9 +322,12 @@ class ListBerkasHakiView(LoginRequiredMixin,ListView):
     context_object_name = 'list_berkas_haki'
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasHaki.objects.all()
+    coba = []
+    for berkas in list_berkas:
+        coba.append(berkas.berkas.id)
     extra_context = {
         'list_user':nama_reviewer,
-        'list_berkas':list_berkas,
+        'list_berkas':coba,
     }
 
     def get_context_data(self, *args, **kwargs):
@@ -378,6 +390,73 @@ class PenulisLainView(CreateView):
     template_name = 'penilaian/tambah_penulis.html'
     success_url = reverse_lazy('home')
 
+################################################################################################################
+############# List khusus reviewer #############
+
+class ListReviewerJurnalView(LoginRequiredMixin,ListView):
+    model = UploadBerkasJurnal
+    template_name = 'penilaian/list_reviewer_jurnal.html'
+    context_object_name = 'list_reviewer_jurnal'
+    nama_reviewer = Reviewer.objects.all()
+    list_berkas = PenilaianBerkasJurnal.objects.all()
+    coba = []
+    for berkas in list_berkas:
+        coba.append(berkas.jurnal.id)
+    extra_context = {
+        'list_user':nama_reviewer,
+        'list_berkas':coba,
+    }
+
+    def get_context_data(self, *args, **kwargs):
+        kwargs.update(self.extra_context)
+        return super().get_context_data(*args, **kwargs)
+
+class ListReviewerProsidingView(LoginRequiredMixin,ListView):
+    model = UploadBerkasProsiding
+    template_name = 'penilaian/list_reviewer_prosiding.html'
+    context_object_name = 'list_reviewer_prosiding'
+    nama_reviewer = Reviewer.objects.all()
+    list_berkas = PenilaianBerkasProsiding.objects.all()
+    extra_context = {
+        'list_user':nama_reviewer,
+        'list_berkas':list_berkas,
+    }
+    def get_context_data(self, *args, **kwargs):
+        kwargs.update(self.extra_context)
+        return super().get_context_data(*args, **kwargs)
+
+class ListReviewerBukuView(LoginRequiredMixin,ListView):
+    model = UploadBerkasBuku
+    template_name = 'penilaian/list_reviewer_buku.html'
+    context_object_name = 'list_reviewer_buku'
+    nama_reviewer = Reviewer.objects.all()
+    list_berkas = PenilaianBerkasBuku.objects.all()
+    extra_context = {
+        'list_user':nama_reviewer,
+        'list_berkas':list_berkas,
+    }
+
+    def get_context_data(self, *args, **kwargs):
+        kwargs.update(self.extra_context)
+        return super().get_context_data(*args, **kwargs)
+
+class ListReviewerHakiView(LoginRequiredMixin,ListView):
+    model = UploadBerkasHaki
+    template_name = 'penilaian/list_reviewer_haki.html'
+    context_object_name = 'list_reviewer_haki'
+    nama_reviewer = Reviewer.objects.all()
+    list_berkas = PenilaianBerkasHaki.objects.all()
+    extra_context = {
+        'list_user':nama_reviewer,
+        'list_berkas':list_berkas,
+    }
+
+    def get_context_data(self, *args, **kwargs):
+        kwargs.update(self.extra_context)
+        return super().get_context_data(*args, **kwargs)
+
+############# END List khusus reviewer #############
+################################################################################################################
 # class AllView(View):
     # def get(self,request):
         # qs_jurnal = UploadBerkasJurnal.objects.all()

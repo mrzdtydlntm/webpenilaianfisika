@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Penilaian</title>
+    {% include 'snippets/style.html' %}
+</head>
+<body>
+  {% include 'snippets/navbar.html' %}
+    <section id="portfolio" class="portfolio">
+      <div class="container" data-aos="fade-up">
+        <br>
+        <div class="section-title">
+          <h2 class="text-white">List Penilaian Jurnal</h2>
+          <p class="text-white">List Jurnal yang Sudah dan Belum Dinilai</p>
+        </div>
+        <ul id="portfolio-flters" class="pilihan d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+          <li><a class="pilihan text-white" href="{% url 'penilaian:list_penilaian_jurnal' %}">Jurnal</a></li>
+          <li><a class="pilihan text-white" href="{% url 'penilaian:list_penilaian_prosiding' %}">Prosiding</a></li>
+          <li><a class="pilihan text-white" href="{% url 'penilaian:list_penilaian_buku' %}">Buku</a></li>
+          <li><a class="pilihan text-white" href="{% url 'penilaian:list_penilaian_haki' %}">HaKI</a></li>
+        </ul>
+      </div>
+    </section><!-- End Portfolio Section -->
+    <br>
+    
+    <div class="container">
+      <div class="scrollmenu">
+        <table class="table" data-aos="zoom-in">
+          <thead>
+            <tr>
+              <th>Judul Artikel</th>
+              <th>Corresponding Author</th>
+              <th>Penulis Utama</th>
+              <th>Detail</th>
+              <th>Status</th>
+              <th>Penilaian</th>
+              {% if user.id == berkas.reviewer.reviewer.id or user.is_superuser %}
+                  <th>Reviewer</th>
+              {% endif %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for berkas in list_reviewer_jurnal %}
+                {% if user.id == berkas.reviewer.reviewer.id or user.is_superuser %}
+                    <tr>
+                        <td>{{berkas.judul_artikel}}</td>
+                        <td>
+                        {% if berkas.corresponding_author != None %}
+                            {{berkas.corresponding_author}}
+                        {% elif berkas_corresponding_author_selain != None %}
+                            {{berkas.corresponding_author_selain}}
+                        {% else %}
+                            {% if berkas.penulis_utama != None %}
+                            {{berkas.penulis_utama}}
+                            {% else %}
+                            {{berkas.penulis_utama_selain}}
+                        {% endif %}
+                        {% endif %}</td>
+                        <td>
+                        {% if berkas.penulis_utama != None %}
+                            {{berkas.penulis_utama}}
+                        {% else %}
+                            {{berkas.penulis_utama_selain}}
+                        {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'penilaian:detail_berkas_jurnal' berkas.slug%}" class="btn btn-primary">Detail</a>
+                        </td>
+                        <td>
+                        {% if berkas.is_verificated == True %}
+                          <button disabled class="btn btn-success">Terverifikasi</button>
+                        {% elif berkas.is_verificated == False %}
+                          <button type="button" class="btn btn-danger">Perlu Revisi</button>
+                        {% else %}
+                          <button type="button" class="btn btn-warning">Belum Verif</button>
+                        {% endif %}
+                        </td>
+                        <td>
+                            {% if berkas.id in list_berkas %}
+                                <button type="button" disabled class="btn btn-success">Sudah</button>
+                            {% else %}
+                                <button type="button" disabled class="btn btn-warning">Belum</button>
+                            {% endif %}
+                                
+                        </td>
+                        {% if user.id == berkas.reviewer.reviewer.id %}
+                            <td>{{berkas.reviewer}}</td>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                        <td>{{berkas.reviewer}}</td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+    
+      
+    {% include 'snippets/script.html' %}
+</body>
+</html>

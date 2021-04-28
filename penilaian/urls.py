@@ -44,7 +44,12 @@ urlpatterns = [
     path('rekap_haki/<slug>/',views.HasilPenilaianHakiView.as_view(), name='rekap_haki'),
     ######### End of Hasil Rekap #########
     path('tambah_penulis/', views.PenulisLainView.as_view(), name='tambah_penulis'),
-    # path('data_json/', views.AllView.as_view(), name='data_json')
+    ######### End of Tambah Penulis #########
+    path('list_penilaian_jurnal/', views.ListReviewerJurnalView.as_view(), name='list_penilaian_jurnal'),
+    path('list_penilaian_prosiding/', views.ListReviewerProsidingView.as_view(), name='list_penilaian_prosiding'),
+    path('list_penilaian_buku/', views.ListReviewerBukuView.as_view(), name='list_penilaian_buku'),
+    path('list_penilaian_haki/', views.ListReviewerHakiView.as_view(), name='list_penilaian_haki'),
+    ######### End of Tambah Penulis #########
 ]
 
 if settings.DEBUG:

@@ -103,8 +103,12 @@
                   <td><h4>Corresponding Author</h4></td>
                   {% if detail_berkas_jurnal.corresponding_author != None %}
                     <td><h5>: {{detail_berkas_jurnal.corresponding_author}}</h5></td>
-                  {% else %}
+                  {% elif detail_berkas_jurnal.corresponding_author_selain != None %}
                     <td><h5>: {{detail_berkas_jurnal.corresponding_author_selain}}</h5></td>
+                  {% elif detail_berkas_jurnal.penulis_utama != None %}
+                    <td><h5>: {{detail_berkas_jurnal.penulis_utama}}</h5></td>
+                  {% else %}
+                    <td><h5>: {{detail_berkas_jurnal.penulis_utama_selain}}</h5></td>
                   {% endif %}
                 </tr>
                 <tr>
@@ -124,7 +128,6 @@
                     {% for penulis_lain in detail_berkas_jurnal.penulis_selain.all %}
                       {{penulis_lain}} <br>
                     {% endfor %}
-                      
                   </h5></td>
                 </tr>
                 <tr>

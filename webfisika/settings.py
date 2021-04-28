@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
-ALLOWED_HOSTS = ['penilaian-fisika.herokuapp.com', 'localhost', '127.0.0.1', '10.96.51.202', 'aplikasi-penilaian.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '10.96.51.202', 'aplikasi-penilaian.herokuapp.com']
 
 
 # Application definition
@@ -90,8 +90,8 @@ DATABASES = {
     }
     
 }
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+# import dj_database_url
+# DATABASES['default'] =  dj_database_url.config()
 
 
 # Password validation

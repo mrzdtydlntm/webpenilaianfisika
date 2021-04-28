@@ -12,7 +12,7 @@ class Users(models.Model):
         return f"{self.users}"
 
 class Reviewer(models.Model):
-    reviewer = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    reviewer = models.CharField(max_length=150, verbose_name='Reviewer')
     nip = models.CharField(max_length=18, verbose_name='Nomor Induk Pegawai', default=None)
     unit_kerja = models.CharField(max_length=100, verbose_name='Unit Kerja')
     bidang_ilmu = models.CharField(max_length=100, verbose_name='Bidang Ilmu')
@@ -65,9 +65,9 @@ class UploadBerkasJurnal(models.Model):
     upload_jurnal = models.FileField(upload_to='jurnal/isi/', verbose_name='Upload Jurnal')
     upload_cover = models.FileField(upload_to='jurnal/cover/', verbose_name='Upload Jurnal (cover)', blank=True, null=True)
     corresponding_author = models.ForeignKey(Users, related_name='user_jurnal_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', null=True, blank=True)
-    corresponding_author_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='ca_selain', null=True, blank=True)
+    corresponding_author_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='ca_selain', null=True, blank=True, verbose_name='Corresponding Author (selain Dosen)')
     penulis_utama = models.ForeignKey(Users, related_name='user_jurnal_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', null=True, blank=True)
-    penulis_utama_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='pu_selain', null=True, blank=True)
+    penulis_utama_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='pu_selain', null=True, blank=True, verbose_name='Penulis Utama (selain Dosen)')
     penulis_lain = models.ManyToManyField(Users, blank=True)
     penulis_selain = models.ManyToManyField(PenulisLain, verbose_name='Penulis Lain Selain Dosen', blank=True)
     plagiasi = models.PositiveIntegerField(verbose_name='Similarity Index', null=True, blank=True)

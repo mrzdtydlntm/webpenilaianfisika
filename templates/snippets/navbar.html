@@ -29,6 +29,8 @@
                     <li><a href="{% url 'penilaian:penilaian_prosiding' %}">Penilaian Prosiding</a></li>
                     <li><a href="{% url 'penilaian:penilaian_buku' %}">Penilaian Buku</a></li>
                     <li><a href="{% url 'penilaian:penilaian_haki' %}">Penilaian Haki</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li><a href="{% url 'penilaian:list_penilaian_jurnal' %}">Tabel Penilaian</a></li>
                   </ul>
                 </li>
               {% elif group.name == 'Reviewer' %}  
@@ -38,6 +40,8 @@
                     <li><a href="{% url 'penilaian:penilaian_prosiding' %}">Penilaian Prosiding</a></li>
                     <li><a href="{% url 'penilaian:penilaian_buku' %}">Penilaian Buku</a></li>
                     <li><a href="{% url 'penilaian:penilaian_haki' %}">Penilaian Haki</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li><a href="{% url 'penilaian:list_penilaian_jurnal' %}">Tabel Penilaian</a></li>
                   </ul>
                 </li>
               {% endif %}
