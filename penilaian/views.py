@@ -48,8 +48,8 @@ class ListBerkasJurnalView(LoginRequiredMixin,ListView):
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasJurnal.objects.all()
     coba = []
-    for berkas in list_berkas:
-        coba.append(berkas.jurnal.id)
+    # for berkas in list_berkas:
+        # coba.append(berkas.jurnal.id)
     extra_context = {
         'list_user':nama_reviewer,
         'list_berkas':coba,
@@ -144,8 +144,8 @@ class ListBerkasProsidingView(LoginRequiredMixin,ListView):
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasProsiding.objects.all()
     coba = []
-    for berkas in list_berkas:
-        coba.append(berkas.prosiding.id)
+    # for berkas in list_berkas:
+        # coba.append(berkas.prosiding.id)
     extra_context = {
         'list_user':nama_reviewer,
         'list_berkas':coba,
@@ -233,8 +233,8 @@ class ListBerkasBukuView(LoginRequiredMixin,ListView):
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasBuku.objects.all()
     coba = []
-    for berkas in list_berkas:
-        coba.append(berkas.buku.id)
+    # for berkas in list_berkas:
+        # coba.append(berkas.buku.id)
     extra_context = {
         'list_user':nama_reviewer,
         'list_berkas':coba,
@@ -323,8 +323,8 @@ class ListBerkasHakiView(LoginRequiredMixin,ListView):
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasHaki.objects.all()
     coba = []
-    for berkas in list_berkas:
-        coba.append(berkas.berkas.id)
+    # for berkas in list_berkas:
+        # coba.append(berkas.berkas.id)
     extra_context = {
         'list_user':nama_reviewer,
         'list_berkas':coba,
@@ -400,8 +400,8 @@ class ListReviewerJurnalView(LoginRequiredMixin,ListView):
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasJurnal.objects.all()
     coba = []
-    for berkas in list_berkas:
-        coba.append(berkas.jurnal.id)
+    # for berkas in list_berkas:
+        # coba.append(berkas.jurnal.id)
     extra_context = {
         'list_user':nama_reviewer,
         'list_berkas':coba,

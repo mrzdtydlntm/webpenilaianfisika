@@ -12,14 +12,15 @@ class Users(models.Model):
         return f"{self.users}"
 
 class Reviewer(models.Model):
-    reviewer = models.CharField(max_length=150, verbose_name='Reviewer')
+    reviewer = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Reviewer')
+    nama_lengkap = models.CharField(max_length=150, verbose_name='Nama Lengkap dan Gelar')
     nip = models.CharField(max_length=18, verbose_name='Nomor Induk Pegawai', default=None)
     unit_kerja = models.CharField(max_length=100, verbose_name='Unit Kerja')
     bidang_ilmu = models.CharField(max_length=100, verbose_name='Bidang Ilmu')
     jabatan_pangkat = models.CharField(max_length=100, verbose_name='Jabatan/Pangkat')
 
     def __str__(self):
-        return f"{self.reviewer}"
+        return f"{self.nama_lengkap}"
 
 class Admin(models.Model):
     admin = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
