@@ -1,19 +1,32 @@
+from os import name
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
 from .models import *
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, View
+from django.views.generic import ListView, CreateView
 from django.contrib.auth.models import User
 from django.urls.base import reverse_lazy
 from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.core import serializers
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 from .utils import render_to_pdf
 from webfisika.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
+from django.contrib import messages
+from django.shortcuts import redirect
 
 # Create your views here.
+
+class ReviewerAccess(UserPassesTestMixin, LoginRequiredMixin):
+    def test_func(self):
+        for reviewer in Reviewer.objects.all():
+            if reviewer.reviewer.id == self.request.user.id or self.request.user.is_superuser:
+                return True
+
+class SuperAdminAccess(UserPassesTestMixin, LoginRequiredMixin):
+    def test_func(self):
+        if self.request.user.is_superuser:
+            return True
 
 class UserView(ListView):
     model = Users
@@ -37,9 +50,15 @@ class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
         nama_jurnal = form.cleaned_data.get('judul_artikel')
         subject = 'Konfirmasi Upload Berkas Jurnal'
         penerima = User.objects.get(pk=1)
-        message = f'Terdapat jurnal bernama {nama_jurnal} telah diupload oleh user. Mohon untuk diperiksa. Terimakasih'
+        usr = self.request.user
+        message = f'Terdapat jurnal berjudul {nama_jurnal} telah diupload oleh {usr}. Mohon untuk diperiksa. Terimakasih'
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
         return super(UploadBerkasJurnalView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        'form is invalid'
+        messages.add_message(self.request,messages.WARNING, f'{form.errors}')
+        return redirect('penilaian:upload_berkas_jurnal')
 
 class ListBerkasJurnalView(LoginRequiredMixin,ListView):
     model = UploadBerkasJurnal
@@ -48,8 +67,8 @@ class ListBerkasJurnalView(LoginRequiredMixin,ListView):
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasJurnal.objects.all()
     coba = []
-    # for berkas in list_berkas:
-        # coba.append(berkas.jurnal.id)
+    for berkas in list_berkas:
+        coba.append(berkas.jurnal.id)
     extra_context = {
         'list_user':nama_reviewer,
         'list_berkas':coba,
@@ -76,7 +95,7 @@ class PlagiasiLinieritasView(LoginRequiredMixin, UpdateView):
     template_name = 'penilaian/plagiasi_linieritas.html'
     success_url = reverse_lazy('penilaian:list_berkas_jurnal')
 
-class VerifikasiBerkasJurnalView(LoginRequiredMixin,UpdateView):
+class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
     model = UploadBerkasJurnal
     form_class = VerifikasiBerkasJurnalForm
     template_name = 'penilaian/verifikasi_berkas_jurnal.html'
@@ -84,16 +103,17 @@ class VerifikasiBerkasJurnalView(LoginRequiredMixin,UpdateView):
     context_object_name = 'verifikasi_jurnal'
 
     def form_valid(self, form):
-        nama_jurnal = form.cleaned_data.get('judul_artikel')
-        reviewer = form.cleaned_data.get('reviewer')
-        review = User.objects.get(first_name=reviewer)
-        subject = 'Konfirmasi Review Jurnal'
-        message = f'Terdapat jurnal dengan judul {nama_jurnal} telah diupload. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
-        # print(message)
-        send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
+        if form.cleaned_data.get('reviewer') != None:
+            nama_jurnal = form.cleaned_data.get('judul_artikel')
+            reviewer = form.cleaned_data.get('reviewer')
+            review = User.objects.get(first_name=reviewer.reviewer)
+            subject = 'Konfirmasi Review Jurnal'
+            message = f'Terdapat jurnal dengan judul {nama_jurnal} telah diverifikasi. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
+            # print(message)
+            send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
         return super(VerifikasiBerkasJurnalView, self).form_valid(form)
 
-class PenilaianBerkasJurnalView(LoginRequiredMixin,CreateView):
+class PenilaianBerkasJurnalView(ReviewerAccess, CreateView):
     model = PenilaianBerkasJurnal
     form_class = PenilaianBerkasJurnalForm
     template_name = 'penilaian/penilaian_berkas_jurnal.html'
@@ -133,9 +153,15 @@ class UploadBerkasProsidingView(LoginRequiredMixin, CreateView):
         nama_prosiding = form.cleaned_data.get('judul_artikel')
         penerima = User.objects.get(pk=1)
         subject = 'Konfirmasi Upload Berkas Prosiding'
-        message = f'Terdapat prosiding bernama {nama_prosiding} telah diupload oleh user. Mohon untuk diperiksa. Terimakasih'
+        usr = self.request.user
+        message = f'Terdapat prosiding berjudul {nama_prosiding} telah diupload oleh {usr}. Mohon untuk diperiksa. Terimakasih'
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
         return super(UploadBerkasProsidingView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        'form is invalid'
+        messages.add_message(self.request,messages.WARNING, f'{form.errors}')
+        return redirect('penilaian:upload_berkas_prosiding')
 
 class ListBerkasProsidingView(LoginRequiredMixin,ListView):
     model = UploadBerkasProsiding
@@ -144,8 +170,8 @@ class ListBerkasProsidingView(LoginRequiredMixin,ListView):
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasProsiding.objects.all()
     coba = []
-    # for berkas in list_berkas:
-        # coba.append(berkas.prosiding.id)
+    for berkas in list_berkas:
+        coba.append(berkas.prosiding.id)
     extra_context = {
         'list_user':nama_reviewer,
         'list_berkas':coba,
@@ -165,7 +191,7 @@ class EditBerkasProsidingView(LoginRequiredMixin, UpdateView):
     template_name = 'penilaian/edit_berkas_prosiding.html'
     success_url = reverse_lazy('penilaian:list_berkas_prosiding')
 
-class VerifikasiBerkasProsidingView(LoginRequiredMixin,UpdateView):
+class VerifikasiBerkasProsidingView(SuperAdminAccess, UpdateView):
     model = UploadBerkasProsiding
     form_class = VerifikasiBerkasProsidingForm
     template_name = 'penilaian/verifikasi_berkas_prosiding.html'
@@ -173,16 +199,17 @@ class VerifikasiBerkasProsidingView(LoginRequiredMixin,UpdateView):
     context_object_name = 'verifikasi_prosiding'
     
     def form_valid(self, form):
-        nama_prosiding = form.cleaned_data.get('judul_artikel')
-        reviewer = form.cleaned_data.get('reviewer')
-        review = User.objects.get(first_name=reviewer)
-        subject = 'Konfirmasi Review Prosiding'
-        message = f'Terdapat prosiding dengan judul {nama_prosiding} telah diupload. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
-        # print(message)
-        send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
+        if form.cleaned_data.get('reviewer') != None:
+            nama_prosiding = form.cleaned_data.get('judul_artikel')
+            reviewer = form.cleaned_data.get('reviewer')
+            review = User.objects.get(first_name=reviewer.reviewer)
+            subject = 'Konfirmasi Review Prosiding'
+            message = f'Terdapat prosiding dengan judul {nama_prosiding} telah diverifikasi. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
+            # print(message)
+            send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
         return super(VerifikasiBerkasProsidingView, self).form_valid(form)
 
-class PenilaianBerkasProsidingView(LoginRequiredMixin,CreateView):
+class PenilaianBerkasProsidingView(ReviewerAccess, CreateView):
     model = PenilaianBerkasProsiding
     form_class = PenilaianBerkasProsidingForm
     template_name = 'penilaian/penilaian_berkas_prosiding.html'
@@ -222,9 +249,15 @@ class UploadBerkasBukuView(LoginRequiredMixin, CreateView):
         nama_buku = form.cleaned_data.get('judul_artikel')
         penerima = User.objects.get(pk=1)
         subject = 'Konfirmasi Upload Berkas Buku'
-        message = f'Terdapat buku bernama {nama_buku} telah diupload oleh user. Mohon untuk diperiksa. Terimakasih'
+        usr = self.request.user
+        message = f'Terdapat buku berjudul {nama_buku} telah diupload oleh {usr}. Mohon untuk diperiksa. Terimakasih'
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
         return super(UploadBerkasBukuView, self).form_valid(form)
+    
+    def form_invalid(self, form):
+        'form is invalid'
+        messages.add_message(self.request,messages.WARNING, f'{form.errors}')
+        return redirect('penilaian:upload_berkas_buku')
 
 class ListBerkasBukuView(LoginRequiredMixin,ListView):
     model = UploadBerkasBuku
@@ -233,8 +266,8 @@ class ListBerkasBukuView(LoginRequiredMixin,ListView):
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasBuku.objects.all()
     coba = []
-    # for berkas in list_berkas:
-        # coba.append(berkas.buku.id)
+    for berkas in list_berkas:
+        coba.append(berkas.buku.id)
     extra_context = {
         'list_user':nama_reviewer,
         'list_berkas':coba,
@@ -255,7 +288,7 @@ class EditBerkasBukuView(LoginRequiredMixin, UpdateView):
     template_name = 'penilaian/edit_berkas_buku.html'
     success_url = reverse_lazy('penilaian:list_berkas_buku')
 
-class VerifikasiBerkasBukuView(LoginRequiredMixin,UpdateView):
+class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
     model = UploadBerkasBuku
     form_class = VerifikasiBerkasBukuForm
     template_name = 'penilaian/verifikasi_berkas_buku.html'
@@ -263,16 +296,17 @@ class VerifikasiBerkasBukuView(LoginRequiredMixin,UpdateView):
     context_object_name = 'verifikasi_buku'
 
     def form_valid(self, form):
-        nama_buku = form.cleaned_data.get('judul')
-        reviewer = form.cleaned_data.get('reviewer')
-        review = User.objects.get(first_name=reviewer)
-        subject = 'Konfirmasi Review Buku'
-        message = f'Terdapat buku dengan judul {nama_buku} telah diupload. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
-        # print(message)
-        send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
+        if form.cleaned_data.get('reviewer') != None:
+            nama_buku = form.cleaned_data.get('judul')
+            reviewer = form.cleaned_data.get('reviewer')
+            review = User.objects.get(first_name=reviewer.reviewer)
+            subject = 'Konfirmasi Review Buku'
+            message = f'Terdapat buku dengan judul {nama_buku} telah diverifikasi. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
+            # print(message)
+            send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
         return super(VerifikasiBerkasBukuView, self).form_valid(form)
 
-class PenilaianBerkasBukuView(LoginRequiredMixin,CreateView):
+class PenilaianBerkasBukuView(ReviewerAccess, CreateView):
     model = PenilaianBerkasBuku
     form_class = PenilaianBerkasBukuForm
     template_name = 'penilaian/penilaian_berkas_buku.html'
@@ -312,9 +346,15 @@ class UploadBerkasHakiView(LoginRequiredMixin, CreateView):
         nama_haki = form.cleaned_data.get('judul_artikel')
         penerima = User.objects.get(pk=1)
         subject = 'Konfirmasi Upload Berkas Haki'
-        message = f'Terdapat berkas haki bernama {nama_haki} telah diupload oleh user. Mohon untuk diperiksa. Terimakasih'
+        usr = self.request.user
+        message = f'Terdapat berkas haki berjudul {nama_haki} telah diupload oleh {usr}. Mohon untuk diperiksa. Terimakasih'
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
         return super(UploadBerkasHakiView, self).form_valid(form)
+    
+    def form_invalid(self, form):
+        'form is invalid'
+        messages.add_message(self.request,messages.WARNING, f'{form.errors}')
+        return redirect('penilaian:upload_berkas_haki')
 
 class ListBerkasHakiView(LoginRequiredMixin,ListView):
     model = UploadBerkasHaki
@@ -323,8 +363,8 @@ class ListBerkasHakiView(LoginRequiredMixin,ListView):
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasHaki.objects.all()
     coba = []
-    # for berkas in list_berkas:
-        # coba.append(berkas.berkas.id)
+    for berkas in list_berkas:
+        coba.append(berkas.berkas.id)
     extra_context = {
         'list_user':nama_reviewer,
         'list_berkas':coba,
@@ -345,7 +385,7 @@ class EditBerkasHakiView(LoginRequiredMixin, UpdateView):
     template_name = 'penilaian/edit_berkas_haki.html'
     success_url = reverse_lazy('penilaian:list_berkas_haki')
 
-class VerifikasiBerkasHakiView(LoginRequiredMixin,UpdateView):
+class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
     model = UploadBerkasHaki
     form_class = VerifikasiBerkasHakiForm
     template_name = 'penilaian/verifikasi_berkas_haki.html'
@@ -353,16 +393,17 @@ class VerifikasiBerkasHakiView(LoginRequiredMixin,UpdateView):
     context_object_name = 'verifikasi_haki'
 
     def form_valid(self, form):
-        nama_haki = form.cleaned_data.get('judul')
-        reviewer = form.cleaned_data.get('reviewer')
-        review = User.objects.get(first_name=reviewer)
-        subject = 'Konfirmasi Review Haki'
-        message = f'Terdapat haki dengan judul {nama_haki} telah diupload. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
-        # print(message)
-        send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
+        if form.cleaned_data.get('reviewer') != None:
+            nama_haki = form.cleaned_data.get('judul')
+            reviewer = form.cleaned_data.get('reviewer')
+            review = User.objects.get(first_name=reviewer.reviewer)
+            subject = 'Konfirmasi Review Haki'
+            message = f'Terdapat haki dengan judul {nama_haki} telah diupload. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
+            # print(message)
+            send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
         return super(VerifikasiBerkasHakiView, self).form_valid(form)
 
-class PenilaianBerkasHakiView(CreateView):
+class PenilaianBerkasHakiView(ReviewerAccess, CreateView):
     model = PenilaianBerkasHaki
     form_class = PenilaianBerkasHakiForm
     template_name = 'penilaian/penilaian_berkas_haki.html'
@@ -400,8 +441,8 @@ class ListReviewerJurnalView(LoginRequiredMixin,ListView):
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasJurnal.objects.all()
     coba = []
-    # for berkas in list_berkas:
-        # coba.append(berkas.jurnal.id)
+    for berkas in list_berkas:
+        coba.append(berkas.jurnal.id)
     extra_context = {
         'list_user':nama_reviewer,
         'list_berkas':coba,
@@ -417,9 +458,12 @@ class ListReviewerProsidingView(LoginRequiredMixin,ListView):
     context_object_name = 'list_reviewer_prosiding'
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasProsiding.objects.all()
+    coba = []
+    for berkas in list_berkas:
+        coba.append(berkas.prosiding.id)
     extra_context = {
         'list_user':nama_reviewer,
-        'list_berkas':list_berkas,
+        'list_berkas':coba,
     }
     def get_context_data(self, *args, **kwargs):
         kwargs.update(self.extra_context)
@@ -431,9 +475,12 @@ class ListReviewerBukuView(LoginRequiredMixin,ListView):
     context_object_name = 'list_reviewer_buku'
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasBuku.objects.all()
+    coba = []
+    for berkas in list_berkas:
+        coba.append(berkas.buku.id)
     extra_context = {
         'list_user':nama_reviewer,
-        'list_berkas':list_berkas,
+        'list_berkas':coba,
     }
 
     def get_context_data(self, *args, **kwargs):
@@ -446,9 +493,12 @@ class ListReviewerHakiView(LoginRequiredMixin,ListView):
     context_object_name = 'list_reviewer_haki'
     nama_reviewer = Reviewer.objects.all()
     list_berkas = PenilaianBerkasHaki.objects.all()
+    coba = []
+    for berkas in list_berkas:
+        coba.append(berkas.berkas.id)
     extra_context = {
         'list_user':nama_reviewer,
-        'list_berkas':list_berkas,
+        'list_berkas':coba,
     }
 
     def get_context_data(self, *args, **kwargs):

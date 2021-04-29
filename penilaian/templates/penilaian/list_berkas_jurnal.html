@@ -86,14 +86,27 @@
                       {% if berkas.plagiasi != None %}
                         <a href="{{berkas.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
                       {% else %}
-                        <a class="btn btn-warning" href="{% url 'penilaian:plagiasi' berkas.pk %}">Belum Ada</a>
+                        {% if berkas.is_verificated %}
+                          <a class="btn btn-warning" href="{% url 'penilaian:plagiasi' berkas.pk %}">Belum Ada</a>
+                        {% else %}
+                          <button disabled class="btn btn-secondary">Belum Verif</button>
+                        {% endif %}
+                          
                       {% endif %}
                     </td>
                     <td>
                       {% if berkas.id in list_berkas %}
-                        <a class="btn btn-primary" href="{% url 'penilaian:rekap_jurnal' berkas.slug %}">Download</a>
+                        {% if berkas.is_verificated %}
+                          <a class="btn btn-primary" href="{% url 'penilaian:rekap_jurnal' berkas.slug %}">Download</a>
+                        {% else %}
+                          <button disabled class="btn btn-warning">Belum Verif</button>
+                        {% endif %}
                       {% else %}
-                        <button disabled class="btn btn-warning">Belum Ada</button>
+                        {% if berkas.is_verificated %}
+                          <button disabled class="btn btn-warning">Belum Ada</button>
+                        {% else %}
+                          <button disabled class="btn btn-secondary">Belum Verif</button>
+                        {% endif %}
                       {% endif %}
                     </td>
                 </tr>

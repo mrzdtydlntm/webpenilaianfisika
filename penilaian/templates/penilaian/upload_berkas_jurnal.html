@@ -13,7 +13,7 @@
         <div class="container" data-aos="fade-up">
           <br>
           <div class="section-title">
-              <h2 class="text-white">Upload Berkas</h2>
+              <h2 class="text-white">Upload Berkas Jurnal</h2>
               <p class="text-white">Harap upload jurnal sesuai persyaratan</p>
             </div>
         </div>
@@ -22,52 +22,60 @@
         <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
             {% csrf_token %}
             <br>
-            <p><label for="id_judul_artikel">Judul Artikel*:</label> <input type="text" name="judul_artikel" class="form-control" maxlength="255" required id="id_judul_artikel"></p>
-            <p><label for="id_jmlh_penulis">Jumlah Penulis*:</label> <input type="text" name="jmlh_penulis" class="form-control" required id="id_jmlh_penulis"></p>
-            <p><label for="id_nama_jurnal">Nama Jurnal*:</label> <input type="text" name="nama_jurnal" class="form-control" maxlength="255" required id="id_nama_jurnal"></p>
-            <p><label for="id_nomor_issn">Nomor ISSN:</label> <input type="text" name="nomor_issn" class="form-control" maxlength="255" id="id_nomor_issn"></p>
-            <p><label for="id_vol_no_bln_thn">Volume/No/Bulan/Tahun:</label> <input type="text" name="vol_no_bln_thn" class="form-control" maxlength="255" id="id_vol_no_bln_thn"></p>
-            <p><label for="id_penerbit">Penerbit:</label> <input type="text" name="penerbit" class="form-control" maxlength="255" id="id_penerbit"></p>
-            <p><label for="id_doi_artikel">DOI Artikel:</label> <input type="text" name="doi_artikel" class="form-control" maxlength="255" id="id_doi_artikel"></p>
-            <p><label for="id_url_jurnal">Link Jurnal:</label> <input type="text" name="url_jurnal" class="form-control" maxlength="150" id="id_url_jurnal"></p>
+            {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            <p><label for="id_judul_artikel">Judul Artikel*:</label> {{form.judul_artikel}}</p>
+            <p><label for="id_jmlh_penulis">Jumlah Penulis*:</label> {{form.jmlh_penulis}}</p>
+            <p><label for="id_nama_jurnal">Nama Jurnal*:</label> {{form.nama_jurnal}}</p>
+            <p><label for="id_nomor_issn">Nomor ISSN:</label> {{form.nomor_issn}}</p>
+            <p><label for="id_vol_no_bln_thn">Volume/No/Bulan/Tahun:</label> {{form.vol_no_bln_thn}}</p>
+            <p><label for="id_penerbit">Nama Penerbit:</label> {{form.penerbit}}</p>
+            <p><label for="id_doi_artikel">DOI Artikel:</label> {{form.doi_artikel}}</p>
+            <p><label for="id_url_jurnal">Link Jurnal:</label> {{form.url_jurnal}}</p>
             <p><label for="id_indeks_jurnal">Indeks Jurnal*:</label>
                 {{form.indeks_jurnal}}
             </p>
-            <p><label for="id_tingkat_jurnal">Tingkat Jurnal:</label> <input type="text" name="tingkat_jurnal" class="form-control" maxlength="100" id="id_tingkat_jurnal"></p>
+            <p><label for="id_tingkat_jurnal">Tingkat Jurnal:</label> {{form.tingkat_jurnal}}</p>
             <p><label for="id_kategori_publikasi">Kategori Publikasi*:</label>
                 {{form.kategori_publikasi}}
             </p>
-            <p><label for="id_upload_jurnal">Upload Jurnal (isi)*:</label> <input type="file" name="upload_jurnal" required id="id_upload_jurnal"></p>
-            <p><label for="id_upload_cover">Upload Jurnal (cover):</label> <input type="file" name="upload_cover" id="id_upload_cover"></p>
+            <p><label for="id_upload_jurnal">Upload Jurnal (isi)*:</label> {{form.upload_jurnal}}</p>
+            <p><label for="id_upload_cover">Upload Jurnal (cover):</label> {{form.upload_cover}}</p>
             <p><label for="id_penulis_utama">Penulis Utama*:</label>
                 {{form.penulis_utama}}
             </p>
             <div class="add-pu">
                 <img style="width: 15px;" src="/assets/img/plus.jpeg" alt="">
-                <small>PU Selain Dosen</small>
-                <div></div>
+                <small>Penulis Utama Selain Dosen</small>
             </div>
             <p class="pu-lain"><label for="id_penulis_utama_selain">Penulis Utama (selain Dosen):</label>
                 {{form.penulis_utama_selain}}
             </p>
+            <br>
             <p><label for="id_corresponding_author">Corresponding Author:</label>
                 {{form.corresponding_author}}
                 <small>Jika Corresponding Author dan Penulis Utama sama, silahkan kosongkan Corresponding Author.</small>
             </p>
             <div class="add-ca">
                 <img style="width: 15px;" src="/assets/img/plus.jpeg" alt="">
-                <small>CA Selain Dosen</small>
+                <small>Corresponding Author Selain Dosen</small>
                 <div></div>
             </div>
             <p class="ca-lain"><label for="id_corresponding_author_selain">Corresponding Author (selain Dosen):</label>
                 {{form.corresponding_author_selain}}
             </p>
+            <br>
             <p><label for="id_penulis_lain">Penulis lain:</label>
                 {{form.penulis_lain}}
             </p>
             <div class="add-penulis">
                 <img style="width: 15px;" src="/assets/img/plus.jpeg" alt="">
-                <small>PL Selain Dosen</small>
+                <small>Penulis Lain Selain Dosen</small>
                 <div></div>
             </div>
             <p class="penulis-lain"><label for="id_penulis_selain">Penulis Selain Dosen:</label>
