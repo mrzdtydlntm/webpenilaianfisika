@@ -103,7 +103,7 @@ class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
         if form.cleaned_data.get('reviewer') != None:
             nama_jurnal = form.cleaned_data.get('judul_artikel')
             reviewer = form.cleaned_data.get('reviewer')
-            review = User.objects.get(first_name=reviewer.reviewer)
+            review = User.objects.get(first_name=reviewer)
             subject = 'Konfirmasi Review Jurnal'
             message = f'Terdapat jurnal dengan judul {nama_jurnal} telah diverifikasi. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
             # print(message)
