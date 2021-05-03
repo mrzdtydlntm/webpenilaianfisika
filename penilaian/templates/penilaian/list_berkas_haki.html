@@ -65,11 +65,11 @@
                       {% endif %}
                     </td>
                     <td>
-                        {% if berkas.id in list_berkas %}
-                          <a class="btn btn-primary" href="{% url 'penilaian:rekap_haki' berkas.slug %}">Download</a>
-                        {% else %}
-                          <button disabled class="btn btn-secondary btn-sm">Belum Ada</button>
-                        {% endif %}
+                        {% for berkus in list_berkas %}
+                            {% if berkas.id == berkus.berkas.id %}
+                              <a href="{% url 'penilaian:rekap_haki' berkas.slug %}" class="btn btn-primary">Download</a>
+                            {% endif %}
+                        {% endfor %} 
                     </td>
                 </tr>
               {% elif berkas.penulis_lain.exists %}
@@ -99,11 +99,11 @@
                         {% endif %}
                       </td>
                       <td>
-                        {% if berkas.id in list_berkas %}
-                          <a class="btn btn-primary" href="{% url 'penilaian:rekap_haki' berkas.slug %}">Download</a>
-                        {% else %}
-                          <button disabled class="btn btn-secondary btn-sm">Belum Ada</button>
-                        {% endif %}
+                        {% for berkus in list_berkas %}
+                            {% if berkas.id == berkus.berkas.id %}
+                              <a href="{% url 'penilaian:rekap_haki' berkas.slug %}" class="btn btn-primary">Download</a>
+                            {% endif %}
+                        {% endfor %} 
                       </td>
                     </tr>
                     {% endif %}

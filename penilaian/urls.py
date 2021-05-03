@@ -49,7 +49,12 @@ urlpatterns = [
     path('list_penilaian_prosiding/', views.ListReviewerProsidingView.as_view(), name='list_penilaian_prosiding'),
     path('list_penilaian_buku/', views.ListReviewerBukuView.as_view(), name='list_penilaian_buku'),
     path('list_penilaian_haki/', views.ListReviewerHakiView.as_view(), name='list_penilaian_haki'),
-    ######### End of Tambah Penulis #########
+    ######### End of Tabel Penilaian #########
+    path('penilaian_jurnal/edit/<slug>', views.PenilaianBerkasJurnalEditView.as_view(), name='edit_penilaian_jurnal'),
+    path('penilaian_prosiding/edit/<slug>', views.PenilaianBerkasProsidingEditView.as_view(), name='edit_penilaian_prosiding'),
+    path('penilaian_buku/edit/<slug>', views.PenilaianBerkasBukuEditView.as_view(), name='edit_penilaian_buku'),
+    path('penilaian_haki/edit/<slug>', views.PenilaianBerkasHakiEditView.as_view(), name='edit_penilaian_haki'),
+    ######### End of Edit Penilaian #########
 ]
 
 if settings.DEBUG:

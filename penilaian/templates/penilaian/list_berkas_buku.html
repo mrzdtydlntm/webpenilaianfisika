@@ -43,7 +43,13 @@
               {% if user.id == berkas.penulis_utama.users.id or user.is_superuser %}
                 <tr>
                     <td>{{berkas.judul}}</td>
-                    <td>{{berkas.penulis_utama}}</td>
+                    <td>
+                    {% if berkas.penulis_utama != None %}
+                      {{berkas.penulis_utama}}
+                    {% elif berkas.penulis_utama == None %}
+                      {{berkas.penulis_utama_selain}}
+                    {% endif %}
+                    </td>
                     <td>
                         <a href="{% url 'penilaian:detail_berkas_buku' berkas.slug%}" class="btn btn-primary" target="_blank">Detail</a>
                     </td>
@@ -65,11 +71,11 @@
                       {% endif %}
                     </td>
                     <td>
-                      {% if berkas.id in list_berkas %}
-                        <a class="btn btn-primary" href="{% url 'penilaian:rekap_buku' berkas.slug %}">Download</a>
-                      {% else %}
-                        <button disabled class="btn btn-warning">Belum ada</button>
-                      {% endif %}
+                      {% for berkus in list_berkas %}
+                        {% if berkas.id == berkus.buku.id %}
+                          <a class="btn btn-primary" href="{% url 'penilaian:rekap_buku' berkas.slug %}">Download</a>
+                        {% endif %}
+                      {% endfor %}
                     </td>
                 </tr>     
               {% elif berkas.penulis_lain.exists %}
@@ -99,11 +105,11 @@
                         {% endif %}
                       </td>
                       <td>
-                        {% if berkas.id in list_berkas %}
-                          <a class="btn btn-primary" href="{% url 'penilaian:rekap_buku' berkas.slug %}">Download</a>
-                        {% else %}
-                          <button disabled class="btn btn-secondary btn-sm">Belum Ada</button>
-                        {% endif %}
+                        {% for berkus in list_berkas %}
+                          {% if berkas.id == berkus.buku.id %}
+                            <a class="btn btn-primary" href="{% url 'penilaian:rekap_buku' berkas.slug %}">Download</a>
+                          {% endif %}
+                        {% endfor %}
                       </td>
                     </tr>
                     {% endif %}

@@ -66,18 +66,16 @@
                         {% endif %}
                         </td>
                         <td>
-                            {% if berkas.id in list_berkas %}
-                                <button type="button" disabled class="btn btn-success">Sudah</button>
-                            {% else %}
-                                <button type="button" disabled class="btn btn-warning">Belum</button>
+                          {% for berkus in list_berkas %}
+                            {% if berkas.id == berkus.berkas.id %}
+                              <a href="{% url 'penilaian:edit_penilaian_haki' berkas.slug %}" class="btn btn-success">Sudah</a>
                             {% endif %}
-                                
+                          {% endfor %} 
                         </td>
-                        {% if user.id == berkas.reviewer.reviewer.id %}
-                            <td>{{berkas.reviewer}}</td>
-                        {% endif %}
-                        {% if user.is_superuser %}
-                        <td>{{berkas.reviewer}}</td>
+                        {% if berkas.reviewer == None %}
+                          <td>Belum Ada</td>
+                        {% elif berkas.reviewer != None %}
+                          <td>{{berkas.reviewer}}</td>
                         {% endif %}
                     </tr>
                 {% endif %}

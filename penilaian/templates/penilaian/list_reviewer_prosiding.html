@@ -37,9 +37,7 @@
               <th>Detail</th>
               <th>Status</th>
               <th>Penilaian</th>
-              {% if user.id == berkas.reviewer.reviewer.id or user.is_superuser %}
-                  <th>Reviewer</th>
-              {% endif %}
+              <th>Reviewer</th>
             </tr>
           </thead>
           <tbody>
@@ -73,25 +71,23 @@
                         {% if berkas.is_verificated == True %}
                           <button disabled class="btn btn-success">Terverifikasi</button>
                         {% elif berkas.is_verificated == False %}
-                          <button type="button" class="btn btn-danger">Perlu Revisi</button>
+                          <button disabled class="btn btn-danger">Perlu Revisi</button>
                         {% else %}
-                          <button type="button" class="btn btn-warning">Belum Verif</button>
+                          <button disabled class="btn btn-warning">Belum Verif</button>
                         {% endif %}
                         </td>
                         <td>
-                            {% if berkas.id in list_berkas %}
-                                <button type="button" disabled class="btn btn-success">Sudah</button>
-                            {% else %}
-                                <button type="button" disabled class="btn btn-warning">Belum</button>
-                            {% endif %}
-                                
+                            {% for berkus in list_berkas %}
+                              {% if berkas.id == berkus.prosiding.id %}
+                                <a href="{% url 'penilaian:edit_penilaian_prosiding' berkas.slug %}" class="btn btn-success">Sudah</a>
+                              {% endif %}
+                            {% endfor %}  
                         </td>
-                        {% if user.id == berkas.reviewer.reviewer.id %}
+                          {% if berkas.reviewer == None %}
+                            <td>Belum Ada</td>
+                          {% elif berkas.reviewer != None %}
                             <td>{{berkas.reviewer}}</td>
-                        {% endif %}
-                        {% if user.is_superuser %}
-                        <td>{{berkas.reviewer}}</td>
-                        {% endif %}
+                          {% endif %}
                     </tr>
                 {% endif %}
             {% endfor %}

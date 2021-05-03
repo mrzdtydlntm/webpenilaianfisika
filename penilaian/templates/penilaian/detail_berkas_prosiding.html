@@ -85,9 +85,9 @@
                 </tr>
                 <tr>
                   <td><h4>Corresponding Author</h4></td>
-                  {% if detail_berkas_prosiding.corresponding_author.exist %}
+                  {% if detail_berkas_prosiding.corresponding_author != None %}
                     <td><h5>: {{detail_berkas_prosiding.corresponding_author}}</h5></td>
-                  {% elif detail_berkas_prosiding.corresponding_author_selain.exist %}
+                  {% elif detail_berkas_prosiding.corresponding_author_selain != None %}
                     <td><h5>: {{detail_berkas_prosiding.corresponding_author_selain}}</h5></td>
                   {% else %}
                     {% if detail_berkas_prosiding.penulis_utama != None %}

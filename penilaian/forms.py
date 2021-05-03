@@ -19,10 +19,10 @@ class UploadBerkasJurnalForm(forms.ModelForm):
             'kategori_publikasi',
             'upload_jurnal',
             'upload_cover',
-            'corresponding_author',
-            'corresponding_author_selain',
             'penulis_utama',
             'penulis_utama_selain',
+            'corresponding_author',
+            'corresponding_author_selain',
             'penulis_lain',
             'penulis_selain',
         ]
@@ -38,10 +38,10 @@ class UploadBerkasJurnalForm(forms.ModelForm):
             'indeks_jurnal':forms.Select(attrs={'class':'form-control'}),
             'tingkat_jurnal':forms.TextInput(attrs={'class':'form-control'}),
             'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
-            'corresponding_author':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
-            'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'corresponding_author':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
         }
@@ -63,10 +63,10 @@ class EditBerkasJurnalForm(forms.ModelForm):
             'kategori_publikasi',
             'upload_jurnal',
             'upload_cover',
-            'corresponding_author',
-            'corresponding_author_selain',
             'penulis_utama',
             'penulis_utama_selain',
+            'corresponding_author',
+            'corresponding_author_selain',
             'penulis_lain',
             'penulis_selain'
         ]
@@ -82,10 +82,10 @@ class EditBerkasJurnalForm(forms.ModelForm):
             'indeks_jurnal':forms.Select(attrs={'class':'form-control'}),
             'tingkat_jurnal':forms.TextInput(attrs={'class':'form-control'}),
             'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
-            'corresponding_author':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
-            'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'corresponding_author':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
         }
@@ -122,10 +122,10 @@ class VerifikasiBerkasJurnalForm(forms.ModelForm):
             'kategori_publikasi',
             'upload_jurnal',
             'upload_cover',
-            'corresponding_author',
-            'corresponding_author_selain',
             'penulis_utama',
             'penulis_utama_selain',
+            'corresponding_author',
+            'corresponding_author_selain',
             'penulis_lain',
             'penulis_selain',
             'is_verificated',
@@ -143,10 +143,10 @@ class VerifikasiBerkasJurnalForm(forms.ModelForm):
             'indeks_jurnal':forms.Select(attrs={'class':'form-control'}),
             'tingkat_jurnal':forms.TextInput(attrs={'class':'form-control'}),
             'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
-            'corresponding_author':forms.Select(attrs={'class':'form-control mh'}),
-            'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama':forms.Select(attrs={'class':'form-control mh'}),
             'penulis_utama_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'corresponding_author':forms.Select(attrs={'class':'form-control mh'}),
+            'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh'}),
             'penulis_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'reviewer':forms.Select(attrs={'class':'form-control mh'}),
@@ -167,14 +167,40 @@ class PenilaianBerkasJurnalForm(forms.ModelForm):
             'cmnt_kualitas_penerbit',
         ]
         widgets = {
-            'jurnal':forms.Select(attrs={'class':'form-control'}),
-            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks'}),
+            'jurnal':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks', 'min':0, 'max':4}),
             'cmnt_unsur_isi':forms.Textarea(attrs={'class':'form-control'}),
-            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
+            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':12}),
             'cmnt_pembahasan':forms.Textarea(attrs={'class':'form-control'}),
-            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
+            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':12}),
             'cmnt_informasi':forms.Textarea(attrs={'class':'form-control'}),
-            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
+            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':12}),
+            'cmnt_kualitas_penerbit':forms.Textarea(attrs={'class':'form-control'}),
+        }
+
+class PenilaianBerkasJurnalEditForm(forms.ModelForm):
+    class Meta:
+        model = PenilaianBerkasJurnal
+        fields = [
+            'jurnal',
+            'unsur_isi',
+            'cmnt_unsur_isi',
+            'pembahasan',
+            'cmnt_pembahasan',
+            'informasi',
+            'cmnt_informasi',
+            'kualitas_penerbit',
+            'cmnt_kualitas_penerbit',
+        ]
+        widgets = {
+            'jurnal':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks', 'min':0, 'max':4}),
+            'cmnt_unsur_isi':forms.Textarea(attrs={'class':'form-control'}),
+            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':12}),
+            'cmnt_pembahasan':forms.Textarea(attrs={'class':'form-control'}),
+            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':12}),
+            'cmnt_informasi':forms.Textarea(attrs={'class':'form-control'}),
+            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':12}),
             'cmnt_kualitas_penerbit':forms.Textarea(attrs={'class':'form-control'}),
         }
 
@@ -196,10 +222,10 @@ class UploadBerkasProsidingForm(forms.ModelForm):
             'tingkat_publikasi',
             'upload_prosiding',
             'upload_cover',
-            'corresponding_author',
-            'corresponding_author_selain',
             'penulis_utama',
             'penulis_utama_selain',
+            'corresponding_author',
+            'corresponding_author_selain',
             'penulis_lain',
             'penulis_selain',
         ]
@@ -214,10 +240,10 @@ class UploadBerkasProsidingForm(forms.ModelForm):
             'indeks_prosiding':forms.Select(attrs={'class':'form-control'}),
             'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
             'tingkat_publikasi':forms.Select(attrs={'class':'form-control mh'}),
-            'corresponding_author':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
-            'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'corresponding_author':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
         }
@@ -238,10 +264,10 @@ class EditBerkasProsidingForm(forms.ModelForm):
             'tingkat_publikasi',
             'upload_prosiding',
             'upload_cover',
-            'corresponding_author',
-            'corresponding_author_selain',
             'penulis_utama',
             'penulis_utama_selain',
+            'corresponding_author',
+            'corresponding_author_selain',
             'penulis_lain',
             'penulis_selain',
         ]
@@ -256,10 +282,10 @@ class EditBerkasProsidingForm(forms.ModelForm):
             'indeks_prosiding':forms.Select(attrs={'class':'form-control'}),
             'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
             'tingkat_publikasi':forms.Select(attrs={'class':'form-control mh'}),
-            'corresponding_author':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
-            'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'corresponding_author':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
         }
@@ -280,10 +306,10 @@ class VerifikasiBerkasProsidingForm(forms.ModelForm):
             'tingkat_publikasi',
             'upload_prosiding',
             'upload_cover',
-            'corresponding_author',
-            'corresponding_author_selain',
             'penulis_utama',
             'penulis_utama_selain',
+            'corresponding_author',
+            'corresponding_author_selain',
             'penulis_lain',
             'penulis_selain',
             'is_verificated',
@@ -300,10 +326,10 @@ class VerifikasiBerkasProsidingForm(forms.ModelForm):
             'indeks_prosiding':forms.TextInput(attrs={'class':'form-control'}),
             'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
             'tingkat_publikasi':forms.Select(attrs={'class':'form-control mh'}),
-            'corresponding_author':forms.Select(attrs={'class':'form-control mh'}),
-            'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'corresponding_author':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
         }
@@ -323,14 +349,40 @@ class PenilaianBerkasProsidingForm(forms.ModelForm):
             'cmnt_kualitas_penerbit',
         ]
         widgets = {
-            'prosiding':forms.Select(attrs={'class':'form-control'}),
-            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks'}),
+            'prosiding':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks', 'min':0, 'max':3}),
             'cmnt_unsur_isi':forms.Textarea(attrs={'class':'form-control'}),
-            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
+            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':9}),
             'cmnt_pembahasan':forms.Textarea(attrs={'class':'form-control'}),
-            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
+            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':9}),
             'cmnt_informasi':forms.Textarea(attrs={'class':'form-control'}),
-            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
+            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':9}),
+            'cmnt_kualitas_penerbit':forms.Textarea(attrs={'class':'form-control'}),
+        }
+
+class PenilaianBerkasProsidingEditForm(forms.ModelForm):
+    class Meta:
+        model = PenilaianBerkasProsiding
+        fields = [
+            'prosiding',
+            'unsur_isi',
+            'cmnt_unsur_isi',
+            'pembahasan',
+            'cmnt_pembahasan',
+            'informasi',
+            'cmnt_informasi',
+            'kualitas_penerbit',
+            'cmnt_kualitas_penerbit',
+        ]
+        widgets = {
+            'prosiding':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks', 'min':0, 'max':3}),
+            'cmnt_unsur_isi':forms.Textarea(attrs={'class':'form-control'}),
+            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':9}),
+            'cmnt_pembahasan':forms.Textarea(attrs={'class':'form-control'}),
+            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':9}),
+            'cmnt_informasi':forms.Textarea(attrs={'class':'form-control'}),
+            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':9}),
             'cmnt_kualitas_penerbit':forms.Textarea(attrs={'class':'form-control'}),
         }
 
@@ -468,14 +520,40 @@ class PenilaianBerkasBukuForm(forms.ModelForm):
             'cmnt_kualitas_penerbit',
         ]
         widgets = {
-            'buku':forms.Select(attrs={'class':'form-control'}),
-            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks'}),
+            'buku':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks', 'min':0, 'max':4}),
             'cmnt_unsur_isi':forms.Textarea(attrs={'class':'form-control'}),
-            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
+            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':12}),
             'cmnt_pembahasan':forms.Textarea(attrs={'class':'form-control'}),
-            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
+            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':12}),
             'cmnt_informasi':forms.Textarea(attrs={'class':'form-control'}),
-            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
+            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':12}),
+            'cmnt_kualitas_penerbit':forms.Textarea(attrs={'class':'form-control'}),
+        }
+
+class PenilaianBerkasBukuEditForm(forms.ModelForm):
+    class Meta:
+        model = PenilaianBerkasBuku
+        fields = [
+            'buku',
+            'unsur_isi',
+            'cmnt_unsur_isi',
+            'pembahasan',
+            'cmnt_pembahasan',
+            'informasi',
+            'cmnt_informasi',
+            'kualitas_penerbit',
+            'cmnt_kualitas_penerbit',
+        ]
+        widgets = {
+            'buku':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks', 'min':0, 'max':4}),
+            'cmnt_unsur_isi':forms.Textarea(attrs={'class':'form-control'}),
+            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':12}),
+            'cmnt_pembahasan':forms.Textarea(attrs={'class':'form-control'}),
+            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':12}),
+            'cmnt_informasi':forms.Textarea(attrs={'class':'form-control'}),
+            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':12}),
             'cmnt_kualitas_penerbit':forms.Textarea(attrs={'class':'form-control'}),
         }
 
@@ -503,7 +581,7 @@ class UploadBerkasHakiForm(forms.ModelForm):
         widgets = {
             'judul':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
-            'jenis_haki':forms.TextInput(attrs={'class':'form-control'}),
+            'jenis_haki':forms.Select(attrs={'class':'form-control'}),
             'nomor_paten':forms.TextInput(attrs={'class':'form-control'}),
             'tanggal':forms.TextInput(attrs={'class':'form-control'}),
             'penerbit':forms.TextInput(attrs={'class':'form-control'}),
@@ -538,7 +616,7 @@ class EditBerkasHakiForm(forms.ModelForm):
         widgets = {
             'judul':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
-            'jenis_haki':forms.TextInput(attrs={'class':'form-control'}),
+            'jenis_haki':forms.Select(attrs={'class':'form-control'}),
             'nomor_paten':forms.TextInput(attrs={'class':'form-control'}),
             'tanggal':forms.TextInput(attrs={'class':'form-control'}),
             'penerbit':forms.TextInput(attrs={'class':'form-control'}),
@@ -575,7 +653,7 @@ class VerifikasiBerkasHakiForm(forms.ModelForm):
         widgets = {
             'judul':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
-            'jenis_haki':forms.TextInput(attrs={'class':'form-control'}),
+            'jenis_haki':forms.Select(attrs={'class':'form-control'}),
             'nomor_paten':forms.TextInput(attrs={'class':'form-control'}),
             'tanggal':forms.TextInput(attrs={'class':'form-control'}),
             'penerbit':forms.TextInput(attrs={'class':'form-control'}),
@@ -604,14 +682,40 @@ class PenilaianBerkasHakiForm(forms.ModelForm):
             'cmnt_kualitas_penerbit',
         ]
         widgets = {
-            'berkas':forms.Select(attrs={'class':'form-control'}),
-            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks'}),
+            'berkas':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks', 'min':0, 'max':6}),
             'cmnt_unsur_isi':forms.Textarea(attrs={'class':'form-control'}),
-            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
+            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':18}),
             'cmnt_pembahasan':forms.Textarea(attrs={'class':'form-control'}),
-            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
+            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':18}),
             'cmnt_informasi':forms.Textarea(attrs={'class':'form-control'}),
-            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks'}),
+            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':18}),
+            'cmnt_kualitas_penerbit':forms.Textarea(attrs={'class':'form-control'}),
+        }
+
+class PenilaianBerkasHakiEditForm(forms.ModelForm):
+    class Meta:
+        model = PenilaianBerkasHaki
+        fields = [
+            'berkas',
+            'unsur_isi',
+            'cmnt_unsur_isi',
+            'pembahasan',
+            'cmnt_pembahasan',
+            'informasi',
+            'cmnt_informasi',
+            'kualitas_penerbit',
+            'cmnt_kualitas_penerbit',
+        ]
+        widgets = {
+            'berkas':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'unsur_isi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 10% dari nilai maks', 'min':0, 'max':6}),
+            'cmnt_unsur_isi':forms.Textarea(attrs={'class':'form-control'}),
+            'pembahasan':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':18}),
+            'cmnt_pembahasan':forms.Textarea(attrs={'class':'form-control'}),
+            'informasi':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':18}),
+            'cmnt_informasi':forms.Textarea(attrs={'class':'form-control'}),
+            'kualitas_penerbit':forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Bobot 30% dari nilai maks', 'min':0, 'max':18}),
             'cmnt_kualitas_penerbit':forms.Textarea(attrs={'class':'form-control'}),
         }
     
