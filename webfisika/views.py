@@ -1,7 +1,6 @@
 from django.shortcuts import redirect, render
 from django.views.generic.base import TemplateView
 from django.contrib.auth import authenticate, login, logout
-from penilaian.models import Reviewer, Admin
 
 class IndexHomeView(TemplateView):
     template_name = 'index.html'
