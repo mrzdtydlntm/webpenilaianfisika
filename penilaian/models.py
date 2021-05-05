@@ -136,7 +136,7 @@ class UploadBerkasProsiding(models.Model):
     is_verificated = models.BooleanField(default=None, blank=True, null=True)
     reviewer = models.ForeignKey(Reviewer, related_name='user_prosiding_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(blank=True, editable=False, unique=True)
+    slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
 
     def __str__(self):
         return f"{self.judul_artikel}"
@@ -173,7 +173,7 @@ class UploadBerkasBuku(models.Model):
     is_verificated = models.BooleanField(default=None, blank=True, null=True)
     reviewer = models.ForeignKey(Reviewer, related_name='user_buku_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(blank=True, editable=False, unique=True)
+    slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
 
     def __str__(self):
         return f"{self.judul}"
@@ -222,7 +222,7 @@ class UploadBerkasHaki(models.Model):
     is_verificated = models.BooleanField(default=None, blank=True, null=True)
     reviewer = models.ForeignKey(Reviewer, related_name='user_haki_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(blank=True, editable=False, unique=True)
+    slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
 
     def __str__(self):
         return f"{self.judul}"
@@ -251,7 +251,7 @@ class PenilaianBerkasJurnal(models.Model):
     nilai_pl = models.FloatField(verbose_name='Nilai Penulis Lainnya', blank=True, null=True)
     jmlh_penulis_lain = models.PositiveIntegerField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(blank=True, editable=False, unique=True)
+    slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
 
     def __str__(self):
         return f"{self.jurnal}"
@@ -300,7 +300,7 @@ class PenilaianBerkasProsiding(models.Model):
     nilai_pl = models.FloatField(verbose_name='Nilai Penulis Lainnya', blank=True, null=True)
     jmlh_penulis_lain = models.PositiveIntegerField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(blank=True, editable=False, unique=True)
+    slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
 
     def __str__(self):
         return f"{self.prosiding}"
@@ -348,7 +348,7 @@ class PenilaianBerkasBuku(models.Model):
     nilai_pl = models.FloatField(verbose_name='Nilai Penulis Lainnya', blank=True, null=True)
     jmlh_penulis_lain = models.PositiveIntegerField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(blank=True, editable=False, unique=True)
+    slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
 
     def __str__(self):
         return f"{self.buku}"
@@ -384,7 +384,7 @@ class PenilaianBerkasHaki(models.Model):
     nilai_pl = models.FloatField(verbose_name='Nilai Pemegang Berkas Lainnya', blank=True, null=True)
     jmlh_penulis_lain = models.PositiveIntegerField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(blank=True, editable=False, unique=True)
+    slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
 
     def __str__(self):
         return f"{self.berkas}"
