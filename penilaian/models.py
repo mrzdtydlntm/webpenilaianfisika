@@ -35,6 +35,7 @@ class PenulisLain(models.Model):
         return f"{self.penulis}"
 
 class UploadBerkasJurnal(models.Model):
+    pengusul = models.ForeignKey(User, related_name='user_pengusul_jurnal', on_delete=models.CASCADE, verbose_name='Pengusul')
     judul_artikel = models.CharField(max_length=255, verbose_name='Judul Artikel', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
     nama_jurnal = models.CharField(max_length=255, verbose_name='Nama Jurnal')
@@ -95,6 +96,7 @@ class UploadBerkasJurnal(models.Model):
         
 
 class UploadBerkasProsiding(models.Model):
+    pengusul = models.ForeignKey(User, related_name='user_pengusul_prosiding', on_delete=models.CASCADE, verbose_name='Pengusul')
     judul_artikel = models.CharField(max_length=255, verbose_name='Judul Artikel', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
     nama_prosiding = models.CharField(max_length=255, verbose_name='Nama Prosiding', null=True, blank=True)
@@ -148,6 +150,7 @@ class UploadBerkasProsiding(models.Model):
         return reverse('penilaian:detail_berkas_prosiding', kwargs= url_slug)
 
 class UploadBerkasBuku(models.Model):
+    pengusul = models.ForeignKey(User, related_name='user_pengusul_buku', on_delete=models.CASCADE, verbose_name='Pengusul')
     judul = models.CharField(max_length=255, verbose_name='Judul Buku')
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
     nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', unique=True)
@@ -184,6 +187,7 @@ class UploadBerkasBuku(models.Model):
         return reverse('penilaian:detail_berkas_buku', kwargs= url_slug)
 
 class UploadBerkasHaki(models.Model):
+    pengusul = models.ForeignKey(User, related_name='user_pengusul_haki', on_delete=models.CASCADE, verbose_name='Pengusul')
     judul = models.CharField(max_length=255, verbose_name='Nama Berkas', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Pemegang Berkas')
     jenis = [

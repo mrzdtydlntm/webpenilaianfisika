@@ -27,6 +27,9 @@
             p{
                 margin-bottom: 1px;
             }
+            .break{
+                page-break-before: always;
+            }
             .bordernilai {
                 border-collapse: collapse;
                 border: 1px solid black;
@@ -330,13 +333,12 @@
                             <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small></td>
                     </tr>
                 </table>
-                <br>
             </div>
-            <br><br><br><br>
             <!-- End of PU -->
         {% endif %}
         {% if rekap_haki.berkas.penulis_lain.all.exists %}
             {% for penuliss in rekap_haki.berkas.penulis_lain.all %}
+                <div class="break"></div>
                 <table style="width: 100%;" class="judul">
                     <tr>
                         <th style="text-align: right;">Lampiran 6</th>
@@ -617,9 +619,7 @@
                                 <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small></td>
                         </tr>
                     </table>
-                    <br>
                 </div>
-                <br><br><br><br>
                 <!-- End of PL -->
             {% endfor %}
         {% endif %}
@@ -908,7 +908,6 @@
                         <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small></td>
                 </tr>
             </table>
-            <br>
         </div>
     {% elif rekap_haki.berkas.penulis_lain.all.exists %}
         {% for penuliss in rekap_haki.berkas.penulis_lain.all %}
@@ -1193,7 +1192,6 @@
                                 <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small></td>
                         </tr>
                     </table>
-                    <br>
                 </div>
             {% endif %}
         {% endfor %}

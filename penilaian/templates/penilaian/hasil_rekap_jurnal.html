@@ -24,6 +24,9 @@
             p{
                 margin-bottom: 1px;
             }
+            .break{
+                page-break-before: always;
+            }
             .bordernilai {
                 border-collapse: collapse;
                 border: 1px solid black;
@@ -364,10 +367,10 @@
                             <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small></td>
                     </tr>
                 </table>
-                <br>
             </div>
             {% endif %}
-            {% if corresponding_author != None %}
+            {% if rekap_jurnal.jurnal.corresponding_author != None %}
+                <div class="break"></div>
                 <table style="width: 100%;" class="judul">
                     <tr>
                         <th style="text-align: right;">Lampiran 6</th>
@@ -687,10 +690,10 @@
                                 <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small></td>
                         </tr>
                     </table>
-                    <br>
                 </div>
             {% endif %}
             {% for penuliss in rekap_jurnal.jurnal.penulis_lain.all %}
+                <div class="break"></div>
                 <table style="width: 100%;" class="judul">
                     <tr>
                         <th style="text-align: right;">Lampiran 6</th>
@@ -1014,7 +1017,6 @@
                                 <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small></td>
                         </tr>
                     </table>
-                    <br>
                 </div>
             {% endfor %}
         {% endif %}
@@ -1338,7 +1340,6 @@
                             <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small></td>
                     </tr>
                 </table>
-                <br>
             </div>
         {% elif usrlogin.id == rekap_jurnal.jurnal.corresponding_author.users.id %}
             <table style="width: 100%;" class="judul">
@@ -1660,7 +1661,6 @@
                             <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small></td>
                     </tr>
                 </table>
-                <br>
             </div>
         {% elif rekap_jurnal.jurnal.penulis_lain.all.exists %}
             {% for penuliss in rekap_jurnal.jurnal.penulis_lain.all %}
@@ -1988,7 +1988,6 @@
                                     <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small></td>
                             </tr>
                         </table>
-                        <br>
                     </div>
                 {% endif %}
             {% endfor %}

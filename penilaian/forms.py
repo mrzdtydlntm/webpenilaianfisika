@@ -6,6 +6,7 @@ class UploadBerkasJurnalForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasJurnal
         fields = [
+            'pengusul',
             'judul_artikel',
             'jmlh_penulis',
             'nama_jurnal',
@@ -27,6 +28,7 @@ class UploadBerkasJurnalForm(forms.ModelForm):
             'penulis_selain',
         ]
         widgets = {
+            'pengusul':forms.Select(attrs={'class':'form-control mh'}),
             'judul_artikel':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
             'nama_jurnal':forms.TextInput(attrs={'class':'form-control'}),
@@ -109,6 +111,7 @@ class VerifikasiBerkasJurnalForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasJurnal
         fields = [
+            'pengusul',
             'judul_artikel',
             'jmlh_penulis',
             'nama_jurnal',
@@ -132,6 +135,7 @@ class VerifikasiBerkasJurnalForm(forms.ModelForm):
             'reviewer'
         ]
         widgets = {
+            'pengusul':forms.Select(attrs={'class':'form-control mh'}),
             'judul_artikel':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
             'nama_jurnal':forms.TextInput(attrs={'class':'form-control'}),
@@ -210,6 +214,7 @@ class UploadBerkasProsidingForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasProsiding
         fields = [
+            'pengusul',
             'judul_artikel',
             'jmlh_penulis',
             'nama_prosiding',
@@ -230,6 +235,7 @@ class UploadBerkasProsidingForm(forms.ModelForm):
             'penulis_selain',
         ]
         widgets = {
+            'pengusul':forms.Select(attrs={'class':'form-control mh'}),
             'judul_artikel':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
             'nama_prosiding':forms.TextInput(attrs={'class':'form-control'}),
@@ -294,6 +300,7 @@ class VerifikasiBerkasProsidingForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasProsiding
         fields = [
+            'pengusul',
             'judul_artikel',
             'jmlh_penulis',
             'nama_prosiding',
@@ -316,6 +323,7 @@ class VerifikasiBerkasProsidingForm(forms.ModelForm):
             'reviewer'
         ]
         widgets = {
+            'pengusul':forms.Select(attrs={'class':'form-control mh'}),
             'judul_artikel':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
             'nama_prosiding':forms.TextInput(attrs={'class':'form-control'}),
@@ -392,6 +400,7 @@ class UploadBerkasBukuForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasBuku
         fields = [
+            'pengusul',
             'judul',
             'jmlh_penulis',
             'nomor_isbn',
@@ -407,6 +416,7 @@ class UploadBerkasBukuForm(forms.ModelForm):
             'penulis_lain_selain',
         ]
         widgets = {
+            'pengusul':forms.Select(attrs={'class':'form-control mh'}),
             'judul':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
             'nomor_isbn':forms.TextInput(attrs={'class':'form-control'}),
@@ -468,6 +478,7 @@ class VerifikasiBerkasBukuForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasBuku
         fields = [
+            'pengusul',
             'judul',
             'jmlh_penulis',
             'nomor_isbn',
@@ -485,6 +496,7 @@ class VerifikasiBerkasBukuForm(forms.ModelForm):
             'reviewer'
         ]
         widgets = {
+            'pengusul':forms.Select(attrs={'class':'form-control mh'}),
             'judul':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
             'nomor_isbn':forms.TextInput(attrs={'class':'form-control'}),
@@ -563,6 +575,7 @@ class UploadBerkasHakiForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasHaki
         fields = [
+            'pengusul',
             'judul',
             'jmlh_penulis',
             'jenis_haki',
@@ -579,6 +592,7 @@ class UploadBerkasHakiForm(forms.ModelForm):
             'pemegang_berkas_selain',
         ]
         widgets = {
+            'pengusul':forms.Select(attrs={'class':'form-control mh'}),
             'judul':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
             'jenis_haki':forms.Select(attrs={'class':'form-control'}),
@@ -633,6 +647,7 @@ class VerifikasiBerkasHakiForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasHaki
         fields = [
+            'pengusul',
             'judul',
             'jmlh_penulis',
             'jenis_haki',
@@ -651,6 +666,7 @@ class VerifikasiBerkasHakiForm(forms.ModelForm):
             'reviewer'
         ]
         widgets = {
+            'pengusul':forms.Select(attrs={'class':'form-control mh'}),
             'judul':forms.TextInput(attrs={'class':'form-control'}),
             'jmlh_penulis':forms.TextInput(attrs={'class':'form-control'}),
             'jenis_haki':forms.Select(attrs={'class':'form-control'}),
