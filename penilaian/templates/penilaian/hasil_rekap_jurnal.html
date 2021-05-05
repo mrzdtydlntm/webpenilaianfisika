@@ -312,7 +312,7 @@
                             40%
                         {% endif %}
                              x ({{rekap_jurnal.total}})</td>
-                        <td>{{rekap_jurnal.nilai_pu}}</td>
+                        <td>{{rekap_jurnal.nilai_pu|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td colspan="9">KOMENTAR/ULASAN PEER REVIEW</td>
@@ -635,7 +635,7 @@
                                 40%
                             {% endif %}
                                 x ({{rekap_jurnal.total}})</td>
-                            <td>{{rekap_jurnal.nilai_ca}}</td>
+                            <td>{{rekap_jurnal.nilai_ca|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td colspan="9">KOMENTAR/ULASAN PEER REVIEW</td>
@@ -962,7 +962,7 @@
                                 20%
                             {% endif %}
                                 x ({{rekap_jurnal.total}}/{{rekap_jurnal.jmlh_penulis_lain}})</td>
-                            <td>{{rekap_jurnal.nilai_pl}}</td>
+                            <td>{{rekap_jurnal.nilai_pl|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td colspan="9">KOMENTAR/ULASAN PEER REVIEW</td>
@@ -1285,7 +1285,7 @@
                             40%
                         {% endif %}
                             x ({{rekap_jurnal.total}})</td>
-                        <td>{{rekap_jurnal.nilai_pu}}</td>
+                        <td>{{rekap_jurnal.nilai_pu|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td colspan="9">KOMENTAR/ULASAN PEER REVIEW</td>
@@ -1606,7 +1606,7 @@
                             40%
                         {% endif %}
                             x ({{rekap_jurnal.total}})</td>
-                        <td>{{rekap_jurnal.nilai_ca}}</td>
+                        <td>{{rekap_jurnal.nilai_ca|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td colspan="9">KOMENTAR/ULASAN PEER REVIEW</td>
@@ -1933,7 +1933,7 @@
                                     20%
                                 {% endif %}
                                     x ({{rekap_jurnal.total}}/{{rekap_jurnal.jmlh_penulis_lain}})</td>
-                                <td>{{rekap_jurnal.nilai_pl}}</td>
+                                <td>{{rekap_jurnal.nilai_pl|floatformat}}</td>
                             </tr>
                             <tr class="bordernilai">
                                 <td colspan="9">KOMENTAR/ULASAN PEER REVIEW</td>
