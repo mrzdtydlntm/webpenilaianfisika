@@ -95,11 +95,9 @@
                       {% endif %}
                     </td>
                     <td>
-                      {% for berkus in list_berkas %}
-                        {% if berkas.id == berkus.jurnal.id %}
-                          <a class="btn btn-primary" href="{% url 'penilaian:rekap_jurnal' berkas.slug %}">Download</a>
-                        {% endif %}
-                      {% endfor %}
+                      {% if berkas.is_verificated %}
+                      <a class="btn btn-primary" href="{% url 'penilaian:rekap_jurnal' berkas.slug %}">Download</a>
+                      {% endif %}
                     </td>
                 </tr>
               {% elif berkas.penulis_lain.exists %}
@@ -152,11 +150,9 @@
                         {% endif %}
                       </td>
                       <td>
-                        {% for berkus in list_berkas %}
-                          {% if berkas.id == berkus.jurnal.id %}
-                            <a class="btn btn-primary" href="{% url 'penilaian:rekap_jurnal' berkas.slug %}">Download</a>
-                          {% endif %}
-                        {% endfor %}
+                        {% if berkas.is_verificated %}
+                          <a class="btn btn-primary" href="{% url 'penilaian:rekap_jurnal' berkas.slug %}">Download</a>
+                        {% endif %}
                       </td>
                     </tr>
                   {% endif %}
