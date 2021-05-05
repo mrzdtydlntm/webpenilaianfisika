@@ -81,7 +81,7 @@ class UploadBerkasJurnal(models.Model):
     is_verificated = models.BooleanField(default=None, blank=True, null=True)
     reviewer = models.ForeignKey(Reviewer, related_name='user_jurnal_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
-    slug = models.SlugField(blank=True, editable=False, unique=True)
+    slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
 
     def __str__(self):
         return f"{self.judul_artikel}"
