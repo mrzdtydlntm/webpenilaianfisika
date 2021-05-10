@@ -46,7 +46,7 @@
                 text-align: center;
             }
     </style>
-    <title>Lembar</title>
+    <title>Lembar Penilaian</title>
 </head>
 <body>
     {% if usrlogin.is_superuser %}
@@ -297,7 +297,11 @@
                         {% if rekap_prosiding.prosiding.corresponding_author == None %}
                             60%
                         {% elif rekap_prosiding.prosiding.corresponding_author != None %}
-                            40%
+                            {% if rekap_prosiding.prosiding.penulis_lain.all.exists %}
+                                40%
+                            {% elif rekap_prosiding.prosiding.penulis_lain.all.exists == False %}
+                                50%
+                            {% endif %}
                         {% endif %}
                             x ({{rekap_prosiding.total}})</td>
                         <td colspan="2" style="text-align: center;">{{rekap_prosiding.nilai_pu|floatformat}}</td>
@@ -606,7 +610,11 @@
                         {% if rekap_prosiding.prosiding.corresponding_author == None %}
                             60%
                         {% elif rekap_prosiding.prosiding.corresponding_author != None %}
-                            40%
+                            {% if rekap_prosiding.prosiding.penulis_lain.all.exists %}
+                                40%
+                            {% elif rekap_prosiding.prosiding.penulis_lain.all.exists == False %}
+                                50%
+                            {% endif %}
                         {% endif %}
                             x ({{rekap_prosiding.total}})</td>
                         <td colspan="2" style="text-align: center;">{{rekap_prosiding.nilai_ca|floatformat}}</td>
@@ -1227,7 +1235,11 @@
                         {% if rekap_prosiding.prosiding.corresponding_author == None %}
                             60%
                         {% elif rekap_prosiding.prosiding.corresponding_author != None %}
-                            40%
+                            {% if rekap_prosiding.prosiding.penulis_lain.all.exists %}
+                                40%
+                            {% elif rekap_prosiding.prosiding.penulis_lain.all.exists == False %}
+                                50%
+                            {% endif %}
                         {% endif %}
                             x ({{rekap_prosiding.total}})</td>
                         <td colspan="2" style="text-align: center;">{{rekap_prosiding.nilai_pu|floatformat}}</td>
@@ -1533,7 +1545,11 @@
                     {% if rekap_prosiding.prosiding.corresponding_author == None %}
                         60%
                     {% elif rekap_prosiding.prosiding.corresponding_author != None %}
-                        40%
+                        {% if rekap_prosiding.prosiding.penulis_lain.all.exists %}
+                            40%
+                        {% elif rekap_prosiding.prosiding.penulis_lain.all.exists == False %}
+                            50%
+                        {% endif %}
                     {% endif %}
                         x ({{rekap_prosiding.total}})</td>
                     <td colspan="2" style="text-align: center;">{{rekap_prosiding.nilai_ca|floatformat}}</td>

@@ -43,7 +43,7 @@
                 text-align: center;
             }
     </style>
-    <title>Lembar</title>
+    <title>Lembar Penilaian</title>
 </head>
     <body>
         {% if usrlogin.is_superuser %}
@@ -309,7 +309,11 @@
                         {% if rekap_jurnal.jurnal.corresponding_author == None %}
                             60%
                         {% elif rekap_jurnal.jurnal.corresponding_author != None %}
-                            40%
+                            {% if rekap_jurnal.jurnal.penulis_lain.all.exists %}
+                                40%
+                            {% elif rekap_jurnal.jurnal.penulis_lain.all.exists == False %}
+                                50%
+                            {% endif %}
                         {% endif %}
                              x ({{rekap_jurnal.total}})</td>
                         <td>{{rekap_jurnal.nilai_pu|floatformat}}</td>
@@ -632,7 +636,11 @@
                             {% if rekap_jurnal.jurnal.corresponding_author == None %}
                                 60%
                             {% elif rekap_jurnal.jurnal.corresponding_author != None %}
-                                40%
+                                {% if rekap_jurnal.jurnal.penulis_lain.all.exists %}
+                                    40%
+                                {% elif rekap_jurnal.jurnal.penulis_lain.all.exists == False %}
+                                    50%
+                                {% endif %}
                             {% endif %}
                                 x ({{rekap_jurnal.total}})</td>
                             <td>{{rekap_jurnal.nilai_ca|floatformat}}</td>
@@ -1282,7 +1290,11 @@
                         {% if rekap_jurnal.jurnal.corresponding_author == None %}
                             60%
                         {% elif rekap_jurnal.jurnal.corresponding_author != None %}
-                            40%
+                            {% if rekap_jurnal.jurnal.penulis_lain.all.exists %}
+                                40%
+                            {% elif rekap_jurnal.jurnal.penulis_lain.all.exists == False %}
+                                50%
+                            {% endif %}
                         {% endif %}
                             x ({{rekap_jurnal.total}})</td>
                         <td>{{rekap_jurnal.nilai_pu|floatformat}}</td>
@@ -1603,7 +1615,11 @@
                         {% if rekap_jurnal.jurnal.corresponding_author == None %}
                             60%
                         {% elif rekap_jurnal.jurnal.corresponding_author != None %}
-                            40%
+                            {% if rekap_jurnal.jurnal.penulis_lain.all.exists %}
+                                40%
+                            {% elif rekap_jurnal.jurnal.penulis_lain.all.exists == False %}
+                                50%
+                            {% endif %}
                         {% endif %}
                             x ({{rekap_jurnal.total}})</td>
                         <td>{{rekap_jurnal.nilai_ca|floatformat}}</td>

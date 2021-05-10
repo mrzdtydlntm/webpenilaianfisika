@@ -17,6 +17,10 @@ small {
   font-size: 10px;
 }
 
+.spacing{
+  margin: 5px;
+}
+
 .pilihan, li ul{
   margin: 0;
   padding-left: 0 !important;

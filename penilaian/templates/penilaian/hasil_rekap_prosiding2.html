@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        @page {
+            size: 210mm 350mm;
+            margin: 5mm 10mm 5mm 10mm;
+        }
+            /* br{
+                line-height: 1px;
+            } */
+            .judul {
+                font-family: "Times New Roman", Times, serif;
+                font-size: 9pt;
+                font-weight: bolder;
+            }
+            .paragraf {
+                font-family: "Times New Roman", Times, serif;
+                font-size: 9pt;
+            }
+            tr {
+                margin-bottom: 50;
+            }
+            .jdl {
+                font-size: 10px;
+            }
+            p{
+                margin-bottom: 1px;
+            }
+            .break{
+                page-break-before: always;
+            }
+            .bordernilai {
+                border-collapse: collapse;
+                border: 1px solid black;
+                margin-top: 25;
+                padding-top: 2px;
+                padding-left: 2px;
+                padding-bottom: none;
+            }
+            .checkbox{
+                border-right: 1px solid black;
+                border-left: 1px solid black;
+                border-top: 1px solid black;
+                border-bottom: 1px solid black;
+                text-align: center;
+            }
+    </style>
+    <title>Lembar Penilaian</title>
+</head>
+<body>
+    {% if usrlogin.is_superuser %}
+        {% if rekap_prosiding.prosiding.penulis_utama != None %}
+            <table style="width: 100%;" class="judul">
+                <tr>
+                    <th style="text-align: right;">Lampiran 6</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">LEMBAR</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">HASIL PENILAIAN SEJAWAT SEBIDANG ATAU PEER REVIEW</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">KARYA ILMIAH : PROSIDING</th>
+                </tr>
+            </table>
+            <div class="paragraf">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 20%;">Judul Artikel Ilmiah</td>
+                        <td style="width: 2%">: </td>
+                        <td style="width: 78%;">{{rekap_prosiding.prosiding.judul_artikel}}</td>
+                    </tr>
+                    <tr>
+                        <td>Penulis Artikel Ilmiah</td>
+                        <td>:</td>
+                        <td>
+                        {% if rekap_prosiding.prosiding.penulis_utama != None %}
+                            <strong>{{rekap_prosiding.prosiding.penulis_utama}}</strong>,
+                        {% else %}
+                            {{rekap_prosiding.prosiding.penulis_utama_selain}},
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.corresponding_author != None %}
+                            {{rekap_prosiding.prosiding.corresponding_author}},
+                        {% elif rekap_prosiding.prosiding.corresponding_author_selain != None %}
+                            {{rekap_prosiding.prosiding.corresponding_author_selain}},
+                        {% endif %}
+                        {% for penulis in rekap_prosiding.prosiding.penulis_lain.all %}
+                            {{penulis}},
+                        {% endfor %}
+                        {% for penulis_lain in rekap_prosiding.prosiding.penulis_selain.all %}
+                            {{penulis_lain}},
+                        {% endfor %}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="width: 20%;">Identitas Jurnal Ilmiah</td>
+                        <td style="width: 2%;">:</td>
+                        <td style="width: 2%;">a. </td>
+                        <td style="width: 20%;">Nama Jurnal</td>
+                        <td style="width: 2%;">:</td>
+                        <td style="width: 54%;"> {{rekap_prosiding.prosiding.nama_prosiding}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>b. </td>
+                        <td>ISBN</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.nomor_isbn}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>c. </td>
+                        <td>Tahun Terbit</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.tahun_terbit}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>d. </td>
+                        <td>Penerbit</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.penerbit}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>e. </td>
+                        <td>Web Repository</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.url_repository}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>f. </td>
+                        <td>Indeks Prosiding</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.indeks_prosiding}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>g. </td>
+                        <td>Tingkat Publikasi</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.tingkat_publikasi}}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
+                        <td class="checkbox" style="width: 5%;">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="width: 55%; padding: 2px 0 0 2px;">Presentasi Oral dan Dipublikasikan</td>                    
+                    </tr>
+                    <tr>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Poster dan Dipublikasikan dalam Prosiding</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Diseminarkan Namun Tidak Terpublikasi</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Tidak Diseminarkan Namun Terpublikasi</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Terpublikasi dalam Koran/Majalah</td>
+                    </tr>
+                </table>
+                <p>Hasil Penilaian Peer Review :</p>
+                <table style="border-collapse: collapse;">
+                    <tr class="bordernilai">
+                        <td style="text-align: center;">Komponen Yang Dinilai</td>
+                        <td style="text-align: center;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                        <td style="text-align: center;">Nilai Akhir yang Diperoleh</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td style="width: 25%;"></td>
+                        <td colspan="2" style="text-align: center;">Presentasi Oral dan Dipublikasikan</td>
+                        <td colspan="2" style="text-align: center;">Poster dan Dipublikasikan dalam Prosiding</td>
+                        <td colspan="2" style="text-align: center;">Tidak Diseminarkan Namun Terpublikasi</td>
+                        <td colspan="2" style="text-align: center;">Diseminarkan Namun Tidak Terpublikasi</td>
+                        <td style="text-align: center;">Koran / Majalah</td>
+                        <td style="text-align: center;"></td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td style="width: 25%;"></td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%">Nasional</td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%">Nasional</td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%">Nasional</td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%;">Nasional</td>
+                        <td class="jdl" style="width: 8%;"></td>
+                        <td class="jdl" style="width: 8%;"></td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">0.5</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">0.5</td>
+                        <td style="text-align: center;">0.5</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;">0.1</td>
+                        <td style="text-align: center;">{{rekap_prosiding.unsur_isi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
+                        <td style="text-align: center;">9</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;;">1.5</td>
+                        <td style="text-align: center;">0.9</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;">{{rekap_prosiding.pembahasan}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
+                        <td style="text-align: center;">9</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;;">1.5</td>
+                        <td style="text-align: center;">0.9</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;">{{rekap_prosiding.informasi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
+                        <td style="text-align: center;">9</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">0.9</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;;">{{rekap_prosiding.kualitas_penerbit}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Total</td>
+                        <td style="text-align: center;">40</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: center;">5</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: center;">5</td>
+                        <td style="text-align: center;;">5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">{{rekap_prosiding.total}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
+                        <td colspan="8">Penulis Utama dari {{rekap_prosiding.prosiding.jmlh_penulis}} penulis 
+                        {% if rekap_prosiding.prosiding.corresponding_author == None %}
+                            60%
+                        {% elif rekap_prosiding.prosiding.corresponding_author != None %}
+                            {% if rekap_prosiding.prosiding.penulis_lain.all.exists %}
+                                40%
+                            {% elif rekap_prosiding.prosiding.penulis_lain.all.exists == False %}
+                                50%
+                            {% endif %}
+                        {% endif %}
+                            x ({{rekap_prosiding.total}})</td>
+                        <td colspan="2" style="text-align: center;">{{rekap_prosiding.nilai_pu|floatformat}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td colspan="11">KOMENTAR/ULASAN PEER REVIEW</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_unsur_isi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_pembahasan}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_informasi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_kualitas_penerbit}}</td>
+                    </tr>
+                </table>
+                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Reviewer 2</td>
+                    </tr>
+                </table>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer_2}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>NIP. {{rekap_prosiding.prosiding.reviewer_2.nip}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer_2.unit_kerja}}</small></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer_2.bidang_ilmu}}</small></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer_2.jabatan_pangkat}}</small></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- End of PU -->
+        {% endif %}
+        {% if rekap_prosiding.prosiding.corresponding_author != None %}
+            <div class="break"></div>
+            <table style="width: 100%;" class="judul">
+                <tr>
+                    <th style="text-align: right;">Lampiran 6</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">LEMBAR</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">HASIL PENILAIAN SEJAWAT SEBIDANG ATAU PEER REVIEW</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">KARYA ILMIAH : PROSIDING</th>
+                </tr>
+            </table>
+            <div class="paragraf">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 20%;">Judul Artikel Ilmiah</td>
+                        <td style="width: 2%">: </td>
+                        <td style="width: 78%;">{{rekap_prosiding.prosiding.judul_artikel}}</td>
+                    </tr>
+                    <tr>
+                        <td>Penulis Artikel Ilmiah</td>
+                        <td>:</td>
+                        <td>
+                        {% if rekap_prosiding.prosiding.penulis_utama != None %}
+                            {{rekap_prosiding.prosiding.penulis_utama}},
+                        {% else %}
+                            {{rekap_prosiding.prosiding.penulis_utama_selain}},
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.corresponding_author != None %}
+                            <strong>{{rekap_prosiding.prosiding.corresponding_author}}</strong>,
+                        {% elif rekap_prosiding.prosiding.corresponding_author_selain != None %}
+                            {{rekap_prosiding.prosiding.corresponding_author_selain}},
+                        {% endif %}
+                        {% for penulis in rekap_prosiding.prosiding.penulis_lain.all %}
+                            {{penulis}},
+                        {% endfor %}
+                        {% for penulis_lain in rekap_prosiding.prosiding.penulis_selain.all %}
+                            {{penulis_lain}},
+                        {% endfor %}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="width: 20%;">Identitas Jurnal Ilmiah</td>
+                        <td style="width: 2%;">:</td>
+                        <td style="width: 2%;">a. </td>
+                        <td style="width: 20%;">Nama Jurnal</td>
+                        <td style="width: 2%;">:</td>
+                        <td style="width: 54%;"> {{rekap_prosiding.prosiding.nama_prosiding}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>b. </td>
+                        <td>ISBN</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.nomor_isbn}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>c. </td>
+                        <td>Tahun Terbit</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.tahun_terbit}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>d. </td>
+                        <td>Penerbit</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.penerbit}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>e. </td>
+                        <td>Web Repository</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.url_repository}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>f. </td>
+                        <td>Indeks Prosiding</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.indeks_prosiding}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>g. </td>
+                        <td>Tingkat Publikasi</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.tingkat_publikasi}}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
+                        <td class="checkbox" style="width: 5%;">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="width: 55%; padding: 2px 0 0 2px;">Presentasi Oral dan Dipublikasikan</td>                    
+                    </tr>
+                    <tr>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Poster dan Dipublikasikan dalam Prosiding</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Diseminarkan Namun Tidak Terpublikasi</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Tidak Diseminarkan Namun Terpublikasi</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Terpublikasi dalam Koran/Majalah</td>
+                    </tr>
+                </table>
+                <p>Hasil Penilaian Peer Review :</p>
+                <table style="border-collapse: collapse;">
+                    <tr class="bordernilai">
+                        <td style="text-align: center;">Komponen Yang Dinilai</td>
+                        <td style="text-align: center;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                        <td style="text-align: center;">Nilai Akhir yang Diperoleh</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td style="width: 25%;"></td>
+                        <td colspan="2" style="text-align: center;">Presentasi Oral dan Dipublikasikan</td>
+                        <td colspan="2" style="text-align: center;">Poster dan Dipublikasikan dalam Prosiding</td>
+                        <td colspan="2" style="text-align: center;">Tidak Diseminarkan Namun Terpublikasi</td>
+                        <td colspan="2" style="text-align: center;">Diseminarkan Namun Tidak Terpublikasi</td>
+                        <td style="text-align: center;">Koran / Majalah</td>
+                        <td style="text-align: center;"></td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td style="width: 25%;"></td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%">Nasional</td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%">Nasional</td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%">Nasional</td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%;">Nasional</td>
+                        <td class="jdl" style="width: 8%;"></td>
+                        <td class="jdl" style="width: 8%;"></td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">0.5</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">0.5</td>
+                        <td style="text-align: center;">0.5</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;">0.1</td>
+                        <td style="text-align: center;">{{rekap_prosiding.unsur_isi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
+                        <td style="text-align: center;">9</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;;">1.5</td>
+                        <td style="text-align: center;">0.9</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;">{{rekap_prosiding.pembahasan}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
+                        <td style="text-align: center;">9</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;;">1.5</td>
+                        <td style="text-align: center;">0.9</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;">{{rekap_prosiding.informasi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
+                        <td style="text-align: center;">9</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">0.9</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;;">{{rekap_prosiding.kualitas_penerbit}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Total</td>
+                        <td style="text-align: center;">40</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: center;">5</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: center;">5</td>
+                        <td style="text-align: center;;">5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">{{rekap_prosiding.total}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
+                        <td colspan="8">Corresponding Author dari {{rekap_prosiding.prosiding.jmlh_penulis}} penulis 
+                        {% if rekap_prosiding.prosiding.corresponding_author == None %}
+                            60%
+                        {% elif rekap_prosiding.prosiding.corresponding_author != None %}
+                            {% if rekap_prosiding.prosiding.penulis_lain.all.exists %}
+                                40%
+                            {% elif rekap_prosiding.prosiding.penulis_lain.all.exists == False %}
+                                50%
+                            {% endif %}
+                        {% endif %}
+                            x ({{rekap_prosiding.total}})</td>
+                        <td colspan="2" style="text-align: center;">{{rekap_prosiding.nilai_ca|floatformat}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td colspan="11">KOMENTAR/ULASAN PEER REVIEW</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_unsur_isi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_pembahasan}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_informasi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_kualitas_penerbit}}</td>
+                    </tr>
+                </table>
+                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Reviewer 2</td>
+                    </tr>
+                </table>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer_2}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>NIP. {{rekap_prosiding.prosiding.reviewer_2.nip}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer_2.unit_kerja}}</small></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer_2.bidang_ilmu}}</small></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer_2.jabatan_pangkat}}</small></td>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+        <!-- End of CA -->
+        {% for penuliss in rekap_prosiding.prosiding.penulis_lain.all %}
+            <div class="break"></div>
+            <table style="width: 100%;" class="judul">
+                <tr>
+                    <th style="text-align: right;">Lampiran 6</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">LEMBAR</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">HASIL PENILAIAN SEJAWAT SEBIDANG ATAU PEER REVIEW</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">KARYA ILMIAH : PROSIDING</th>
+                </tr>
+            </table>
+            <div class="paragraf">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 20%;">Judul Artikel Ilmiah</td>
+                        <td style="width: 2%">: </td>
+                        <td style="width: 78%;">{{rekap_prosiding.prosiding.judul_artikel}}</td>
+                    </tr>
+                    <tr>
+                        <td>Penulis Artikel Ilmiah</td>
+                        <td>:</td>
+                        <td>
+                        {% if rekap_prosiding.prosiding.penulis_utama != None %}
+                            {{rekap_prosiding.prosiding.penulis_utama}},
+                        {% else %}
+                            {{rekap_prosiding.prosiding.penulis_utama_selain}},
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.corresponding_author != None %}
+                            {{rekap_prosiding.prosiding.corresponding_author}},
+                        {% elif rekap_prosiding.prosiding.corresponding_author_selain != None %}
+                            {{rekap_prosiding.prosiding.corresponding_author_selain}},
+                        {% endif %}
+                        {% for penulis in rekap_prosiding.prosiding.penulis_lain.all %}
+                            {% if penulis == penuliss %}
+                                <strong>{{penulis}}</strong>,
+                            {% elif penulis != penuliss%}
+                                {{penulis}}
+                            {% endif %}
+                        {% endfor %}
+                        {% for penulis_lain in rekap_prosiding.prosiding.penulis_selain.all %}
+                            {{penulis_lain}},
+                        {% endfor %}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="width: 20%;">Identitas Jurnal Ilmiah</td>
+                        <td style="width: 2%;">:</td>
+                        <td style="width: 2%;">a. </td>
+                        <td style="width: 20%;">Nama Jurnal</td>
+                        <td style="width: 2%;">:</td>
+                        <td style="width: 54%;"> {{rekap_prosiding.prosiding.nama_prosiding}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>b. </td>
+                        <td>ISBN</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.nomor_isbn}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>c. </td>
+                        <td>Tahun Terbit</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.tahun_terbit}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>d. </td>
+                        <td>Penerbit</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.penerbit}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>e. </td>
+                        <td>Web Repository</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.url_repository}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>f. </td>
+                        <td>Indeks Prosiding</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.indeks_prosiding}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>g. </td>
+                        <td>Tingkat Publikasi</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.tingkat_publikasi}}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
+                        <td class="checkbox" style="width: 5%;">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="width: 55%; padding: 2px 0 0 2px;">Presentasi Oral dan Dipublikasikan</td>                    
+                    </tr>
+                    <tr>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Poster dan Dipublikasikan dalam Prosiding</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Diseminarkan Namun Tidak Terpublikasi</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Tidak Diseminarkan Namun Terpublikasi</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Terpublikasi dalam Koran/Majalah</td>
+                    </tr>
+                </table>
+                <p>Hasil Penilaian Peer Review :</p>
+                <table style="border-collapse: collapse;">
+                    <tr class="bordernilai">
+                        <td style="text-align: center;">Komponen Yang Dinilai</td>
+                        <td style="text-align: center;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                        <td style="text-align: center;">Nilai Akhir yang Diperoleh</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td style="width: 25%;"></td>
+                        <td colspan="2" style="text-align: center;">Presentasi Oral dan Dipublikasikan</td>
+                        <td colspan="2" style="text-align: center;">Poster dan Dipublikasikan dalam Prosiding</td>
+                        <td colspan="2" style="text-align: center;">Tidak Diseminarkan Namun Terpublikasi</td>
+                        <td colspan="2" style="text-align: center;">Diseminarkan Namun Tidak Terpublikasi</td>
+                        <td style="text-align: center;">Koran / Majalah</td>
+                        <td style="text-align: center;"></td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td style="width: 25%;"></td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%">Nasional</td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%">Nasional</td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%">Nasional</td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%;">Nasional</td>
+                        <td class="jdl" style="width: 8%;"></td>
+                        <td class="jdl" style="width: 8%;"></td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">0.5</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">0.5</td>
+                        <td style="text-align: center;">0.5</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;">0.1</td>
+                        <td style="text-align: center;">{{rekap_prosiding.unsur_isi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
+                        <td style="text-align: center;">9</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;;">1.5</td>
+                        <td style="text-align: center;">0.9</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;">{{rekap_prosiding.pembahasan}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
+                        <td style="text-align: center;">9</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;;">1.5</td>
+                        <td style="text-align: center;">0.9</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;">{{rekap_prosiding.informasi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
+                        <td style="text-align: center;">9</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">0.9</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;;">{{rekap_prosiding.kualitas_penerbit}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Total</td>
+                        <td style="text-align: center;">40</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: center;">5</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: center;">5</td>
+                        <td style="text-align: center;;">5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">{{rekap_prosiding.total}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
+                        <td colspan="8">Penulis Anggota dari {{rekap_prosiding.prosiding.jmlh_penulis}} penulis 
+                        {% if rekap_prosiding.prosiding.corresponding_author == None %}
+                            40%
+                        {% elif rekap_prosiding.prosiding.corresponding_author != None %}
+                            20%
+                        {% endif %}
+                            x ({{rekap_prosiding.total}}/{{rekap_prosiding.jmlh_penulis_lain}})</td>
+                        <td colspan="2" style="text-align: center;">{{rekap_prosiding.nilai_pl|floatformat}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td colspan="11">KOMENTAR/ULASAN PEER REVIEW</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_unsur_isi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_pembahasan}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_informasi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_kualitas_penerbit}}</td>
+                    </tr>
+                </table>
+                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Reviewer 2</td>
+                    </tr>
+                </table>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer_2}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>NIP. {{rekap_prosiding.prosiding.reviewer_2.nip}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer_2.unit_kerja}}</small></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer_2.bidang_ilmu}}</small></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer_2.jabatan_pangkat}}</small></td>
+                    </tr>
+                </table>
+            </div>
+        {% endfor %}
+    {% endif %}
+        {% if usrlogin.id == rekap_prosiding.prosiding.penulis_utama.users.id %}
+            <table style="width: 100%;" class="judul">
+                <tr>
+                    <th style="text-align: right;">Lampiran 6</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">LEMBAR</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">HASIL PENILAIAN SEJAWAT SEBIDANG ATAU PEER REVIEW</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">KARYA ILMIAH : PROSIDING</th>
+                </tr>
+            </table>
+            <div class="paragraf">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 20%;">Judul Artikel Ilmiah</td>
+                        <td style="width: 2%">: </td>
+                        <td style="width: 78%;">{{rekap_prosiding.prosiding.judul_artikel}}</td>
+                    </tr>
+                    <tr>
+                        <td>Penulis Artikel Ilmiah</td>
+                        <td>:</td>
+                        <td>
+                        {% if rekap_prosiding.prosiding.penulis_utama != None %}
+                            <strong>{{rekap_prosiding.prosiding.penulis_utama}}</strong>,
+                        {% else %}
+                            {{rekap_prosiding.prosiding.penulis_utama_selain}},
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.corresponding_author != None %}
+                            {{rekap_prosiding.prosiding.corresponding_author}},
+                        {% elif rekap_prosiding.prosiding.corresponding_author_selain != None %}
+                            {{rekap_prosiding.prosiding.corresponding_author_selain}},
+                        {% endif %}
+                        {% for penulis in rekap_prosiding.prosiding.penulis_lain.all %}
+                            {{penulis}},
+                        {% endfor %}
+                        {% for penulis_lain in rekap_prosiding.prosiding.penulis_selain.all %}
+                            {{penulis_lain}},
+                        {% endfor %}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="width: 20%;">Identitas Jurnal Ilmiah</td>
+                        <td style="width: 2%;">:</td>
+                        <td style="width: 2%;">a. </td>
+                        <td style="width: 20%;">Nama Jurnal</td>
+                        <td style="width: 2%;">:</td>
+                        <td style="width: 54%;"> {{rekap_prosiding.prosiding.nama_prosiding}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>b. </td>
+                        <td>ISBN</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.nomor_isbn}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>c. </td>
+                        <td>Tahun Terbit</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.tahun_terbit}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>d. </td>
+                        <td>Penerbit</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.penerbit}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>e. </td>
+                        <td>Web Repository</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.url_repository}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>f. </td>
+                        <td>Indeks Prosiding</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.indeks_prosiding}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>g. </td>
+                        <td>Tingkat Publikasi</td>
+                        <td>:</td>
+                        <td>{{rekap_prosiding.prosiding.tingkat_publikasi}}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
+                        <td class="checkbox" style="width: 5%;">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="width: 55%; padding: 2px 0 0 2px;">Presentasi Oral dan Dipublikasikan</td>                    
+                    </tr>
+                    <tr>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Poster dan Dipublikasikan dalam Prosiding</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Diseminarkan Namun Tidak Terpublikasi</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Tidak Diseminarkan Namun Terpublikasi</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkbox">
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Terpublikasi dalam Koran/Majalah</td>
+                    </tr>
+                </table>
+                <p>Hasil Penilaian Peer Review :</p>
+                <table style="border-collapse: collapse;">
+                    <tr class="bordernilai">
+                        <td style="text-align: center;">Komponen Yang Dinilai</td>
+                        <td style="text-align: center;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                        <td style="text-align: center;">Nilai Akhir yang Diperoleh</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td style="width: 25%;"></td>
+                        <td colspan="2" style="text-align: center;">Presentasi Oral dan Dipublikasikan</td>
+                        <td colspan="2" style="text-align: center;">Poster dan Dipublikasikan dalam Prosiding</td>
+                        <td colspan="2" style="text-align: center;">Tidak Diseminarkan Namun Terpublikasi</td>
+                        <td colspan="2" style="text-align: center;">Diseminarkan Namun Tidak Terpublikasi</td>
+                        <td style="text-align: center;">Koran / Majalah</td>
+                        <td style="text-align: center;"></td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td style="width: 25%;"></td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%">Nasional</td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%">Nasional</td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%">Nasional</td>
+                        <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                        <td class="jdl" style="width: 6%;">Nasional</td>
+                        <td class="jdl" style="width: 8%;"></td>
+                        <td class="jdl" style="width: 8%;"></td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">0.5</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">0.5</td>
+                        <td style="text-align: center;">0.5</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;">0.1</td>
+                        <td style="text-align: center;">{{rekap_prosiding.unsur_isi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
+                        <td style="text-align: center;">9</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;;">1.5</td>
+                        <td style="text-align: center;">0.9</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;">{{rekap_prosiding.pembahasan}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
+                        <td style="text-align: center;">9</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;;">1.5</td>
+                        <td style="text-align: center;">0.9</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;">{{rekap_prosiding.informasi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
+                        <td style="text-align: center;">9</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">1.5</td>
+                        <td style="text-align: center;">0.9</td>
+                        <td style="text-align: center;">0.3</td>
+                        <td style="text-align: center;;">{{rekap_prosiding.kualitas_penerbit}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Total</td>
+                        <td style="text-align: center;">40</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: center;">5</td>
+                        <td style="text-align: center;">10</td>
+                        <td style="text-align: center;">5</td>
+                        <td style="text-align: center;;">5</td>
+                        <td style="text-align: center;">3</td>
+                        <td style="text-align: center;">1</td>
+                        <td style="text-align: center;">{{rekap_prosiding.total}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
+                        <td colspan="8">Penulis Utama dari {{rekap_prosiding.prosiding.jmlh_penulis}} penulis 
+                        {% if rekap_prosiding.prosiding.corresponding_author == None %}
+                            60%
+                        {% elif rekap_prosiding.prosiding.corresponding_author != None %}
+                            {% if rekap_prosiding.prosiding.penulis_lain.all.exists %}
+                                40%
+                            {% elif rekap_prosiding.prosiding.penulis_lain.all.exists == False %}
+                                50%
+                            {% endif %}
+                        {% endif %}
+                            x ({{rekap_prosiding.total}})</td>
+                        <td colspan="2" style="text-align: center;">{{rekap_prosiding.nilai_pu|floatformat}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td colspan="11">KOMENTAR/ULASAN PEER REVIEW</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_unsur_isi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_pembahasan}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_informasi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
+                        <td colspan="10">{{rekap_prosiding.cmnt_kualitas_penerbit}}</td>
+                    </tr>
+                </table>
+                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Reviewer 2</td>
+                    </tr>
+                </table>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer_2}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>NIP. {{rekap_prosiding.prosiding.reviewer_2.nip}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer_2.unit_kerja}}</small></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer_2.bidang_ilmu}}</small></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer_2.jabatan_pangkat}}</small></td>
+                    </tr>
+                </table>
+            </div>
+    {% elif usrlogin.id == rekap_prosiding.prosiding.corresponding_author.users.id %}
+        <table style="width: 100%;" class="judul">
+            <tr>
+                <th style="text-align: right;">Lampiran 6</th>
+            </tr>
+            <tr>
+                <th style="text-align: center;">LEMBAR</th>
+            </tr>
+            <tr>
+                <th style="text-align: center;">HASIL PENILAIAN SEJAWAT SEBIDANG ATAU PEER REVIEW</th>
+            </tr>
+            <tr>
+                <th style="text-align: center;">KARYA ILMIAH : PROSIDING</th>
+            </tr>
+        </table>
+        <div class="paragraf">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 20%;">Judul Artikel Ilmiah</td>
+                    <td style="width: 2%">: </td>
+                    <td style="width: 78%;">{{rekap_prosiding.prosiding.judul_artikel}}</td>
+                </tr>
+                <tr>
+                    <td>Penulis Artikel Ilmiah</td>
+                    <td>:</td>
+                    <td>
+                    {% if rekap_prosiding.prosiding.penulis_utama != None %}
+                        {{rekap_prosiding.prosiding.penulis_utama}},
+                    {% else %}
+                        {{rekap_prosiding.prosiding.penulis_utama_selain}},
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.corresponding_author != None %}
+                        <strong>{{rekap_prosiding.prosiding.corresponding_author}}</strong>,
+                    {% elif rekap_prosiding.prosiding.corresponding_author_selain != None %}
+                        {{rekap_prosiding.prosiding.corresponding_author_selain}},
+                    {% endif %}
+                    {% for penulis in rekap_prosiding.prosiding.penulis_lain.all %}
+                        {{penulis}},
+                    {% endfor %}
+                    {% for penulis_lain in rekap_prosiding.prosiding.penulis_selain.all %}
+                        {{penulis_lain}},
+                    {% endfor %}</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td style="width: 20%;">Identitas Jurnal Ilmiah</td>
+                    <td style="width: 2%;">:</td>
+                    <td style="width: 2%;">a. </td>
+                    <td style="width: 20%;">Nama Jurnal</td>
+                    <td style="width: 2%;">:</td>
+                    <td style="width: 54%;"> {{rekap_prosiding.prosiding.nama_prosiding}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>b. </td>
+                    <td>ISBN</td>
+                    <td>:</td>
+                    <td>{{rekap_prosiding.prosiding.nomor_isbn}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>c. </td>
+                    <td>Tahun Terbit</td>
+                    <td>:</td>
+                    <td>{{rekap_prosiding.prosiding.tahun_terbit}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>d. </td>
+                    <td>Penerbit</td>
+                    <td>:</td>
+                    <td>{{rekap_prosiding.prosiding.penerbit}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>e. </td>
+                    <td>Web Repository</td>
+                    <td>:</td>
+                    <td>{{rekap_prosiding.prosiding.url_repository}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>f. </td>
+                    <td>Indeks Prosiding</td>
+                    <td>:</td>
+                    <td>{{rekap_prosiding.prosiding.indeks_prosiding}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>g. </td>
+                    <td>Tingkat Publikasi</td>
+                    <td>:</td>
+                    <td>{{rekap_prosiding.prosiding.tingkat_publikasi}}</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
+                    <td class="checkbox" style="width: 5%;">
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' %}
+                            V
+                        {% endif %}
+                    </td>
+                    <td style="width: 55%; padding: 2px 0 0 2px;">Presentasi Oral dan Dipublikasikan</td>                    
+                </tr>
+                <tr>
+                    <td class="checkbox">
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' %}
+                            V
+                        {% endif %}
+                    </td>
+                    <td style="padding: 2px 0 0 2px;">Poster dan Dipublikasikan dalam Prosiding</td>
+                </tr>
+                <tr>
+                    <td class="checkbox">
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' %}
+                            V
+                        {% endif %}
+                    </td>
+                    <td style="padding: 2px 0 0 2px;">Diseminarkan Namun Tidak Terpublikasi</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="checkbox">
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' %}
+                            V
+                        {% endif %}
+                    </td>
+                    <td style="padding: 2px 0 0 2px;">Tidak Diseminarkan Namun Terpublikasi</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="checkbox">
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            V
+                        {% endif %}
+                    </td>
+                    <td style="padding: 2px 0 0 2px;">Terpublikasi dalam Koran/Majalah</td>
+                </tr>
+            </table>
+            <p>Hasil Penilaian Peer Review :</p>
+            <table style="border-collapse: collapse;">
+                <tr class="bordernilai">
+                    <td style="text-align: center;">Komponen Yang Dinilai</td>
+                    <td style="text-align: center;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                    <td style="text-align: center;">Nilai Akhir yang Diperoleh</td>
+                </tr>
+                <tr class="bordernilai">
+                    <td style="width: 25%;"></td>
+                    <td colspan="2" style="text-align: center;">Presentasi Oral dan Dipublikasikan</td>
+                    <td colspan="2" style="text-align: center;">Poster dan Dipublikasikan dalam Prosiding</td>
+                    <td colspan="2" style="text-align: center;">Tidak Diseminarkan Namun Terpublikasi</td>
+                    <td colspan="2" style="text-align: center;">Diseminarkan Namun Tidak Terpublikasi</td>
+                    <td style="text-align: center;">Koran / Majalah</td>
+                    <td style="text-align: center;"></td>
+                </tr>
+                <tr class="bordernilai">
+                    <td style="width: 25%;"></td>
+                    <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                    <td class="jdl" style="width: 6%">Nasional</td>
+                    <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                    <td class="jdl" style="width: 6%">Nasional</td>
+                    <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                    <td class="jdl" style="width: 6%">Nasional</td>
+                    <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                    <td class="jdl" style="width: 6%;">Nasional</td>
+                    <td class="jdl" style="width: 8%;"></td>
+                    <td class="jdl" style="width: 8%;"></td>
+                </tr>
+                <tr class="bordernilai">
+                    <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">0.5</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">0.5</td>
+                    <td style="text-align: center;">0.5</td>
+                    <td style="text-align: center;">0.3</td>
+                    <td style="text-align: center;">0.1</td>
+                    <td style="text-align: center;">{{rekap_prosiding.unsur_isi}}</td>
+                </tr>
+                <tr class="bordernilai">
+                    <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
+                    <td style="text-align: center;">9</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">1.5</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">1.5</td>
+                    <td style="text-align: center;;">1.5</td>
+                    <td style="text-align: center;">0.9</td>
+                    <td style="text-align: center;">0.3</td>
+                    <td style="text-align: center;">{{rekap_prosiding.pembahasan}}</td>
+                </tr>
+                <tr class="bordernilai">
+                    <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
+                    <td style="text-align: center;">9</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">1.5</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">1.5</td>
+                    <td style="text-align: center;;">1.5</td>
+                    <td style="text-align: center;">0.9</td>
+                    <td style="text-align: center;">0.3</td>
+                    <td style="text-align: center;">{{rekap_prosiding.informasi}}</td>
+                </tr>
+                <tr class="bordernilai">
+                    <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
+                    <td style="text-align: center;">9</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">1.5</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">1.5</td>
+                    <td style="text-align: center;">1.5</td>
+                    <td style="text-align: center;">0.9</td>
+                    <td style="text-align: center;">0.3</td>
+                    <td style="text-align: center;;">{{rekap_prosiding.kualitas_penerbit}}</td>
+                </tr>
+                <tr class="bordernilai">
+                    <td>Total</td>
+                    <td style="text-align: center;">40</td>
+                    <td style="text-align: center;">10</td>
+                    <td style="text-align: center;">10</td>
+                    <td style="text-align: center;">5</td>
+                    <td style="text-align: center;">10</td>
+                    <td style="text-align: center;">5</td>
+                    <td style="text-align: center;;">5</td>
+                    <td style="text-align: center;">3</td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">{{rekap_prosiding.total}}</td>
+                </tr>
+                <tr class="bordernilai">
+                    <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
+                    <td colspan="8">Corresponding Author dari {{rekap_prosiding.prosiding.jmlh_penulis}} penulis 
+                    {% if rekap_prosiding.prosiding.corresponding_author == None %}
+                        60%
+                    {% elif rekap_prosiding.prosiding.corresponding_author != None %}
+                        {% if rekap_prosiding.prosiding.penulis_lain.all.exists %}
+                            40%
+                        {% elif rekap_prosiding.prosiding.penulis_lain.all.exists == False %}
+                            50%
+                        {% endif %}
+                    {% endif %}
+                        x ({{rekap_prosiding.total}})</td>
+                    <td colspan="2" style="text-align: center;">{{rekap_prosiding.nilai_ca|floatformat}}</td>
+                </tr>
+                <tr class="bordernilai">
+                    <td colspan="11">KOMENTAR/ULASAN PEER REVIEW</td>
+                </tr>
+                <tr class="bordernilai">
+                    <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
+                    <td colspan="10">{{rekap_prosiding.cmnt_unsur_isi}}</td>
+                </tr>
+                <tr class="bordernilai">
+                    <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
+                    <td colspan="10">{{rekap_prosiding.cmnt_pembahasan}}</td>
+                </tr>
+                <tr class="bordernilai">
+                    <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
+                    <td colspan="10">{{rekap_prosiding.cmnt_informasi}}</td>
+                </tr>
+                <tr class="bordernilai">
+                    <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
+                    <td colspan="10">{{rekap_prosiding.cmnt_kualitas_penerbit}}</td>
+                </tr>
+            </table>
+            <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                <tr>
+                    <td style="width: 72%;"></td>
+                    <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Reviewer 2</td>
+                </tr>
+            </table>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 72%;"></td>
+                    <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer_2}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>NIP. {{rekap_prosiding.prosiding.reviewer_2.nip}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer_2.unit_kerja}}</small></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer_2.bidang_ilmu}}</small></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer_2.jabatan_pangkat}}</small></td>
+                </tr>
+            </table>
+        </div>
+    {% elif rekap_prosiding.prosiding.penulis_lain.all.exists %}
+        {% for penuliss in rekap_prosiding.prosiding.penulis_lain.all %}
+            {% if usrlogin.id == penuliss.users.id %}
+                <table style="width: 100%;" class="judul">
+                    <tr>
+                        <th style="text-align: right;">Lampiran 6</th>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center;">LEMBAR</th>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center;">HASIL PENILAIAN SEJAWAT SEBIDANG ATAU PEER REVIEW</th>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center;">KARYA ILMIAH : PROSIDING</th>
+                    </tr>
+                </table>
+                <div class="paragraf">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 20%;">Judul Artikel Ilmiah</td>
+                            <td style="width: 2%">: </td>
+                            <td style="width: 78%;">{{rekap_prosiding.prosiding.judul_artikel}}</td>
+                        </tr>
+                        <tr>
+                            <td>Penulis Artikel Ilmiah</td>
+                            <td>:</td>
+                            <td>
+                            {% if rekap_prosiding.prosiding.penulis_utama != None %}
+                                {{rekap_prosiding.prosiding.penulis_utama}},
+                            {% else %}
+                                {{rekap_prosiding.prosiding.penulis_utama_selain}},
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.corresponding_author != None %}
+                                {{rekap_prosiding.prosiding.corresponding_author}},
+                            {% elif rekap_prosiding.prosiding.corresponding_author_selain != None %}
+                                {{rekap_prosiding.prosiding.corresponding_author_selain}},
+                            {% endif %}
+                            {% for penulis in rekap_prosiding.prosiding.penulis_lain.all %}
+                                {% if penulis == penuliss %}
+                                    <strong>{{penulis}}</strong>,
+                                {% elif penulis != penuliss%}
+                                    {{penulis}}
+                                {% endif %}
+                            {% endfor %}
+                            {% for penulis_lain in rekap_prosiding.prosiding.penulis_selain.all %}
+                                {{penulis_lain}},
+                            {% endfor %}</td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td style="width: 20%;">Identitas Jurnal Ilmiah</td>
+                            <td style="width: 2%;">:</td>
+                            <td style="width: 2%;">a. </td>
+                            <td style="width: 20%;">Nama Jurnal</td>
+                            <td style="width: 2%;">:</td>
+                            <td style="width: 54%;"> {{rekap_prosiding.prosiding.nama_prosiding}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>b. </td>
+                            <td>ISBN</td>
+                            <td>:</td>
+                            <td>{{rekap_prosiding.prosiding.nomor_isbn}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>c. </td>
+                            <td>Tahun Terbit</td>
+                            <td>:</td>
+                            <td>{{rekap_prosiding.prosiding.tahun_terbit}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>d. </td>
+                            <td>Penerbit</td>
+                            <td>:</td>
+                            <td>{{rekap_prosiding.prosiding.penerbit}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>e. </td>
+                            <td>Web Repository</td>
+                            <td>:</td>
+                            <td>{{rekap_prosiding.prosiding.url_repository}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>f. </td>
+                            <td>Indeks Prosiding</td>
+                            <td>:</td>
+                            <td>{{rekap_prosiding.prosiding.indeks_prosiding}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>g. </td>
+                            <td>Tingkat Publikasi</td>
+                            <td>:</td>
+                            <td>{{rekap_prosiding.prosiding.tingkat_publikasi}}</td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
+                            <td class="checkbox" style="width: 5%;">
+                                {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' %}
+                                    V
+                                {% endif %}
+                            </td>
+                            <td style="width: 55%; padding: 2px 0 0 2px;">Presentasi Oral dan Dipublikasikan</td>                    
+                        </tr>
+                        <tr>
+                            <td class="checkbox">
+                                {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' %}
+                                    V
+                                {% endif %}
+                            </td>
+                            <td style="padding: 2px 0 0 2px;">Poster dan Dipublikasikan dalam Prosiding</td>
+                        </tr>
+                        <tr>
+                            <td class="checkbox">
+                                {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' %}
+                                    V
+                                {% endif %}
+                            </td>
+                            <td style="padding: 2px 0 0 2px;">Diseminarkan Namun Tidak Terpublikasi</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="checkbox">
+                                {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' %}
+                                    V
+                                {% endif %}
+                            </td>
+                            <td style="padding: 2px 0 0 2px;">Tidak Diseminarkan Namun Terpublikasi</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="checkbox">
+                                {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                                    V
+                                {% endif %}
+                            </td>
+                            <td style="padding: 2px 0 0 2px;">Terpublikasi dalam Koran/Majalah</td>
+                        </tr>
+                    </table>
+                    <p>Hasil Penilaian Peer Review :</p>
+                    <table style="border-collapse: collapse;">
+                        <tr class="bordernilai">
+                            <td style="text-align: center;">Komponen Yang Dinilai</td>
+                            <td style="text-align: center;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                            <td style="text-align: center;">Nilai Akhir yang Diperoleh</td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td style="width: 25%;"></td>
+                            <td colspan="2" style="text-align: center;">Presentasi Oral dan Dipublikasikan</td>
+                            <td colspan="2" style="text-align: center;">Poster dan Dipublikasikan dalam Prosiding</td>
+                            <td colspan="2" style="text-align: center;">Tidak Diseminarkan Namun Terpublikasi</td>
+                            <td colspan="2" style="text-align: center;">Diseminarkan Namun Tidak Terpublikasi</td>
+                            <td style="text-align: center;">Koran / Majalah</td>
+                            <td style="text-align: center;"></td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td style="width: 25%;"></td>
+                            <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                            <td class="jdl" style="width: 6%">Nasional</td>
+                            <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                            <td class="jdl" style="width: 6%">Nasional</td>
+                            <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                            <td class="jdl" style="width: 6%">Nasional</td>
+                            <td class="jdl" style="text-align: center; width: 10%">Internasional</td>
+                            <td class="jdl" style="width: 6%;">Nasional</td>
+                            <td class="jdl" style="width: 8%;"></td>
+                            <td class="jdl" style="width: 8%;"></td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
+                            <td style="text-align: center;">3</td>
+                            <td style="text-align: center;">1</td>
+                            <td style="text-align: center;">1</td>
+                            <td style="text-align: center;">0.5</td>
+                            <td style="text-align: center;">1</td>
+                            <td style="text-align: center;">0.5</td>
+                            <td style="text-align: center;">0.5</td>
+                            <td style="text-align: center;">0.3</td>
+                            <td style="text-align: center;">0.1</td>
+                            <td style="text-align: center;">{{rekap_prosiding.unsur_isi}}</td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
+                            <td style="text-align: center;">9</td>
+                            <td style="text-align: center;">3</td>
+                            <td style="text-align: center;">3</td>
+                            <td style="text-align: center;">1.5</td>
+                            <td style="text-align: center;">3</td>
+                            <td style="text-align: center;">1.5</td>
+                            <td style="text-align: center;;">1.5</td>
+                            <td style="text-align: center;">0.9</td>
+                            <td style="text-align: center;">0.3</td>
+                            <td style="text-align: center;">{{rekap_prosiding.pembahasan}}</td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
+                            <td style="text-align: center;">9</td>
+                            <td style="text-align: center;">3</td>
+                            <td style="text-align: center;">3</td>
+                            <td style="text-align: center;">1.5</td>
+                            <td style="text-align: center;">3</td>
+                            <td style="text-align: center;">1.5</td>
+                            <td style="text-align: center;;">1.5</td>
+                            <td style="text-align: center;">0.9</td>
+                            <td style="text-align: center;">0.3</td>
+                            <td style="text-align: center;">{{rekap_prosiding.informasi}}</td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
+                            <td style="text-align: center;">9</td>
+                            <td style="text-align: center;">3</td>
+                            <td style="text-align: center;">3</td>
+                            <td style="text-align: center;">1.5</td>
+                            <td style="text-align: center;">3</td>
+                            <td style="text-align: center;">1.5</td>
+                            <td style="text-align: center;">1.5</td>
+                            <td style="text-align: center;">0.9</td>
+                            <td style="text-align: center;">0.3</td>
+                            <td style="text-align: center;;">{{rekap_prosiding.kualitas_penerbit}}</td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td>Total</td>
+                            <td style="text-align: center;">40</td>
+                            <td style="text-align: center;">10</td>
+                            <td style="text-align: center;">10</td>
+                            <td style="text-align: center;">5</td>
+                            <td style="text-align: center;">10</td>
+                            <td style="text-align: center;">5</td>
+                            <td style="text-align: center;;">5</td>
+                            <td style="text-align: center;">3</td>
+                            <td style="text-align: center;">1</td>
+                            <td style="text-align: center;">{{rekap_prosiding.total}}</td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
+                            <td colspan="8">Corresponding Author dari {{rekap_prosiding.prosiding.jmlh_penulis}} penulis 
+                            {% if rekap_prosiding.prosiding.corresponding_author == None %}
+                                60%
+                            {% elif rekap_prosiding.prosiding.corresponding_author != None %}
+                                40%
+                            {% endif %}
+                                x ({{rekap_prosiding.total}})</td>
+                            <td colspan="2" style="text-align: center;">{{rekap_prosiding.nilai_ca|floatformat}}</td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td colspan="11">KOMENTAR/ULASAN PEER REVIEW</td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
+                            <td colspan="10">{{rekap_prosiding.cmnt_unsur_isi}}</td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
+                            <td colspan="10">{{rekap_prosiding.cmnt_pembahasan}}</td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
+                            <td colspan="10">{{rekap_prosiding.cmnt_informasi}}</td>
+                        </tr>
+                        <tr class="bordernilai">
+                            <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
+                            <td colspan="10">{{rekap_prosiding.cmnt_kualitas_penerbit}}</td>
+                        </tr>
+                    </table>
+                    <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Reviewer 2</td>
+                        </tr>
+                    </table>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_prosiding.prosiding.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer_2.unit_kerja}}</small></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer_2.bidang_ilmu}}</small></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer_2.jabatan_pangkat}}</small></td>
+                        </tr>
+                    </table>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+        
+</body>
+</html>

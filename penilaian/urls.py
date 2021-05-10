@@ -16,10 +16,10 @@ urlpatterns = [
     path('histori_pengajuan/buku/', views.ListBerkasBukuView.as_view(), name='list_berkas_buku'),
     path('histori_pengajuan/haki/', views.ListBerkasHakiView.as_view(), name='list_berkas_haki'),
     ######### End List Pengajuan #########
-    path('histori_pengajuan/jurnal/<slug>/', views.DetailBerkasJurnalView.as_view(), name='detail_berkas_jurnal'),
-    path('histori_pengajuan/prosiding/<slug>/', views.DetailBerkasProsidingView.as_view(), name='detail_berkas_prosiding'),
-    path('histori_pengajuan/buku/<slug>/', views.DetailBerkasBukuView.as_view(), name='detail_berkas_buku'),
-    path('histori_pengajuan/haki/<slug>/', views.DetailBerkasHakiView.as_view(), name='detail_berkas_haki'),
+    path('histori_pengajuan/jurnal/<pk>/', views.DetailBerkasJurnalView.as_view(), name='detail_berkas_jurnal'),
+    path('histori_pengajuan/prosiding/<pk>/', views.DetailBerkasProsidingView.as_view(), name='detail_berkas_prosiding'),
+    path('histori_pengajuan/buku/<pk>/', views.DetailBerkasBukuView.as_view(), name='detail_berkas_buku'),
+    path('histori_pengajuan/haki/<pk>/', views.DetailBerkasHakiView.as_view(), name='detail_berkas_haki'),
     ######### End Detail Berkas #########
     path('histori_pengajuan/jurnal/edit/<pk>/', views.EditBerkasJurnalView.as_view(), name='edit_berkas_jurnal'),
     path('histori_pengajuan/prosiding/edit/<pk>/', views.EditBerkasProsidingView.as_view(), name='edit_berkas_prosiding'),
@@ -33,15 +33,27 @@ urlpatterns = [
     path('histori_pengajuan/buku/verifikasi/<pk>/', views.VerifikasiBerkasBukuView.as_view(), name='verifikasi_berkas_buku'),
     path('histori_pengajuan/haki/verifikasi/<pk>/', views.VerifikasiBerkasHakiView.as_view(), name='verifikasi_berkas_haki'),
     ######### End Verifikasi Berkas #########
-    path('penilaian_jurnal/', views.PenilaianBerkasJurnalView.as_view(), name='penilaian_jurnal'),
-    path('penilaian_prosiding/', views.PenilaianBerkasProsidingView.as_view(), name='penilaian_prosiding'),
-    path('penilaian_buku/', views.PenilaianBerkasBukuView.as_view(), name='penilaian_buku'),
-    path('penilaian_haki/', views.PenilaianBerkasHakiView.as_view(), name='penilaian_haki'),
+    # R1 #
+    path('penilaian_jurnal/R1/<pk>', views.PenilaianBerkasJurnalView.as_view(), name='penilaian_jurnal'),
+    path('penilaian_prosiding/R1/<pk>', views.PenilaianBerkasProsidingView.as_view(), name='penilaian_prosiding'),
+    path('penilaian_buku/R1/<pk>', views.PenilaianBerkasBukuView.as_view(), name='penilaian_buku'),
+    path('penilaian_haki/R1/<pk>', views.PenilaianBerkasHakiView.as_view(), name='penilaian_haki'),
+    # R2 #
+    path('penilaian_jurnal/R2/<pk>', views.PenilaianBerkasJurnal2View.as_view(), name='penilaian_jurnal2'),
+    path('penilaian_prosiding/R2/<pk>', views.PenilaianBerkasProsiding2View.as_view(), name='penilaian_prosiding2'),
+    path('penilaian_buku/R2/<pk>', views.PenilaianBerkasBuku2View.as_view(), name='penilaian_buku2'),
+    path('penilaian_haki/R2/<pk>', views.PenilaianBerkasHaki2View.as_view(), name='penilaian_haki2'),
     ######### End Penilaian #########
-    path('rekap_jurnal/<slug>/',views.HasilPenilaianJurnalView.as_view(), name='rekap_jurnal'),
-    path('rekap_prosiding/<slug>/',views.HasilPenilaianProsidingView.as_view(), name='rekap_prosiding'),
-    path('rekap_buku/<slug>/',views.HasilPenilaianBukuView.as_view(), name='rekap_buku'),
-    path('rekap_haki/<slug>/',views.HasilPenilaianHakiView.as_view(), name='rekap_haki'),
+    # R1 #
+    path('rekap_jurnal/R1/<slug>/',views.HasilPenilaianJurnalView.as_view(), name='rekap_jurnal'),
+    path('rekap_prosiding/R1/<slug>/',views.HasilPenilaianProsidingView.as_view(), name='rekap_prosiding'),
+    path('rekap_buku/R1/<slug>/',views.HasilPenilaianBukuView.as_view(), name='rekap_buku'),
+    path('rekap_haki/R1/<slug>/',views.HasilPenilaianHakiView.as_view(), name='rekap_haki'),
+    # R2 #
+    path('rekap_jurnal/R2/<slug>/',views.HasilPenilaianJurnal2View.as_view(), name='rekap_jurnal2'),
+    path('rekap_prosiding/R2/<slug>/',views.HasilPenilaianProsiding2View.as_view(), name='rekap_prosiding2'),
+    path('rekap_buku/R2/<slug>/',views.HasilPenilaianBuku2View.as_view(), name='rekap_buku2'),
+    path('rekap_haki/R2/<slug>/',views.HasilPenilaianHaki2View.as_view(), name='rekap_haki2'),
     ######### End of Hasil Rekap #########
     path('tambah_penulis/', views.PenulisLainView.as_view(), name='tambah_penulis'),
     ######### End of Tambah Penulis #########
@@ -50,10 +62,16 @@ urlpatterns = [
     path('list_penilaian_buku/', views.ListReviewerBukuView.as_view(), name='list_penilaian_buku'),
     path('list_penilaian_haki/', views.ListReviewerHakiView.as_view(), name='list_penilaian_haki'),
     ######### End of Tabel Penilaian #########
-    path('penilaian_jurnal/edit/<slug>', views.PenilaianBerkasJurnalEditView.as_view(), name='edit_penilaian_jurnal'),
-    path('penilaian_prosiding/edit/<slug>', views.PenilaianBerkasProsidingEditView.as_view(), name='edit_penilaian_prosiding'),
-    path('penilaian_buku/edit/<slug>', views.PenilaianBerkasBukuEditView.as_view(), name='edit_penilaian_buku'),
-    path('penilaian_haki/edit/<slug>', views.PenilaianBerkasHakiEditView.as_view(), name='edit_penilaian_haki'),
+    # R1 #
+    path('penilaian_jurnal/edit/R1/<slug>', views.PenilaianBerkasJurnalEditView.as_view(), name='edit_penilaian_jurnal'),
+    path('penilaian_prosiding/edit/R1/<slug>', views.PenilaianBerkasProsidingEditView.as_view(), name='edit_penilaian_prosiding'),
+    path('penilaian_buku/edit/R1/<slug>', views.PenilaianBerkasBukuEditView.as_view(), name='edit_penilaian_buku'),
+    path('penilaian_haki/edit/R1/<slug>', views.PenilaianBerkasHakiEditView.as_view(), name='edit_penilaian_haki'),
+    # R2 #
+    path('penilaian_jurnal/edit/R2/<slug>', views.PenilaianBerkasJurnal2EditView.as_view(), name='edit_penilaian_jurnal2'),
+    path('penilaian_prosiding/edit/R2/<slug>', views.PenilaianBerkasProsiding2EditView.as_view(), name='edit_penilaian_prosiding2'),
+    path('penilaian_buku/edit/R2/<slug>', views.PenilaianBerkasBuku2EditView.as_view(), name='edit_penilaian_buku2'),
+    path('penilaian_haki/edit/R2/<slug>', views.PenilaianBerkasHaki2EditView.as_view(), name='edit_penilaian_haki2'),
     ######### End of Edit Penilaian #########
 ]
 

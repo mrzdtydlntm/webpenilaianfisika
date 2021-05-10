@@ -32,62 +32,109 @@
           <thead>
             <tr>
               <th>Judul Artikel</th>
-              <th>Corresponding Author</th>
-              <th>Penulis Utama</th>
-              <th>Detail</th>
-              <th>Status</th>
-              <th>Penilaian</th>
               <th>Reviewer</th>
+              <th>Nilai/Edit</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
             {% for berkas in list_reviewer_jurnal %}
-                {% if user.id == berkas.reviewer.reviewer.id or user.is_superuser %}
+                {% if user.id == berkas.reviewer.reviewer.id %}
                     <tr>
                         <td>{{berkas.judul_artikel}}</td>
-                        <td>
-                        {% if berkas.corresponding_author != None %}
-                            {{berkas.corresponding_author}}
-                        {% elif berkas_corresponding_author_selain != None %}
-                            {{berkas.corresponding_author_selain}}
-                        {% else %}
-                            {% if berkas.penulis_utama != None %}
-                            {{berkas.penulis_utama}}
-                            {% else %}
-                            {{berkas.penulis_utama_selain}}
+                        {% if berkas.reviewer == None %}
+                          <td>Belum Ada</td>
+                        {% elif berkas.reviewer != None %}
+                          <td>{{berkas.reviewer}}</td>
                         {% endif %}
-                        {% endif %}</td>
                         <td>
-                        {% if berkas.penulis_utama != None %}
-                            {{berkas.penulis_utama}}
-                        {% else %}
-                            {{berkas.penulis_utama_selain}}
-                        {% endif %}
-                        </td>
-                        <td>
-                            <a href="{% url 'penilaian:detail_berkas_jurnal' berkas.slug%}" class="btn btn-primary">Detail</a>
-                        </td>
-                        <td>
-                        {% if berkas.is_verificated == True %}
-                          <button disabled class="btn btn-success">Terverifikasi</button>
-                        {% elif berkas.is_verificated == False %}
-                          <button type="button" disabled class="btn btn-danger">Perlu Revisi</button>
-                        {% else %}
-                          <button type="button" disabled class="btn btn-warning">Belum Verif</button>
-                        {% endif %}
-                        </td>
+                          {% if user.id == berkas.reviewer.reviewer.id %}
+                            <a class="btn btn-primary" href="{% url 'penilaian:penilaian_jurnal' berkas.pk %}">Nilai</a>
+                            {% for berkus in list_berkas %}
+                              {% if berkas.id == berkus.jurnal.id %}
+                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_jurnal' berkas.pk %}">Edit</a>
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
                         <td>
                           {% for berkus in list_berkas %}
                             {% if berkas.id == berkus.jurnal.id %}
-                              <a href="{% url 'penilaian:edit_penilaian_jurnal' berkas.slug %}" class="btn btn-success">Sudah</a>
+                              <button disabled type="button" class="btn btn-success">Sudah Dinilai</button>
                             {% endif %}
                           {% endfor %}
                         </td>
-                          {% if berkas.reviewer == None %}
-                            <td>Belum Ada</td>
-                          {% elif berkas.reviewer != None %}
-                            <td>{{berkas.reviewer}}</td>
+                    </tr>
+                {% endif %}
+                {% if user.id == berkas.reviewer_2.reviewer.id %}
+                    <tr>
+                        <td>{{berkas.judul_artikel}}</td>
+                        {% if berkas.reviewer_2 == None %}
+                          <td>Belum Ada</td>
+                        {% elif berkas.reviewer_2 != None %}
+                          <td>{{berkas.reviewer_2}}</td>
+                        {% endif %}
+                        <td>
+                          {% if user.id == berkas.reviewer_2.reviewer.id %}
+                            <a class="btn btn-primary" href="{% url 'penilaian:penilaian_jurnal2' berkas.pk %}">Nilai</a>
+                            {% for berkus2 in list_berkas_2 %}
+                              {% if berkas.id == berkus2.jurnal.id %}
+                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_jurnal2' berkas.pk %}">Edit</a>
+                              {% endif %}
+                            {% endfor %}
                           {% endif %}
+                        <td>
+                          {% for berkus2 in list_berkas_2 %}
+                            {% if berkas.id == berkus2.jurnal.id %}
+                              <button disabled type="button" class="btn btn-success">Sudah Dinilai</button>
+                            {% endif %}
+                          {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% if user.is_superuser %}
+                    <tr>
+                        <td>{{berkas.judul_artikel}}</td>
+                        <td>
+                          {% if berkas.reviewer == None %}
+                            Belum Ada
+                          {% elif berkas.reviewer != None %}
+                            {{berkas.reviewer}}
+                          {% endif %}
+                          {% if berkas.reviewer_2 == None %}
+                            <br> Belum Ada
+                          {% elif berkas.reviewer_2 != None %}
+                            <br> {{berkas.reviewer_2}}
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if user.is_superuser %}
+                            <a class="btn btn-primary" href="{% url 'penilaian:penilaian_jurnal' berkas.pk %}">Nilai</a>
+                            {% for berkus in list_berkas %}
+                              {% if berkas.id == berkus.jurnal.id %}
+                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_jurnal' berkas.slug %}">Edit<a>
+                              {% endif %}
+                            {% endfor %}
+                            <div class="spacing"></div>
+                            <a class="btn btn-primary" href="{% url 'penilaian:penilaian_jurnal2' berkas.pk %}">Nilai</a>
+                            {% for berkus2 in list_berkas_2 %}
+                              {% if berkas.id == berkus2.jurnal.id %}
+                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_jurnal2' berkas.slug %}">Edit</a>
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+                        <td>
+                          {% for berkus in list_berkas %}
+                            {% if berkas.id == berkus.jurnal.id %}
+                              <button disabled class="btn btn-success">Sudah Dinilai (R1)</button>
+                            {% endif %}
+                          {% endfor %}
+                          <div class="spacing"></div>
+                          {% for berkus2 in list_berkas_2 %}
+                            {% if berkas.id == berkus2.jurnal.id %}
+                              <button disabled class="btn btn-success">Sudah Dinilai (R2)</button>
+                            {% endif %}
+                          {% endfor %}
+                        </td>
                     </tr>
                 {% endif %}
             {% endfor %}

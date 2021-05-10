@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Penilaian Berkas Jurnal</title>
+    {% include 'snippets/style.html' %}
+</head>
+<body>
+    {% include 'snippets/navbar.html' %}
+    <section id="portfolio" class="portfolio">
+        <div class="container" data-aos="fade-up">
+          <br>
+          <div class="section-title">
+            <h2 class="text-white">Edit Penilaian Berkas Jurnal</h2>
+          </div>
+        </div>
+    </section><!-- End Portfolio Section -->
+    <div class="container">
+        <br>
+        <a class="float-right btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#KetentuanJurnal" data-aos="zoom-in">Ketentuan</a>
+        <br>
+        <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
+            <div class="form-group">
+                {% csrf_token %}
+                <br>
+                {{form.as_p}}
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    {% include 'snippets/modals.html' %}
+    {% include 'snippets/script.html' %}
+</body>
+</html>

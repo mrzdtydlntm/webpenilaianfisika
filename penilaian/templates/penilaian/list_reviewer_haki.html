@@ -31,52 +31,110 @@
         <table class="table" data-aos="zoom-in">
           <thead>
             <tr>
-              <th>Judul Artikel</th>
-              <th>Pemegang Berkas Utama</th>
-              <th>Detail</th>
+              <th>Judul Buku</th>
+              <th>Reviewer</th>
+              <th>Nilai/Edit</th>
               <th>Status</th>
-              <th>Penilaian</th>
-              {% if user.id == berkas.reviewer.reviewer.id or user.is_superuser %}
-                  <th>Reviewer</th>
-              {% endif %}
             </tr>
           </thead>
           <tbody>
             {% for berkas in list_reviewer_haki %}
-                {% if user.id == berkas.reviewer.reviewer.id or user.is_superuser %}
+                {% if user.id == berkas.reviewer.reviewer.id %}
                     <tr>
                         <td>{{berkas.judul}}</td>
-                        <td>
-                        {% if berkas.pemegang_berkas_utama != None %}
-                            {{berkas.pemegang_berkas_utama}}
-                        {% else %}
-                            {{berkas.pemegang_berkas_utama_selain}}
-                        {% endif %}
-                        </td>
-                        <td>
-                            <a href="{% url 'penilaian:detail_berkas_haki' berkas.slug%}" class="btn btn-primary">Detail</a>
-                        </td>
-                        <td>
-                        {% if berkas.is_verificated == True %}
-                          <button disabled class="btn btn-success">Terverifikasi</button>
-                        {% elif berkas.is_verificated == False %}
-                          <button type="button" class="btn btn-danger">Perlu Revisi</button>
-                        {% else %}
-                          <button type="button" class="btn btn-warning">Belum Verif</button>
-                        {% endif %}
-                        </td>
-                        <td>
-                          {% for berkus in list_berkas %}
-                            {% if berkas.id == berkus.berkas.id %}
-                              <a href="{% url 'penilaian:edit_penilaian_haki' berkas.slug %}" class="btn btn-success">Sudah</a>
-                            {% endif %}
-                          {% endfor %} 
-                        </td>
                         {% if berkas.reviewer == None %}
                           <td>Belum Ada</td>
                         {% elif berkas.reviewer != None %}
                           <td>{{berkas.reviewer}}</td>
                         {% endif %}
+                        <td>
+                          {% if user.id == berkas.reviewer.reviewer.id %}
+                            <a class="btn btn-primary" href="{% url 'penilaian:penilaian_haki' berkas.pk %}">Nilai</a>
+                            {% for berkus in list_berkas %}
+                              {% if berkas.id == berkus.berkas.id %}
+                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_haki' berkas.pk %}">Edit</a>
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+                        <td>
+                          {% for berkus in list_berkas %}
+                            {% if berkas.id == berkus.berkas.id %}
+                              <button disabled type="button" class="btn btn-success">Sudah Dinilai</button>
+                            {% endif %}
+                          {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% if user.id == berkas.reviewer_2.reviewer.id %}
+                    <tr>
+                        <td>{{berkas.judul}}</td>
+                        {% if berkas.reviewer_2 == None %}
+                          <td>Belum Ada</td>
+                        {% elif berkas.reviewer_2 != None %}
+                          <td>{{berkas.reviewer_2}}</td>
+                        {% endif %}
+                        <td>
+                          {% if user.id == berkas.reviewer_2.reviewer.id %}
+                            <a class="btn btn-primary" href="{% url 'penilaian:penilaian_haki2' berkas.pk %}">Nilai</a>
+                            {% for berkus2 in list_berkas_2 %}
+                              {% if berkas.id == berkus2.berkas.id %}
+                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_haki2' berkas.pk %}">Edit</a>
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+                        <td>
+                          {% for berkus2 in list_berkas_2 %}
+                            {% if berkas.id == berkus2.berkas.id %}
+                              <button disabled type="button" class="btn btn-success">Sudah Dinilai</button>
+                            {% endif %}
+                          {% endfor %}
+                        </td>
+                    </tr>
+                {% endif %}
+                {% if user.is_superuser %}
+                    <tr>
+                        <td>{{berkas.judul}}</td>
+                        <td>
+                          {% if berkas.reviewer == None %}
+                            Belum Ada
+                          {% elif berkas.reviewer != None %}
+                            R1 : {{berkas.reviewer}}
+                          {% endif %}
+                          {% if berkas.reviewer_2 == None %}
+                            <br> Belum Ada
+                          {% elif berkas.reviewer_2 != None %}
+                            <br> R2 : {{berkas.reviewer_2}}
+                          {% endif %}
+                        </td>
+                        <td>
+                          {% if user.is_superuser %}
+                            <a class="btn btn-primary" href="{% url 'penilaian:penilaian_haki' berkas.pk %}">Nilai</a>
+                            {% for berkus in list_berkas %}
+                              {% if berkas.id == berkus.berkas.id %}
+                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_haki' berkas.slug %}">Edit<a>
+                              {% endif %}
+                            {% endfor %}
+                            <div class="spacing"></div>
+                            <a class="btn btn-primary" href="{% url 'penilaian:penilaian_haki2' berkas.pk %}">Nilai</a>
+                            {% for berkus2 in list_berkas_2 %}
+                              {% if berkas.id == berkus2.berkas.id %}
+                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_haki2' berkas.slug %}">Edit</a>
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+                        <td>
+                          {% for berkus in list_berkas %}
+                            {% if berkas.id == berkus.berkas.id %}
+                              <button disabled class="btn btn-success">Sudah Dinilai (R1)</button>
+                            {% endif %}
+                          {% endfor %}
+                          <div class="spacing"></div>
+                          {% for berkus2 in list_berkas_2 %}
+                            {% if berkas.id == berkus2.berkas.id %}
+                              <button disabled class="btn btn-success">Sudah Dinilai (R2)</button>
+                            {% endif %}
+                          {% endfor %}
+                        </td>
                     </tr>
                 {% endif %}
             {% endfor %}

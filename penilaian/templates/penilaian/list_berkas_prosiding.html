@@ -63,7 +63,7 @@
                       {{berkas.penulis_utama_selain}}
                     {% endif %}</td>
                     <td>
-                        <a href="{% url 'penilaian:detail_berkas_prosiding' berkas.slug%}" class="btn btn-primary" target="_blank">Detail</a>
+                        <a href="{% url 'penilaian:detail_berkas_prosiding' berkas.pk%}" class="btn btn-primary" target="_blank">Detail</a>
                     </td>
                     <td>
                       {% if berkas.is_verificated == True %}
@@ -84,7 +84,9 @@
                     </td>
                     <td>
                       {% if berkas.is_verificated %}
-                        <a class="btn btn-primary" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}">Download</a>
+                        <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}">Reviewer 1</a>
+                        <div class="spacing"></div>
+                        <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding2' berkas.slug %}">Reviewer 2</a>
                       {% endif %}
                     </td>
                 </tr>
@@ -112,7 +114,7 @@
                         {{berkas.penulis_utama_selain}}
                       {% endif %}</td>
                       <td>
-                          <a href="{% url 'penilaian:detail_berkas_prosiding' berkas.slug%}" class="btn btn-primary" target="_blank">Detail</a>
+                          <a href="{% url 'penilaian:detail_berkas_prosiding' berkas.pk%}" class="btn btn-primary" target="_blank">Detail</a>
                       </td>
                       <td>
                         {% if berkas.is_verificated == True %}
@@ -133,7 +135,9 @@
                       </td>
                       <td>
                         {% if berkas.is_verificated %}
-                          <a class="btn btn-primary" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}">Download</a>
+                          <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}">Reviewer 1</a>
+                          <div class="spacing"></div>
+                          <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding2' berkas.slug %}">Reviewer 2</a>
                         {% endif %}
                       </td>
                   </tr>

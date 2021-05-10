@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
-ALLOWED_HOSTS = ['reviewjurnal.finder.ac.id', 'www.reviewjurnal.finder.ac.id', '127.0.0.1']
+ALLOWED_HOSTS = ['reviewjurnal.finder.ac.id', 'www.reviewjurnal.finder.ac.id', '127.0.0.1', '192.168.1.11']
 
 
 # Application definition

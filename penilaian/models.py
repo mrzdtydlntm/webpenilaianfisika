@@ -35,7 +35,7 @@ class PenulisLain(models.Model):
         return f"{self.penulis}"
 
 class UploadBerkasJurnal(models.Model):
-    pengusul = models.ForeignKey(User, related_name='user_pengusul_jurnal', on_delete=models.CASCADE, verbose_name='Pengusul')
+    pengusul = models.ForeignKey(Users  , related_name='user_pengusul_jurnal', on_delete=models.CASCADE, verbose_name='Pengusul')
     judul_artikel = models.CharField(max_length=255, verbose_name='Judul Artikel', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
     nama_jurnal = models.CharField(max_length=255, verbose_name='Nama Jurnal')
@@ -65,10 +65,10 @@ class UploadBerkasJurnal(models.Model):
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
     upload_jurnal = models.FileField(upload_to='jurnal/isi/', verbose_name='Upload Jurnal')
     upload_cover = models.FileField(upload_to='jurnal/cover/', verbose_name='Upload Jurnal (cover)', blank=True, null=True)
-    corresponding_author = models.ForeignKey(Users, related_name='user_jurnal_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', null=True, blank=True)
-    corresponding_author_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='ca_selain', null=True, blank=True, verbose_name='Corresponding Author (selain Dosen)')
     penulis_utama = models.ForeignKey(Users, related_name='user_jurnal_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', null=True, blank=True)
     penulis_utama_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='pu_selain', null=True, blank=True, verbose_name='Penulis Utama (selain Dosen)')
+    corresponding_author = models.ForeignKey(Users, related_name='user_jurnal_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', null=True, blank=True)
+    corresponding_author_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='ca_selain', null=True, blank=True, verbose_name='Corresponding Author (selain Dosen)')
     penulis_lain = models.ManyToManyField(Users, blank=True)
     penulis_selain = models.ManyToManyField(PenulisLain, verbose_name='Penulis Lain Selain Dosen', blank=True)
     plagiasi = models.PositiveIntegerField(verbose_name='Similarity Index', null=True, blank=True)
@@ -80,6 +80,7 @@ class UploadBerkasJurnal(models.Model):
     linieritas = models.TextField(choices=linier,verbose_name='Linieritas', null=True, blank=True)
     is_verificated = models.BooleanField(default=None, blank=True, null=True)
     reviewer = models.ForeignKey(Reviewer, related_name='user_jurnal_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
+    reviewer_2 = models.ForeignKey(Reviewer, related_name='user_jurnal_reviewer2', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
 
@@ -92,11 +93,11 @@ class UploadBerkasJurnal(models.Model):
     
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
-        return reverse('penilaian:detail_berkas_jurnal', kwargs= url_slug)
+        return reverse('penilaian:detail_berkas_jurnal', kwargs=url_slug)
         
 
 class UploadBerkasProsiding(models.Model):
-    pengusul = models.ForeignKey(User, related_name='user_pengusul_prosiding', on_delete=models.CASCADE, verbose_name='Pengusul')
+    pengusul = models.ForeignKey(Users  , related_name='user_pengusul_prosiding', on_delete=models.CASCADE, verbose_name='Pengusul')
     judul_artikel = models.CharField(max_length=255, verbose_name='Judul Artikel', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
     nama_prosiding = models.CharField(max_length=255, verbose_name='Nama Prosiding', null=True, blank=True)
@@ -127,14 +128,15 @@ class UploadBerkasProsiding(models.Model):
     tingkat_publikasi = models.CharField(max_length=100, choices=tingkat, default=None, verbose_name='Tingkat Publikasi')
     upload_prosiding = models.FileField(upload_to='prosiding/isi/', verbose_name='Upload Prosiding (isi)')
     upload_cover = models.FileField(upload_to='prosiding/cover/', verbose_name='Upload Prosiding (cover)', blank=True, null=True)
+    penulis_utama = models.ForeignKey(Users, related_name='user_prosiding_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', null=True, blank=True)
+    penulis_utama_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='pu_lain_prosiding', verbose_name='Penulis Utama Selain Dosen', blank=True, null=True)
     corresponding_author = models.ForeignKey(Users, related_name='user_prosiding_corresponding_author', on_delete=models.CASCADE, verbose_name='Corresponding Author', default=None, blank=True, null=True)
     corresponding_author_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='ca_lain_prosiding', verbose_name='Corresponding Author Selain Dosen', blank=True, null=True)
-    penulis_utama = models.ForeignKey(Users, related_name='user_prosiding_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama')
-    penulis_utama_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='pu_lain_prosiding', verbose_name='Penulis Utama Selain Dosen', blank=True, null=True)
     penulis_lain = models.ManyToManyField(Users, blank=True)
     penulis_selain = models.ManyToManyField(PenulisLain, blank=True, verbose_name='Penulis Lain Selain Dosen',)
     is_verificated = models.BooleanField(default=None, blank=True, null=True)
     reviewer = models.ForeignKey(Reviewer, related_name='user_prosiding_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
+    reviewer_2 = models.ForeignKey(Reviewer, related_name='user_prosiding_reviewer2', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
 
@@ -147,10 +149,10 @@ class UploadBerkasProsiding(models.Model):
 
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
-        return reverse('penilaian:detail_berkas_prosiding', kwargs= url_slug)
+        return reverse('penilaian:detail_berkas_prosiding', kwargs=url_slug)
 
 class UploadBerkasBuku(models.Model):
-    pengusul = models.ForeignKey(User, related_name='user_pengusul_buku', on_delete=models.CASCADE, verbose_name='Pengusul')
+    pengusul = models.ForeignKey(Users  , related_name='user_pengusul_buku', on_delete=models.CASCADE, verbose_name='Pengusul')
     judul = models.CharField(max_length=255, verbose_name='Judul Buku')
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
     nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', unique=True)
@@ -172,6 +174,7 @@ class UploadBerkasBuku(models.Model):
     penulis_lain_selain = models.ManyToManyField(PenulisLain, verbose_name='Penulis Lain Selain Dosen', blank=True)
     is_verificated = models.BooleanField(default=None, blank=True, null=True)
     reviewer = models.ForeignKey(Reviewer, related_name='user_buku_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
+    reviewer_2 = models.ForeignKey(Reviewer, related_name='user_buku_reviewer2', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
 
@@ -184,10 +187,10 @@ class UploadBerkasBuku(models.Model):
 
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
-        return reverse('penilaian:detail_berkas_buku', kwargs= url_slug)
+        return reverse('penilaian:detail_berkas_buku', kwargs=url_slug)
 
 class UploadBerkasHaki(models.Model):
-    pengusul = models.ForeignKey(User, related_name='user_pengusul_haki', on_delete=models.CASCADE, verbose_name='Pengusul')
+    pengusul = models.ForeignKey(Users  , related_name='user_pengusul_haki', on_delete=models.CASCADE, verbose_name='Pengusul')
     judul = models.CharField(max_length=255, verbose_name='Nama Berkas', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Pemegang Berkas')
     jenis = [
@@ -221,6 +224,7 @@ class UploadBerkasHaki(models.Model):
     pemegang_berkas_selain = models.ManyToManyField(PenulisLain, verbose_name='Pemegang Berkas Selain Dosen', blank=True)
     is_verificated = models.BooleanField(default=None, blank=True, null=True)
     reviewer = models.ForeignKey(Reviewer, related_name='user_haki_reviewer', on_delete=models.CASCADE, blank=True, null=True, default=None)
+    reviewer_2 = models.ForeignKey(Reviewer, related_name='user_haki_reviewer2', on_delete=models.CASCADE, blank=True, null=True, default=None)
     uploaded = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
 
@@ -233,7 +237,10 @@ class UploadBerkasHaki(models.Model):
 
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
-        return reverse('penilaian:detail_berkas_haki', kwargs= url_slug)
+        return reverse('penilaian:detail_berkas_haki', kwargs=url_slug)
+
+# https://stackoverflow.com/questions/47839536/django-createview-with-foreignkey-field
+# https://stackoverflow.com/questions/53033235/django-how-to-assign-foreign-key-in-url-to-a-createview-form
 
 class PenilaianBerkasJurnal(models.Model):
     jurnal = models.OneToOneField(UploadBerkasJurnal, on_delete=models.CASCADE)
@@ -282,7 +289,56 @@ class PenilaianBerkasJurnal(models.Model):
     
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
-        return reverse('penilaian:rekap_jurnal', kwargs= url_slug)
+        return reverse('penilaian:rekap_jurnal', kwargs=url_slug)
+
+class PenilaianBerkasJurnal2(models.Model):
+    jurnal = models.OneToOneField(UploadBerkasJurnal, on_delete=models.CASCADE)
+    unsur_isi = models.FloatField(verbose_name='Nilai Kelengkapan dan Kesesuaian Unsur Isi Jurnal')
+    cmnt_unsur_isi = models.TextField(verbose_name='Komentar Kelengkapan dan Kesesuaian Unsur Isi Jurnal')
+    pembahasan = models.FloatField(verbose_name='Nilai Ruang Lingkup dan Kedalaman Pembahasan')
+    cmnt_pembahasan = models.TextField(verbose_name='Komentar Ruang Lingkup dan Kedalaman Pembahasan')
+    informasi = models.FloatField(verbose_name='Nilai Kecukupan dan Kemutahiran Data/Informasi dan Metodologi')
+    cmnt_informasi = models.TextField(verbose_name='Komentar Kecukupan dan Kemutahiran Data/Informasi dan Metodologi')
+    kualitas_penerbit = models.FloatField(verbose_name='Nilai Kelengkapan Unsur dan Kualitas Penerbit')
+    cmnt_kualitas_penerbit = models.TextField(verbose_name='Komentar Kelengkapan Unsur dan Kualitas Penerbit')
+    total = models.FloatField(verbose_name='Total Nilai', blank=True, null=True)
+    nilai_ca = models.FloatField(verbose_name='Nilai Corresponding Author', blank=True, null=True)
+    nilai_pu = models.FloatField(verbose_name='Nilai Penulis Utama', blank=True, null=True)
+    nilai_pl = models.FloatField(verbose_name='Nilai Penulis Lainnya', blank=True, null=True)
+    jmlh_penulis_lain = models.PositiveIntegerField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
+
+    def __str__(self):
+        return f"{self.jurnal}"
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.jurnal)
+        if self.jurnal.penulis_lain.exists() or self.jurnal.penulis_selain.exists():
+            if self.jurnal.corresponding_author == None and self.jurnal.corresponding_author_selain == None:
+                self.jmlh_penulis_lain = self.jurnal.jmlh_penulis - 1
+            else:
+                self.jmlh_penulis_lain = self.jurnal.jmlh_penulis - 2
+        self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
+        if self.jurnal.corresponding_author != None or self.jurnal.corresponding_author_selain != None: #CA != PU
+            if self.jmlh_penulis_lain == None:
+                self.nilai_ca = self.total * 0.5
+                self.nilai_pu = self.total * 0.5
+            else:
+                self.nilai_ca = self.total * 0.4
+                self.nilai_pu = self.total * 0.4
+                self.nilai_pl = self.total * 0.2 / self.jmlh_penulis_lain
+        else: #CA = PU
+            if self.jmlh_penulis_lain == None:
+                self.nilai_pu = self.total
+            else:
+                self.nilai_pu = self.total * 0.6
+                self.nilai_pl = self.total * 0.4 / self.jmlh_penulis_lain
+        super(PenilaianBerkasJurnal2, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        url_slug = {'slug':self.slug}
+        return reverse('penilaian:rekap_jurnal', kwargs=url_slug)
 
 class PenilaianBerkasProsiding(models.Model):
     prosiding = models.OneToOneField(UploadBerkasProsiding, on_delete=models.CASCADE)
@@ -331,7 +387,56 @@ class PenilaianBerkasProsiding(models.Model):
     
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
-        return reverse('penilaian:rekap_prosiding', kwargs= url_slug)
+        return reverse('penilaian:rekap_prosiding', kwargs=url_slug)
+
+class PenilaianBerkasProsiding2(models.Model):
+    prosiding = models.OneToOneField(UploadBerkasProsiding, on_delete=models.CASCADE)
+    unsur_isi = models.FloatField(verbose_name='Nilai Kelengkapan dan Kesesuaian unsur isi prosiding')
+    cmnt_unsur_isi = models.TextField(verbose_name='Komentar Kelengkapan dan Kesesuaian unsur isi prosiding')
+    pembahasan = models.FloatField(verbose_name='Nilai Ruang Lingkup dan Kedalaman Pembahasan')
+    cmnt_pembahasan = models.TextField(verbose_name='Komentar Ruang Lingkup dan Kedalaman Pembahasan')
+    informasi = models.FloatField(verbose_name='Nilai Kecukupan dan Kemutahiran Data/Informasi dan Metodologi')
+    cmnt_informasi = models.TextField(verbose_name='Komentar Kecukupan dan Kemutahiran Data/Informasi dan Metodologi')
+    kualitas_penerbit = models.FloatField(verbose_name='Nilai Kelengkapan Unsur dan Kualitas Penerbit')
+    cmnt_kualitas_penerbit = models.TextField(verbose_name='Komentar Kelengkapan Unsur dan Kualitas Penerbit')
+    total = models.FloatField(verbose_name='Total Nilai', blank=True, null=True)
+    nilai_ca = models.FloatField(verbose_name='Nilai Corresponding Author', blank=True, null=True)
+    nilai_pu = models.FloatField(verbose_name='Nilai Penulis Utama', blank=True, null=True)
+    nilai_pl = models.FloatField(verbose_name='Nilai Penulis Lainnya', blank=True, null=True)
+    jmlh_penulis_lain = models.PositiveIntegerField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
+
+    def __str__(self):
+        return f"{self.prosiding}"
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.prosiding)
+        if self.prosiding.penulis_lain.exists() or self.prosiding.penulis_selain.exists():
+            if self.prosiding.corresponding_author == None and self.prosiding.corresponding_author_selain == None:
+                self.jmlh_penulis_lain = self.prosiding.jmlh_penulis - 1
+            else:
+                self.jmlh_penulis_lain = self.prosiding.jmlh_penulis - 2
+        self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
+        if self.prosiding.corresponding_author != None: #CA != PU
+            if self.jmlh_penulis_lain == None:
+                self.nilai_ca = self.total * 0.5
+                self.nilai_pu = self.total * 0.5
+            else:
+                self.nilai_ca = self.total * 0.4
+                self.nilai_pu = self.total * 0.4
+                self.nilai_pl = self.total * 0.2 / self.jmlh_penulis_lain
+        else: #CA = PU
+            if self.jmlh_penulis_lain == None:
+                self.nilai_pu = self.total
+            else:
+                self.nilai_pu = self.total * 0.6
+                self.nilai_pl = self.total * 0.4 / self.jmlh_penulis_lain
+        super(PenilaianBerkasProsiding2, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        url_slug = {'slug':self.slug}
+        return reverse('penilaian:rekap_prosiding', kwargs=url_slug)
 
 class PenilaianBerkasBuku(models.Model):
     buku = models.OneToOneField(UploadBerkasBuku, on_delete=models.CASCADE)
@@ -367,7 +472,43 @@ class PenilaianBerkasBuku(models.Model):
     
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
-        return reverse('penilaian:rekap_buku', kwargs= url_slug)
+        return reverse('penilaian:rekap_buku', kwargs=url_slug)
+
+class PenilaianBerkasBuku2(models.Model):
+    buku = models.OneToOneField(UploadBerkasBuku, on_delete=models.CASCADE)
+    unsur_isi = models.FloatField(verbose_name='Nilai Kelengkapan Unsur Isi Buku')
+    cmnt_unsur_isi = models.TextField(verbose_name='Komentar Kelengkapan Unsur Isi Buku')
+    pembahasan = models.FloatField(verbose_name='Nilai Ruang Lingkup dan Kedalaman Pembahasan')
+    cmnt_pembahasan = models.TextField(verbose_name='Komentar Ruang Lingkup dan Kedalaman Pembahasan')
+    informasi = models.FloatField(verbose_name='Nilai Kecukupan dan Kemutahiran Data/Informasi dan Metodologi')
+    cmnt_informasi = models.TextField(verbose_name='Komentar Kecukupan dan Kemutahiran Data/Informasi dan Metodologi')
+    kualitas_penerbit = models.FloatField(verbose_name='Nilai Kelengkapan Unsur dan Kualitas Penerbit')
+    cmnt_kualitas_penerbit = models.TextField(verbose_name='Komentar Kelengkapan Unsur dan Kualitas Penerbit')
+    total = models.FloatField(verbose_name='Total Nilai', blank=True, null=True)
+    nilai_pu = models.FloatField(verbose_name='Nilai Penulis Utama', blank=True, null=True)
+    nilai_pl = models.FloatField(verbose_name='Nilai Penulis Lainnya', blank=True, null=True)
+    jmlh_penulis_lain = models.PositiveIntegerField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
+
+    def __str__(self):
+        return f"{self.buku}"
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.buku)
+        if self.buku.jmlh_penulis != 1:
+            self.jmlh_penulis_lain = self.buku.jmlh_penulis - 1
+        self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
+        if self.jmlh_penulis_lain == None:
+            self.nilai_pu = self.total
+        else:
+            self.nilai_pu = self.total * 0.8
+            self.nilai_pl = self.total * 0.2 / self.jmlh_penulis_lain
+        super(PenilaianBerkasBuku2, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        url_slug = {'slug':self.slug}
+        return reverse('penilaian:rekap_buku')
 
 class PenilaianBerkasHaki(models.Model):
     berkas = models.OneToOneField(UploadBerkasHaki, on_delete=models.CASCADE)
@@ -403,7 +544,43 @@ class PenilaianBerkasHaki(models.Model):
     
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
-        return reverse('penilaian:rekap_haki', kwargs= url_slug)
+        return reverse('penilaian:rekap_haki', kwargs=url_slug)
+
+class PenilaianBerkasHaki2(models.Model):
+    berkas = models.OneToOneField(UploadBerkasHaki, on_delete=models.CASCADE)
+    unsur_isi = models.FloatField(verbose_name='Nilai Kelengkapan Unsur Isi Deskripsi')
+    cmnt_unsur_isi = models.TextField(verbose_name='Komentar Kelengkapan Unsur Isi Deskripsi')
+    pembahasan = models.FloatField(verbose_name='Nilai Ruang Lingkup dan Kedalaman Pembahasan')
+    cmnt_pembahasan = models.TextField(verbose_name='Komentar Ruang Lingkup dan Kedalaman Pembahasan')
+    informasi = models.FloatField(verbose_name='Nilai Kecukupan dan Kemutahiran Data/Informasi dan Metodologi')
+    cmnt_informasi = models.TextField(verbose_name='Komentar Kecukupan dan Kemutahiran Data/Informasi dan Metodologi')
+    kualitas_penerbit = models.FloatField(verbose_name='Nilai Kelengkapan Unsur dan Kualitas Penerbit')
+    cmnt_kualitas_penerbit = models.TextField(verbose_name='Komentar Kelengkapan Unsur dan Kualitas Penerbit')
+    total = models.FloatField(verbose_name='Total Nilai', blank=True, null=True)
+    nilai_pu = models.FloatField(verbose_name='Nilai Pemegang Berkas Utama', blank=True, null=True)
+    nilai_pl = models.FloatField(verbose_name='Nilai Pemegang Berkas Lainnya', blank=True, null=True)
+    jmlh_penulis_lain = models.PositiveIntegerField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    slug = models.SlugField(max_length=255, blank=True, editable=False, unique=True)
+
+    def __str__(self):
+        return f"{self.berkas}"
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.berkas)
+        if self.berkas.jmlh_penulis != 1:
+            self.jmlh_penulis_lain = self.berkas.jmlh_penulis - 1
+        self.total = self.unsur_isi + self.pembahasan + self.informasi + self.kualitas_penerbit
+        if self.jmlh_penulis_lain == None:
+            self.nilai_pu = self.total
+        else:
+            self.nilai_pu = self.total * 0.8
+            self.nilai_pl = self.total * 0.2 / self.jmlh_penulis_lain
+        super(PenilaianBerkasHaki2, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        url_slug = {'slug':self.slug}
+        return reverse('penilaian:rekap_haki', kwargs=url_slug)
 
     
 ######################################################################################################3

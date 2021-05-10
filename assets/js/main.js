@@ -1,22 +1,3 @@
-/**
-* Template Name: Arsha - v2.3.1
-* Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-
-
-$.ajax({
-  type:'GET',
-  url:'/data_json/',
-  success: function(response){
-    console.log(response)
-  },
-  error: function(error){
-    console.log(error)
-  }
-})
 $('select').selectpicker();
 $(".add-ca").on("click", function() {
   $(".ca-lain:hidden").slice(0,1).show();

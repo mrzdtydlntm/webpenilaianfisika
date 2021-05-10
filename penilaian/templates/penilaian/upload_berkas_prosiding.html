@@ -29,11 +29,7 @@
                 {% endfor %}
                 </ul>
             {% endif %}
-            <p><label for="id_pengusul">Pengusul*:</label> 
-                <select name="pengusul" class="form-control mh" required id="id_pengusul">
-                    <option value="{{user.id}}" selected>{{user}}</option>
-                </select>
-            </p>
+            <p><label for="id_pengusul">Pengusul*:</label> {{form.pengusul}}</p>
             <p><label for="id_judul_artikel">Judul Artikel*:</label> {{form.judul_artikel}}</p>
             <p><label for="id_jmlh_penulis">Jumlah Penulis*:</label> {{form.jmlh_penulis}}</p>
             <p><label for="id_nama_prosiding">Nama Prosiding:</label> {{form.nama_prosiding}}</p>
