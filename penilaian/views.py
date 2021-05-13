@@ -25,11 +25,6 @@ class SuperAdminAccess(UserPassesTestMixin, LoginRequiredMixin):
     def test_func(self):
         if self.request.user.is_superuser:
             return True
-
-class UserView(ListView):
-    model = Users
-    template_name = 'penilaian/user_table.html'
-    context_object_name = 'list_user'
 ################################################################################################################
 class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
     model = UploadBerkasJurnal

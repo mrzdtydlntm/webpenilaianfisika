@@ -5,7 +5,6 @@ from webfisika import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('tabel_user/', views.UserView.as_view(), name='tabel_user'),
     path('upload_berkas_jurnal/', views.UploadBerkasJurnalView.as_view(), name='upload_berkas_jurnal'),
     path('upload_berkas_prosiding/', views.UploadBerkasProsidingView.as_view(), name='upload_berkas_prosiding'),
     path('upload_berkas_buku/', views.UploadBerkasBukuView.as_view(), name='upload_berkas_buku'),
