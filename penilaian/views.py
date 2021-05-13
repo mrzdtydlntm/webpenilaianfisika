@@ -106,6 +106,15 @@ class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
                 message = f'Terdapat jurnal dengan judul {nama_jurnal} telah diverifikasi. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
                 # print(message)
                 send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
+            if form.cleaned_data.get('reviewer_2') != None:
+                nama_jurnal = form.cleaned_data.get('judul_artikel')
+                reviewer_2 = form.cleaned_data.get('reviewer_2')
+                review_2 = User.objects.get(first_name=reviewer_2.reviewer)
+                # print(review)
+                subject = 'Konfirmasi Review Jurnal'
+                message = f'Terdapat jurnal dengan judul {nama_jurnal} telah diverifikasi. Diharapkan bapak/ibu {reviewer_2} segera menilainya. Terimakasih'
+                # print(message)
+                send_mail(subject, message, EMAIL_HOST_USER, [review_2.email], fail_silently = False)
         elif form.cleaned_data.get('is_verificated') == False:
             nama_jurnal = form.cleaned_data.get('judul_artikel')
             pengusul = form.cleaned_data.get('pengusul')
@@ -284,6 +293,14 @@ class VerifikasiBerkasProsidingView(SuperAdminAccess, UpdateView):
                 message = f'Terdapat prosiding dengan judul {nama_prosiding} telah diverifikasi. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
                 # print(message)
                 send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
+            if form.cleaned_data.get('reviewer_2') != None:
+                nama_prosiding = form.cleaned_data.get('judul_artikel')
+                reviewer_2 = form.cleaned_data.get('reviewer_2')
+                review_2 = User.objects.get(first_name=reviewer_2.reviewer)
+                subject = 'Konfirmasi Review Prosiding'
+                message = f'Terdapat prosiding dengan judul {nama_prosiding} telah diverifikasi. Diharapkan bapak/ibu {reviewer_2} segera menilainya. Terimakasih'
+                # print(message)
+                send_mail(subject, message, EMAIL_HOST_USER, [review_2.email], fail_silently = False)
         elif form.cleaned_data.get('is_verificated') == False:
             nama_prosiding = form.cleaned_data.get('judul_artikel')
             pengusul = form.cleaned_data.get('pengusul')
@@ -469,6 +486,14 @@ class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
                 message = f'Terdapat buku dengan judul {nama_buku} telah diverifikasi. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
                 # print(message)
                 send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
+            if form.cleaned_data.get('reviewer_2') != None:
+                nama_buku = form.cleaned_data.get('judul')
+                reviewer_2 = form.cleaned_data.get('reviewer_2')
+                review_2 = User.objects.get(first_name=reviewer_2.reviewer)
+                subject = 'Konfirmasi Review Buku'
+                message = f'Terdapat buku dengan judul {nama_buku} telah diverifikasi. Diharapkan bapak/ibu {reviewer_2} segera menilainya. Terimakasih'
+                # print(message)
+                send_mail(subject, message, EMAIL_HOST_USER, [review_2.email], fail_silently = False)
         elif form.cleaned_data.get('is_verificated') == False:
             nama_buku = form.cleaned_data.get('judul')
             pengusul = form.cleaned_data.get('pengusul')
@@ -654,6 +679,14 @@ class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
                 message = f'Terdapat haki dengan judul {nama_haki} telah diupload. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
                 # print(message)
                 send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
+            if form.cleaned_data.get('reviewer_2') != None:
+                nama_haki = form.cleaned_data.get('judul')
+                reviewer_2 = form.cleaned_data.get('reviewer_2')
+                review_2 = User.objects.get(first_name=reviewer_2.reviewer)
+                subject = 'Konfirmasi Review Haki'
+                message = f'Terdapat haki dengan judul {nama_haki} telah diupload. Diharapkan bapak/ibu {reviewer_2} segera menilainya. Terimakasih'
+                # print(message)
+                send_mail(subject, message, EMAIL_HOST_USER, [review_2.email], fail_silently = False)
         elif form.cleaned_data.get('is_verificated') == False:
             nama_haki = form.cleaned_data.get('judul')
             pengusul = form.cleaned_data.get('pengusul')
