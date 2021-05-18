@@ -21,6 +21,12 @@
                 <h4 class="card-title mb-4 mt-1">Sign in</h4>
                 <form method="POST">
                     {% csrf_token %}
+                    {% for message in messages %}
+                    <div class="alert alert-success">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
                     <div class="form-group">
                         <label>Nomor Induk Pegawai :</label>
                         <input type="text" name="username" id="username" class="form-control" placeholder="NIP">

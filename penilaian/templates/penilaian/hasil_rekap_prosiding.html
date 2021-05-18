@@ -16,7 +16,7 @@
             }
             .paragraf {
                 font-family: "Times New Roman", Times, serif;
-                font-size: 9pt;
+                font-size: 8.5pt;
             }
             tr {
                 margin-bottom: 50;
@@ -200,18 +200,18 @@
                 <p>Hasil Penilaian Peer Review :</p>
                 <table style="border-collapse: collapse;">
                     <tr class="bordernilai">
-                        <td style="text-align: center;">Komponen Yang Dinilai</td>
-                        <td style="text-align: center;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
-                        <td style="text-align: center;">Nilai Akhir yang Diperoleh</td>
+                        <td style="text-align: center; width: 25%;">Komponen Yang Dinilai</td>
+                        <td style="text-align: center; width: 66%;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                        <td style="text-align: center; width: 8;">Nilai Akhir yang Diperoleh</td>
                     </tr>
                     <tr class="bordernilai">
                         <td style="width: 25%;"></td>
-                        <td colspan="2" style="text-align: center;">Presentasi Oral dan Dipublikasikan</td>
-                        <td colspan="2" style="text-align: center;">Poster dan Dipublikasikan dalam Prosiding</td>
-                        <td colspan="2" style="text-align: center;">Tidak Diseminarkan Namun Terpublikasi</td>
-                        <td colspan="2" style="text-align: center;">Diseminarkan Namun Tidak Terpublikasi</td>
-                        <td style="text-align: center;">Koran / Majalah</td>
-                        <td style="text-align: center;"></td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Presentasi Oral dan Dipublikasikan</td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Poster dan Dipublikasikan dalam Prosiding</td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Tidak Diseminarkan Namun Terpublikasi</td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Diseminarkan Namun Tidak Terpublikasi</td>
+                        <td style="text-align: center; width: 8%;">Koran / Majalah</td>
+                        <td style="text-align: center; width: 8%;"></td>
                     </tr>
                     <tr class="bordernilai">
                         <td style="width: 25%;"></td>
@@ -228,67 +228,247 @@
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1</td>
-                        <td style="text-align: center;">1</td>
-                        <td style="text-align: center;">0.5</td>
-                        <td style="text-align: center;">1</td>
-                        <td style="text-align: center;">0.5</td>
-                        <td style="text-align: center;">0.5</td>
-                        <td style="text-align: center;">0.3</td>
-                        <td style="text-align: center;">0.1</td>
-                        <td style="text-align: center;">{{rekap_prosiding.unsur_isi}}</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">0.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 8%;">{{rekap_prosiding.unsur_isi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                        <td style="text-align: center;">9</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;;">1.5</td>
-                        <td style="text-align: center;">0.9</td>
-                        <td style="text-align: center;">0.3</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;">{{rekap_prosiding.pembahasan}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                        <td style="text-align: center;">9</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;;">1.5</td>
-                        <td style="text-align: center;">0.9</td>
-                        <td style="text-align: center;">0.3</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;">{{rekap_prosiding.informasi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                        <td style="text-align: center;">9</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">0.9</td>
-                        <td style="text-align: center;">0.3</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;;">{{rekap_prosiding.kualitas_penerbit}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Total</td>
-                        <td style="text-align: center;">40</td>
-                        <td style="text-align: center;">10</td>
-                        <td style="text-align: center;">10</td>
-                        <td style="text-align: center;">5</td>
-                        <td style="text-align: center;">10</td>
-                        <td style="text-align: center;">5</td>
-                        <td style="text-align: center;;">5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">40</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;">{{rekap_prosiding.total}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -513,18 +693,18 @@
                 <p>Hasil Penilaian Peer Review :</p>
                 <table style="border-collapse: collapse;">
                     <tr class="bordernilai">
-                        <td style="text-align: center;">Komponen Yang Dinilai</td>
-                        <td style="text-align: center;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
-                        <td style="text-align: center;">Nilai Akhir yang Diperoleh</td>
+                        <td style="text-align: center; width: 25%;">Komponen Yang Dinilai</td>
+                        <td style="text-align: center; width: 66%;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                        <td style="text-align: center; width: 8;">Nilai Akhir yang Diperoleh</td>
                     </tr>
                     <tr class="bordernilai">
                         <td style="width: 25%;"></td>
-                        <td colspan="2" style="text-align: center;">Presentasi Oral dan Dipublikasikan</td>
-                        <td colspan="2" style="text-align: center;">Poster dan Dipublikasikan dalam Prosiding</td>
-                        <td colspan="2" style="text-align: center;">Tidak Diseminarkan Namun Terpublikasi</td>
-                        <td colspan="2" style="text-align: center;">Diseminarkan Namun Tidak Terpublikasi</td>
-                        <td style="text-align: center;">Koran / Majalah</td>
-                        <td style="text-align: center;"></td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Presentasi Oral dan Dipublikasikan</td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Poster dan Dipublikasikan dalam Prosiding</td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Tidak Diseminarkan Namun Terpublikasi</td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Diseminarkan Namun Tidak Terpublikasi</td>
+                        <td style="text-align: center; width: 8%;">Koran / Majalah</td>
+                        <td style="text-align: center; width: 8%;"></td>
                     </tr>
                     <tr class="bordernilai">
                         <td style="width: 25%;"></td>
@@ -541,67 +721,247 @@
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1</td>
-                        <td style="text-align: center;">1</td>
-                        <td style="text-align: center;">0.5</td>
-                        <td style="text-align: center;">1</td>
-                        <td style="text-align: center;">0.5</td>
-                        <td style="text-align: center;">0.5</td>
-                        <td style="text-align: center;">0.3</td>
-                        <td style="text-align: center;">0.1</td>
-                        <td style="text-align: center;">{{rekap_prosiding.unsur_isi}}</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">0.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 8%;">{{rekap_prosiding.unsur_isi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                        <td style="text-align: center;">9</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;;">1.5</td>
-                        <td style="text-align: center;">0.9</td>
-                        <td style="text-align: center;">0.3</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;">{{rekap_prosiding.pembahasan}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                        <td style="text-align: center;">9</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;;">1.5</td>
-                        <td style="text-align: center;">0.9</td>
-                        <td style="text-align: center;">0.3</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;">{{rekap_prosiding.informasi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                        <td style="text-align: center;">9</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">0.9</td>
-                        <td style="text-align: center;">0.3</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;;">{{rekap_prosiding.kualitas_penerbit}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Total</td>
-                        <td style="text-align: center;">40</td>
-                        <td style="text-align: center;">10</td>
-                        <td style="text-align: center;">10</td>
-                        <td style="text-align: center;">5</td>
-                        <td style="text-align: center;">10</td>
-                        <td style="text-align: center;">5</td>
-                        <td style="text-align: center;;">5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">40</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;">{{rekap_prosiding.total}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -830,18 +1190,18 @@
                 <p>Hasil Penilaian Peer Review :</p>
                 <table style="border-collapse: collapse;">
                     <tr class="bordernilai">
-                        <td style="text-align: center;">Komponen Yang Dinilai</td>
-                        <td style="text-align: center;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
-                        <td style="text-align: center;">Nilai Akhir yang Diperoleh</td>
+                        <td style="text-align: center; width: 25%;">Komponen Yang Dinilai</td>
+                        <td style="text-align: center; width: 66%;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                        <td style="text-align: center; width: 8;">Nilai Akhir yang Diperoleh</td>
                     </tr>
                     <tr class="bordernilai">
                         <td style="width: 25%;"></td>
-                        <td colspan="2" style="text-align: center;">Presentasi Oral dan Dipublikasikan</td>
-                        <td colspan="2" style="text-align: center;">Poster dan Dipublikasikan dalam Prosiding</td>
-                        <td colspan="2" style="text-align: center;">Tidak Diseminarkan Namun Terpublikasi</td>
-                        <td colspan="2" style="text-align: center;">Diseminarkan Namun Tidak Terpublikasi</td>
-                        <td style="text-align: center;">Koran / Majalah</td>
-                        <td style="text-align: center;"></td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Presentasi Oral dan Dipublikasikan</td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Poster dan Dipublikasikan dalam Prosiding</td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Tidak Diseminarkan Namun Terpublikasi</td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Diseminarkan Namun Tidak Terpublikasi</td>
+                        <td style="text-align: center; width: 8%;">Koran / Majalah</td>
+                        <td style="text-align: center; width: 8%;"></td>
                     </tr>
                     <tr class="bordernilai">
                         <td style="width: 25%;"></td>
@@ -858,67 +1218,247 @@
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1</td>
-                        <td style="text-align: center;">1</td>
-                        <td style="text-align: center;">0.5</td>
-                        <td style="text-align: center;">1</td>
-                        <td style="text-align: center;">0.5</td>
-                        <td style="text-align: center;">0.5</td>
-                        <td style="text-align: center;">0.3</td>
-                        <td style="text-align: center;">0.1</td>
-                        <td style="text-align: center;">{{rekap_prosiding.unsur_isi}}</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">0.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 8%;">{{rekap_prosiding.unsur_isi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                        <td style="text-align: center;">9</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;;">1.5</td>
-                        <td style="text-align: center;">0.9</td>
-                        <td style="text-align: center;">0.3</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;">{{rekap_prosiding.pembahasan}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                        <td style="text-align: center;">9</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;;">1.5</td>
-                        <td style="text-align: center;">0.9</td>
-                        <td style="text-align: center;">0.3</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;">{{rekap_prosiding.informasi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                        <td style="text-align: center;">9</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">0.9</td>
-                        <td style="text-align: center;">0.3</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;;">{{rekap_prosiding.kualitas_penerbit}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Total</td>
-                        <td style="text-align: center;">40</td>
-                        <td style="text-align: center;">10</td>
-                        <td style="text-align: center;">10</td>
-                        <td style="text-align: center;">5</td>
-                        <td style="text-align: center;">10</td>
-                        <td style="text-align: center;">5</td>
-                        <td style="text-align: center;;">5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">40</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;">{{rekap_prosiding.total}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -1138,18 +1678,18 @@
                 <p>Hasil Penilaian Peer Review :</p>
                 <table style="border-collapse: collapse;">
                     <tr class="bordernilai">
-                        <td style="text-align: center;">Komponen Yang Dinilai</td>
-                        <td style="text-align: center;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
-                        <td style="text-align: center;">Nilai Akhir yang Diperoleh</td>
+                        <td style="text-align: center; width: 25%;">Komponen Yang Dinilai</td>
+                        <td style="text-align: center; width: 66%;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                        <td style="text-align: center; width: 8;">Nilai Akhir yang Diperoleh</td>
                     </tr>
                     <tr class="bordernilai">
                         <td style="width: 25%;"></td>
-                        <td colspan="2" style="text-align: center;">Presentasi Oral dan Dipublikasikan</td>
-                        <td colspan="2" style="text-align: center;">Poster dan Dipublikasikan dalam Prosiding</td>
-                        <td colspan="2" style="text-align: center;">Tidak Diseminarkan Namun Terpublikasi</td>
-                        <td colspan="2" style="text-align: center;">Diseminarkan Namun Tidak Terpublikasi</td>
-                        <td style="text-align: center;">Koran / Majalah</td>
-                        <td style="text-align: center;"></td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Presentasi Oral dan Dipublikasikan</td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Poster dan Dipublikasikan dalam Prosiding</td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Tidak Diseminarkan Namun Terpublikasi</td>
+                        <td colspan="2" style="text-align: center; width: 16%;">Diseminarkan Namun Tidak Terpublikasi</td>
+                        <td style="text-align: center; width: 8%;">Koran / Majalah</td>
+                        <td style="text-align: center; width: 8%;"></td>
                     </tr>
                     <tr class="bordernilai">
                         <td style="width: 25%;"></td>
@@ -1166,67 +1706,247 @@
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1</td>
-                        <td style="text-align: center;">1</td>
-                        <td style="text-align: center;">0.5</td>
-                        <td style="text-align: center;">1</td>
-                        <td style="text-align: center;">0.5</td>
-                        <td style="text-align: center;">0.5</td>
-                        <td style="text-align: center;">0.3</td>
-                        <td style="text-align: center;">0.1</td>
-                        <td style="text-align: center;">{{rekap_prosiding.unsur_isi}}</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">0.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 8%;">{{rekap_prosiding.unsur_isi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                        <td style="text-align: center;">9</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;;">1.5</td>
-                        <td style="text-align: center;">0.9</td>
-                        <td style="text-align: center;">0.3</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;">{{rekap_prosiding.pembahasan}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                        <td style="text-align: center;">9</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;;">1.5</td>
-                        <td style="text-align: center;">0.9</td>
-                        <td style="text-align: center;">0.3</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;">{{rekap_prosiding.informasi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                        <td style="text-align: center;">9</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">1.5</td>
-                        <td style="text-align: center;">0.9</td>
-                        <td style="text-align: center;">0.3</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">0.9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">0.3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;;">{{rekap_prosiding.kualitas_penerbit}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Total</td>
-                        <td style="text-align: center;">40</td>
-                        <td style="text-align: center;">10</td>
-                        <td style="text-align: center;">10</td>
-                        <td style="text-align: center;">5</td>
-                        <td style="text-align: center;">10</td>
-                        <td style="text-align: center;">5</td>
-                        <td style="text-align: center;;">5</td>
-                        <td style="text-align: center;">3</td>
-                        <td style="text-align: center;">1</td>
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">40</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 10%;">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 6%;">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 6%;"></td>
+                        {% endif %}
+                        {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                            <td style="text-align: center; width: 8%;">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 8%;"></td>
+                        {% endif %}
                         <td style="text-align: center;">{{rekap_prosiding.total}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -1448,18 +2168,18 @@
             <p>Hasil Penilaian Peer Review :</p>
             <table style="border-collapse: collapse;">
                 <tr class="bordernilai">
-                    <td style="text-align: center;">Komponen Yang Dinilai</td>
-                    <td style="text-align: center;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
-                    <td style="text-align: center;">Nilai Akhir yang Diperoleh</td>
+                    <td style="text-align: center; width: 25%;">Komponen Yang Dinilai</td>
+                    <td style="text-align: center; width: 66%;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                    <td style="text-align: center; width: 8;">Nilai Akhir yang Diperoleh</td>
                 </tr>
                 <tr class="bordernilai">
                     <td style="width: 25%;"></td>
-                    <td colspan="2" style="text-align: center;">Presentasi Oral dan Dipublikasikan</td>
-                    <td colspan="2" style="text-align: center;">Poster dan Dipublikasikan dalam Prosiding</td>
-                    <td colspan="2" style="text-align: center;">Tidak Diseminarkan Namun Terpublikasi</td>
-                    <td colspan="2" style="text-align: center;">Diseminarkan Namun Tidak Terpublikasi</td>
-                    <td style="text-align: center;">Koran / Majalah</td>
-                    <td style="text-align: center;"></td>
+                    <td colspan="2" style="text-align: center; width: 16%;">Presentasi Oral dan Dipublikasikan</td>
+                    <td colspan="2" style="text-align: center; width: 16%;">Poster dan Dipublikasikan dalam Prosiding</td>
+                    <td colspan="2" style="text-align: center; width: 16%;">Tidak Diseminarkan Namun Terpublikasi</td>
+                    <td colspan="2" style="text-align: center; width: 16%;">Diseminarkan Namun Tidak Terpublikasi</td>
+                    <td style="text-align: center; width: 8%;">Koran / Majalah</td>
+                    <td style="text-align: center; width: 8%;"></td>
                 </tr>
                 <tr class="bordernilai">
                     <td style="width: 25%;"></td>
@@ -1476,67 +2196,247 @@
                 </tr>
                 <tr class="bordernilai">
                     <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">1</td>
-                    <td style="text-align: center;">1</td>
-                    <td style="text-align: center;">0.5</td>
-                    <td style="text-align: center;">1</td>
-                    <td style="text-align: center;">0.5</td>
-                    <td style="text-align: center;">0.5</td>
-                    <td style="text-align: center;">0.3</td>
-                    <td style="text-align: center;">0.1</td>
-                    <td style="text-align: center;">{{rekap_prosiding.unsur_isi}}</td>
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%">1</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">1</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">0.5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">1</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">0.5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">0.5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">0.3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                        <td style="text-align: center; width: 8%;">0.1</td>
+                    {% else %}
+                        <td style="text-align: center; width: 8%;"></td>
+                    {% endif %}
+                    <td style="text-align: center; width: 8%;">{{rekap_prosiding.unsur_isi}}</td>
                 </tr>
                 <tr class="bordernilai">
                     <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                    <td style="text-align: center;">9</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">1.5</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">1.5</td>
-                    <td style="text-align: center;;">1.5</td>
-                    <td style="text-align: center;">0.9</td>
-                    <td style="text-align: center;">0.3</td>
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">9</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">1.5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">1.5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">1.5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">0.9</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                        <td style="text-align: center; width: 8%;">0.3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 8%;"></td>
+                    {% endif %}
                     <td style="text-align: center;">{{rekap_prosiding.pembahasan}}</td>
                 </tr>
                 <tr class="bordernilai">
                     <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                    <td style="text-align: center;">9</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">1.5</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">1.5</td>
-                    <td style="text-align: center;;">1.5</td>
-                    <td style="text-align: center;">0.9</td>
-                    <td style="text-align: center;">0.3</td>
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">9</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">1.5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">1.5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">1.5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">0.9</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                        <td style="text-align: center; width: 8%;">0.3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 8%;"></td>
+                    {% endif %}
                     <td style="text-align: center;">{{rekap_prosiding.informasi}}</td>
                 </tr>
                 <tr class="bordernilai">
                     <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                    <td style="text-align: center;">9</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">1.5</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">1.5</td>
-                    <td style="text-align: center;">1.5</td>
-                    <td style="text-align: center;">0.9</td>
-                    <td style="text-align: center;">0.3</td>
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">9</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">1.5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">1.5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">1.5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">0.9</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                        <td style="text-align: center; width: 8%;">0.3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 8%;"></td>
+                    {% endif %}
                     <td style="text-align: center;;">{{rekap_prosiding.kualitas_penerbit}}</td>
                 </tr>
                 <tr class="bordernilai">
                     <td>Total</td>
-                    <td style="text-align: center;">40</td>
-                    <td style="text-align: center;">10</td>
-                    <td style="text-align: center;">10</td>
-                    <td style="text-align: center;">5</td>
-                    <td style="text-align: center;">10</td>
-                    <td style="text-align: center;">5</td>
-                    <td style="text-align: center;;">5</td>
-                    <td style="text-align: center;">3</td>
-                    <td style="text-align: center;">1</td>
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">40</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">10</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">10</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">10</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                        <td style="text-align: center; width: 10%;">5</td>
+                    {% else %}
+                        <td style="text-align: center; width: 10%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                        <td style="text-align: center; width: 6%;">3</td>
+                    {% else %}
+                        <td style="text-align: center; width: 6%;"></td>
+                    {% endif %}
+                    {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                        <td style="text-align: center; width: 8%;">1</td>
+                    {% else %}
+                        <td style="text-align: center; width: 8%;"></td>
+                    {% endif %}
                     <td style="text-align: center;">{{rekap_prosiding.total}}</td>
                 </tr>
                 <tr class="bordernilai">
@@ -1764,18 +2664,18 @@
                     <p>Hasil Penilaian Peer Review :</p>
                     <table style="border-collapse: collapse;">
                         <tr class="bordernilai">
-                            <td style="text-align: center;">Komponen Yang Dinilai</td>
-                            <td style="text-align: center;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
-                            <td style="text-align: center;">Nilai Akhir yang Diperoleh</td>
+                            <td style="text-align: center; width: 25%;">Komponen Yang Dinilai</td>
+                            <td style="text-align: center; width: 66%;" colspan="9">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                            <td style="text-align: center; width: 8;">Nilai Akhir yang Diperoleh</td>
                         </tr>
                         <tr class="bordernilai">
                             <td style="width: 25%;"></td>
-                            <td colspan="2" style="text-align: center;">Presentasi Oral dan Dipublikasikan</td>
-                            <td colspan="2" style="text-align: center;">Poster dan Dipublikasikan dalam Prosiding</td>
-                            <td colspan="2" style="text-align: center;">Tidak Diseminarkan Namun Terpublikasi</td>
-                            <td colspan="2" style="text-align: center;">Diseminarkan Namun Tidak Terpublikasi</td>
-                            <td style="text-align: center;">Koran / Majalah</td>
-                            <td style="text-align: center;"></td>
+                            <td colspan="2" style="text-align: center; width: 16%;">Presentasi Oral dan Dipublikasikan</td>
+                            <td colspan="2" style="text-align: center; width: 16%;">Poster dan Dipublikasikan dalam Prosiding</td>
+                            <td colspan="2" style="text-align: center; width: 16%;">Tidak Diseminarkan Namun Terpublikasi</td>
+                            <td colspan="2" style="text-align: center; width: 16%;">Diseminarkan Namun Tidak Terpublikasi</td>
+                            <td style="text-align: center; width: 8%;">Koran / Majalah</td>
+                            <td style="text-align: center; width: 8%;"></td>
                         </tr>
                         <tr class="bordernilai">
                             <td style="width: 25%;"></td>
@@ -1792,67 +2692,247 @@
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                            <td style="text-align: center;">3</td>
-                            <td style="text-align: center;">1</td>
-                            <td style="text-align: center;">1</td>
-                            <td style="text-align: center;">0.5</td>
-                            <td style="text-align: center;">1</td>
-                            <td style="text-align: center;">0.5</td>
-                            <td style="text-align: center;">0.5</td>
-                            <td style="text-align: center;">0.3</td>
-                            <td style="text-align: center;">0.1</td>
-                            <td style="text-align: center;">{{rekap_prosiding.unsur_isi}}</td>
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%">1</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">1</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">0.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">1</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">0.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">0.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">0.3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                                <td style="text-align: center; width: 8%;">0.1</td>
+                            {% else %}
+                                <td style="text-align: center; width: 8%;"></td>
+                            {% endif %}
+                            <td style="text-align: center; width: 8%;">{{rekap_prosiding.unsur_isi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                            <td style="text-align: center;">9</td>
-                            <td style="text-align: center;">3</td>
-                            <td style="text-align: center;">3</td>
-                            <td style="text-align: center;">1.5</td>
-                            <td style="text-align: center;">3</td>
-                            <td style="text-align: center;">1.5</td>
-                            <td style="text-align: center;;">1.5</td>
-                            <td style="text-align: center;">0.9</td>
-                            <td style="text-align: center;">0.3</td>
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">9</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">1.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">1.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">1.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">0.9</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                                <td style="text-align: center; width: 8%;">0.3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 8%;"></td>
+                            {% endif %}
                             <td style="text-align: center;">{{rekap_prosiding.pembahasan}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                            <td style="text-align: center;">9</td>
-                            <td style="text-align: center;">3</td>
-                            <td style="text-align: center;">3</td>
-                            <td style="text-align: center;">1.5</td>
-                            <td style="text-align: center;">3</td>
-                            <td style="text-align: center;">1.5</td>
-                            <td style="text-align: center;;">1.5</td>
-                            <td style="text-align: center;">0.9</td>
-                            <td style="text-align: center;">0.3</td>
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">9</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">1.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">1.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">1.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">0.9</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                                <td style="text-align: center; width: 8%;">0.3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 8%;"></td>
+                            {% endif %}
                             <td style="text-align: center;">{{rekap_prosiding.informasi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                            <td style="text-align: center;">9</td>
-                            <td style="text-align: center;">3</td>
-                            <td style="text-align: center;">3</td>
-                            <td style="text-align: center;">1.5</td>
-                            <td style="text-align: center;">3</td>
-                            <td style="text-align: center;">1.5</td>
-                            <td style="text-align: center;">1.5</td>
-                            <td style="text-align: center;">0.9</td>
-                            <td style="text-align: center;">0.3</td>
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">9</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">1.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">1.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">1.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">0.9</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                                <td style="text-align: center; width: 8%;">0.3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 8%;"></td>
+                            {% endif %}
                             <td style="text-align: center;;">{{rekap_prosiding.kualitas_penerbit}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Total</td>
-                            <td style="text-align: center;">40</td>
-                            <td style="text-align: center;">10</td>
-                            <td style="text-align: center;">10</td>
-                            <td style="text-align: center;">5</td>
-                            <td style="text-align: center;">10</td>
-                            <td style="text-align: center;">5</td>
-                            <td style="text-align: center;;">5</td>
-                            <td style="text-align: center;">3</td>
-                            <td style="text-align: center;">1</td>
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">40</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Presentasi Oral dan Dipublikasikan' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">10</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">10</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Poster dan Dipublikasikan dalam Prosiding' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">10</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Tidak Diseminarkan Namun Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Internasional' %}
+                                <td style="text-align: center; width: 10%;">5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Diseminarkan Namun Tidak Terpublikasi' and rekap_prosiding.prosiding.tingkat_publikasi == 'Nasional' %}
+                                <td style="text-align: center; width: 6%;">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 6%;"></td>
+                            {% endif %}
+                            {% if rekap_prosiding.prosiding.kategori_publikasi == 'Terpublikasi dalam Koran/Majalah' %}
+                                <td style="text-align: center; width: 8%;">1</td>
+                            {% else %}
+                                <td style="text-align: center; width: 8%;"></td>
+                            {% endif %}
                             <td style="text-align: center;">{{rekap_prosiding.total}}</td>
                         </tr>
                         <tr class="bordernilai">

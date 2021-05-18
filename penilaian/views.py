@@ -1,3 +1,4 @@
+from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
 from .models import *
@@ -6,7 +7,7 @@ from django.contrib.auth.models import User
 from django.urls.base import reverse_lazy
 from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from .utils import render_to_pdf
 from webfisika.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
@@ -25,6 +26,10 @@ class SuperAdminAccess(UserPassesTestMixin, LoginRequiredMixin):
     def test_func(self):
         if self.request.user.is_superuser:
             return True
+
+class ErrorMessage(TemplateView):
+    template_name='penilaian/error_message.html'
+    
 ################################################################################################################
 class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
     model = UploadBerkasJurnal
@@ -195,6 +200,15 @@ class HasilPenilaianJurnalView(DetailView):
     model = PenilaianBerkasJurnal
     template_name = 'penilaian/hasil_rekap_jurnal.html'
     context_object_name = 'rekap_jurnal'
+    
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            # redirect here
+            return redirect('penilaian:error_message')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -209,6 +223,15 @@ class HasilPenilaianJurnal2View(DetailView):
     model = PenilaianBerkasJurnal2
     template_name = 'penilaian/hasil_rekap_jurnal2.html'
     context_object_name = 'rekap_jurnal'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            # redirect here
+            return redirect('penilaian:error_message')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -388,6 +411,15 @@ class HasilPenilaianProsidingView(LoginRequiredMixin,DetailView):
     template_name = 'penilaian/hasil_rekap_prosiding.html'
     context_object_name = 'rekap_prosiding'
 
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            # redirect here
+            return redirect('penilaian:error_message')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['usrlogin'] = self.request.user
@@ -401,6 +433,15 @@ class HasilPenilaianProsiding2View(LoginRequiredMixin,DetailView):
     model = PenilaianBerkasProsiding2
     template_name = 'penilaian/hasil_rekap_prosiding2.html'
     context_object_name = 'rekap_prosiding'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            # redirect here
+            return redirect('penilaian:error_message')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -581,6 +622,15 @@ class HasilPenilaianBukuView(LoginRequiredMixin,DetailView):
     template_name = 'penilaian/hasil_rekap_buku.html'
     context_object_name = 'rekap_buku'
 
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            # redirect here
+            return redirect('penilaian:error_message')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['usrlogin'] = self.request.user
@@ -594,6 +644,15 @@ class HasilPenilaianBuku2View(LoginRequiredMixin,DetailView):
     model = PenilaianBerkasBuku2
     template_name = 'penilaian/hasil_rekap_buku2.html'
     context_object_name = 'rekap_buku'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            # redirect here
+            return redirect('penilaian:error_message')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -773,6 +832,15 @@ class HasilPenilaianHakiView(LoginRequiredMixin, DetailView):
     model = PenilaianBerkasHaki
     template_name = 'penilaian/hasil_rekap_haki.html'
     context_object_name = 'rekap_haki'
+    
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            # redirect here
+            return redirect('penilaian:error_message')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -787,6 +855,15 @@ class HasilPenilaianHaki2View(LoginRequiredMixin, DetailView):
     model = PenilaianBerkasHaki2
     template_name = 'penilaian/hasil_rekap_haki2.html'
     context_object_name = 'rekap_haki'
+    
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            # redirect here
+            return redirect('penilaian:error_message')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

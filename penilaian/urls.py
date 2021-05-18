@@ -1,4 +1,4 @@
-from os import name
+from django.views.static import serve
 from django.urls import path
 from . import views
 from webfisika import settings
@@ -72,6 +72,7 @@ urlpatterns = [
     path('penilaian_buku/edit/R2/<slug>', views.PenilaianBerkasBuku2EditView.as_view(), name='edit_penilaian_buku2'),
     path('penilaian_haki/edit/R2/<slug>', views.PenilaianBerkasHaki2EditView.as_view(), name='edit_penilaian_haki2'),
     ######### End of Edit Penilaian #########
+    path('error/penilaian_belum_ada', views.ErrorMessage.as_view(), name='error_message'),
 ]
 
 if settings.DEBUG:

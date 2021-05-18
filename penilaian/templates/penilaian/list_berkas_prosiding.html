@@ -84,9 +84,9 @@
                     </td>
                     <td>
                       {% if berkas.is_verificated %}
-                        <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}">Reviewer 1</a>
+                        <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}" target="_blank">Reviewer 1</a>
                         <div class="spacing"></div>
-                        <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding2' berkas.slug %}">Reviewer 2</a>
+                        <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding2' berkas.slug %}" target="_blank">Reviewer 2</a>
                       {% endif %}
                     </td>
                 </tr>
@@ -135,9 +135,9 @@
                       </td>
                       <td>
                         {% if berkas.is_verificated %}
-                          <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}">Reviewer 1</a>
+                          <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}" target="_blank">Reviewer 1</a>
                           <div class="spacing"></div>
-                          <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding2' berkas.slug %}">Reviewer 2</a>
+                          <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding2' berkas.slug %}" target="_blank">Reviewer 2</a>
                         {% endif %}
                       </td>
                   </tr>

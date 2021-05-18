@@ -33,7 +33,11 @@
                 </tr>
                 <tr>
                   <td><h4>Nama Prosiding</h4></td>
-                  <td><h5>: {{detail_berkas_prosiding.nama_prosiding}}</h5></td>
+                  {% if detail_berkas_prosiding.nama_prosiding == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: {{detail_berkas_prosiding.nama_prosiding}}</h5></td>
+                  {% endif %}
                 </tr>
                 <tr>
                   <td><h4>Kategori Publikasi</h4></td>

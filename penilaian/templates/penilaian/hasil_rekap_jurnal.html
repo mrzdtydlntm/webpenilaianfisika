@@ -16,7 +16,7 @@
             }
             .paragraf {
                 font-family: "Times New Roman", Times, serif;
-                font-size: 9pt;
+                font-size: 8.5pt;
             }
             tr {
                 margin-bottom: 50;
@@ -250,57 +250,197 @@
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                        <td style="text-align: center; width: 10%">4</td>
-                        <td style="text-align: center; width: 10%">3</td>
-                        <td style="text-align: center; width: 10%">2.5</td>
-                        <td style="text-align: center; width: 10%">2</td>
-                        <td style="text-align: center; width: 10%">1.5</td>
-                        <td style="text-align: center; width: 10%">1</td>
-                        <td style="text-align: center; width: 10%;">1</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">4</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">2.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">2</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.unsur_isi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                        <td style="text-align: center; width: 10%">12</td>
-                        <td style="text-align: center; width: 10%">9</td>
-                        <td style="text-align: center; width: 10%">7.5</td>
-                        <td style="text-align: center; width: 10%">6</td>
-                        <td style="text-align: center; width: 10%">4.5</td>
-                        <td style="text-align: center; width: 10%">3</td>
-                        <td style="text-align: center; width: 10%;">3</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">7.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.pembahasan}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                        <td style="text-align: center; width: 10%">12</td>
-                        <td style="text-align: center; width: 10%">9</td>
-                        <td style="text-align: center; width: 10%">7.5</td>
-                        <td style="text-align: center; width: 10%">6</td>
-                        <td style="text-align: center; width: 10%">4.5</td>
-                        <td style="text-align: center; width: 10%">3</td>
-                        <td style="text-align: center; width: 10%;">3</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">7.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.informasi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                        <td style="text-align: center; width: 10%">12</td>
-                        <td style="text-align: center; width: 10%">9</td>
-                        <td style="text-align: center; width: 10%">7.5</td>
-                        <td style="text-align: center; width: 10%">6</td>
-                        <td style="text-align: center; width: 10%">4.5</td>
-                        <td style="text-align: center; width: 10%">3</td>
-                        <td style="text-align: center; width: 10%;">3</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">7.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.kualitas_penerbit}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Total</td>
-                        <td style="text-align: center; width: 10%">40</td>
-                        <td style="text-align: center; width: 10%">30</td>
-                        <td style="text-align: center; width: 10%">25</td>
-                        <td style="text-align: center; width: 10%">20</td>
-                        <td style="text-align: center; width: 10%">15</td>
-                        <td style="text-align: center; width: 10%">10</td>
-                        <td style="text-align: center; width: 10%;">10</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">40</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">30</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">25</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">20</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">15</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.total}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -577,57 +717,197 @@
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                            <td style="text-align: center; width: 10%">4</td>
-                            <td style="text-align: center; width: 10%">3</td>
-                            <td style="text-align: center; width: 10%">2.5</td>
-                            <td style="text-align: center; width: 10%">2</td>
-                            <td style="text-align: center; width: 10%">1.5</td>
-                            <td style="text-align: center; width: 10%">1</td>
-                            <td style="text-align: center; width: 10%;">1</td>
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                <td style="text-align: center; width: 10%">4</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                <td style="text-align: center; width: 10%">2.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">2</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                <td style="text-align: center; width: 10%">1.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">1</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                <td style="text-align: center; width: 10%">1</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
                             <td style="text-align: center; width: 10%;">{{rekap_jurnal.unsur_isi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                            <td style="text-align: center; width: 10%">12</td>
-                            <td style="text-align: center; width: 10%">9</td>
-                            <td style="text-align: center; width: 10%">7.5</td>
-                            <td style="text-align: center; width: 10%">6</td>
-                            <td style="text-align: center; width: 10%">4.5</td>
-                            <td style="text-align: center; width: 10%">3</td>
-                            <td style="text-align: center; width: 10%;">3</td>
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                <td style="text-align: center; width: 10%">12</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                <td style="text-align: center; width: 10%">9</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                <td style="text-align: center; width: 10%">7.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">6</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                <td style="text-align: center; width: 10%">4.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
                             <td style="text-align: center; width: 10%;">{{rekap_jurnal.pembahasan}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                            <td style="text-align: center; width: 10%">12</td>
-                            <td style="text-align: center; width: 10%">9</td>
-                            <td style="text-align: center; width: 10%">7.5</td>
-                            <td style="text-align: center; width: 10%">6</td>
-                            <td style="text-align: center; width: 10%">4.5</td>
-                            <td style="text-align: center; width: 10%">3</td>
-                            <td style="text-align: center; width: 10%;">3</td>
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                <td style="text-align: center; width: 10%">12</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                <td style="text-align: center; width: 10%">9</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                <td style="text-align: center; width: 10%">7.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">6</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                <td style="text-align: center; width: 10%">4.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
                             <td style="text-align: center; width: 10%;">{{rekap_jurnal.informasi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                            <td style="text-align: center; width: 10%">12</td>
-                            <td style="text-align: center; width: 10%">9</td>
-                            <td style="text-align: center; width: 10%">7.5</td>
-                            <td style="text-align: center; width: 10%">6</td>
-                            <td style="text-align: center; width: 10%">4.5</td>
-                            <td style="text-align: center; width: 10%">3</td>
-                            <td style="text-align: center; width: 10%;">3</td>
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                <td style="text-align: center; width: 10%">12</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                <td style="text-align: center; width: 10%">9</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                <td style="text-align: center; width: 10%">7.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">6</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                <td style="text-align: center; width: 10%">4.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
                             <td style="text-align: center; width: 10%;">{{rekap_jurnal.kualitas_penerbit}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Total</td>
-                            <td style="text-align: center; width: 10%">40</td>
-                            <td style="text-align: center; width: 10%">30</td>
-                            <td style="text-align: center; width: 10%">25</td>
-                            <td style="text-align: center; width: 10%">20</td>
-                            <td style="text-align: center; width: 10%">15</td>
-                            <td style="text-align: center; width: 10%">10</td>
-                            <td style="text-align: center; width: 10%;">10</td>
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                <td style="text-align: center; width: 10%">40</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                <td style="text-align: center; width: 10%">30</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                <td style="text-align: center; width: 10%">25</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">20</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                <td style="text-align: center; width: 10%">15</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">10</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                <td style="text-align: center; width: 10%">10</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
                             <td style="text-align: center; width: 10%;">{{rekap_jurnal.total}}</td>
                         </tr>
                         <tr class="bordernilai">
@@ -908,57 +1188,197 @@
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                            <td style="text-align: center; width: 10%">4</td>
-                            <td style="text-align: center; width: 10%">3</td>
-                            <td style="text-align: center; width: 10%">2.5</td>
-                            <td style="text-align: center; width: 10%">2</td>
-                            <td style="text-align: center; width: 10%">1.5</td>
-                            <td style="text-align: center; width: 10%">1</td>
-                            <td style="text-align: center; width: 10%;">1</td>
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                <td style="text-align: center; width: 10%">4</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                <td style="text-align: center; width: 10%">2.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">2</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                <td style="text-align: center; width: 10%">1.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">1</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                <td style="text-align: center; width: 10%">1</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
                             <td style="text-align: center; width: 10%;">{{rekap_jurnal.unsur_isi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                            <td style="text-align: center; width: 10%">12</td>
-                            <td style="text-align: center; width: 10%">9</td>
-                            <td style="text-align: center; width: 10%">7.5</td>
-                            <td style="text-align: center; width: 10%">6</td>
-                            <td style="text-align: center; width: 10%">4.5</td>
-                            <td style="text-align: center; width: 10%">3</td>
-                            <td style="text-align: center; width: 10%;">3</td>
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                <td style="text-align: center; width: 10%">12</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                <td style="text-align: center; width: 10%">9</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                <td style="text-align: center; width: 10%">7.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">6</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                <td style="text-align: center; width: 10%">4.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
                             <td style="text-align: center; width: 10%;">{{rekap_jurnal.pembahasan}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                            <td style="text-align: center; width: 10%">12</td>
-                            <td style="text-align: center; width: 10%">9</td>
-                            <td style="text-align: center; width: 10%">7.5</td>
-                            <td style="text-align: center; width: 10%">6</td>
-                            <td style="text-align: center; width: 10%">4.5</td>
-                            <td style="text-align: center; width: 10%">3</td>
-                            <td style="text-align: center; width: 10%;">3</td>
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                <td style="text-align: center; width: 10%">12</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                <td style="text-align: center; width: 10%">9</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                <td style="text-align: center; width: 10%">7.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">6</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                <td style="text-align: center; width: 10%">4.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
                             <td style="text-align: center; width: 10%;">{{rekap_jurnal.informasi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                            <td style="text-align: center; width: 10%">12</td>
-                            <td style="text-align: center; width: 10%">9</td>
-                            <td style="text-align: center; width: 10%">7.5</td>
-                            <td style="text-align: center; width: 10%">6</td>
-                            <td style="text-align: center; width: 10%">4.5</td>
-                            <td style="text-align: center; width: 10%">3</td>
-                            <td style="text-align: center; width: 10%;">3</td>
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                <td style="text-align: center; width: 10%">12</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                <td style="text-align: center; width: 10%">9</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                <td style="text-align: center; width: 10%">7.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">6</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                <td style="text-align: center; width: 10%">4.5</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                <td style="text-align: center; width: 10%">3</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
                             <td style="text-align: center; width: 10%;">{{rekap_jurnal.kualitas_penerbit}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Total</td>
-                            <td style="text-align: center; width: 10%">40</td>
-                            <td style="text-align: center; width: 10%">30</td>
-                            <td style="text-align: center; width: 10%">25</td>
-                            <td style="text-align: center; width: 10%">20</td>
-                            <td style="text-align: center; width: 10%">15</td>
-                            <td style="text-align: center; width: 10%">10</td>
-                            <td style="text-align: center; width: 10%;">10</td>
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                <td style="text-align: center; width: 10%">40</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                <td style="text-align: center; width: 10%">30</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                <td style="text-align: center; width: 10%">25</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">20</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                <td style="text-align: center; width: 10%">15</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                <td style="text-align: center; width: 10%">10</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
+                            {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                <td style="text-align: center; width: 10%">10</td>
+                            {% else %}
+                                <td style="text-align: center; width: 10%"></td>
+                            {% endif %}
                             <td style="text-align: center; width: 10%;">{{rekap_jurnal.total}}</td>
                         </tr>
                         <tr class="bordernilai">
@@ -1231,57 +1651,197 @@
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                        <td style="text-align: center; width: 10%">4</td>
-                        <td style="text-align: center; width: 10%">3</td>
-                        <td style="text-align: center; width: 10%">2.5</td>
-                        <td style="text-align: center; width: 10%">2</td>
-                        <td style="text-align: center; width: 10%">1.5</td>
-                        <td style="text-align: center; width: 10%">1</td>
-                        <td style="text-align: center; width: 10%;">1</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">4</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">2.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">2</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.unsur_isi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                        <td style="text-align: center; width: 10%">12</td>
-                        <td style="text-align: center; width: 10%">9</td>
-                        <td style="text-align: center; width: 10%">7.5</td>
-                        <td style="text-align: center; width: 10%">6</td>
-                        <td style="text-align: center; width: 10%">4.5</td>
-                        <td style="text-align: center; width: 10%">3</td>
-                        <td style="text-align: center; width: 10%;">3</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">7.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.pembahasan}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                        <td style="text-align: center; width: 10%">12</td>
-                        <td style="text-align: center; width: 10%">9</td>
-                        <td style="text-align: center; width: 10%">7.5</td>
-                        <td style="text-align: center; width: 10%">6</td>
-                        <td style="text-align: center; width: 10%">4.5</td>
-                        <td style="text-align: center; width: 10%">3</td>
-                        <td style="text-align: center; width: 10%;">3</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">7.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.informasi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                        <td style="text-align: center; width: 10%">12</td>
-                        <td style="text-align: center; width: 10%">9</td>
-                        <td style="text-align: center; width: 10%">7.5</td>
-                        <td style="text-align: center; width: 10%">6</td>
-                        <td style="text-align: center; width: 10%">4.5</td>
-                        <td style="text-align: center; width: 10%">3</td>
-                        <td style="text-align: center; width: 10%;">3</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">7.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.kualitas_penerbit}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Total</td>
-                        <td style="text-align: center; width: 10%">40</td>
-                        <td style="text-align: center; width: 10%">30</td>
-                        <td style="text-align: center; width: 10%">25</td>
-                        <td style="text-align: center; width: 10%">20</td>
-                        <td style="text-align: center; width: 10%">15</td>
-                        <td style="text-align: center; width: 10%">10</td>
-                        <td style="text-align: center; width: 10%;">10</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">40</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">30</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">25</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">20</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">15</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.total}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -1556,57 +2116,197 @@
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                        <td style="text-align: center; width: 10%">4</td>
-                        <td style="text-align: center; width: 10%">3</td>
-                        <td style="text-align: center; width: 10%">2.5</td>
-                        <td style="text-align: center; width: 10%">2</td>
-                        <td style="text-align: center; width: 10%">1.5</td>
-                        <td style="text-align: center; width: 10%">1</td>
-                        <td style="text-align: center; width: 10%;">1</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">4</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">2.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">2</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.unsur_isi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                        <td style="text-align: center; width: 10%">12</td>
-                        <td style="text-align: center; width: 10%">9</td>
-                        <td style="text-align: center; width: 10%">7.5</td>
-                        <td style="text-align: center; width: 10%">6</td>
-                        <td style="text-align: center; width: 10%">4.5</td>
-                        <td style="text-align: center; width: 10%">3</td>
-                        <td style="text-align: center; width: 10%;">3</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">7.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.pembahasan}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                        <td style="text-align: center; width: 10%">12</td>
-                        <td style="text-align: center; width: 10%">9</td>
-                        <td style="text-align: center; width: 10%">7.5</td>
-                        <td style="text-align: center; width: 10%">6</td>
-                        <td style="text-align: center; width: 10%">4.5</td>
-                        <td style="text-align: center; width: 10%">3</td>
-                        <td style="text-align: center; width: 10%;">3</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">7.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.informasi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                        <td style="text-align: center; width: 10%">12</td>
-                        <td style="text-align: center; width: 10%">9</td>
-                        <td style="text-align: center; width: 10%">7.5</td>
-                        <td style="text-align: center; width: 10%">6</td>
-                        <td style="text-align: center; width: 10%">4.5</td>
-                        <td style="text-align: center; width: 10%">3</td>
-                        <td style="text-align: center; width: 10%;">3</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">7.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.kualitas_penerbit}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Total</td>
-                        <td style="text-align: center; width: 10%">40</td>
-                        <td style="text-align: center; width: 10%">30</td>
-                        <td style="text-align: center; width: 10%">25</td>
-                        <td style="text-align: center; width: 10%">20</td>
-                        <td style="text-align: center; width: 10%">15</td>
-                        <td style="text-align: center; width: 10%">10</td>
-                        <td style="text-align: center; width: 10%;">10</td>
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                            <td style="text-align: center; width: 10%">40</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                            <td style="text-align: center; width: 10%">30</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                            <td style="text-align: center; width: 10%">25</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">20</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                            <td style="text-align: center; width: 10%">15</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                            <td style="text-align: center; width: 10%">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
+                        {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                            <td style="text-align: center; width: 10%">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 10%"></td>
+                        {% endif %}
                         <td style="text-align: center; width: 10%;">{{rekap_jurnal.total}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -1887,57 +2587,197 @@
                             </tr>
                             <tr class="bordernilai">
                                 <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                                <td style="text-align: center; width: 10%">4</td>
-                                <td style="text-align: center; width: 10%">3</td>
-                                <td style="text-align: center; width: 10%">2.5</td>
-                                <td style="text-align: center; width: 10%">2</td>
-                                <td style="text-align: center; width: 10%">1.5</td>
-                                <td style="text-align: center; width: 10%">1</td>
-                                <td style="text-align: center; width: 10%;">1</td>
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                    <td style="text-align: center; width: 10%">4</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                    <td style="text-align: center; width: 10%">3</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                    <td style="text-align: center; width: 10%">2.5</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                    <td style="text-align: center; width: 10%">2</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                    <td style="text-align: center; width: 10%">1.5</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                    <td style="text-align: center; width: 10%">1</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                    <td style="text-align: center; width: 10%">1</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
                                 <td style="text-align: center; width: 10%;">{{rekap_jurnal.unsur_isi}}</td>
                             </tr>
                             <tr class="bordernilai">
                                 <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                                <td style="text-align: center; width: 10%">12</td>
-                                <td style="text-align: center; width: 10%">9</td>
-                                <td style="text-align: center; width: 10%">7.5</td>
-                                <td style="text-align: center; width: 10%">6</td>
-                                <td style="text-align: center; width: 10%">4.5</td>
-                                <td style="text-align: center; width: 10%">3</td>
-                                <td style="text-align: center; width: 10%;">3</td>
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                    <td style="text-align: center; width: 10%">12</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                    <td style="text-align: center; width: 10%">9</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                    <td style="text-align: center; width: 10%">7.5</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                    <td style="text-align: center; width: 10%">6</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                    <td style="text-align: center; width: 10%">4.5</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                    <td style="text-align: center; width: 10%">3</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                    <td style="text-align: center; width: 10%">3</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
                                 <td style="text-align: center; width: 10%;">{{rekap_jurnal.pembahasan}}</td>
                             </tr>
                             <tr class="bordernilai">
                                 <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                                <td style="text-align: center; width: 10%">12</td>
-                                <td style="text-align: center; width: 10%">9</td>
-                                <td style="text-align: center; width: 10%">7.5</td>
-                                <td style="text-align: center; width: 10%">6</td>
-                                <td style="text-align: center; width: 10%">4.5</td>
-                                <td style="text-align: center; width: 10%">3</td>
-                                <td style="text-align: center; width: 10%;">3</td>
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                    <td style="text-align: center; width: 10%">12</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                    <td style="text-align: center; width: 10%">9</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                    <td style="text-align: center; width: 10%">7.5</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                    <td style="text-align: center; width: 10%">6</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                    <td style="text-align: center; width: 10%">4.5</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                    <td style="text-align: center; width: 10%">3</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                    <td style="text-align: center; width: 10%">3</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
                                 <td style="text-align: center; width: 10%;">{{rekap_jurnal.informasi}}</td>
                             </tr>
                             <tr class="bordernilai">
                                 <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                                <td style="text-align: center; width: 10%">12</td>
-                                <td style="text-align: center; width: 10%">9</td>
-                                <td style="text-align: center; width: 10%">7.5</td>
-                                <td style="text-align: center; width: 10%">6</td>
-                                <td style="text-align: center; width: 10%">4.5</td>
-                                <td style="text-align: center; width: 10%">3</td>
-                                <td style="text-align: center; width: 10%;">3</td>
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                    <td style="text-align: center; width: 10%">12</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                    <td style="text-align: center; width: 10%">9</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                    <td style="text-align: center; width: 10%">7.5</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                    <td style="text-align: center; width: 10%">6</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                    <td style="text-align: center; width: 10%">4.5</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                    <td style="text-align: center; width: 10%">3</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                    <td style="text-align: center; width: 10%">3</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
                                 <td style="text-align: center; width: 10%;">{{rekap_jurnal.kualitas_penerbit}}</td>
                             </tr>
                             <tr class="bordernilai">
                                 <td>Total</td>
-                                <td style="text-align: center; width: 10%">40</td>
-                                <td style="text-align: center; width: 10%">30</td>
-                                <td style="text-align: center; width: 10%">25</td>
-                                <td style="text-align: center; width: 10%">20</td>
-                                <td style="text-align: center; width: 10%">15</td>
-                                <td style="text-align: center; width: 10%">10</td>
-                                <td style="text-align: center; width: 10%;">10</td>
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' %}
+                                    <td style="text-align: center; width: 10%">40</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' %}
+                                    <td style="text-align: center; width: 10%">30</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                                    <td style="text-align: center; width: 10%">25</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terakreditasi' %}
+                                    <td style="text-align: center; width: 10%">20</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Berbahasa PBB' %}
+                                    <td style="text-align: center; width: 10%">15</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Tidak Terakreditasi' %}
+                                    <td style="text-align: center; width: 10%">10</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
+                                {% if rekap_jurnal.jurnal.kategori_publikasi == 'Jurnal Ilmiah Nasional Terindeks DOAJ dll' %}
+                                    <td style="text-align: center; width: 10%">10</td>
+                                {% else %}
+                                    <td style="text-align: center; width: 10%"></td>
+                                {% endif %}
                                 <td style="text-align: center; width: 10%;">{{rekap_jurnal.total}}</td>
                             </tr>
                             <tr class="bordernilai">

@@ -125,13 +125,13 @@
                         <td>
                           {% for berkus in list_berkas %}
                             {% if berkas.id == berkus.buku.id %}
-                              <button disabled class="btn btn-success">Sudah Dinilai</button>
+                              <button disabled class="btn btn-success">Sudah Dinilai (R1)</button>
                             {% endif %}
                           {% endfor %}
                           <div class="spacing"></div>
                           {% for berkus2 in list_berkas_2 %}
                             {% if berkas.id == berkus2.buku.id %}
-                              <button disabled class="btn btn-success">Sudah Dinilai</button>
+                              <button disabled class="btn btn-success">Sudah Dinilai (R2)</button>
                             {% endif %}
                           {% endfor %}
                         </td>
