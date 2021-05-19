@@ -48,8 +48,8 @@ class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
         nama_jurnal = form.cleaned_data.get('judul_artikel')
         subject = 'Konfirmasi Upload Berkas Jurnal'
         penerima = User.objects.get(pk=1)
-        usr = self.request.user
-        message = f'Terdapat jurnal berjudul {nama_jurnal} telah diupload oleh {usr}. Mohon untuk diperiksa. Terimakasih'
+        pengusul = form.cleaned_data.get('pengusul')
+        message = f'Terdapat jurnal berjudul {nama_jurnal} telah diupload oleh {pengusul}. Mohon untuk diperiksa. Terimakasih'
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
         return super(UploadBerkasJurnalView, self).form_valid(form)
 
@@ -261,8 +261,8 @@ class UploadBerkasProsidingView(LoginRequiredMixin, CreateView):
         nama_prosiding = form.cleaned_data.get('judul_artikel')
         penerima = User.objects.get(pk=1)
         subject = 'Konfirmasi Upload Berkas Prosiding'
-        usr = self.request.user
-        message = f'Terdapat prosiding berjudul {nama_prosiding} telah diupload oleh {usr}. Mohon untuk diperiksa. Terimakasih'
+        pengusul = form.cleaned_data.get('pengusul')
+        message = f'Terdapat prosiding berjudul {nama_prosiding} telah diupload oleh {pengusul}. Mohon untuk diperiksa. Terimakasih'
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
         return super(UploadBerkasProsidingView, self).form_valid(form)
 
@@ -471,8 +471,8 @@ class UploadBerkasBukuView(LoginRequiredMixin, CreateView):
         nama_buku = form.cleaned_data.get('judul')
         penerima = User.objects.get(pk=1)
         subject = 'Konfirmasi Upload Berkas Buku'
-        usr = self.request.user
-        message = f'Terdapat buku berjudul {nama_buku} telah diupload oleh {usr}. Mohon untuk diperiksa. Terimakasih'
+        pengusul = form.cleaned_data.get('pengusul')
+        message = f'Terdapat buku berjudul {nama_buku} telah diupload oleh {pengusul}. Mohon untuk diperiksa. Terimakasih'
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
         return super(UploadBerkasBukuView, self).form_valid(form)
     
@@ -682,8 +682,8 @@ class UploadBerkasHakiView(LoginRequiredMixin, CreateView):
         nama_haki = form.cleaned_data.get('judul')
         penerima = User.objects.get(pk=1)
         subject = 'Konfirmasi Upload Berkas Haki'
-        usr = self.request.user
-        message = f'Terdapat berkas haki berjudul {nama_haki} telah diupload oleh {usr}. Mohon untuk diperiksa. Terimakasih'
+        pengusul = form.cleaned_data.get('pengusul')
+        message = f'Terdapat berkas haki berjudul {nama_haki} telah diupload oleh {pengusul}. Mohon untuk diperiksa. Terimakasih'
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
         return super(UploadBerkasHakiView, self).form_valid(form)
     
