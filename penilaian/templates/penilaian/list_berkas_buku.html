@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Histori Pengajuan</title>
+    <title>Riwayat Pengajuan</title>
     {% include 'snippets/style.html' %}
 </head>
 <body>
@@ -13,15 +13,14 @@
       <div class="container" data-aos="fade-up">
         <br>
         <div class="section-title">
-          <h2 class="text-white">Histori Pengajuan Buku</h2>
-          <p class="text-white">Tabel pengajuan berkas buku</p>
+          <h2 class="text-white">Riwayat Pengajuan Buku</h2>
         </div>
       </div>
       <ul id="portfolio-flters" class="pilihan d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
-        <li><a class="pilihan text-white" href="{% url 'penilaian:list_berkas_jurnal' %}">Jurnal</a></li>
-        <li><a class="pilihan text-white" href="{% url 'penilaian:list_berkas_prosiding' %}">Prosiding</a></li>
-        <li><a class="pilihan text-white" href="{% url 'penilaian:list_berkas_buku' %}">Buku</a></li>
-        <li><a class="pilihan text-white" href="{% url 'penilaian:list_berkas_haki' %}">HaKI</a></li>
+        <li><a class="pilihan text-white" href="{% url 'penilaian:list_berkas_jurnal' 1 %}">Jurnal</a></li>
+        <li><a class="pilihan text-white" href="{% url 'penilaian:list_berkas_prosiding' 1 %}">Prosiding</a></li>
+        <li><a class="pilihan text-white" href="{% url 'penilaian:list_berkas_buku' 1 %}">Buku</a></li>
+        <li><a class="pilihan text-white" href="{% url 'penilaian:list_berkas_haki' 1 %}">HaKI</a></li>
       </ul>
     </section><!-- End Portfolio Section -->
     <br>
@@ -40,9 +39,9 @@
           </thead>
           <tbody>
             {% for berkas in list_berkas_buku %}
-              {% if user.id == berkas.penulis_utama.users.id or user.is_superuser %}
+              {% if user.id == berkas.penulis_utama.users.id or user.is_superuser or user.id == 22 %}
                 <tr>
-                    <td>{{berkas.judul}}</td>
+                    <td style="width: 30%;">{{berkas.judul}}</td>
                     <td>
                     {% if berkas.penulis_utama != None %}
                       {{berkas.penulis_utama}}
@@ -82,7 +81,7 @@
                 {% for penulis in berkas.penulis_lain.all %}
                   {% if penulis.users.id == user.id %}
                     <tr>
-                      <td>{{berkas.judul}}</td>
+                      <td style="width: 30%;">{{berkas.judul}}</td>
                       <td>{{berkas.penulis_utama}}</td>
                       <td>
                           <a href="{% url 'penilaian:detail_berkas_buku' berkas.pk%}" class="btn btn-primary" target="_blank">Detail</a>
@@ -119,7 +118,25 @@
           </tbody>
         </table>
       </div>
-      
+      <div class="pagination d-flex justify-content-center">
+        {% if page_obj.has_previous %}
+          <a href="{% url 'penilaian:list_berkas_buku' page_obj.previous_page_number %}">&laquo;</a>
+        {% endif %}
+        {% for i in page_obj.paginator.page_range %}
+          {% if page_obj.number == i %}
+            <span class="active">
+              {{i}}
+            </span>
+          {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+            <a href="{% url 'penilaian:list_berkas_buku' i %}">
+              {{i}}
+            </a>
+          {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <a href="{% url 'penilaian:list_berkas_buku' page_obj.previous_page_number %}">&raquo;</a>
+        {% endif %}
+      </div>
     </div>
     
       

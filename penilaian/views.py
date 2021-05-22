@@ -49,7 +49,10 @@ class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
         subject = 'Konfirmasi Upload Berkas Jurnal'
         penerima = User.objects.get(pk=1)
         pengusul = form.cleaned_data.get('pengusul')
-        message = f'Terdapat jurnal berjudul {nama_jurnal} telah diupload oleh {pengusul}. Mohon untuk diperiksa. Terimakasih'
+        import os
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        mes = open(dir_path + '/emailer/upload_jurnal.txt', 'r')
+        message = mes.read().format(nama_jurnal, pengusul)
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
         return super(UploadBerkasJurnalView, self).form_valid(form)
 
@@ -60,6 +63,8 @@ class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
 
 class ListBerkasJurnalView(LoginRequiredMixin,ListView):
     model = UploadBerkasJurnal
+    paginate_by = 5
+    ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_jurnal.html'
     context_object_name = 'list_berkas_jurnal'
     list_berkas = PenilaianBerkasJurnal.objects.all()
@@ -80,20 +85,23 @@ class EditBerkasJurnalView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasJurnal
     form_class = EditBerkasJurnalForm
     template_name = 'penilaian/edit_berkas_jurnal.html'
-    success_url = reverse_lazy('penilaian:list_berkas_jurnal')
+    def get_success_url(self):
+        return reverse('penilaian:list_berkas_jurnal', kwargs={'page':1})
 
 class PlagiasiLinieritasView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasJurnal
     form_class = PlagiasiLinieritasForm
     template_name = 'penilaian/plagiasi_linieritas.html'
-    success_url = reverse_lazy('penilaian:list_berkas_jurnal')
+    def get_success_url(self):
+        return reverse('penilaian:list_berkas_jurnal', kwargs={'page':1})
 
 class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
     model = UploadBerkasJurnal
     form_class = VerifikasiBerkasJurnalForm
     template_name = 'penilaian/verifikasi_berkas_jurnal.html'
-    success_url = reverse_lazy('penilaian:list_berkas_jurnal')
     context_object_name = 'verifikasi_jurnal'
+    def get_success_url(self):
+        return reverse('penilaian:list_berkas_jurnal', kwargs={'page':1})
 
     def form_valid(self, form):
         if form.cleaned_data.get('is_verificated') == True:
@@ -103,7 +111,12 @@ class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
                 review = User.objects.get(first_name=reviewer.reviewer)
                 # print(review)
                 subject = 'Konfirmasi Review Jurnal'
-                message = f'Terdapat jurnal dengan judul {nama_jurnal} telah diverifikasi. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
+                pengusul = form.cleaned_data.get('pengusul')
+                pk = self.kwargs['pk']
+                import os
+                dir_path = os.path.dirname(os.path.realpath(__file__))
+                mes = open(dir_path + '/emailer/reviewer_jurnal.txt', 'r')
+                message = mes.read().format(reviewer, nama_jurnal, pengusul, 'R1', pk, reviewer.nip)
                 # print(message)
                 send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
             if form.cleaned_data.get('reviewer_2') != None:
@@ -112,26 +125,35 @@ class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
                 review_2 = User.objects.get(first_name=reviewer_2.reviewer)
                 # print(review)
                 subject = 'Konfirmasi Review Jurnal'
-                message = f'Terdapat jurnal dengan judul {nama_jurnal} telah diverifikasi. Diharapkan bapak/ibu {reviewer_2} segera menilainya. Terimakasih'
+                pengusul = form.cleaned_data.get('pengusul')
+                pk = self.kwargs['pk']
+                import os
+                dir_path = os.path.dirname(os.path.realpath(__file__))
+                mes = open(dir_path + '/emailer/reviewer_jurnal.txt', 'r')
+                message = mes.read().format(reviewer, nama_jurnal, pengusul, 'R2', pk, reviewer.nip)
                 # print(message)
                 send_mail(subject, message, EMAIL_HOST_USER, [review_2.email], fail_silently = False)
         elif form.cleaned_data.get('is_verificated') == False:
             nama_jurnal = form.cleaned_data.get('judul_artikel')
             pengusul = form.cleaned_data.get('pengusul')
             pengusuls = User.objects.get(first_name=pengusul)
-            # print(pengusuls.email)
-            subject = 'Konfirmasi Revisi Upload Jurnal'
-            message = f'Jurnal dengan judul {nama_jurnal} perlu revisi dikarenakan masih terdapat informasi ataupun berkas yang kurang. Mohon secepatnya ditanggapi. Terimakasih'
+            subject = 'Konfirmasi Revisi Upload Jurnal' 
+            pk = self.kwargs['pk']
+            import os
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            mes = open(dir_path + '/emailer/revisi_jurnal.txt', 'r')
+            message = mes.read().format(pengusul, nama_jurnal, pengusul, pk)
             # print(message)
-            send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
+            send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email], fail_silently = False)
         return super(VerifikasiBerkasJurnalView, self).form_valid(form)
 
 class PenilaianBerkasJurnalView(ReviewerAccess, CreateView):
     model = PenilaianBerkasJurnal
     form_class = PenilaianBerkasJurnalForm
     template_name = 'penilaian/penilaian_berkas_jurnal.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_jurnal')
     context_object_name = 'penilaian_berkas_jurnal'
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_jurnal', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -143,7 +165,12 @@ class PenilaianBerkasJurnalView(ReviewerAccess, CreateView):
         jurnal = form.cleaned_data.get('jurnal')
         pengusul = User.objects.get(first_name=jurnal.pengusul)
         subject = 'Konfirmasi Penilaian Jurnal'
-        message = f'Jurnal dengan judul {jurnal} telah selesai dinilai oleh Reviewer ke 1. Bapak/Ibu {pengusul} dipersilakan untuk mendownload berkas penilaian. Jika terdapat kesalahan, dapat menghubungi Kepala Departemen Fisika. Terimakasih'
+        slug = UploadBerkasJurnal.objects.get(slug=jurnal.slug)
+        import os
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        mes = open(dir_path + '/emailer/penilaian_jurnal.txt', 'r')
+        message = mes.read().format(pengusul, jurnal, pengusul, '1', 'R1', slug)
+        # print(message)
         send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
         return super(PenilaianBerkasJurnalView, self).form_valid(form)
 
@@ -151,8 +178,9 @@ class PenilaianBerkasJurnal2View(ReviewerAccess, CreateView):
     model = PenilaianBerkasJurnal2
     form_class = PenilaianBerkasJurnal2Form
     template_name = 'penilaian/penilaian_berkas_jurnal2.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_jurnal')
     context_object_name = 'penilaian_berkas_jurnal2'
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_jurnal', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -164,7 +192,11 @@ class PenilaianBerkasJurnal2View(ReviewerAccess, CreateView):
         jurnal = form.cleaned_data.get('jurnal')
         pengusul = User.objects.get(first_name=jurnal.pengusul)
         subject = 'Konfirmasi Penilaian Jurnal'
-        message = f'Jurnal dengan judul {jurnal} telah selesai dinilai oleh Reviewer ke 2. Bapak/Ibu {pengusul} dipersilakan untuk mendownload berkas penilaian. Jika terdapat kesalahan, dapat menghubungi Kepala Departemen Fisika. Terimakasih'
+        slug = UploadBerkasJurnal.objects.get(slug=jurnal.slug)
+        import os
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        mes = open(dir_path + '/emailer/penilaian_jurnal.txt', 'r')
+        message = mes.read().format(pengusul, jurnal, pengusul, '2', 'R2', slug)
         send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
         return super(PenilaianBerkasJurnal2View, self).form_valid(form)
 
@@ -172,7 +204,6 @@ class PenilaianBerkasJurnalEditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasJurnal
     form_class = PenilaianBerkasJurnalEditForm
     template_name = 'penilaian/edit_penilaian_jurnal.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_jurnal')
     penilaian = PenilaianBerkasJurnal.objects.all()
     extra_context = {
         'penilaian':penilaian
@@ -181,12 +212,13 @@ class PenilaianBerkasJurnalEditView(ReviewerAccess, UpdateView):
     def get_context_data(self, *args, **kwargs):
         kwargs.update(self.extra_context)
         return super().get_context_data(*args, **kwargs)
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_jurnal', kwargs={'page':1})
 
 class PenilaianBerkasJurnal2EditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasJurnal2
     form_class = PenilaianBerkasJurnal2EditForm
     template_name = 'penilaian/edit_penilaian_jurnal2.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_jurnal')
     penilaian = PenilaianBerkasJurnal2.objects.all()
     extra_context = {
         'penilaian':penilaian
@@ -195,6 +227,8 @@ class PenilaianBerkasJurnal2EditView(ReviewerAccess, UpdateView):
     def get_context_data(self, *args, **kwargs):
         kwargs.update(self.extra_context)
         return super().get_context_data(*args, **kwargs)
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_jurnal', kwargs={'page':1})
 
 class HasilPenilaianJurnalView(DetailView):
     model = PenilaianBerkasJurnal
@@ -262,7 +296,10 @@ class UploadBerkasProsidingView(LoginRequiredMixin, CreateView):
         penerima = User.objects.get(pk=1)
         subject = 'Konfirmasi Upload Berkas Prosiding'
         pengusul = form.cleaned_data.get('pengusul')
-        message = f'Terdapat prosiding berjudul {nama_prosiding} telah diupload oleh {pengusul}. Mohon untuk diperiksa. Terimakasih'
+        import os
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        mes = open(dir_path + '/emailer/upload_prosiding.txt', 'r')
+        message = mes.read().format(nama_prosiding, pengusul)
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
         return super(UploadBerkasProsidingView, self).form_valid(form)
 
@@ -273,6 +310,8 @@ class UploadBerkasProsidingView(LoginRequiredMixin, CreateView):
 
 class ListBerkasProsidingView(LoginRequiredMixin,ListView):
     model = UploadBerkasProsiding
+    paginate_by = 5
+    ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_prosiding.html'
     context_object_name = 'list_berkas_prosiding'
     list_berkas = PenilaianBerkasProsiding.objects.all()
@@ -292,14 +331,16 @@ class EditBerkasProsidingView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasProsiding
     form_class = EditBerkasProsidingForm
     template_name = 'penilaian/edit_berkas_prosiding.html'
-    success_url = reverse_lazy('penilaian:list_berkas_prosiding')
+    def get_success_url(self):
+        return reverse('penilaian:list_berkas_prosiding', kwargs={'page':1})
 
 class VerifikasiBerkasProsidingView(SuperAdminAccess, UpdateView):
     model = UploadBerkasProsiding
     form_class = VerifikasiBerkasProsidingForm
     template_name = 'penilaian/verifikasi_berkas_prosiding.html'
-    success_url = reverse_lazy('penilaian:list_berkas_prosiding')
     context_object_name = 'verifikasi_prosiding'
+    def get_success_url(self):
+        return reverse('penilaian:list_berkas_prosiding', kwargs={'page':1})
     
     def form_valid(self, form):
         if form.cleaned_data.get('is_verificated') == True:
@@ -308,7 +349,12 @@ class VerifikasiBerkasProsidingView(SuperAdminAccess, UpdateView):
                 reviewer = form.cleaned_data.get('reviewer')
                 review = User.objects.get(first_name=reviewer.reviewer)
                 subject = 'Konfirmasi Review Prosiding'
-                message = f'Terdapat prosiding dengan judul {nama_prosiding} telah diverifikasi. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
+                pengusul = form.cleaned_data.get('pengusul')
+                pk = self.kwargs['pk']
+                import os
+                dir_path = os.path.dirname(os.path.realpath(__file__))
+                mes = open(dir_path + '/emailer/reviewer_prosiding.txt', 'r')
+                message = mes.read().format(reviewer, nama_prosiding, pengusul, 'R1', pk, reviewer.nip)
                 # print(message)
                 send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
             if form.cleaned_data.get('reviewer_2') != None:
@@ -316,16 +362,24 @@ class VerifikasiBerkasProsidingView(SuperAdminAccess, UpdateView):
                 reviewer_2 = form.cleaned_data.get('reviewer_2')
                 review_2 = User.objects.get(first_name=reviewer_2.reviewer)
                 subject = 'Konfirmasi Review Prosiding'
-                message = f'Terdapat prosiding dengan judul {nama_prosiding} telah diverifikasi. Diharapkan bapak/ibu {reviewer_2} segera menilainya. Terimakasih'
+                pengusul = form.cleaned_data.get('pengusul')
+                pk = self.kwargs['pk']
+                import os
+                dir_path = os.path.dirname(os.path.realpath(__file__))
+                mes = open(dir_path + '/emailer/reviewer_prosiding.txt', 'r')
+                message = mes.read().format(reviewer, nama_prosiding, pengusul, 'R2', pk, reviewer.nip)
                 # print(message)
                 send_mail(subject, message, EMAIL_HOST_USER, [review_2.email], fail_silently = False)
         elif form.cleaned_data.get('is_verificated') == False:
             nama_prosiding = form.cleaned_data.get('judul_artikel')
             pengusul = form.cleaned_data.get('pengusul')
             pengusuls = User.objects.get(first_name=pengusul)
-            # print(pengusuls.email)
             subject = 'Konfirmasi Revisi Upload Prosiding'
-            message = f'Prosiding dengan judul {nama_prosiding} perlu revisi dikarenakan masih terdapat informasi ataupun berkas yang kurang. Mohon secepatnya ditanggapi. Terimakasih'
+            pk = self.kwargs['pk']
+            import os 
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            mes = open(dir_path + '/emailer/revisi_prosiding.txt', 'r')
+            message = mes.read().format(pengusul, nama_prosiding, pengusul, pk)
             # print(message)
             send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
         return super(VerifikasiBerkasProsidingView, self).form_valid(form)
@@ -334,8 +388,9 @@ class PenilaianBerkasProsidingView(ReviewerAccess, CreateView):
     model = PenilaianBerkasProsiding
     form_class = PenilaianBerkasProsidingForm
     template_name = 'penilaian/penilaian_berkas_prosiding.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_prosiding')
     context_object_name = 'penilaian_berkas_prosiding'
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_prosiding', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -349,7 +404,11 @@ class PenilaianBerkasProsidingView(ReviewerAccess, CreateView):
         pengusul = User.objects.get(first_name=prosiding.pengusul)
         # print(pengusul.email)
         subject = 'Konfirmasi Penilaian Prosiding'
-        message = f'Prosiding dengan judul {prosiding} telah selesai dinilai oleh Reviewer 1. Bapak/Ibu {pengusul} dipersilakan untuk mendownload berkas penilaian. Jika terdapat kesalahan, dapat menghubungi Kepala Departemen Fisika. Terimakasih'
+        slug = UploadBerkasProsiding.objects.get(slug=prosiding.slug)
+        import os
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        mes = open(dir_path + '/emailer/penilaian_prosiding.txt', 'r')
+        message = mes.read().format(pengusul, prosiding, pengusul, '1', 'R1', slug)
         # print(message)
         send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
         return super(PenilaianBerkasProsidingView, self).form_valid(form)
@@ -358,8 +417,9 @@ class PenilaianBerkasProsiding2View(ReviewerAccess, CreateView):
     model = PenilaianBerkasProsiding2
     form_class = PenilaianBerkasProsiding2Form
     template_name = 'penilaian/penilaian_berkas_prosiding2.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_prosiding')
     context_object_name = 'penilaian_berkas_prosiding'
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_prosiding', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -373,7 +433,11 @@ class PenilaianBerkasProsiding2View(ReviewerAccess, CreateView):
         pengusul = User.objects.get(first_name=prosiding.pengusul)
         # print(pengusul.email)
         subject = 'Konfirmasi Penilaian Prosiding'
-        message = f'Prosiding dengan judul {prosiding} telah selesai dinilai oleh Reviewer 2. Bapak/Ibu {pengusul} dipersilakan untuk mendownload berkas penilaian. Jika terdapat kesalahan, dapat menghubungi Kepala Departemen Fisika. Terimakasih'
+        slug = UploadBerkasProsiding.objects.get(slug=prosiding.slug)
+        import os
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        mes = open(dir_path + '/emailer/penilaian_prosiding.txt', 'r')
+        message = mes.read().format(pengusul, prosiding, pengusul, '2', 'R2', slug)
         # print(message)
         send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
         return super(PenilaianBerkasProsiding2View, self).form_valid(form)
@@ -382,11 +446,12 @@ class PenilaianBerkasProsidingEditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasProsiding
     form_class = PenilaianBerkasProsidingEditForm
     template_name = 'penilaian/edit_penilaian_prosiding.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_prosiding')
     penilaian = PenilaianBerkasProsiding.objects.all()
     extra_context = {
         'penilaian':penilaian
     }
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_prosiding', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         kwargs.update(self.extra_context)
@@ -396,11 +461,12 @@ class PenilaianBerkasProsiding2EditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasProsiding2
     form_class = PenilaianBerkasProsiding2EditForm
     template_name = 'penilaian/edit_penilaian_prosiding2.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_prosiding')
     penilaian = PenilaianBerkasProsiding2.objects.all()
     extra_context = {
         'penilaian':penilaian
     }
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_prosiding', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         kwargs.update(self.extra_context)
@@ -472,7 +538,10 @@ class UploadBerkasBukuView(LoginRequiredMixin, CreateView):
         penerima = User.objects.get(pk=1)
         subject = 'Konfirmasi Upload Berkas Buku'
         pengusul = form.cleaned_data.get('pengusul')
-        message = f'Terdapat buku berjudul {nama_buku} telah diupload oleh {pengusul}. Mohon untuk diperiksa. Terimakasih'
+        import os
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        mes = open(dir_path + '/emailer/upload_buku.txt', 'r')
+        message = mes.read().format(nama_buku, pengusul)
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
         return super(UploadBerkasBukuView, self).form_valid(form)
     
@@ -483,6 +552,8 @@ class UploadBerkasBukuView(LoginRequiredMixin, CreateView):
 
 class ListBerkasBukuView(LoginRequiredMixin,ListView):
     model = UploadBerkasBuku
+    paginate_by = 5
+    ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_buku.html'
     context_object_name = 'list_berkas_buku'
     list_berkas = PenilaianBerkasBuku.objects.all()
@@ -503,14 +574,16 @@ class EditBerkasBukuView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasBuku
     form_class = EditBerkasBukuForm
     template_name = 'penilaian/edit_berkas_buku.html'
-    success_url = reverse_lazy('penilaian:list_berkas_buku')
+    def get_success_url(self):
+        return reverse('penilaian:list_berkas_buku', kwargs={'page':1})
 
 class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
     model = UploadBerkasBuku
     form_class = VerifikasiBerkasBukuForm
     template_name = 'penilaian/verifikasi_berkas_buku.html'
-    success_url = reverse_lazy('penilaian:list_berkas_buku')
     context_object_name = 'verifikasi_buku'
+    def get_success_url(self):
+        return reverse('penilaian:list_berkas_buku', kwargs={'page':1})
 
     def form_valid(self, form):
         if form.cleaned_data.get('is_verificated') == True:
@@ -519,7 +592,12 @@ class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
                 reviewer = form.cleaned_data.get('reviewer')
                 review = User.objects.get(first_name=reviewer.reviewer)
                 subject = 'Konfirmasi Review Buku'
-                message = f'Terdapat buku dengan judul {nama_buku} telah diverifikasi. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
+                pengusul = form.cleaned_data.get('pengusul')
+                pk = self.kwargs['pk']
+                import os
+                dir_path = os.path.dirname(os.path.realpath(__file__))
+                mes = open(dir_path + '/emailer/reviewer_buku.txt', 'r')
+                message = mes.read().format(reviewer, nama_buku, pengusul, 'R1', pk, reviewer.nip)
                 # print(message)
                 send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
             if form.cleaned_data.get('reviewer_2') != None:
@@ -527,7 +605,12 @@ class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
                 reviewer_2 = form.cleaned_data.get('reviewer_2')
                 review_2 = User.objects.get(first_name=reviewer_2.reviewer)
                 subject = 'Konfirmasi Review Buku'
-                message = f'Terdapat buku dengan judul {nama_buku} telah diverifikasi. Diharapkan bapak/ibu {reviewer_2} segera menilainya. Terimakasih'
+                pengusul = form.cleaned_data.get('pengusul')
+                pk = self.kwargs['pk']
+                import os
+                dir_path = os.path.dirname(os.path.realpath(__file__))
+                mes = open(dir_path + '/emailer/reviewer_buku.txt', 'r')
+                message = mes.read().format(reviewer, nama_buku, pengusul, 'R2', pk, reviewer.nip)
                 # print(message)
                 send_mail(subject, message, EMAIL_HOST_USER, [review_2.email], fail_silently = False)
         elif form.cleaned_data.get('is_verificated') == False:
@@ -536,7 +619,11 @@ class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
             pengusuls = User.objects.get(first_name=pengusul)
             # print(pengusuls.email)
             subject = 'Konfirmasi Revisi Upload Buku'
-            message = f'Buku dengan judul {nama_buku} perlu revisi dikarenakan masih terdapat informasi ataupun berkas yang kurang. Mohon secepatnya ditanggapi. Terimakasih'
+            pk = self.kwargs['pk']
+            import os
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            mes = open(dir_path + '/emailer/revisi_buku.txt', 'r')
+            message = mes.read().format(pengusul, nama_buku, pengusul, pk)
             # print(message)
             send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
         return super(VerifikasiBerkasBukuView, self).form_valid(form)
@@ -545,8 +632,9 @@ class PenilaianBerkasBukuView(ReviewerAccess, CreateView):
     model = PenilaianBerkasBuku
     form_class = PenilaianBerkasBukuForm
     template_name = 'penilaian/penilaian_berkas_buku.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_buku')
     context_object_name = 'penilaian_berkas_buku'
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_buku', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -560,7 +648,11 @@ class PenilaianBerkasBukuView(ReviewerAccess, CreateView):
         pengusul = User.objects.get(first_name=buku.pengusul)
         # print(pengusul.email)
         subject = 'Konfirmasi Penilaian Buku'
-        message = f'Buku dengan judul {buku} telah selesai dinilai oleh Reviewer 1. Bapak/Ibu {pengusul} dipersilakan untuk mendownload berkas penilaian. Jika terdapat kesalahan, dapat menghubungi Kepala Departemen Fisika. Terimakasih'
+        slug = UploadBerkasJurnal.objects.get(slug=buku.slug)
+        import os
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        mes = open(dir_path + '/emailer/penilaian_buku.txt', 'r')
+        message = mes.read().format(pengusul, buku, pengusul, '1', 'R1', slug)
         # print(message)
         send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
         return super(PenilaianBerkasBukuView, self).form_valid(form)
@@ -569,8 +661,9 @@ class PenilaianBerkasBuku2View(ReviewerAccess, CreateView):
     model = PenilaianBerkasBuku2
     form_class = PenilaianBerkasBuku2Form
     template_name = 'penilaian/penilaian_berkas_buku2.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_buku')
     context_object_name = 'penilaian_berkas_buku'
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_buku', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -584,7 +677,11 @@ class PenilaianBerkasBuku2View(ReviewerAccess, CreateView):
         pengusul = User.objects.get(first_name=buku.pengusul)
         # print(pengusul.email)
         subject = 'Konfirmasi Penilaian Buku'
-        message = f'Buku dengan judul {buku} telah selesai dinilai Reviewer 2. Bapak/Ibu {pengusul} dipersilakan untuk mendownload berkas penilaian. Jika terdapat kesalahan, dapat menghubungi Kepala Departemen Fisika. Terimakasih'
+        slug = UploadBerkasProsiding.objects.get(slug=buku.slug)
+        import os
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        mes = open(dir_path + '/emailer/penilaian_buku.txt', 'r')
+        message = mes.read().format(pengusul, buku, pengusul, '2', 'R2', slug)
         # print(message)
         send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
         return super(PenilaianBerkasBuku2View, self).form_valid(form)
@@ -593,11 +690,12 @@ class PenilaianBerkasBukuEditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasBuku
     form_class = PenilaianBerkasBukuEditForm
     template_name = 'penilaian/edit_penilaian_buku.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_buku')
     penilaian = PenilaianBerkasBuku.objects.all()
     extra_context = {
         'penilaian':penilaian
     }
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_buku', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         kwargs.update(self.extra_context)
@@ -607,11 +705,12 @@ class PenilaianBerkasBuku2EditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasBuku2
     form_class = PenilaianBerkasBuku2EditForm
     template_name = 'penilaian/edit_penilaian_buku2.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_buku')
     penilaian = PenilaianBerkasBuku2.objects.all()
     extra_context = {
         'penilaian':penilaian
     }
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_buku', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         kwargs.update(self.extra_context)
@@ -683,7 +782,10 @@ class UploadBerkasHakiView(LoginRequiredMixin, CreateView):
         penerima = User.objects.get(pk=1)
         subject = 'Konfirmasi Upload Berkas Haki'
         pengusul = form.cleaned_data.get('pengusul')
-        message = f'Terdapat berkas haki berjudul {nama_haki} telah diupload oleh {pengusul}. Mohon untuk diperiksa. Terimakasih'
+        import os
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        mes = open(dir_path + '/emailer/upload_haki.txt', 'r')
+        message = mes.read().format(nama_haki, pengusul)
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
         return super(UploadBerkasHakiView, self).form_valid(form)
     
@@ -694,6 +796,8 @@ class UploadBerkasHakiView(LoginRequiredMixin, CreateView):
 
 class ListBerkasHakiView(LoginRequiredMixin,ListView):
     model = UploadBerkasHaki
+    paginate_by = 5
+    ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_haki.html'
     context_object_name = 'list_berkas_haki'
     list_berkas = PenilaianBerkasHaki.objects.all()
@@ -714,14 +818,16 @@ class EditBerkasHakiView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasHaki
     form_class = EditBerkasHakiForm
     template_name = 'penilaian/edit_berkas_haki.html'
-    success_url = reverse_lazy('penilaian:list_berkas_haki')
+    def get_success_url(self):
+        return reverse('penilaian:list_berkas_haki', kwargs={'page':1})
 
 class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
     model = UploadBerkasHaki
     form_class = VerifikasiBerkasHakiForm
     template_name = 'penilaian/verifikasi_berkas_haki.html'
-    success_url = reverse_lazy('penilaian:list_berkas_haki')
     context_object_name = 'verifikasi_haki'
+    def get_success_url(self):
+        return reverse('penilaian:list_berkas_haki', kwargs={'page':1})
 
     def form_valid(self, form):
         if form.cleaned_data.get('is_verificated') == True:
@@ -730,7 +836,12 @@ class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
                 reviewer = form.cleaned_data.get('reviewer')
                 review = User.objects.get(first_name=reviewer.reviewer)
                 subject = 'Konfirmasi Review Haki'
-                message = f'Terdapat haki dengan judul {nama_haki} telah diupload. Diharapkan bapak/ibu {reviewer} segera menilainya. Terimakasih'
+                pengusul = form.cleaned_data.get('pengusul')
+                pk = self.kwargs['pk']
+                import os
+                dir_path = os.path.dirname(os.path.realpath(__file__))
+                mes = open(dir_path + '/emailer/reviewer_haki.txt', 'r')
+                message = mes.read().format(reviewer, nama_haki, pengusul, 'R1', pk, reviewer.nip)
                 # print(message)
                 send_mail(subject, message, EMAIL_HOST_USER, [review.email], fail_silently = False)
             if form.cleaned_data.get('reviewer_2') != None:
@@ -738,7 +849,12 @@ class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
                 reviewer_2 = form.cleaned_data.get('reviewer_2')
                 review_2 = User.objects.get(first_name=reviewer_2.reviewer)
                 subject = 'Konfirmasi Review Haki'
-                message = f'Terdapat haki dengan judul {nama_haki} telah diupload. Diharapkan bapak/ibu {reviewer_2} segera menilainya. Terimakasih'
+                pengusul = form.cleaned_data.get('pengusul')
+                pk = self.kwargs['pk']
+                import os
+                dir_path = os.path.dirname(os.path.realpath(__file__))
+                mes = open(dir_path + '/emailer/reviewer_haki.txt', 'r')
+                message = mes.read().format(reviewer, nama_haki, pengusul, 'R2', pk, reviewer.nip)
                 # print(message)
                 send_mail(subject, message, EMAIL_HOST_USER, [review_2.email], fail_silently = False)
         elif form.cleaned_data.get('is_verificated') == False:
@@ -747,7 +863,11 @@ class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
             pengusuls = User.objects.get(first_name=pengusul)
             # print(pengusuls.email)
             subject = 'Konfirmasi Revisi Upload Haki'
-            message = f'Haki dengan judul {nama_haki} perlu revisi dikarenakan masih terdapat informasi ataupun berkas yang kurang. Mohon secepatnya ditanggapi. Terimakasih'
+            pk = self.kwargs['pk']
+            import os 
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            mes = open(dir_path + '/emailer/revisi_haki.txt', 'r')
+            message = mes.read().format(pengusul, nama_haki, pengusul, pk)
             # print(message)
             send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
         return super(VerifikasiBerkasHakiView, self).form_valid(form)
@@ -756,8 +876,9 @@ class PenilaianBerkasHakiView(ReviewerAccess, CreateView):
     model = PenilaianBerkasHaki
     form_class = PenilaianBerkasHakiForm
     template_name = 'penilaian/penilaian_berkas_haki.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_haki')
     context_object_name = 'penilaian_berkas_haki'
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_haki', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -771,7 +892,11 @@ class PenilaianBerkasHakiView(ReviewerAccess, CreateView):
         pengusul = User.objects.get(first_name=berkas.pengusul)
         # print(pengusul.email)
         subject = 'Konfirmasi Penilaian Haki'
-        message = f'Haki dengan judul {berkas} telah selesai dinilai oleh Reviewer 1. Bapak/Ibu {pengusul} dipersilakan untuk mendownload berkas penilaian. Jika terdapat kesalahan, dapat menghubungi Kepala Departemen Fisika. Terimakasih'
+        slug = UploadBerkasProsiding.objects.get(slug=berkas.slug)
+        import os
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        mes = open(dir_path + '/emailer/penilaian_haki.txt', 'r')
+        message = mes.read().format(pengusul, berkas, pengusul, '1', 'R1', slug)
         # print(message)
         send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
         return super(PenilaianBerkasHakiView, self).form_valid(form)
@@ -780,8 +905,9 @@ class PenilaianBerkasHaki2View(ReviewerAccess, CreateView):
     model = PenilaianBerkasHaki2
     form_class = PenilaianBerkasHaki2Form
     template_name = 'penilaian/penilaian_berkas_haki2.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_haki')
     context_object_name = 'penilaian_berkas_haki'
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_haki', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -795,7 +921,11 @@ class PenilaianBerkasHaki2View(ReviewerAccess, CreateView):
         pengusul = User.objects.get(first_name=berkas.pengusul)
         # print(pengusul.email)
         subject = 'Konfirmasi Penilaian Haki'
-        message = f'Haki dengan judul {berkas} telah selesai dinilai oleh Reviewer 2. Bapak/Ibu {pengusul} dipersilakan untuk mendownload berkas penilaian. Jika terdapat kesalahan, dapat menghubungi Kepala Departemen Fisika. Terimakasih'
+        slug = UploadBerkasProsiding.objects.get(slug=berkas.slug)
+        import os
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        mes = open(dir_path + '/emailer/penilaian_haki.txt', 'r')
+        message = mes.read().format(pengusul, berkas, pengusul, '2', 'R2', slug)
         # print(message)
         send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
         return super(PenilaianBerkasHaki2View, self).form_valid(form)
@@ -804,11 +934,12 @@ class PenilaianBerkasHakiEditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasHaki
     form_class = PenilaianBerkasHakiEditForm
     template_name = 'penilaian/edit_penilaian_haki.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_haki')
     penilaian = PenilaianBerkasHaki.objects.all()
     extra_context = {
         'penilaian':penilaian
     }
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_haki', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         kwargs.update(self.extra_context)
@@ -818,11 +949,12 @@ class PenilaianBerkasHaki2EditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasHaki2
     form_class = PenilaianBerkasHaki2EditForm
     template_name = 'penilaian/edit_penilaian_haki2.html'
-    success_url = reverse_lazy('penilaian:list_penilaian_haki')
     penilaian = PenilaianBerkasHaki2.objects.all()
     extra_context = {
         'penilaian':penilaian
     }
+    def get_success_url(self):
+        return reverse('penilaian:list_penilaian_haki', kwargs={'page':1})
 
     def get_context_data(self, *args, **kwargs):
         kwargs.update(self.extra_context)
@@ -888,6 +1020,8 @@ class ListReviewerJurnalView(ReviewerAccess,ListView):
     model = UploadBerkasJurnal
     template_name = 'penilaian/list_reviewer_jurnal.html'
     context_object_name = 'list_reviewer_jurnal'
+    paginate_by = 5
+    ordering = ['-uploaded']
     
     def get_context_data(self, *args, **kwargs):
         context = super(ListReviewerJurnalView, self).get_context_data(*args, **kwargs)
@@ -901,6 +1035,8 @@ class ListReviewerProsidingView(ReviewerAccess,ListView):
     model = UploadBerkasProsiding
     template_name = 'penilaian/list_reviewer_prosiding.html'
     context_object_name = 'list_reviewer_prosiding'
+    paginate_by = 5
+    ordering = ['-uploaded']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ListReviewerProsidingView, self).get_context_data(*args, **kwargs)
@@ -914,6 +1050,8 @@ class ListReviewerBukuView(ReviewerAccess,ListView):
     model = UploadBerkasBuku
     template_name = 'penilaian/list_reviewer_buku.html'
     context_object_name = 'list_reviewer_buku'
+    paginate_by = 5
+    ordering = ['-uploaded']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ListReviewerBukuView, self).get_context_data(*args, **kwargs)
@@ -927,6 +1065,8 @@ class ListReviewerHakiView(ReviewerAccess,ListView):
     model = UploadBerkasHaki
     template_name = 'penilaian/list_reviewer_haki.html'
     context_object_name = 'list_reviewer_haki'
+    paginate_by = 5
+    ordering = ['-uploaded']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ListReviewerHakiView, self).get_context_data(*args, **kwargs)

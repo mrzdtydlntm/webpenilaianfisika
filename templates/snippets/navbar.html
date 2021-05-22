@@ -16,15 +16,15 @@
                   </ul>
                 </li>
                 <div class="dropdown-divider"></div>
-                <li><a href="{% url 'penilaian:list_berkas_jurnal' %}">Histori Pengajuan</a></li>
+                <li><a href="{% url 'penilaian:list_berkas_jurnal' 1 %}">Riwayat Pengajuan</a></li>
                 <li><a href="{% url 'penilaian:tambah_penulis' %}">Tambah Penulis Selain Dosen</a></li>
               </ul>
             </li>
             {% for group in user.groups.all %}
               {% if group.name == 'SuperAdmin' %}
-                <li><a href="{% url 'penilaian:list_penilaian_jurnal' %}">Tabel Penilaian</a></li>
+                <li><a href="{% url 'penilaian:list_penilaian_jurnal' 1 %}">Tabel Penilaian</a></li>
               {% elif group.name == 'Reviewer' %}  
-                <li><a href="{% url 'penilaian:list_penilaian_jurnal' %}">Tabel Penilaian</a></li>
+                <li><a href="{% url 'penilaian:list_penilaian_jurnal' 1 %}">Tabel Penilaian</a></li>
               {% endif %}
             {% endfor %}
           {% endif %}

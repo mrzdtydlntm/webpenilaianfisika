@@ -9,6 +9,11 @@
             /* br{
                 line-height: 1px;
             } */
+
+            .spacing-kecil {
+                line-height: 0.7;
+            }
+
             .judul {
                 font-family: "Times New Roman", Times, serif;
                 font-size: 9pt;
@@ -481,7 +486,7 @@
                 <table style="margin-bottom: 1.5cm; margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
-                        <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date}}</td>
+                        <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date:"d-m-Y"}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -499,16 +504,13 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small></td>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td>
-                            <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small></td>
+                            <p class="spacing-kecil">
+                                <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small> <br>
+                                <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small> <br>
+                                <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small>
+                            </p>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -948,7 +950,7 @@
                     <table style="margin-bottom: 1.5cm; margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
-                            <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date}}</td>
+                            <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date:"d-m-Y"}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -966,16 +968,13 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td><small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small></td>
-                        </tr>
-                        <tr>
-                            <td></td>
                             <td>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small></td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -1415,7 +1414,7 @@
                     <table style="margin-bottom: 1.5cm; margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
-                            <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date}}</td>
+                            <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date:"d-m-Y"}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -1433,16 +1432,13 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td><small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small></td>
-                        </tr>
-                        <tr>
-                            <td></td>
                             <td>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small></td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -1882,7 +1878,7 @@
                 <table style="margin-bottom: 1.5cm; margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
-                        <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date}}</td>
+                        <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date:"d-m-Y"}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -1900,16 +1896,13 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small></td>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td>
-                            <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small></td>
+                            <p class="spacing-kecil">
+                                <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small> <br>
+                                <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small> <br>
+                                <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small>
+                            </p>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -2347,7 +2340,7 @@
                 <table style="margin-bottom: 1.5cm; margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
-                        <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date}}</td>
+                        <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date:"d-m-Y"}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -2365,16 +2358,13 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small></td>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td>
-                            <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small></td>
+                            <p class="spacing-kecil">
+                                <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small> <br>
+                                <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small> <br>
+                                <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small>
+                            </p>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -2814,7 +2804,7 @@
                         <table style="margin-bottom: 1.5cm; margin-top: 10px;">
                             <tr>
                                 <td style="width: 72%;"></td>
-                                <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date}}</td>
+                                <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date:"d-m-Y"}}</td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -2832,16 +2822,13 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td><small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td><small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small></td>
-                            </tr>
-                            <tr>
-                                <td></td>
                                 <td>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small></td>
+                                    <p class="spacing-kecil">
+                                        <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small>
+                                    </p>
+                                </td>
                             </tr>
                         </table>
                     </div>

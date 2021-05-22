@@ -239,9 +239,6 @@ class UploadBerkasHaki(models.Model):
         url_slug = {'slug':self.slug}
         return reverse('penilaian:detail_berkas_haki', kwargs=url_slug)
 
-# https://stackoverflow.com/questions/47839536/django-createview-with-foreignkey-field
-# https://stackoverflow.com/questions/53033235/django-how-to-assign-foreign-key-in-url-to-a-createview-form
-
 class PenilaianBerkasJurnal(models.Model):
     jurnal = models.OneToOneField(UploadBerkasJurnal, on_delete=models.CASCADE)
     unsur_isi = models.FloatField(verbose_name='Nilai Kelengkapan dan Kesesuaian Unsur Isi Jurnal')

@@ -19,7 +19,9 @@
     </section><!-- End Portfolio Section -->
     <div class="container" data-aos="zoom-in">
         <br>
-        <a class="float-right btn btn-warning btn-sm" href="{% url 'penilaian:edit_berkas_prosiding' detail_berkas_prosiding.pk%}" data-aos="zoom-in">Edit</a>
+        {% if user.id == detail_berkas_jurnal.pengusul.users.id or user.is_superuser or user.id == 22 %}
+          <a class="float-right btn btn-warning btn-sm" href="{% url 'penilaian:edit_berkas_prosiding' detail_berkas_prosiding.pk%}" data-aos="zoom-in">Edit</a>
+        {% endif %}
         <div class="scrollmenu">
             <table class="table table-hover">
               <tbody>
@@ -88,7 +90,7 @@
                   {% endif %}
                 </tr>
                 <tr>
-                  <td><h4>Corresponding Author</h4></td>
+                  <td><h4>Penulis Korespondensi</h4></td>
                   {% if detail_berkas_prosiding.corresponding_author != None %}
                     <td><h5>: {{detail_berkas_prosiding.corresponding_author}}</h5></td>
                   {% elif detail_berkas_prosiding.corresponding_author_selain != None %}

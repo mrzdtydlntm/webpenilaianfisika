@@ -1,0 +1,13 @@
+Yth. {}
+di tempat
+
+Kami beritahukan bahwa berkas buku, 
+
+        Judul                   : {}
+        Pengusul             : {}
+
+telah selesai dinilai oleh Reviewer {}.
+Hasil penilaian dapat di diunduh melalui link berikut: reviewjurnal.finder.ac.id/penilaian/rekap_buku/{}/{}/
+
+Apabila terdapat kekeliruan, silahkan menghubungi kadepfisika@phys.unpad.ac.id. 
+Terimakasih.

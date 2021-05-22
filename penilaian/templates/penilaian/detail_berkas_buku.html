@@ -19,7 +19,9 @@
     </section><!-- End Portfolio Section -->
     <div class="container" data-aos="zoom-in">
         <br>
-        <a class="float-right btn btn-warning btn-sm" href="{% url 'penilaian:edit_berkas_buku' detail_berkas_buku.pk%}" data-aos="zoom-in">Edit</a>
+        {% if user.id == detail_berkas_jurnal.pengusul.users.id or user.is_superuser or user.id == 22 %}
+          <a class="float-right btn btn-warning btn-sm" href="{% url 'penilaian:edit_berkas_buku' detail_berkas_buku.pk%}" data-aos="zoom-in">Edit</a>
+        {% endif %}
         <div class="scrollmenu">
           <table class="table table-hover">
               <tbody>

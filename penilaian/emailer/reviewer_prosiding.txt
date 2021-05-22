@@ -1,0 +1,16 @@
+Yth. {}
+di Tempat
+
+Dengan hormat,
+Kepala Departemen Fisika, FMIPA, Universitas Padjadjaran menugaskan Bapak/Ibu untuk melakukan penilaian terhadap Prosiding sebagai berikut:
+
+        Judul                   : {}
+        Pengusul               	: {}
+
+Penilaian dapat dilakukan dengan mengakses laman reviewjurnal.finder.ac.id/penilaian/penilaian_prosiding/{}/{}/ dengan credential:
+	
+NIP 		: {}
+Password 	: fisikaunpad
+
+
+Terimakasih
