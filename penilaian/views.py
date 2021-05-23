@@ -33,6 +33,7 @@ class ErrorMessage(TemplateView):
 ################################################################################################################
 class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
     model = UploadBerkasJurnal
+    login_url = '/login/'
     form_class = UploadBerkasJurnalForm
     template_name = 'penilaian/upload_berkas_jurnal.html'
     success_url = reverse_lazy('success')
@@ -63,6 +64,7 @@ class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
 
 class ListBerkasJurnalView(LoginRequiredMixin,ListView):
     model = UploadBerkasJurnal
+    login_url = '/login/'
     paginate_by = 5
     ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_jurnal.html'
@@ -78,11 +80,13 @@ class ListBerkasJurnalView(LoginRequiredMixin,ListView):
 
 class DetailBerkasJurnalView(LoginRequiredMixin,DetailView):
     model = UploadBerkasJurnal
+    login_url = '/login/'
     template_name = 'penilaian/detail_berkas_jurnal.html'
     context_object_name = 'detail_berkas_jurnal'
 
 class EditBerkasJurnalView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasJurnal
+    login_url = '/login/'
     form_class = EditBerkasJurnalForm
     template_name = 'penilaian/edit_berkas_jurnal.html'
     def get_success_url(self):
@@ -90,6 +94,7 @@ class EditBerkasJurnalView(LoginRequiredMixin, UpdateView):
 
 class PlagiasiLinieritasView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasJurnal
+    login_url = '/login/'
     form_class = PlagiasiLinieritasForm
     template_name = 'penilaian/plagiasi_linieritas.html'
     def get_success_url(self):
@@ -97,6 +102,7 @@ class PlagiasiLinieritasView(LoginRequiredMixin, UpdateView):
 
 class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
     model = UploadBerkasJurnal
+    login_url = '/login/'
     form_class = VerifikasiBerkasJurnalForm
     template_name = 'penilaian/verifikasi_berkas_jurnal.html'
     context_object_name = 'verifikasi_jurnal'
@@ -149,6 +155,7 @@ class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
 
 class PenilaianBerkasJurnalView(ReviewerAccess, CreateView):
     model = PenilaianBerkasJurnal
+    login_url = '/login/'
     form_class = PenilaianBerkasJurnalForm
     template_name = 'penilaian/penilaian_berkas_jurnal.html'
     context_object_name = 'penilaian_berkas_jurnal'
@@ -176,6 +183,7 @@ class PenilaianBerkasJurnalView(ReviewerAccess, CreateView):
 
 class PenilaianBerkasJurnal2View(ReviewerAccess, CreateView):
     model = PenilaianBerkasJurnal2
+    login_url = '/login/'
     form_class = PenilaianBerkasJurnal2Form
     template_name = 'penilaian/penilaian_berkas_jurnal2.html'
     context_object_name = 'penilaian_berkas_jurnal2'
@@ -202,6 +210,7 @@ class PenilaianBerkasJurnal2View(ReviewerAccess, CreateView):
 
 class PenilaianBerkasJurnalEditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasJurnal
+    login_url = '/login/'
     form_class = PenilaianBerkasJurnalEditForm
     template_name = 'penilaian/edit_penilaian_jurnal.html'
     penilaian = PenilaianBerkasJurnal.objects.all()
@@ -217,6 +226,7 @@ class PenilaianBerkasJurnalEditView(ReviewerAccess, UpdateView):
 
 class PenilaianBerkasJurnal2EditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasJurnal2
+    login_url = '/login/'
     form_class = PenilaianBerkasJurnal2EditForm
     template_name = 'penilaian/edit_penilaian_jurnal2.html'
     penilaian = PenilaianBerkasJurnal2.objects.all()
@@ -230,8 +240,9 @@ class PenilaianBerkasJurnal2EditView(ReviewerAccess, UpdateView):
     def get_success_url(self):
         return reverse('penilaian:list_penilaian_jurnal', kwargs={'page':1})
 
-class HasilPenilaianJurnalView(DetailView):
+class HasilPenilaianJurnalView(LoginRequiredMixin, DetailView):
     model = PenilaianBerkasJurnal
+    login_url = '/login/'
     template_name = 'penilaian/hasil_rekap_jurnal.html'
     context_object_name = 'rekap_jurnal'
     
@@ -253,8 +264,9 @@ class HasilPenilaianJurnalView(DetailView):
         pdf = render_to_pdf(self.template_name, context)
         return HttpResponse(pdf, content_type='application/pdf')
 
-class HasilPenilaianJurnal2View(DetailView):
+class HasilPenilaianJurnal2View(LoginRequiredMixin, DetailView):
     model = PenilaianBerkasJurnal2
+    login_url = '/login/'
     template_name = 'penilaian/hasil_rekap_jurnal2.html'
     context_object_name = 'rekap_jurnal'
 
@@ -280,6 +292,7 @@ class HasilPenilaianJurnal2View(DetailView):
 
 class UploadBerkasProsidingView(LoginRequiredMixin, CreateView):
     model = UploadBerkasProsiding
+    login_url = '/login/'
     form_class = UploadBerkasProsidingForm
     template_name = 'penilaian/upload_berkas_prosiding.html'
     success_url = reverse_lazy('success')
@@ -310,6 +323,7 @@ class UploadBerkasProsidingView(LoginRequiredMixin, CreateView):
 
 class ListBerkasProsidingView(LoginRequiredMixin,ListView):
     model = UploadBerkasProsiding
+    login_url = '/login/'
     paginate_by = 5
     ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_prosiding.html'
@@ -324,11 +338,13 @@ class ListBerkasProsidingView(LoginRequiredMixin,ListView):
 
 class DetailBerkasProsidingView(LoginRequiredMixin,DetailView):
     model = UploadBerkasProsiding
+    login_url = '/login/'
     template_name = 'penilaian/detail_berkas_prosiding.html'
     context_object_name = 'detail_berkas_prosiding'
 
 class EditBerkasProsidingView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasProsiding
+    login_url = '/login/'
     form_class = EditBerkasProsidingForm
     template_name = 'penilaian/edit_berkas_prosiding.html'
     def get_success_url(self):
@@ -336,6 +352,7 @@ class EditBerkasProsidingView(LoginRequiredMixin, UpdateView):
 
 class VerifikasiBerkasProsidingView(SuperAdminAccess, UpdateView):
     model = UploadBerkasProsiding
+    login_url = '/login/'
     form_class = VerifikasiBerkasProsidingForm
     template_name = 'penilaian/verifikasi_berkas_prosiding.html'
     context_object_name = 'verifikasi_prosiding'
@@ -386,6 +403,7 @@ class VerifikasiBerkasProsidingView(SuperAdminAccess, UpdateView):
 
 class PenilaianBerkasProsidingView(ReviewerAccess, CreateView):
     model = PenilaianBerkasProsiding
+    login_url = '/login/'
     form_class = PenilaianBerkasProsidingForm
     template_name = 'penilaian/penilaian_berkas_prosiding.html'
     context_object_name = 'penilaian_berkas_prosiding'
@@ -415,6 +433,7 @@ class PenilaianBerkasProsidingView(ReviewerAccess, CreateView):
 
 class PenilaianBerkasProsiding2View(ReviewerAccess, CreateView):
     model = PenilaianBerkasProsiding2
+    login_url = '/login/'
     form_class = PenilaianBerkasProsiding2Form
     template_name = 'penilaian/penilaian_berkas_prosiding2.html'
     context_object_name = 'penilaian_berkas_prosiding'
@@ -444,6 +463,7 @@ class PenilaianBerkasProsiding2View(ReviewerAccess, CreateView):
 
 class PenilaianBerkasProsidingEditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasProsiding
+    login_url = '/login/'
     form_class = PenilaianBerkasProsidingEditForm
     template_name = 'penilaian/edit_penilaian_prosiding.html'
     penilaian = PenilaianBerkasProsiding.objects.all()
@@ -459,6 +479,7 @@ class PenilaianBerkasProsidingEditView(ReviewerAccess, UpdateView):
 
 class PenilaianBerkasProsiding2EditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasProsiding2
+    login_url = '/login/'
     form_class = PenilaianBerkasProsiding2EditForm
     template_name = 'penilaian/edit_penilaian_prosiding2.html'
     penilaian = PenilaianBerkasProsiding2.objects.all()
@@ -474,6 +495,7 @@ class PenilaianBerkasProsiding2EditView(ReviewerAccess, UpdateView):
 
 class HasilPenilaianProsidingView(LoginRequiredMixin,DetailView):
     model = PenilaianBerkasProsiding
+    login_url = '/login/'
     template_name = 'penilaian/hasil_rekap_prosiding.html'
     context_object_name = 'rekap_prosiding'
 
@@ -497,6 +519,7 @@ class HasilPenilaianProsidingView(LoginRequiredMixin,DetailView):
 
 class HasilPenilaianProsiding2View(LoginRequiredMixin,DetailView):
     model = PenilaianBerkasProsiding2
+    login_url = '/login/'
     template_name = 'penilaian/hasil_rekap_prosiding2.html'
     context_object_name = 'rekap_prosiding'
 
@@ -522,6 +545,7 @@ class HasilPenilaianProsiding2View(LoginRequiredMixin,DetailView):
 
 class UploadBerkasBukuView(LoginRequiredMixin, CreateView):
     model = UploadBerkasBuku
+    login_url = '/login/'
     form_class = UploadBerkasBukuForm
     template_name = 'penilaian/upload_berkas_buku.html'
     success_url = reverse_lazy('success')
@@ -552,6 +576,7 @@ class UploadBerkasBukuView(LoginRequiredMixin, CreateView):
 
 class ListBerkasBukuView(LoginRequiredMixin,ListView):
     model = UploadBerkasBuku
+    login_url = '/login/'
     paginate_by = 5
     ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_buku.html'
@@ -567,11 +592,13 @@ class ListBerkasBukuView(LoginRequiredMixin,ListView):
 
 class DetailBerkasBukuView(LoginRequiredMixin,DetailView):
     model = UploadBerkasBuku
+    login_url = '/login/'
     template_name = 'penilaian/detail_berkas_buku.html'
     context_object_name = 'detail_berkas_buku'
 
 class EditBerkasBukuView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasBuku
+    login_url = '/login/'
     form_class = EditBerkasBukuForm
     template_name = 'penilaian/edit_berkas_buku.html'
     def get_success_url(self):
@@ -579,6 +606,7 @@ class EditBerkasBukuView(LoginRequiredMixin, UpdateView):
 
 class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
     model = UploadBerkasBuku
+    login_url = '/login/'
     form_class = VerifikasiBerkasBukuForm
     template_name = 'penilaian/verifikasi_berkas_buku.html'
     context_object_name = 'verifikasi_buku'
@@ -630,6 +658,7 @@ class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
 
 class PenilaianBerkasBukuView(ReviewerAccess, CreateView):
     model = PenilaianBerkasBuku
+    login_url = '/login/'
     form_class = PenilaianBerkasBukuForm
     template_name = 'penilaian/penilaian_berkas_buku.html'
     context_object_name = 'penilaian_berkas_buku'
@@ -659,6 +688,7 @@ class PenilaianBerkasBukuView(ReviewerAccess, CreateView):
 
 class PenilaianBerkasBuku2View(ReviewerAccess, CreateView):
     model = PenilaianBerkasBuku2
+    login_url = '/login/'
     form_class = PenilaianBerkasBuku2Form
     template_name = 'penilaian/penilaian_berkas_buku2.html'
     context_object_name = 'penilaian_berkas_buku'
@@ -688,6 +718,7 @@ class PenilaianBerkasBuku2View(ReviewerAccess, CreateView):
 
 class PenilaianBerkasBukuEditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasBuku
+    login_url = '/login/'
     form_class = PenilaianBerkasBukuEditForm
     template_name = 'penilaian/edit_penilaian_buku.html'
     penilaian = PenilaianBerkasBuku.objects.all()
@@ -703,6 +734,7 @@ class PenilaianBerkasBukuEditView(ReviewerAccess, UpdateView):
 
 class PenilaianBerkasBuku2EditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasBuku2
+    login_url = '/login/'
     form_class = PenilaianBerkasBuku2EditForm
     template_name = 'penilaian/edit_penilaian_buku2.html'
     penilaian = PenilaianBerkasBuku2.objects.all()
@@ -718,6 +750,7 @@ class PenilaianBerkasBuku2EditView(ReviewerAccess, UpdateView):
 
 class HasilPenilaianBukuView(LoginRequiredMixin,DetailView):
     model = PenilaianBerkasBuku
+    login_url = '/login/'
     template_name = 'penilaian/hasil_rekap_buku.html'
     context_object_name = 'rekap_buku'
 
@@ -741,6 +774,7 @@ class HasilPenilaianBukuView(LoginRequiredMixin,DetailView):
 
 class HasilPenilaianBuku2View(LoginRequiredMixin,DetailView):
     model = PenilaianBerkasBuku2
+    login_url = '/login/'
     template_name = 'penilaian/hasil_rekap_buku2.html'
     context_object_name = 'rekap_buku'
 
@@ -766,6 +800,7 @@ class HasilPenilaianBuku2View(LoginRequiredMixin,DetailView):
 
 class UploadBerkasHakiView(LoginRequiredMixin, CreateView):
     model = UploadBerkasHaki
+    login_url = '/login/'
     form_class = UploadBerkasHakiForm
     template_name = 'penilaian/upload_berkas_haki.html'
     success_url = reverse_lazy('success')
@@ -796,6 +831,7 @@ class UploadBerkasHakiView(LoginRequiredMixin, CreateView):
 
 class ListBerkasHakiView(LoginRequiredMixin,ListView):
     model = UploadBerkasHaki
+    login_url = '/login/'
     paginate_by = 5
     ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_haki.html'
@@ -811,11 +847,13 @@ class ListBerkasHakiView(LoginRequiredMixin,ListView):
 
 class DetailBerkasHakiView(LoginRequiredMixin,DetailView):
     model = UploadBerkasHaki
+    login_url = '/login/'
     template_name = 'penilaian/detail_berkas_haki.html'
     context_object_name = 'detail_berkas_haki'
     
 class EditBerkasHakiView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasHaki
+    login_url = '/login/'
     form_class = EditBerkasHakiForm
     template_name = 'penilaian/edit_berkas_haki.html'
     def get_success_url(self):
@@ -823,6 +861,7 @@ class EditBerkasHakiView(LoginRequiredMixin, UpdateView):
 
 class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
     model = UploadBerkasHaki
+    login_url = '/login/'
     form_class = VerifikasiBerkasHakiForm
     template_name = 'penilaian/verifikasi_berkas_haki.html'
     context_object_name = 'verifikasi_haki'
@@ -874,6 +913,7 @@ class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
 
 class PenilaianBerkasHakiView(ReviewerAccess, CreateView):
     model = PenilaianBerkasHaki
+    login_url = '/login/'
     form_class = PenilaianBerkasHakiForm
     template_name = 'penilaian/penilaian_berkas_haki.html'
     context_object_name = 'penilaian_berkas_haki'
@@ -903,6 +943,7 @@ class PenilaianBerkasHakiView(ReviewerAccess, CreateView):
 
 class PenilaianBerkasHaki2View(ReviewerAccess, CreateView):
     model = PenilaianBerkasHaki2
+    login_url = '/login/'
     form_class = PenilaianBerkasHaki2Form
     template_name = 'penilaian/penilaian_berkas_haki2.html'
     context_object_name = 'penilaian_berkas_haki'
@@ -932,6 +973,7 @@ class PenilaianBerkasHaki2View(ReviewerAccess, CreateView):
 
 class PenilaianBerkasHakiEditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasHaki
+    login_url = '/login/'
     form_class = PenilaianBerkasHakiEditForm
     template_name = 'penilaian/edit_penilaian_haki.html'
     penilaian = PenilaianBerkasHaki.objects.all()
@@ -947,6 +989,7 @@ class PenilaianBerkasHakiEditView(ReviewerAccess, UpdateView):
 
 class PenilaianBerkasHaki2EditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasHaki2
+    login_url = '/login/'
     form_class = PenilaianBerkasHaki2EditForm
     template_name = 'penilaian/edit_penilaian_haki2.html'
     penilaian = PenilaianBerkasHaki2.objects.all()
@@ -962,6 +1005,7 @@ class PenilaianBerkasHaki2EditView(ReviewerAccess, UpdateView):
 
 class HasilPenilaianHakiView(LoginRequiredMixin, DetailView):
     model = PenilaianBerkasHaki
+    login_url = '/login/'
     template_name = 'penilaian/hasil_rekap_haki.html'
     context_object_name = 'rekap_haki'
     
@@ -985,6 +1029,7 @@ class HasilPenilaianHakiView(LoginRequiredMixin, DetailView):
 
 class HasilPenilaianHaki2View(LoginRequiredMixin, DetailView):
     model = PenilaianBerkasHaki2
+    login_url = '/login/'
     template_name = 'penilaian/hasil_rekap_haki2.html'
     context_object_name = 'rekap_haki'
     
@@ -1018,6 +1063,7 @@ class PenulisLainView(CreateView):
 
 class ListReviewerJurnalView(ReviewerAccess,ListView):
     model = UploadBerkasJurnal
+    login_url = '/login/'
     template_name = 'penilaian/list_reviewer_jurnal.html'
     context_object_name = 'list_reviewer_jurnal'
     paginate_by = 5
@@ -1033,6 +1079,7 @@ class ListReviewerJurnalView(ReviewerAccess,ListView):
 
 class ListReviewerProsidingView(ReviewerAccess,ListView):
     model = UploadBerkasProsiding
+    login_url = '/login/'
     template_name = 'penilaian/list_reviewer_prosiding.html'
     context_object_name = 'list_reviewer_prosiding'
     paginate_by = 5
@@ -1048,6 +1095,7 @@ class ListReviewerProsidingView(ReviewerAccess,ListView):
 
 class ListReviewerBukuView(ReviewerAccess,ListView):
     model = UploadBerkasBuku
+    login_url = '/login/'
     template_name = 'penilaian/list_reviewer_buku.html'
     context_object_name = 'list_reviewer_buku'
     paginate_by = 5
@@ -1063,6 +1111,7 @@ class ListReviewerBukuView(ReviewerAccess,ListView):
 
 class ListReviewerHakiView(ReviewerAccess,ListView):
     model = UploadBerkasHaki
+    login_url = '/login/'
     template_name = 'penilaian/list_reviewer_haki.html'
     context_object_name = 'list_reviewer_haki'
     paginate_by = 5

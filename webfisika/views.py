@@ -16,7 +16,10 @@ def loginView(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('home')
         elif user is None:
             messages.error(request, 'NIP atau Password yang Dimasukkan Salah')
             return redirect('login')
