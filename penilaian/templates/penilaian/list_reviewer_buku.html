@@ -41,7 +41,7 @@
             {% for berkas in list_reviewer_buku %}
                 {% if user.id == berkas.reviewer.reviewer.id %}
                     <tr>
-                        <td style="width: 30%;">{{berkas.judul}}</td>
+                        <td style="width: 30%;"><a href="{% url 'penilaian:detail_berkas_buku' berkas.pk%}" target="_blank">{{berkas.judul}}</a></td>
                         {% if berkas.reviewer == None %}
                           <td>Belum Ada</td>
                         {% elif berkas.reviewer != None %}
@@ -67,7 +67,7 @@
                 {% endif %}
                 {% if user.id == berkas.reviewer_2.reviewer.id %}
                     <tr>
-                        <td style="width: 30%;">{{berkas.judul}}</td>
+                        <td style="width: 30%;"><a href="{% url 'penilaian:detail_berkas_buku' berkas.pk%}" target="_blank">{{berkas.judul}}</a></td>
                         {% if berkas.reviewer_2 == None %}
                           <td>Belum Ada</td>
                         {% elif berkas.reviewer_2 != None %}
@@ -93,7 +93,7 @@
                 {% endif %}
                 {% if user.is_superuser %}
                     <tr>
-                        <td style="width: 30%;">{{berkas.judul}}</td>
+                        <td style="width: 30%;"><a href="{% url 'penilaian:detail_berkas_buku' berkas.pk%}" target="_blank">{{berkas.judul}}</a></td>
                         <td>
                           {% if berkas.reviewer == None %}
                             Belum Ada
