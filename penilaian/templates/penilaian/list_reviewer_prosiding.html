@@ -52,7 +52,7 @@
                             <a class="btn btn-primary" href="{% url 'penilaian:penilaian_prosiding' berkas.pk %}">Nilai</a>
                             {% for berkus in list_berkas %}
                               {% if berkas.id == berkus.prosiding.id %}
-                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_prosiding' berkas.pk %}">Edit</a>
+                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_prosiding' berkas.slug %}">Edit</a>
                               {% endif %}
                             {% endfor %}
                           {% endif %}
@@ -78,7 +78,7 @@
                             <a class="btn btn-primary" href="{% url 'penilaian:penilaian_prosiding2' berkas.pk %}">Nilai</a>
                             {% for berkus2 in list_berkas_2 %}
                               {% if berkas.id == berkus2.prosiding.id %}
-                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_prosiding2' berkas.pk %}">Edit</a>
+                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_prosiding2' berkas.slug %}">Edit</a>
                               {% endif %}
                             {% endfor %}
                           {% endif %}
