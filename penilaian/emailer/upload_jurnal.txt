@@ -4,5 +4,5 @@ Jatinangor
 
 Dengan hormat,
 Kami beritahukan bahwa terdapat berkas jurnal berjudul {} dengan pengusul {}. 
-Mohon untuk memverifikasi berkas dan memilih reviewer. 
+Mohon untuk memverifikasi berkas dan memilih reviewer. Link verifikasi dapat di akses di reviewjurnal.finder.ac.id/penilaian/histori_pengajuan/jurnal/verifikasi/{}/
 Terimakasih.

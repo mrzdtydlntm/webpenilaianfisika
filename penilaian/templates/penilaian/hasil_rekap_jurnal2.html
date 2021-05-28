@@ -49,7 +49,7 @@
     <title>Lembar Penilaian</title>
 </head>
     <body>
-        {% if usrlogin.is_superuser %}
+        {% if usrlogin.is_superuser or usrlogin.id == 22 %}
         {% if rekap_jurnal.jurnal.penulis_utama != None %}
             <table style="width: 100%;" class="judul">
                 <tr>

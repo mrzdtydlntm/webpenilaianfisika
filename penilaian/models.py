@@ -74,8 +74,8 @@ class UploadBerkasJurnal(models.Model):
     plagiasi = models.PositiveIntegerField(verbose_name='Similarity Index', null=True, blank=True)
     bukti_plagiasi = models.FileField(upload_to='plagiasi/', verbose_name='Upload Bukti Plagiasi', blank=True, null=True)
     linier = [
-        ('Linier dengan bidang kerja', 'Linier dengan bidang kerja'),
-        ('Tidak linier dengan bidang kerja', 'Tidak linier dengan bidang kerja'),
+        ('Linier dengan bidang penulis', 'Linier dengan bidang penulis'),
+        ('Tidak linier dengan bidang penulis', 'Tidak linier dengan bidang penulis'),
     ]
     linieritas = models.TextField(choices=linier,verbose_name='Linieritas', null=True, blank=True)
     is_verificated = models.BooleanField(default=None, blank=True, null=True)

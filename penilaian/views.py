@@ -7,12 +7,13 @@ from django.contrib.auth.models import User
 from django.urls.base import reverse_lazy
 from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, response
 from .utils import render_to_pdf
 from webfisika.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.utils.text import slugify
 
 # Create your views here.
 
@@ -50,12 +51,15 @@ class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
         subject = 'Konfirmasi Upload Berkas Jurnal'
         penerima = User.objects.get(pk=1)
         pengusul = form.cleaned_data.get('pengusul')
+        response = super(UploadBerkasJurnalView, self).form_valid(form)
+        pk = form.instance.pk
         import os
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/upload_jurnal.txt', 'r')
-        message = mes.read().format(nama_jurnal, pengusul)
+        message = mes.read().format(nama_jurnal, pengusul, pk)
+        # print(message)
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
-        return super(UploadBerkasJurnalView, self).form_valid(form)
+        return response
 
     def form_invalid(self, form):
         'form is invalid'
@@ -172,7 +176,7 @@ class PenilaianBerkasJurnalView(ReviewerAccess, CreateView):
         jurnal = form.cleaned_data.get('jurnal')
         pengusul = User.objects.get(first_name=jurnal.pengusul)
         subject = 'Konfirmasi Penilaian Jurnal'
-        slug = UploadBerkasJurnal.objects.get(slug=jurnal.slug)
+        slug = slugify(UploadBerkasJurnal.objects.get(slug=jurnal.slug))
         import os
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/penilaian_jurnal.txt', 'r')
@@ -200,7 +204,7 @@ class PenilaianBerkasJurnal2View(ReviewerAccess, CreateView):
         jurnal = form.cleaned_data.get('jurnal')
         pengusul = User.objects.get(first_name=jurnal.pengusul)
         subject = 'Konfirmasi Penilaian Jurnal'
-        slug = UploadBerkasJurnal.objects.get(slug=jurnal.slug)
+        slug = slugify(UploadBerkasJurnal.objects.get(slug=jurnal.slug))
         import os
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/penilaian_jurnal.txt', 'r')
@@ -309,12 +313,14 @@ class UploadBerkasProsidingView(LoginRequiredMixin, CreateView):
         penerima = User.objects.get(pk=1)
         subject = 'Konfirmasi Upload Berkas Prosiding'
         pengusul = form.cleaned_data.get('pengusul')
+        response = super(UploadBerkasProsidingView, self).form_valid(form)
+        pk = form.instance.pk
         import os
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/upload_prosiding.txt', 'r')
-        message = mes.read().format(nama_prosiding, pengusul)
+        message = mes.read().format(nama_prosiding, pengusul, pk)
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
-        return super(UploadBerkasProsidingView, self).form_valid(form)
+        return response
 
     def form_invalid(self, form):
         'form is invalid'
@@ -422,7 +428,7 @@ class PenilaianBerkasProsidingView(ReviewerAccess, CreateView):
         pengusul = User.objects.get(first_name=prosiding.pengusul)
         # print(pengusul.email)
         subject = 'Konfirmasi Penilaian Prosiding'
-        slug = UploadBerkasProsiding.objects.get(slug=prosiding.slug)
+        slug = slugify(UploadBerkasProsiding.objects.get(slug=prosiding.slug))
         import os
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/penilaian_prosiding.txt', 'r')
@@ -452,7 +458,7 @@ class PenilaianBerkasProsiding2View(ReviewerAccess, CreateView):
         pengusul = User.objects.get(first_name=prosiding.pengusul)
         # print(pengusul.email)
         subject = 'Konfirmasi Penilaian Prosiding'
-        slug = UploadBerkasProsiding.objects.get(slug=prosiding.slug)
+        slug = slugify(UploadBerkasProsiding.objects.get(slug=prosiding.slug))
         import os
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/penilaian_prosiding.txt', 'r')
@@ -562,12 +568,14 @@ class UploadBerkasBukuView(LoginRequiredMixin, CreateView):
         penerima = User.objects.get(pk=1)
         subject = 'Konfirmasi Upload Berkas Buku'
         pengusul = form.cleaned_data.get('pengusul')
+        response = super(UploadBerkasBukuView, self).form_valid(form)
+        pk = form.instance.pk
         import os
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/upload_buku.txt', 'r')
-        message = mes.read().format(nama_buku, pengusul)
+        message = mes.read().format(nama_buku, pengusul, pk)
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
-        return super(UploadBerkasBukuView, self).form_valid(form)
+        return response
     
     def form_invalid(self, form):
         'form is invalid'
@@ -677,7 +685,7 @@ class PenilaianBerkasBukuView(ReviewerAccess, CreateView):
         pengusul = User.objects.get(first_name=buku.pengusul)
         # print(pengusul.email)
         subject = 'Konfirmasi Penilaian Buku'
-        slug = UploadBerkasJurnal.objects.get(slug=buku.slug)
+        slug = slugify(UploadBerkasBuku.objects.get(slug=buku.slug))
         import os
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/penilaian_buku.txt', 'r')
@@ -707,7 +715,7 @@ class PenilaianBerkasBuku2View(ReviewerAccess, CreateView):
         pengusul = User.objects.get(first_name=buku.pengusul)
         # print(pengusul.email)
         subject = 'Konfirmasi Penilaian Buku'
-        slug = UploadBerkasProsiding.objects.get(slug=buku.slug)
+        slug = slugify(UploadBerkasBuku.objects.get(slug=buku.slug))
         import os
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/penilaian_buku.txt', 'r')
@@ -817,12 +825,14 @@ class UploadBerkasHakiView(LoginRequiredMixin, CreateView):
         penerima = User.objects.get(pk=1)
         subject = 'Konfirmasi Upload Berkas Haki'
         pengusul = form.cleaned_data.get('pengusul')
+        response = super(UploadBerkasHakiView, self).form_valid(form)
+        pk = form.instance.pk
         import os
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/upload_haki.txt', 'r')
-        message = mes.read().format(nama_haki, pengusul)
+        message = mes.read().format(nama_haki, pengusul, pk)
         send_mail(subject, message, EMAIL_HOST_USER, [penerima.email], fail_silently = False)
-        return super(UploadBerkasHakiView, self).form_valid(form)
+        return response
     
     def form_invalid(self, form):
         'form is invalid'
@@ -932,7 +942,7 @@ class PenilaianBerkasHakiView(ReviewerAccess, CreateView):
         pengusul = User.objects.get(first_name=berkas.pengusul)
         # print(pengusul.email)
         subject = 'Konfirmasi Penilaian Haki'
-        slug = UploadBerkasProsiding.objects.get(slug=berkas.slug)
+        slug = slugify(UploadBerkasHaki.objects.get(slug=berkas.slug))
         import os
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/penilaian_haki.txt', 'r')
@@ -962,7 +972,7 @@ class PenilaianBerkasHaki2View(ReviewerAccess, CreateView):
         pengusul = User.objects.get(first_name=berkas.pengusul)
         # print(pengusul.email)
         subject = 'Konfirmasi Penilaian Haki'
-        slug = UploadBerkasProsiding.objects.get(slug=berkas.slug)
+        slug = slugify(UploadBerkasHaki.objects.get(slug=berkas.slug))
         import os
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/penilaian_haki.txt', 'r')
