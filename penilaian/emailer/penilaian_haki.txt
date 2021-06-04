@@ -7,7 +7,7 @@ Kami beritahukan bahwa berkas haki,
         Pengusul             : {}
 
 telah selesai dinilai oleh Reviewer {}.
-Hasil penilaian dapat di diunduh melalui link berikut: reviewjurnal.finder.ac.id/penilaian/rekap_haki/{}/{}/
+Hasil penilaian dapat di diunduh melalui link berikut: kifisika.finder.ac.id/penilaian/rekap_haki/{}/{}/
 
 Apabila terdapat kekeliruan, silahkan menghubungi kadepfisika@phys.unpad.ac.id. 
 Terimakasih.

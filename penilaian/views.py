@@ -14,7 +14,8 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils.text import slugify
-
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 # Create your views here.
 
 class ReviewerAccess(UserPassesTestMixin, LoginRequiredMixin):
@@ -154,7 +155,7 @@ class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
             mes = open(dir_path + '/emailer/revisi_jurnal.txt', 'r')
             message = mes.read().format(pengusul, nama_jurnal, pengusul, pk)
             # print(message)
-            send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email], fail_silently = False)
+            send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
         return super(VerifikasiBerkasJurnalView, self).form_valid(form)
 
 class PenilaianBerkasJurnalView(ReviewerAccess, CreateView):

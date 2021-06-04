@@ -6,7 +6,8 @@ Kami beritahukan bahwa berkas jurnal yang diajukan untuk penilaian,
         Judul                : {}
         Pengusul             : {}
 
-masih belum memenuhi persyaratan kelengkapan untuk dinilai. Untuk link nya dapat diakses di: reviewjurnal.finder.ac.id/histori_pengajuan/jurnal/edit/{}/
-Mohon Bapak/Ibu segera melengkapi kekurangan berkas. 
+masih belum memenuhi persyaratan kelengkapan untuk dinilai. Untuk link nya dapat diakses di: kifisika.finder.ac.id/histori_pengajuan/jurnal/edit/{}/
+Apabila berkas telah diedit, silakan untuk menghubungi kepala departemen fisika agar dapat diverifikasi kembali.
+Mohon Bapak/Ibu segera melengkapi kekurangan berkas.
 
 Terimakasih.

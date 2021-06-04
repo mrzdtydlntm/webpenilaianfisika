@@ -25,7 +25,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
-ALLOWED_HOSTS = ['reviewjurnal.finder.ac.id', 'www.reviewjurnal.finder.ac.id']
+ALLOWED_HOSTS = ['kifisika.finder.ac.id', 'www.kifisika.finder.ac.id', '127.0.0.1']
 
 
 # Application definition
@@ -139,5 +139,3 @@ EMAIL_USE_SSL = False
 EMAIL_PORT = 587 #if ssl true, port = 465
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-
-# https://stackoverflow.com/questions/62302054/smtp-error-535-5-7-8-username-and-password-not-accepted-for-gmail-in-go
