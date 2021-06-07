@@ -6,7 +6,7 @@ Kami beritahukan bahwa berkas prosiding yang diajukan untuk penilaian,
         Judul                : {}
         Pengusul             : {}
 
-masih belum memenuhi persyaratan kelengkapan untuk dinilai. Untuk link nya dapat diakses di: kifisika.finder.ac.id/histori_pengajuan/prosiding/edit/{}/
+masih belum memenuhi persyaratan kelengkapan untuk dinilai. Untuk link nya dapat diakses di: https://kifisika.finder.ac.id/histori_pengajuan/prosiding/edit/{}/
 Apabila berkas telah diedit, silakan untuk menghubungi kepala departemen fisika agar dapat diverifikasi kembali.
 Mohon Bapak/Ibu segera melengkapi kekurangan berkas. 
 

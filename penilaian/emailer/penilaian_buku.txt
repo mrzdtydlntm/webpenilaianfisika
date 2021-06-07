@@ -7,7 +7,7 @@ Kami beritahukan bahwa berkas buku,
         Pengusul             : {}
 
 telah selesai dinilai oleh Reviewer {}.
-Hasil penilaian dapat di diunduh melalui link berikut: kifisika.finder.ac.id/penilaian/rekap_buku/{}/{}/
+Hasil penilaian dapat di diunduh melalui link berikut: https://kifisika.finder.ac.id/penilaian/rekap_buku/{}/{}/
 
 Apabila terdapat kekeliruan, silahkan menghubungi kadepfisika@phys.unpad.ac.id. 
 Terimakasih.

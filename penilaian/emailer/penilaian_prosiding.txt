@@ -7,7 +7,7 @@ Kami beritahukan bahwa berkas prosiding,
         Pengusul             : {}
 
 telah selesai dinilai oleh Reviewer {}.
-Hasil penilaian dapat di diunduh melalui link berikut: kifisika.finder.ac.id/penilaian/rekap_prosiding/{}/{}/
+Hasil penilaian dapat di diunduh melalui link berikut: https://kifisika.finder.ac.id/penilaian/rekap_prosiding/{}/{}/
 
 Apabila terdapat kekeliruan, silahkan menghubungi kadepfisika@phys.unpad.ac.id. 
 Terimakasih.

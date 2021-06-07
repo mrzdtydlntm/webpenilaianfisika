@@ -4,5 +4,5 @@ Jatinangor
 
 Dengan hormat,
 Kami beritahukan bahwa terdapat berkas prosiding berjudul {} dengan pengusul {}. 
-Mohon untuk memverifikasi berkas dan memilih reviewer. Link verifikasi dapat di akses di kifisika.finder.ac.id/penilaian/histori_pengajuan/prosiding/verifikasi/{}/
+Mohon untuk memverifikasi berkas dan memilih reviewer. Link verifikasi dapat di akses di https://kifisika.finder.ac.id/penilaian/histori_pengajuan/prosiding/verifikasi/{}/
 Terimakasih.

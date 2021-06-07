@@ -7,7 +7,7 @@ Kepala Departemen Fisika, FMIPA, Universitas Padjadjaran menugaskan Bapak/Ibu un
         Judul                   : {}
         Pengusul               	: {}
 
-Penilaian dapat dilakukan dengan mengakses laman kifisika.finder.ac.id/penilaian/penilaian_buku/{}/{}/ dengan credential:
+Penilaian dapat dilakukan dengan mengakses laman https://kifisika.finder.ac.id/penilaian/penilaian_buku/{}/{}/ dengan credential:
 	
 NIP 		: {}
 Password 	: fisikaunpad
