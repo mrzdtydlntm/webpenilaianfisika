@@ -336,36 +336,70 @@
                         <td colspan="5">{{rekap_buku.cmnt_kualitas_penerbit}}</td>
                     </tr>
                 </table>
-                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                <table style="margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
-                        <td style="width: 40%;">Jatinangor, {{rekap_buku.created|date:"d-m-Y"}}</td>
+                        <td style="width: 40%;">Jatinangor, {{rekap_buku.created|date}}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Reviewer 2</td>
                     </tr>
                 </table>
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 72%;"></td>
-                        <td style="width: 40%;">{{rekap_buku.buku.reviewer_2}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>NIP. {{rekap_buku.buku.reviewer_2.nip}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <p class="spacing-kecil">
-                                <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer.unit_kerja}}</small> <br>
-                                <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer.bidang_ilmu}}</small> <br>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer.jabatan_pangkat}}</small>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+                {% if rekap_buku.buku.reviewer_2.ttd %}
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_buku.buku.reviewer_2.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_buku.buku.reviewer_2}}</div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_buku.buku.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_buku.buku.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_buku.buku.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_buku.buku.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
             </div>
             <!-- End of PU -->
         {% endif %}
@@ -652,17 +686,25 @@
                             <td colspan="5">{{rekap_buku.cmnt_kualitas_penerbit}}</td>
                         </tr>
                     </table>
-                    <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                    <table style="margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
-                            <td style="width: 40%;">Jatinangor, {{rekap_buku.created|date:"d-m-Y"}}</td>
+                            <td style="width: 40%;">Jatinangor, {{rekap_buku.created|date}}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Reviewer 2</td>
                         </tr>
                     </table>
+                    {% if rekap_buku.buku.reviewer_2.ttd %}
                     <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_buku.buku.reviewer_2.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_buku.buku.reviewer_2}}</div> -->
+                            </td>
+                        </tr>
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">{{rekap_buku.buku.reviewer_2}}</td>
@@ -675,13 +717,39 @@
                             <td></td>
                             <td>
                                 <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer.jabatan_pangkat}}</small>
+                                    <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer_2.jabatan_pangkat}}</small>
                                 </p>
                             </td>
                         </tr>
                     </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_buku.buku.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_buku.buku.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
                 </div>
                 <!-- End of PL -->
             {% endfor %}
@@ -971,17 +1039,25 @@
                     <td colspan="5">{{rekap_buku.cmnt_kualitas_penerbit}}</td>
                 </tr>
             </table>
-            <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+            <table style="margin-top: 10px;">
                 <tr>
                     <td style="width: 72%;"></td>
-                    <td style="width: 40%;">Jatinangor, {{rekap_buku.created|date:"d-m-Y"}}</td>
+                    <td style="width: 40%;">Jatinangor, {{rekap_buku.created|date}}</td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>Reviewer 2</td>
                 </tr>
             </table>
+            {% if rekap_buku.buku.reviewer_2.ttd %}
             <table style="width: 100%;">
+                <tr>
+                    <td style="width: 72%;"></td>
+                    <td style="width: 40%;">
+                        <img style="width: 100px; position: absolute;" src="{{rekap_buku.buku.reviewer_2.ttd}}" alt="">
+                        <!-- <div style="position: relative; top: 10px;">{{rekap_buku.buku.reviewer_2}}</div> -->
+                    </td>
+                </tr>
                 <tr>
                     <td style="width: 72%;"></td>
                     <td style="width: 40%;">{{rekap_buku.buku.reviewer_2}}</td>
@@ -994,13 +1070,39 @@
                     <td></td>
                     <td>
                         <p class="spacing-kecil">
-                            <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer.unit_kerja}}</small> <br>
-                            <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer.bidang_ilmu}}</small> <br>
-                            <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer.jabatan_pangkat}}</small>
+                            <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer_2.unit_kerja}}</small> <br>
+                            <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer_2.bidang_ilmu}}</small> <br>
+                            <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer_2.jabatan_pangkat}}</small>
                         </p>
                     </td>
                 </tr>
             </table>
+        {% else %}
+            <table style="margin-top: 1.5cm; width: 100%;">
+                <tr>
+                    <td style="width: 72%;"></td>
+                    <td style="width: 40%;"></td>
+                </tr>
+                <tr>
+                    <td style="width: 72%;"></td>
+                    <td style="width: 40%;">{{rekap_buku.buku.reviewer_2}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>NIP. {{rekap_buku.buku.reviewer_2.nip}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <p class="spacing-kecil">
+                            <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer_2.unit_kerja}}</small> <br>
+                            <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer_2.bidang_ilmu}}</small> <br>
+                            <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer_2.jabatan_pangkat}}</small>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        {% endif %}
         </div>
     {% elif rekap_buku.buku.penulis_lain.all.exists %}
         {% for penuliss in rekap_buku.buku.penulis_lain.all %}
@@ -1285,17 +1387,25 @@
                             <td colspan="5">{{rekap_buku.cmnt_kualitas_penerbit}}</td>
                         </tr>
                     </table>
-                    <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                    <table style="margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
-                            <td style="width: 40%;">Jatinangor, {{rekap_buku.created|date:"d-m-Y"}}</td>
+                            <td style="width: 40%;">Jatinangor, {{rekap_buku.created|date}}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Reviewer 2</td>
                         </tr>
                     </table>
+                    {% if rekap_buku.buku.reviewer_2.ttd %}
                     <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_buku.buku.reviewer_2.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_buku.buku.reviewer_2}}</div> -->
+                            </td>
+                        </tr>
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">{{rekap_buku.buku.reviewer_2}}</td>
@@ -1308,13 +1418,39 @@
                             <td></td>
                             <td>
                                 <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer.jabatan_pangkat}}</small>
+                                    <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer_2.jabatan_pangkat}}</small>
                                 </p>
                             </td>
                         </tr>
                     </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_buku.buku.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_buku.buku.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
                 </div>
             {% endif %}
         {% endfor %}

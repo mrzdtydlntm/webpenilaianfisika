@@ -414,7 +414,7 @@
                         <td colspan="7">{{rekap_haki.cmnt_kualitas_penerbit}}</td>
                     </tr>
                 </table>
-                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                <table style="margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
                         <td style="width: 40%;">Jatinangor, {{rekap_haki.created|date:"d-m-Y"}}</td>
@@ -424,26 +424,60 @@
                         <td>Reviewer</td>
                     </tr>
                 </table>
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 72%;"></td>
-                        <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <p class="spacing-kecil">
-                                <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
-                                <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+                {% if rekap_haki.berkas.reviewer.ttd %}
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_haki.berkas.reviewer.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_haki.berkas.reviewer}}</div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
             </div>
             <!-- End of PU -->
         {% endif %}
@@ -808,7 +842,7 @@
                             <td colspan="7">{{rekap_haki.cmnt_kualitas_penerbit}}</td>
                         </tr>
                     </table>
-                    <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                    <table style="margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">Jatinangor, {{rekap_haki.created|date:"d-m-Y"}}</td>
@@ -818,7 +852,15 @@
                             <td>Reviewer</td>
                         </tr>
                     </table>
+                    {% if rekap_haki.berkas.reviewer.ttd %}
                     <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_haki.berkas.reviewer.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_haki.berkas.reviewer}}</div> -->
+                            </td>
+                        </tr>
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
@@ -838,6 +880,32 @@
                             </td>
                         </tr>
                     </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
                 </div>
                 <!-- End of PL -->
             {% endfor %}
@@ -1205,7 +1273,7 @@
                     <td colspan="7">{{rekap_haki.cmnt_kualitas_penerbit}}</td>
                 </tr>
             </table>
-            <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+            <table style="margin-top: 10px;">
                 <tr>
                     <td style="width: 72%;"></td>
                     <td style="width: 40%;">Jatinangor, {{rekap_haki.created|date:"d-m-Y"}}</td>
@@ -1215,7 +1283,15 @@
                     <td>Reviewer</td>
                 </tr>
             </table>
+            {% if rekap_haki.berkas.reviewer.ttd %}
             <table style="width: 100%;">
+                <tr>
+                    <td style="width: 72%;"></td>
+                    <td style="width: 40%;">
+                        <img style="width: 100px; position: absolute;" src="{{rekap_haki.berkas.reviewer.ttd}}" alt="">
+                        <!-- <div style="position: relative; top: 10px;">{{rekap_haki.berkas.reviewer}}</div> -->
+                    </td>
+                </tr>
                 <tr>
                     <td style="width: 72%;"></td>
                     <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
@@ -1235,6 +1311,32 @@
                     </td>
                 </tr>
             </table>
+        {% else %}
+            <table style="margin-top: 1.5cm; width: 100%;">
+                <tr>
+                    <td style="width: 72%;"></td>
+                    <td style="width: 40%;"></td>
+                </tr>
+                <tr>
+                    <td style="width: 72%;"></td>
+                    <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <p class="spacing-kecil">
+                            <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
+                            <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
+                            <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        {% endif %}
         </div>
     {% elif rekap_haki.berkas.penulis_lain.all.exists %}
         {% for penuliss in rekap_haki.berkas.penulis_lain.all %}
@@ -1597,7 +1699,7 @@
                             <td colspan="7">{{rekap_haki.cmnt_kualitas_penerbit}}</td>
                         </tr>
                     </table>
-                    <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                    <table style="margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">Jatinangor, {{rekap_haki.created|date:"d-m-Y"}}</td>
@@ -1607,7 +1709,15 @@
                             <td>Reviewer</td>
                         </tr>
                     </table>
+                    {% if rekap_haki.berkas.reviewer.ttd %}
                     <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_haki.berkas.reviewer.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_haki.berkas.reviewer}}</div> -->
+                            </td>
+                        </tr>
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
@@ -1627,6 +1737,32 @@
                             </td>
                         </tr>
                     </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
                 </div>
             {% endif %}
         {% endfor %}

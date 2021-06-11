@@ -481,7 +481,7 @@
                         <td colspan="8">{{rekap_jurnal.cmnt_kualitas_penerbit}}</td>
                     </tr>
                 </table>
-                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                <table style="margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
                         <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date:"d-m-Y"}}</td>
@@ -491,26 +491,60 @@
                         <td>Reviewer 2</td>
                     </tr>
                 </table>
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 72%;"></td>
-                        <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>NIP. {{rekap_jurnal.jurnal.reviewer_2.nip}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <p class="spacing-kecil">
-                                <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small> <br>
-                                <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small> <br>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+                {% if rekap_jurnal.jurnal.reviewer_2.ttd %}
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_jurnal.jurnal.reviewer_2.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_jurnal.jurnal.reviewer}}</div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_jurnal.jurnal.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_jurnal.jurnal.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
             </div>
             {% endif %}
             {% if rekap_jurnal.jurnal.corresponding_author != None %}
@@ -945,7 +979,7 @@
                             <td colspan="8">{{rekap_jurnal.cmnt_kualitas_penerbit}}</td>
                         </tr>
                     </table>
-                    <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                    <table style="margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date:"d-m-Y"}}</td>
@@ -955,7 +989,15 @@
                             <td>Reviewer 2</td>
                         </tr>
                     </table>
+                    {% if rekap_jurnal.jurnal.reviewer_2.ttd %}
                     <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_jurnal.jurnal.reviewer_2.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_jurnal.jurnal.reviewer}}</div> -->
+                            </td>
+                        </tr>
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
@@ -968,13 +1010,39 @@
                             <td></td>
                             <td>
                                 <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small>
+                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer_2.jabatan_pangkat}}</small>
                                 </p>
                             </td>
                         </tr>
                     </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_jurnal.jurnal.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
                 </div>
             {% endif %}
             {% for penuliss in rekap_jurnal.jurnal.penulis_lain.all %}
@@ -1409,7 +1477,7 @@
                             <td colspan="8">{{rekap_jurnal.cmnt_kualitas_penerbit}}</td>
                         </tr>
                     </table>
-                    <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                    <table style="margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date:"d-m-Y"}}</td>
@@ -1419,7 +1487,15 @@
                             <td>Reviewer 2</td>
                         </tr>
                     </table>
+                    {% if rekap_jurnal.jurnal.reviewer_2.ttd %}
                     <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_jurnal.jurnal.reviewer_2.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_jurnal.jurnal.reviewer}}</div> -->
+                            </td>
+                        </tr>
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
@@ -1432,13 +1508,39 @@
                             <td></td>
                             <td>
                                 <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small>
+                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer_2.jabatan_pangkat}}</small>
                                 </p>
                             </td>
                         </tr>
                     </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_jurnal.jurnal.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
                 </div>
             {% endfor %}
         {% endif %}
@@ -1873,7 +1975,7 @@
                         <td colspan="8">{{rekap_jurnal.cmnt_kualitas_penerbit}}</td>
                     </tr>
                 </table>
-                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                <table style="margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
                         <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date:"d-m-Y"}}</td>
@@ -1883,26 +1985,60 @@
                         <td>Reviewer 2</td>
                     </tr>
                 </table>
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 72%;"></td>
-                        <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>NIP. {{rekap_jurnal.jurnal.reviewer_2.nip}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <p class="spacing-kecil">
-                                <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small> <br>
-                                <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small> <br>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+                {% if rekap_jurnal.jurnal.reviewer_2.ttd %}
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_jurnal.jurnal.reviewer_2.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_jurnal.jurnal.reviewer}}</div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_jurnal.jurnal.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_jurnal.jurnal.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
             </div>
         {% elif usrlogin.id == rekap_jurnal.jurnal.corresponding_author.users.id %}
             <table style="width: 100%;" class="judul">
@@ -2335,7 +2471,7 @@
                         <td colspan="8">{{rekap_jurnal.cmnt_kualitas_penerbit}}</td>
                     </tr>
                 </table>
-                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                <table style="margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
                         <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date:"d-m-Y"}}</td>
@@ -2345,26 +2481,60 @@
                         <td>Reviewer 2</td>
                     </tr>
                 </table>
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 72%;"></td>
-                        <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>NIP. {{rekap_jurnal.jurnal.reviewer_2.nip}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <p class="spacing-kecil">
-                                <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small> <br>
-                                <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small> <br>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+                {% if rekap_jurnal.jurnal.reviewer_2.ttd %}
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_jurnal.jurnal.reviewer_2.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_jurnal.jurnal.reviewer}}</div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_jurnal.jurnal.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_jurnal.jurnal.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
             </div>
         {% elif rekap_jurnal.jurnal.penulis_lain.all.exists %}
             {% for penuliss in rekap_jurnal.jurnal.penulis_lain.all %}
@@ -2799,7 +2969,7 @@
                                 <td colspan="8">{{rekap_jurnal.cmnt_kualitas_penerbit}}</td>
                             </tr>
                         </table>
-                        <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                        <table style="margin-top: 10px;">
                             <tr>
                                 <td style="width: 72%;"></td>
                                 <td style="width: 40%;">Jatinangor, {{rekap_jurnal.created|date:"d-m-Y"}}</td>
@@ -2809,7 +2979,15 @@
                                 <td>Reviewer 2</td>
                             </tr>
                         </table>
+                        {% if rekap_jurnal.jurnal.reviewer_2.ttd %}
                         <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">
+                                    <img style="width: 100px; position: absolute;" src="{{rekap_jurnal.jurnal.reviewer_2.ttd}}" alt="">
+                                    <!-- <div style="position: relative; top: 10px;">{{rekap_jurnal.jurnal.reviewer}}</div> -->
+                                </td>
+                            </tr>
                             <tr>
                                 <td style="width: 72%;"></td>
                                 <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
@@ -2822,13 +3000,39 @@
                                 <td></td>
                                 <td>
                                     <p class="spacing-kecil">
-                                        <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer.unit_kerja}}</small> <br>
-                                        <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer.bidang_ilmu}}</small> <br>
-                                        <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer.jabatan_pangkat}}</small>
+                                        <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer_2.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer_2.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer_2.jabatan_pangkat}}</small>
                                     </p>
                                 </td>
                             </tr>
                         </table>
+                    {% else %}
+                        <table style="margin-top: 1.5cm; width: 100%;">
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">{{rekap_jurnal.jurnal.reviewer_2}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>NIP. {{rekap_jurnal.jurnal.reviewer_2.nip}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p class="spacing-kecil">
+                                        <small class="sp">Unit Kerja: {{rekap_jurnal.jurnal.reviewer_2.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{rekap_jurnal.jurnal.reviewer_2.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{rekap_jurnal.jurnal.reviewer_2.jabatan_pangkat}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    {% endif %}
                     </div>
                 {% endif %}
             {% endfor %}

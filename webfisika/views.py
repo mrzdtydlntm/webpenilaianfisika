@@ -3,6 +3,9 @@ from django.views.generic.base import TemplateView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+class ComingSoon(TemplateView):
+    template_name = 'comingsoon.html'
+
 class IndexHomeView(TemplateView):
     template_name = 'index.html'
 

@@ -509,36 +509,70 @@
                         <td colspan="10">{{rekap_prosiding.cmnt_kualitas_penerbit}}</td>
                     </tr>
                 </table>
-                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                <table style="margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
-                        <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date:"d-m-Y"}}</td>
+                        <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date}}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Reviewer</td>
                     </tr>
                 </table>
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 72%;"></td>
-                        <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <p class="spacing-kecil">
-                                <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
-                                <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+                {% if rekap_prosiding.prosiding.reviewer.ttd %}
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_prosiding.prosiding.reviewer.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_prosiding.prosiding.reviewer}}</div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
             </div>
             <!-- End of PU -->
         {% endif %}
@@ -999,36 +1033,70 @@
                         <td colspan="10">{{rekap_prosiding.cmnt_kualitas_penerbit}}</td>
                     </tr>
                 </table>
-                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                <table style="margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
-                        <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date:"d-m-Y"}}</td>
+                        <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date}}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Reviewer</td>
                     </tr>
                 </table>
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 72%;"></td>
-                        <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <p class="spacing-kecil">
-                                <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
-                                <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+                {% if rekap_prosiding.prosiding.reviewer.ttd %}
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_prosiding.prosiding.reviewer.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_prosiding.prosiding.reviewer}}</div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
             </div>
         {% endif %}
         <!-- End of CA -->
@@ -1489,36 +1557,70 @@
                         <td colspan="10">{{rekap_prosiding.cmnt_kualitas_penerbit}}</td>
                     </tr>
                 </table>
-                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                <table style="margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
-                        <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date:"d-m-Y"}}</td>
+                        <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date}}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Reviewer</td>
                     </tr>
                 </table>
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 72%;"></td>
-                        <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <p class="spacing-kecil">
-                                <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
-                                <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+                {% if rekap_prosiding.prosiding.reviewer.ttd %}
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_prosiding.prosiding.reviewer.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_prosiding.prosiding.reviewer}}</div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
             </div>
         {% endfor %}
     {% endif %}
@@ -1978,36 +2080,70 @@
                         <td colspan="10">{{rekap_prosiding.cmnt_kualitas_penerbit}}</td>
                     </tr>
                 </table>
-                <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                <table style="margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
-                        <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date:"d-m-Y"}}</td>
+                        <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date}}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Reviewer</td>
                     </tr>
                 </table>
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="width: 72%;"></td>
-                        <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <p class="spacing-kecil">
-                                <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
-                                <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+                {% if rekap_prosiding.prosiding.reviewer.ttd %}
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{rekap_prosiding.prosiding.reviewer.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{rekap_prosiding.prosiding.reviewer}}</div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
             </div>
     {% elif usrlogin.id == rekap_prosiding.prosiding.corresponding_author.users.id %}
         <table style="width: 100%;" class="judul">
@@ -2465,36 +2601,70 @@
                     <td colspan="10">{{rekap_prosiding.cmnt_kualitas_penerbit}}</td>
                 </tr>
             </table>
-            <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+            <table style="margin-top: 10px;">
                 <tr>
                     <td style="width: 72%;"></td>
-                    <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date:"d-m-Y"}}</td>
+                    <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date}}</td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>Reviewer</td>
                 </tr>
             </table>
-            <table style="width: 100%;">
-                <tr>
-                    <td style="width: 72%;"></td>
-                    <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <p class="spacing-kecil">
-                            <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
-                            <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
-                            <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
-                        </p>
-                    </td>
-                </tr>
-            </table>
+            {% if rekap_prosiding.prosiding.reviewer.ttd %}
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">
+                            <img style="width: 100px; position: absolute;" src="{{rekap_prosiding.prosiding.reviewer.ttd}}" alt="">
+                            <!-- <div style="position: relative; top: 10px;">{{rekap_prosiding.prosiding.reviewer}}</div> -->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <p class="spacing-kecil">
+                                <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
+                                <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
+                                <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            {% else %}
+                <table style="margin-top: 1.5cm; width: 100%;">
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <p class="spacing-kecil">
+                                <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
+                                <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
+                                <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            {% endif %}
         </div>
     {% elif rekap_prosiding.prosiding.penulis_lain.all.exists %}
         {% for penuliss in rekap_prosiding.prosiding.penulis_lain.all %}
@@ -2954,36 +3124,70 @@
                             <td colspan="10">{{rekap_prosiding.cmnt_kualitas_penerbit}}</td>
                         </tr>
                     </table>
-                    <table style="margin-bottom: 1.5cm; margin-top: 10px;">
+                    <table style="margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
-                            <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date:"d-m-Y"}}</td>
+                            <td style="width: 40%;">Jatinangor, {{rekap_prosiding.created|date}}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Reviewer</td>
                         </tr>
                     </table>
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
+                    {% if rekap_prosiding.prosiding.reviewer.ttd %}
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">
+                                    <img style="width: 100px; position: absolute;" src="{{rekap_prosiding.prosiding.reviewer.ttd}}" alt="">
+                                    <!-- <div style="position: relative; top: 10px;">{{rekap_prosiding.prosiding.reviewer}}</div> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p class="spacing-kecil">
+                                        <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    {% else %}
+                        <table style="margin-top: 1.5cm; width: 100%;">
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">{{rekap_prosiding.prosiding.reviewer}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>NIP. {{rekap_prosiding.prosiding.reviewer.nip}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p class="spacing-kecil">
+                                        <small class="sp">Unit Kerja: {{rekap_prosiding.prosiding.reviewer.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{rekap_prosiding.prosiding.reviewer.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{rekap_prosiding.prosiding.reviewer.jabatan_pangkat}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    {% endif %}
                 </div>
             {% endif %}
         {% endfor %}
