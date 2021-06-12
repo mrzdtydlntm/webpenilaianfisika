@@ -1137,4 +1137,23 @@ class ListReviewerHakiView(ReviewerAccess,ListView):
         return context
 
 ############# END List khusus reviewer #############
+
+# class GabunganPenilaianBerkasJurnalView(DetailView):
+    # model = GabunganPenilaianBerkasJurnal
+    # template_name = 'penilaian/hasil_gabungan.html'
+    # context_object_name = 'gabungan'
+
+class Gabungan(TemplateView):
+    template_name = 'penilaian/hasil_gabungan.html'
+    context_object_name = 'gabungan'
+
+    def get_context_data(self, *args, **kwargs):
+        print(self.kwargs)
+        context = super(Gabungan, self).get_context_data(*args, **kwargs)
+        list_berkas = PenilaianBerkasJurnal.objects.get(id = self.kwargs['pk'])
+        # list_berkas_2 = PenilaianBerkasJurnal2.objects.get(id = self.kwargs['pk'])
+        context['list_berkas'] = list_berkas
+        # context['list_berkas_2'] = list_berkas_2
+        return context
+############# End Gabungan Hasil Penilaian #############
 ################################################################################################################

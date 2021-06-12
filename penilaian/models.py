@@ -7,6 +7,9 @@ from django.urls import reverse
 
 class Users(models.Model):
     users = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    pangkat = models.CharField(max_length=70, verbose_name='Pangkat/Golongan/Ruang', default=None)
+    jabatan = models.CharField(max_length=70, verbose_name='Jabatan Fungsional', default=None)
+    unit = models.CharField(max_length=100, verbose_name='Unit Kerja', default=None)
 
     def __str__(self):
         return f"{self.users}"
@@ -337,6 +340,19 @@ class PenilaianBerkasJurnal2(models.Model):
     def get_absolute_url(self):
         url_slug = {'slug':self.slug}
         return reverse('penilaian:rekap_jurnal', kwargs=url_slug)
+
+class GabunganPenilaianBerkasJurnal(models.Model):
+    nilai_1 = models.OneToOneField(PenilaianBerkasJurnal, on_delete=models.CASCADE)
+    nilai_2 = models.OneToOneField(PenilaianBerkasJurnal2, on_delete=models.CASCADE)
+    nilai_total_pu = models.FloatField(verbose_name='Nilai Total Penulis Utama')
+    nilai_total_ca = models.FloatField(verbose_name='Nilai Total Penulis Korespondensi')
+    nilai_total_pl = models.FloatField(verbose_name='Nilai Total Penulis Lainnya')
+
+    def save(self, *args, **kwargs):
+        self.nilai_total_pu = self.nilai_1.nilai_pu + self.nilai_2.nilai_pu
+        self.nilai_total_ca = self.nilai_1.nilai_ca + self.nilai_2.nilai_ca
+        self.nilai_total_pl = self.nilai_1.nilai_pl + self.nilai_2.nilai_pl
+        super(GabunganPenilaianBerkasJurnal, self).save(*args, **kwargs)
 
 class PenilaianBerkasProsiding(models.Model):
     prosiding = models.OneToOneField(UploadBerkasProsiding, on_delete=models.CASCADE)
