@@ -19,6 +19,9 @@
         </div>
     </section><!-- End Portfolio Section -->
     <div class="container">
+        <br>
+        <a class="float-right btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#Upload" data-aos="zoom-in">Cek Status Karya Ilmiah</a>
+        <br>
         <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
             {% csrf_token %}
             <br>
@@ -92,5 +95,6 @@
     </div>
 
     {% include 'snippets/script.html' %}
+    {% include 'snippets/modals.html' %}
 </body>
 </html>

@@ -7,9 +7,9 @@ from django.urls import reverse
 
 class Users(models.Model):
     users = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    pangkat = models.CharField(max_length=70, verbose_name='Pangkat/Golongan/Ruang', default=None)
-    jabatan = models.CharField(max_length=70, verbose_name='Jabatan Fungsional', default=None)
-    unit = models.CharField(max_length=100, verbose_name='Unit Kerja', default=None)
+    pangkat = models.CharField(max_length=70, verbose_name='Pangkat/Golongan/Ruang', default=None, blank=True)
+    jabatan = models.CharField(max_length=70, verbose_name='Jabatan Fungsional', default=None, blank=True)
+    unit = models.CharField(max_length=100, verbose_name='Unit Kerja', default=None, blank=True)
 
     def __str__(self):
         return f"{self.users}"
@@ -39,7 +39,7 @@ class PenulisLain(models.Model):
         return f"{self.penulis}"
 
 class UploadBerkasJurnal(models.Model):
-    pengusul = models.ForeignKey(Users  , related_name='user_pengusul_jurnal', on_delete=models.CASCADE, verbose_name='Pengusul')
+    pengusul = models.ForeignKey(Users, related_name='user_pengusul_jurnal', on_delete=models.CASCADE, verbose_name='Pengusul')
     judul_artikel = models.CharField(max_length=255, verbose_name='Judul Artikel', unique=True)
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
     nama_jurnal = models.CharField(max_length=255, verbose_name='Nama Jurnal')
@@ -130,6 +130,8 @@ class UploadBerkasProsiding(models.Model):
     ]
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
     tingkat_publikasi = models.CharField(max_length=100, choices=tingkat, default=None, verbose_name='Tingkat Publikasi')
+    plagiasi = models.PositiveIntegerField(verbose_name='Similarity Index', null=True, blank=True)
+    bukti_plagiasi = models.FileField(upload_to='plagiasi_prosiding/', verbose_name='Upload Bukti Plagiasi', blank=True, null=True)
     upload_prosiding = models.FileField(upload_to='prosiding/isi/', verbose_name='Upload Prosiding (isi)')
     upload_cover = models.FileField(upload_to='prosiding/cover/', verbose_name='Upload Prosiding (cover)', blank=True, null=True)
     penulis_utama = models.ForeignKey(Users, related_name='user_prosiding_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', null=True, blank=True)
@@ -159,7 +161,7 @@ class UploadBerkasBuku(models.Model):
     pengusul = models.ForeignKey(Users  , related_name='user_pengusul_buku', on_delete=models.CASCADE, verbose_name='Pengusul')
     judul = models.CharField(max_length=255, verbose_name='Judul Buku')
     jmlh_penulis = models.PositiveIntegerField(verbose_name='Jumlah Penulis')
-    nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', unique=True)
+    nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', blank=True, null=True)
     edisi = models.CharField(max_length=255, verbose_name='Edisi', null=True, blank=True)
     tahun_terbit = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
@@ -245,6 +247,8 @@ class UploadBerkasHaki(models.Model):
 
 class PenilaianBerkasJurnal(models.Model):
     jurnal = models.OneToOneField(UploadBerkasJurnal, on_delete=models.CASCADE)
+    plagiasi = models.CharField(max_length=150, verbose_name='Komentar Plagiasi dari Reviewer', blank=True, null=True)
+    linieritas = models.CharField(max_length=150, verbose_name='Komentar Linieritas dari Reviewer', blank=True, null=True)
     unsur_isi = models.FloatField(verbose_name='Nilai Kelengkapan dan Kesesuaian Unsur Isi Jurnal')
     cmnt_unsur_isi = models.TextField(verbose_name='Komentar Kelengkapan dan Kesesuaian Unsur Isi Jurnal')
     pembahasan = models.FloatField(verbose_name='Nilai Ruang Lingkup dan Kedalaman Pembahasan')
@@ -294,6 +298,8 @@ class PenilaianBerkasJurnal(models.Model):
 
 class PenilaianBerkasJurnal2(models.Model):
     jurnal = models.OneToOneField(UploadBerkasJurnal, on_delete=models.CASCADE)
+    plagiasi = models.CharField(max_length=150, verbose_name='Komentar Plagiasi dari Reviewer', blank=True, null=True)
+    linieritas = models.CharField(max_length=150, verbose_name='Komentar Linieritas dari Reviewer', blank=True, null=True)
     unsur_isi = models.FloatField(verbose_name='Nilai Kelengkapan dan Kesesuaian Unsur Isi Jurnal')
     cmnt_unsur_isi = models.TextField(verbose_name='Komentar Kelengkapan dan Kesesuaian Unsur Isi Jurnal')
     pembahasan = models.FloatField(verbose_name='Nilai Ruang Lingkup dan Kedalaman Pembahasan')
@@ -356,6 +362,7 @@ class GabunganPenilaianBerkasJurnal(models.Model):
 
 class PenilaianBerkasProsiding(models.Model):
     prosiding = models.OneToOneField(UploadBerkasProsiding, on_delete=models.CASCADE)
+    plagiasi = models.CharField(max_length=150, verbose_name='Komentar Plagiasi dari Reviewer', blank=True, null=True)
     unsur_isi = models.FloatField(verbose_name='Nilai Kelengkapan dan Kesesuaian unsur isi prosiding')
     cmnt_unsur_isi = models.TextField(verbose_name='Komentar Kelengkapan dan Kesesuaian unsur isi prosiding')
     pembahasan = models.FloatField(verbose_name='Nilai Ruang Lingkup dan Kedalaman Pembahasan')
@@ -405,6 +412,7 @@ class PenilaianBerkasProsiding(models.Model):
 
 class PenilaianBerkasProsiding2(models.Model):
     prosiding = models.OneToOneField(UploadBerkasProsiding, on_delete=models.CASCADE)
+    plagiasi = models.CharField(max_length=150, verbose_name='Komentar Plagiasi dari Reviewer', blank=True, null=True)
     unsur_isi = models.FloatField(verbose_name='Nilai Kelengkapan dan Kesesuaian unsur isi prosiding')
     cmnt_unsur_isi = models.TextField(verbose_name='Komentar Kelengkapan dan Kesesuaian unsur isi prosiding')
     pembahasan = models.FloatField(verbose_name='Nilai Ruang Lingkup dan Kedalaman Pembahasan')

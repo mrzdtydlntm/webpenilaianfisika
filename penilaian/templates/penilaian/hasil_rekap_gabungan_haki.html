@@ -10,6 +10,11 @@
             /* br{
                 line-height: 1px;
             } */
+
+            .spacing-kecil {
+                line-height: 0.7;
+            }
+
             .judul {
                 font-family: "Times New Roman", Times, serif;
                 font-size: 9pt;
@@ -17,16 +22,10 @@
             }
             .paragraf {
                 font-family: "Times New Roman", Times, serif;
-                font-size: 9pt;
-            }
-            .spacing-kecil {
-                line-height: 0.7;
+                font-size: 8.5pt;
             }
             tr {
                 margin-bottom: 50;
-            }
-            .jdl {
-                font-size: 10px;
             }
             p{
                 margin-bottom: 1px;
@@ -50,11 +49,13 @@
                 text-align: center;
             }
     </style>
-    <title>Lembar Penilaian</title>
+    <title>Gabungan Penilaian</title>
 </head>
 <body>
-    {% if usrlogin.is_superuser or usrlogin.id == 22 %}
-        {% if rekap_haki.berkas.pemegang_berkas_utama != None %}
+    {% if usrlogin.is_superuser or usrlogin.id == 22 or usrlogin.id == berkas.buku.pemegang_berkas_utama.users.id %}
+        {% if berkas.berkas.pemegang_berkas_utama != None %}
+            <!-- aci taro disini -->
+            <div class="break"></div>
             <table style="width: 100%;" class="judul">
                 <tr>
                     <th style="text-align: right;">Lampiran 6</th>
@@ -74,21 +75,21 @@
                     <tr>
                         <td style="width: 20%;">Judul Artikel Ilmiah</td>
                         <td style="width: 2%">: </td>
-                        <td style="width: 78%;">{{rekap_haki.berkas.judul}}</td>
+                        <td style="width: 78%;">{{berkas.berkas.judul}}</td>
                     </tr>
                     <tr>
                         <td>Penulis Artikel Ilmiah</td>
                         <td>:</td>
                         <td>
-                        {% if rekap_haki.berkas.pemegang_berkas_utama != None %}
-                            <strong>{{rekap_haki.berkas.pemegang_berkas_utama}}</strong>,
+                        {% if berkas.berkas.pemegang_berkas_utama != None %}
+                            <strong>{{berkas.berkas.pemegang_berkas_utama}}</strong>,
                         {% else %}
-                            {{rekap_haki.berkas.pemegang_berkas_utama_selain}},
+                            {{berkas.berkas.pemegang_berkas_utama_selain}},
                         {% endif %}
-                        {% for penulis in rekap_haki.berkas.penulis_lain.all %}
+                        {% for penulis in berkas.berkas.penulis_lain.all %}
                             {{penulis}},
                         {% endfor %}
-                        {% for penulis_lain in rekap_haki.berkas.pemegang_berkas_selain.all %}
+                        {% for penulis_lain in berkas.berkas.pemegang_berkas_selain.all %}
                             {{penulis_lain}},
                         {% endfor %}</td>
                     </tr>
@@ -100,7 +101,7 @@
                         <td style="width: 2%;">a. </td>
                         <td style="width: 20%;">Jenis</td>
                         <td style="width: 2%;">:</td>
-                        <td style="width: 54%;"> {{rekap_haki.berkas.jenis_haki}}</td>
+                        <td style="width: 54%;"> {{berkas.berkas.jenis_haki}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -108,7 +109,7 @@
                         <td>b. </td>
                         <td>Nomor Paten</td>
                         <td>:</td>
-                        <td>{{rekap_haki.berkas.nomor_paten}}</td>
+                        <td>{{berkas.berkas.nomor_paten}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -116,7 +117,7 @@
                         <td>c. </td>
                         <td>Tanggal</td>
                         <td>:</td>
-                        <td>{{rekap_haki.berkas.tanggal}}</td>
+                        <td>{{berkas.berkas.tanggal}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -124,7 +125,7 @@
                         <td>d. </td>
                         <td>Penerbit</td>
                         <td>:</td>
-                        <td>{{rekap_haki.berkas.penerbit}}</td>
+                        <td>{{berkas.berkas.penerbit}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -132,7 +133,7 @@
                         <td>e. </td>
                         <td>Status Paten</td>
                         <td>:</td>
-                        <td>{{rekap_haki.berkas.status_paten}}</td>
+                        <td>{{berkas.berkas.status_paten}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -140,14 +141,14 @@
                         <td>f. </td>
                         <td>URL Haki</td>
                         <td>:</td>
-                        <td>{{rekap_haki.berkas.url_repository}}</td>
+                        <td>{{berkas.berkas.url_repository}}</td>
                     </tr>
                 </table>
                 <table>
                     <tr>
                         <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
                         <td class="checkbox" style="width: 5%;">
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                 V
                             {% endif %}
                         </td>
@@ -155,7 +156,7 @@
                     </tr>
                     <tr>
                         <td class="checkbox">
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Internasional' %}
                                 V
                             {% endif %}
                         </td>
@@ -163,7 +164,7 @@
                     </tr>
                     <tr>
                         <td class="checkbox">
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                 V
                             {% endif %}
                         </td>
@@ -172,7 +173,7 @@
                     <tr>
                         <td></td>
                         <td class="checkbox">
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Nasional' %}
                                 V
                             {% endif %}
                         </td>
@@ -181,7 +182,7 @@
                     <tr>
                         <td></td>
                         <td class="checkbox">
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                 V
                             {% endif %}
                         </td>
@@ -190,7 +191,7 @@
                     <tr>
                         <td></td>
                         <td class="checkbox">
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                 V
                             {% endif %}
                         </td>
@@ -216,239 +217,239 @@
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                             <td style="text-align: center; width: 13%">6</td>
                         {% else %}
                             <td style="text-align: center; width: 13%;"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Internasional' %}
                             <td style="text-align: center; width: 9.4%">5</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%;"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                             <td style="text-align: center; width: 13%">4</td>
                         {% else %}
                             <td style="text-align: center; width: 13%;"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Nasional' %}
                             <td style="text-align: center; width: 9.4%">3</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%;"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                             <td style="text-align: center; width: 9.4%">2</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%;"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                             <td style="text-align: center; width: 9.4%">1.5</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%;"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 9.4%;">{{rekap_haki.unsur_isi}}</td>
+                        <td style="text-align: center; width: 9.4%;">{{berkas.unsur_isi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                             <td style="text-align: center; width: 13%">18</td>
                         {% else %}
                             <td style="text-align: center; width: 13%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Internasional' %}
                             <td style="text-align: center; width: 9.4%">15</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                             <td style="text-align: center; width: 13%">12</td>
                         {% else %}
                             <td style="text-align: center; width: 13%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Nasional' %}
                             <td style="text-align: center; width: 9.4%">9</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                             <td style="text-align: center; width: 9.4%">6</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                             <td style="text-align: center; width: 9.4%">4.5</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 9.4%;">{{rekap_haki.pembahasan}}</td>
+                        <td style="text-align: center; width: 9.4%;">{{berkas.pembahasan}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                             <td style="text-align: center; width: 13%">18</td>
                         {% else %}
                             <td style="text-align: center; width: 13%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Internasional' %}
                             <td style="text-align: center; width: 9.4%">15</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                             <td style="text-align: center; width: 13%">12</td>
                         {% else %}
                             <td style="text-align: center; width: 13%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Nasional' %}
                             <td style="text-align: center; width: 9.4%">9</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                             <td style="text-align: center; width: 9.4%">6</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                             <td style="text-align: center; width: 9.4%">4.5</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 9.4%;">{{rekap_haki.informasi}}</td>
+                        <td style="text-align: center; width: 9.4%;">{{berkas.informasi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                             <td style="text-align: center; width: 13%">18</td>
                         {% else %}
                             <td style="text-align: center; width: 13%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Internasional' %}
                             <td style="text-align: center; width: 9.4%">15</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                             <td style="text-align: center; width: 13%">12</td>
                         {% else %}
                             <td style="text-align: center; width: 13%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Nasional' %}
                             <td style="text-align: center; width: 9.4%">9</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                             <td style="text-align: center; width: 9.4%">6</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                             <td style="text-align: center; width: 9.4%">4.5</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 9.4%;">{{rekap_haki.kualitas_penerbit}}</td>
+                        <td style="text-align: center; width: 9.4%;">{{berkas.kualitas_penerbit}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Total</td>
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                             <td style="text-align: center; width: 13%">60</td>
                         {% else %}
                             <td style="text-align: center; width: 13%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Internasional' %}
                             <td style="text-align: center; width: 9.4%">50</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                             <td style="text-align: center; width: 13%">40</td>
                         {% else %}
                             <td style="text-align: center; width: 13%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Nasional' %}
                             <td style="text-align: center; width: 9.4%">30</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                             <td style="text-align: center; width: 9.4%">20</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                        {% if berkas.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                             <td style="text-align: center; width: 9.4%">15</td>
                         {% else %}
                             <td style="text-align: center; width: 9.4%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 9.4%;">{{rekap_haki.total}}</td>
+                        <td style="text-align: center; width: 9.4%;">{{berkas.total}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
-                        <td colspan="6">Pemegang Berkas Utama dari {{rekap_haki.berkas.jmlh_penulis}} penulis 
-                        {% if rekap_haki.berkas.penulis_lain.exists %}
+                        <td colspan="6">Pemegang Berkas Utama dari {{berkas.berkas.jmlh_penulis}} penulis 
+                        {% if berkas.berkas.penulis_lain.exists %}
                             80%
-                        {% elif rekap_haki.berkas.penulis_lain.exists == False %}
+                        {% elif berkas.berkas.penulis_lain.exists == False %}
                             100%
                         {% endif %}
-                            x ({{rekap_haki.total}})</td>
-                        <td>{{rekap_haki.nilai_pu|floatformat}}</td>
+                            x ({{berkas.total}})</td>
+                        <td>{{berkas.nilai_pu|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td colspan="8">KOMENTAR/ULASAN PEER REVIEW</td>
                     </tr>
                     <tr class="bordernilai">
                         <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
-                        <td colspan="7">{{rekap_haki.cmnt_unsur_isi}}</td>
+                        <td colspan="7">{{berkas.cmnt_unsur_isi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
-                        <td colspan="7">{{rekap_haki.cmnt_pembahasan}}</td>
+                        <td colspan="7">{{berkas.cmnt_pembahasan}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
-                        <td colspan="7">{{rekap_haki.cmnt_informasi}}</td>
+                        <td colspan="7">{{berkas.cmnt_informasi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
-                        <td colspan="7">{{rekap_haki.cmnt_kualitas_penerbit}}</td>
+                        <td colspan="7">{{berkas.cmnt_kualitas_penerbit}}</td>
                     </tr>
                 </table>
                 <table style="margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
-                        <td style="width: 40%;">Jatinangor, {{rekap_haki.created|date}}</td>
+                        <td style="width: 40%;">Jatinangor, {{berkas.created|date}}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Reviewer</td>
                     </tr>
                 </table>
-                {% if rekap_haki.berkas.reviewer.ttd %}
+                {% if berkas.berkas.reviewer.ttd %}
                     <table style="width: 100%;">
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">
-                                <img style="width: 100px; position: absolute;" src="{{rekap_haki.berkas.reviewer.ttd}}" alt="">
-                                <!-- <div style="position: relative; top: 10px;">{{rekap_haki.berkas.reviewer}}</div> -->
+                                <img style="width: 100px; position: absolute;" src="{{berkas.berkas.reviewer.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{berkas.berkas.reviewer}}</div> -->
                             </td>
                         </tr>
                         <tr>
                             <td style="width: 72%;"></td>
-                            <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
+                            <td style="width: 40%;">{{berkas.berkas.reviewer}}</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
+                            <td>NIP. {{berkas.berkas.reviewer.nip}}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>
                                 <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
+                                    <small class="sp">Unit Kerja: {{berkas.berkas.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{berkas.berkas.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{berkas.berkas.reviewer.jabatan_pangkat}}</small>
                                 </p>
                             </td>
                         </tr>
@@ -461,29 +462,457 @@
                         </tr>
                         <tr>
                             <td style="width: 72%;"></td>
-                            <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
+                            <td style="width: 40%;">{{berkas.berkas.reviewer}}</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
+                            <td>NIP. {{berkas.berkas.reviewer.nip}}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>
                                 <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
+                                    <small class="sp">Unit Kerja: {{berkas.berkas.reviewer.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{berkas.berkas.reviewer.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{berkas.berkas.reviewer.jabatan_pangkat}}</small>
                                 </p>
                             </td>
                         </tr>
                     </table>
                 {% endif %}
             </div>
-            <!-- End of PU -->
+            <div class="break"></div>
+            <table style="width: 100%;" class="judul">
+                <tr>
+                    <th style="text-align: right;">Lampiran 6</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">LEMBAR</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">HASIL PENILAIAN SEJAWAT SEBIDANG ATAU PEER REVIEW</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">KARYA ILMIAH : HAKI</th>
+                </tr>
+            </table>
+            <div class="paragraf">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 20%;">Judul Artikel Ilmiah</td>
+                        <td style="width: 2%">: </td>
+                        <td style="width: 78%;">{{berkas_2.berkas.judul}}</td>
+                    </tr>
+                    <tr>
+                        <td>Penulis Artikel Ilmiah</td>
+                        <td>:</td>
+                        <td>
+                        {% if berkas_2.berkas.pemegang_berkas_utama != None %}
+                            <strong>{{berkas_2.berkas.pemegang_berkas_utama}}</strong>,
+                        {% else %}
+                            {{berkas_2.berkas.pemegang_berkas_utama_selain}},
+                        {% endif %}
+                        {% for penulis in berkas_2.berkas.penulis_lain.all %}
+                            {{penulis}},
+                        {% endfor %}
+                        {% for penulis_lain in berkas_2.berkas.pemegang_berkas_selain.all %}
+                            {{penulis_lain}},
+                        {% endfor %}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="width: 20%;">Identitas Jurnal Ilmiah</td>
+                        <td style="width: 2%;">:</td>
+                        <td style="width: 2%;">a. </td>
+                        <td style="width: 20%;">Jenis</td>
+                        <td style="width: 2%;">:</td>
+                        <td style="width: 54%;"> {{berkas_2.berkas.jenis_haki}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>b. </td>
+                        <td>Nomor Paten</td>
+                        <td>:</td>
+                        <td>{{berkas_2.berkas.nomor_paten}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>c. </td>
+                        <td>Tanggal</td>
+                        <td>:</td>
+                        <td>{{berkas_2.berkas.tanggal}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>d. </td>
+                        <td>Penerbit</td>
+                        <td>:</td>
+                        <td>{{berkas_2.berkas.penerbit}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>e. </td>
+                        <td>Status Paten</td>
+                        <td>:</td>
+                        <td>{{berkas_2.berkas.status_paten}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>f. </td>
+                        <td>URL Haki</td>
+                        <td>:</td>
+                        <td>{{berkas_2.berkas.url_repository}}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
+                        <td class="checkbox" style="width: 5%;">
+                            {% if berkas_2.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="width: 55%; padding: 2px 0 0 2px;">Internasional (sudah diimplementasikan di industri)</td>                    
+                    </tr>
+                    <tr>
+                        <td class="checkbox">
+                            {% if berkas_2.berkas.kategori_publikasi == 'Internasional' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Internasional</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox">
+                            {% if berkas_2.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Nasional (sudah diimplementasikan di industri)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkbox">
+                            {% if berkas_2.berkas.kategori_publikasi == 'Nasional' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Nasional</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkbox">
+                            {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Karya cipta bersertifikat Dirjen</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkbox">
+                            {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Karya cipta bahan ajar</td>
+                    </tr>
+                </table>
+                <p>Hasil Penilaian Peer Review :</p>
+                <table style="border-collapse: collapse;">
+                    <tr class="bordernilai">
+                        <td style="text-align: center;">Komponen Yang Dinilai</td>
+                        <td style="text-align: center;" colspan="6">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                        <td style="text-align: center;">Nilai Akhir Yang Diperoleh</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td style="width: 25%;"></td>
+                        <td style="text-align: center; width: 12%">Internasional<br>(sudah di implementasikan di industri)</td>
+                        <td style="text-align: center; width: 9.4%">Internasional</td>
+                        <td style="text-align: center; width: 12%">Nasional<br>(sudah di implementasikan di industri)</td>
+                        <td style="text-align: center; width: 9.4%">Nasional</td>
+                        <td style="text-align: center; width: 9.4%">Karya cipta bersertifikat Dirjen</td>
+                        <td style="text-align: center; width: 9.4%">Karya cipta bahan ajar</td>
+                        <td style="text-align: center; width: 9.4%;"></td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
+                        {% if berkas_2.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            <td style="text-align: center; width: 13%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 13%;"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 9.4%">5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%;"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            <td style="text-align: center; width: 13%">4</td>
+                        {% else %}
+                            <td style="text-align: center; width: 13%;"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 9.4%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%;"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            <td style="text-align: center; width: 9.4%">2</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%;"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            <td style="text-align: center; width: 9.4%">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%;"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 9.4%;">{{berkas_2.unsur_isi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
+                        {% if berkas_2.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            <td style="text-align: center; width: 13%">18</td>
+                        {% else %}
+                            <td style="text-align: center; width: 13%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 9.4%">15</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            <td style="text-align: center; width: 13%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 13%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 9.4%">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            <td style="text-align: center; width: 9.4%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            <td style="text-align: center; width: 9.4%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 9.4%;">{{berkas_2.pembahasan}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
+                        {% if berkas_2.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            <td style="text-align: center; width: 13%">18</td>
+                        {% else %}
+                            <td style="text-align: center; width: 13%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 9.4%">15</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            <td style="text-align: center; width: 13%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 13%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 9.4%">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            <td style="text-align: center; width: 9.4%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            <td style="text-align: center; width: 9.4%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 9.4%;">{{berkas_2.informasi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
+                        {% if berkas_2.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            <td style="text-align: center; width: 13%">18</td>
+                        {% else %}
+                            <td style="text-align: center; width: 13%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 9.4%">15</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            <td style="text-align: center; width: 13%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 13%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 9.4%">9</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            <td style="text-align: center; width: 9.4%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            <td style="text-align: center; width: 9.4%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 9.4%;">{{berkas_2.kualitas_penerbit}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Total</td>
+                        {% if berkas_2.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            <td style="text-align: center; width: 13%">60</td>
+                        {% else %}
+                            <td style="text-align: center; width: 13%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Internasional' %}
+                            <td style="text-align: center; width: 9.4%">50</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            <td style="text-align: center; width: 13%">40</td>
+                        {% else %}
+                            <td style="text-align: center; width: 13%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Nasional' %}
+                            <td style="text-align: center; width: 9.4%">30</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            <td style="text-align: center; width: 9.4%">20</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            <td style="text-align: center; width: 9.4%">15</td>
+                        {% else %}
+                            <td style="text-align: center; width: 9.4%"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 9.4%;">{{berkas_2.total}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
+                        <td colspan="6">Pemegang Berkas Utama dari {{berkas_2.berkas.jmlh_penulis}} penulis 
+                        {% if berkas_2.berkas.penulis_lain.exists %}
+                            80%
+                        {% elif berkas_2.berkas.penulis_lain.exists == False %}
+                            100%
+                        {% endif %}
+                            x ({{berkas_2.total}})</td>
+                        <td>{{berkas_2.nilai_pu|floatformat}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td colspan="8">KOMENTAR/ULASAN PEER REVIEW</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
+                        <td colspan="7">{{berkas_2.cmnt_unsur_isi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
+                        <td colspan="7">{{berkas_2.cmnt_pembahasan}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
+                        <td colspan="7">{{berkas_2.cmnt_informasi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
+                        <td colspan="7">{{berkas_2.cmnt_kualitas_penerbit}}</td>
+                    </tr>
+                </table>
+                <table style="margin-top: 10px;">
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">Jatinangor, {{berkas_2.created|date}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Reviewer 2</td>
+                    </tr>
+                </table>
+                {% if berkas_2.berkas.reviewer_2.ttd %}
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{berkas_2.berkas.reviewer_2.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{berkas_2.berkas.reviewer_2}}</div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{berkas_2.berkas.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{berkas_2.berkas.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{berkas_2.berkas.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{berkas_2.berkas.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{berkas_2.berkas.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{berkas_2.berkas.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{berkas_2.berkas.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{berkas_2.berkas.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{berkas_2.berkas.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{berkas_2.berkas.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
+            </div>
         {% endif %}
-        {% if rekap_haki.berkas.penulis_lain.all.exists %}
-            {% for penuliss in rekap_haki.berkas.penulis_lain.all %}
+    {% endif %}
+    {% if berkas.berkas.penulis_lain.all.exists %}
+        {% for penuliss in berkas.berkas.penulis_lain.all %}
+            {% if usrlogin.is_superuser or usrlogin.id == 22 or usrlogin.id == penuliss.users.id %}
+                <!-- aci masukin disini -->
                 <div class="break"></div>
                 <table style="width: 100%;" class="judul">
                     <tr>
@@ -504,25 +933,25 @@
                         <tr>
                             <td style="width: 20%;">Judul Artikel Ilmiah</td>
                             <td style="width: 2%">: </td>
-                            <td style="width: 78%;">{{rekap_haki.berkas.judul}}</td>
+                            <td style="width: 78%;">{{berkas.berkas.judul}}</td>
                         </tr>
                         <tr>
                             <td>Penulis Artikel Ilmiah</td>
                             <td>:</td>
                             <td>
-                            {% if rekap_haki.berkas.pemegang_berkas_utama != None %}
-                                {{rekap_haki.berkas.pemegang_berkas_utama}},
+                            {% if berkas.berkas.pemegang_berkas_utama != None %}
+                                {{berkas.berkas.pemegang_berkas_utama}},
                             {% else %}
-                                {{rekap_haki.berkas.pemegang_berkas_utama_selain}},
+                                {{berkas.berkas.pemegang_berkas_utama_selain}},
                             {% endif %}
-                            {% for penulis in rekap_haki.berkas.penulis_lain.all %}
+                            {% for penulis in berkas.berkas.penulis_lain.all %}
                                 {% if penulis == penuliss %}
                                     <strong>{{penulis}}</strong>,
                                 {% elif penulis != penuliss%}
                                     {{penulis}}
                                 {% endif %}
                             {% endfor %}
-                            {% for penulis_lain in rekap_haki.berkas.pemegang_berkas_selain.all %}
+                            {% for penulis_lain in berkas.berkas.pemegang_berkas_selain.all %}
                                 {{penulis_lain}},
                             {% endfor %}</td>
                         </tr>
@@ -534,7 +963,7 @@
                             <td style="width: 2%;">a. </td>
                             <td style="width: 20%;">Jenis</td>
                             <td style="width: 2%;">:</td>
-                            <td style="width: 54%;"> {{rekap_haki.berkas.jenis_haki}}</td>
+                            <td style="width: 54%;"> {{berkas.berkas.jenis_haki}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -542,7 +971,7 @@
                             <td>b. </td>
                             <td>Nomor Paten</td>
                             <td>:</td>
-                            <td>{{rekap_haki.berkas.nomor_paten}}</td>
+                            <td>{{berkas.berkas.nomor_paten}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -550,7 +979,7 @@
                             <td>c. </td>
                             <td>Tanggal</td>
                             <td>:</td>
-                            <td>{{rekap_haki.berkas.tanggal}}</td>
+                            <td>{{berkas.berkas.tanggal}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -558,7 +987,7 @@
                             <td>d. </td>
                             <td>Penerbit</td>
                             <td>:</td>
-                            <td>{{rekap_haki.berkas.penerbit}}</td>
+                            <td>{{berkas.berkas.penerbit}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -566,7 +995,7 @@
                             <td>e. </td>
                             <td>Status Paten</td>
                             <td>:</td>
-                            <td>{{rekap_haki.berkas.status_paten}}</td>
+                            <td>{{berkas.berkas.status_paten}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -574,14 +1003,14 @@
                             <td>f. </td>
                             <td>URL Haki</td>
                             <td>:</td>
-                            <td>{{rekap_haki.berkas.url_repository}}</td>
+                            <td>{{berkas.berkas.url_repository}}</td>
                         </tr>
                     </table>
                     <table>
                         <tr>
                             <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
                             <td class="checkbox" style="width: 5%;">
-                                {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                                {% if berkas.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                     V
                                 {% endif %}
                             </td>
@@ -589,7 +1018,7 @@
                         </tr>
                         <tr>
                             <td class="checkbox">
-                                {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                                {% if berkas.berkas.kategori_publikasi == 'Internasional' %}
                                     V
                                 {% endif %}
                             </td>
@@ -597,7 +1026,7 @@
                         </tr>
                         <tr>
                             <td class="checkbox">
-                                {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                                {% if berkas.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                     V
                                 {% endif %}
                             </td>
@@ -606,7 +1035,7 @@
                         <tr>
                             <td></td>
                             <td class="checkbox">
-                                {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                                {% if berkas.berkas.kategori_publikasi == 'Nasional' %}
                                     V
                                 {% endif %}
                             </td>
@@ -615,7 +1044,7 @@
                         <tr>
                             <td></td>
                             <td class="checkbox">
-                                {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                                {% if berkas.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                     V
                                 {% endif %}
                             </td>
@@ -624,7 +1053,7 @@
                         <tr>
                             <td></td>
                             <td class="checkbox">
-                                {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                                {% if berkas.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                     V
                                 {% endif %}
                             </td>
@@ -650,698 +1079,265 @@
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%;"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Internasional' %}
                                 <td style="text-align: center; width: 9.4%">5</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%;"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">4</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%;"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Nasional' %}
                                 <td style="text-align: center; width: 9.4%">3</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%;"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                 <td style="text-align: center; width: 9.4%">2</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%;"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                 <td style="text-align: center; width: 9.4%">1.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%;"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 9.4%;">{{rekap_haki.unsur_isi}}</td>
+                            <td style="text-align: center; width: 9.4%;">{{berkas.unsur_isi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">18</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Internasional' %}
                                 <td style="text-align: center; width: 9.4%">15</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">12</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Nasional' %}
                                 <td style="text-align: center; width: 9.4%">9</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                 <td style="text-align: center; width: 9.4%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                 <td style="text-align: center; width: 9.4%">4.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 9.4%;">{{rekap_haki.pembahasan}}</td>
+                            <td style="text-align: center; width: 9.4%;">{{berkas.pembahasan}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">18</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Internasional' %}
                                 <td style="text-align: center; width: 9.4%">15</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">12</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Nasional' %}
                                 <td style="text-align: center; width: 9.4%">9</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                 <td style="text-align: center; width: 9.4%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                 <td style="text-align: center; width: 9.4%">4.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 9.4%;">{{rekap_haki.informasi}}</td>
+                            <td style="text-align: center; width: 9.4%;">{{berkas.informasi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">18</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Internasional' %}
                                 <td style="text-align: center; width: 9.4%">15</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">12</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Nasional' %}
                                 <td style="text-align: center; width: 9.4%">9</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                 <td style="text-align: center; width: 9.4%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                 <td style="text-align: center; width: 9.4%">4.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 9.4%;">{{rekap_haki.kualitas_penerbit}}</td>
+                            <td style="text-align: center; width: 9.4%;">{{berkas.kualitas_penerbit}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Total</td>
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">60</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Internasional' %}
                                 <td style="text-align: center; width: 9.4%">50</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">40</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Nasional' %}
                                 <td style="text-align: center; width: 9.4%">30</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                 <td style="text-align: center; width: 9.4%">20</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            {% if berkas.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                 <td style="text-align: center; width: 9.4%">15</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 9.4%;">{{rekap_haki.total}}</td>
+                            <td style="text-align: center; width: 9.4%;">{{berkas.total}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
-                            <td colspan="6">Pemegang Berkas Anggota dari {{rekap_haki.berkas.jmlh_penulis}} penulis 20% x ({{rekap_haki.total}}/{{rekap_haki.jmlh_penulis_lain}})</td>
-                            <td>{{rekap_haki.nilai_pu|floatformat}}</td>
+                            <td colspan="6">Pemegang Berkas Anggota dari {{berkas.berkas.jmlh_penulis}} penulis 20% x ({{berkas.total}}/{{berkas.jmlh_penulis_lain}})</td>
+                            <td>{{berkas.nilai_pu|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td colspan="8">KOMENTAR/ULASAN PEER REVIEW</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
-                            <td colspan="7">{{rekap_haki.cmnt_unsur_isi}}</td>
+                            <td colspan="7">{{berkas.cmnt_unsur_isi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
-                            <td colspan="7">{{rekap_haki.cmnt_pembahasan}}</td>
+                            <td colspan="7">{{berkas.cmnt_pembahasan}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
-                            <td colspan="7">{{rekap_haki.cmnt_informasi}}</td>
+                            <td colspan="7">{{berkas.cmnt_informasi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
-                            <td colspan="7">{{rekap_haki.cmnt_kualitas_penerbit}}</td>
+                            <td colspan="7">{{berkas.cmnt_kualitas_penerbit}}</td>
                         </tr>
                     </table>
                     <table style="margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
-                            <td style="width: 40%;">Jatinangor, {{rekap_haki.created|date}}</td>
+                            <td style="width: 40%;">Jatinangor, {{berkas.created|date}}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Reviewer</td>
                         </tr>
                     </table>
-                    {% if rekap_haki.berkas.reviewer.ttd %}
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">
-                                <img style="width: 100px; position: absolute;" src="{{rekap_haki.berkas.reviewer.ttd}}" alt="">
-                                <!-- <div style="position: relative; top: 10px;">{{rekap_haki.berkas.reviewer}}</div> -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                {% else %}
-                    <table style="margin-top: 1.5cm; width: 100%;">
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;"></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                {% endif %}
+                    {% if berkas.berkas.reviewer.ttd %}
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">
+                                    <img style="width: 100px; position: absolute;" src="{{berkas.berkas.reviewer.ttd}}" alt="">
+                                    <!-- <div style="position: relative; top: 10px;">{{berkas.berkas.reviewer}}</div> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">{{berkas.berkas.reviewer}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>NIP. {{berkas.berkas.reviewer.nip}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p class="spacing-kecil">
+                                        <small class="sp">Unit Kerja: {{berkas.berkas.reviewer.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{berkas.berkas.reviewer.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{berkas.berkas.reviewer.jabatan_pangkat}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    {% else %}
+                        <table style="margin-top: 1.5cm; width: 100%;">
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">{{berkas.berkas.reviewer}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>NIP. {{berkas.berkas.reviewer.nip}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p class="spacing-kecil">
+                                        <small class="sp">Unit Kerja: {{berkas.berkas.reviewer.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{berkas.berkas.reviewer.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{berkas.berkas.reviewer.jabatan_pangkat}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    {% endif %}
                 </div>
-                <!-- End of PL -->
-            {% endfor %}
-        {% endif %}
-    {% endif %}
-
-    {% if usrlogin.id == rekap_haki.berkas.pemegang_berkas_utama.users.id %}
-        <table style="width: 100%;" class="judul">
-            <tr>
-                <th style="text-align: right;">Lampiran 6</th>
-            </tr>
-            <tr>
-                <th style="text-align: center;">LEMBAR</th>
-            </tr>
-            <tr>
-                <th style="text-align: center;">HASIL PENILAIAN SEJAWAT SEBIDANG ATAU PEER REVIEW</th>
-            </tr>
-            <tr>
-                <th style="text-align: center;">KARYA ILMIAH : HAKI</th>
-            </tr>
-        </table>
-        <div class="paragraf">
-            <table style="width: 100%;">
-                <tr>
-                    <td style="width: 20%;">Judul Artikel Ilmiah</td>
-                    <td style="width: 2%">: </td>
-                    <td style="width: 78%;">{{rekap_haki.berkas.judul}}</td>
-                </tr>
-                <tr>
-                    <td>Penulis Artikel Ilmiah</td>
-                    <td>:</td>
-                    <td>
-                    {% if rekap_haki.berkas.pemegang_berkas_utama != None %}
-                        <strong>{{rekap_haki.berkas.pemegang_berkas_utama}}</strong>,
-                    {% else %}
-                        {{rekap_haki.berkas.pemegang_berkas_utama_selain}},
-                    {% endif %}
-                    {% for penulis in rekap_haki.berkas.penulis_lain.all %}
-                        {{penulis}},
-                    {% endfor %}
-                    {% for penulis_lain in rekap_haki.berkas.pemegang_berkas_selain.all %}
-                        {{penulis_lain}},
-                    {% endfor %}</td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <td style="width: 20%;">Identitas Jurnal Ilmiah</td>
-                    <td style="width: 2%;">:</td>
-                    <td style="width: 2%;">a. </td>
-                    <td style="width: 20%;">Jenis</td>
-                    <td style="width: 2%;">:</td>
-                    <td style="width: 54%;"> {{rekap_haki.berkas.jenis_haki}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>b. </td>
-                    <td>Nomor Paten</td>
-                    <td>:</td>
-                    <td>{{rekap_haki.berkas.nomor_paten}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>c. </td>
-                    <td>Tanggal</td>
-                    <td>:</td>
-                    <td>{{rekap_haki.berkas.tanggal}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>d. </td>
-                    <td>Penerbit</td>
-                    <td>:</td>
-                    <td>{{rekap_haki.berkas.penerbit}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>e. </td>
-                    <td>Status Paten</td>
-                    <td>:</td>
-                    <td>{{rekap_haki.berkas.status_paten}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>f. </td>
-                    <td>URL Haki</td>
-                    <td>:</td>
-                    <td>{{rekap_haki.berkas.url_repository}}</td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
-                    <td class="checkbox" style="width: 5%;">
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
-                            V
-                        {% endif %}
-                    </td>
-                    <td style="width: 55%; padding: 2px 0 0 2px;">Internasional (sudah diimplementasikan di industri)</td>                    
-                </tr>
-                <tr>
-                    <td class="checkbox">
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
-                            V
-                        {% endif %}
-                    </td>
-                    <td style="padding: 2px 0 0 2px;">Internasional</td>
-                </tr>
-                <tr>
-                    <td class="checkbox">
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
-                            V
-                        {% endif %}
-                    </td>
-                    <td style="padding: 2px 0 0 2px;">Nasional (sudah diimplementasikan di industri)</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td class="checkbox">
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
-                            V
-                        {% endif %}
-                    </td>
-                    <td style="padding: 2px 0 0 2px;">Nasional</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td class="checkbox">
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
-                            V
-                        {% endif %}
-                    </td>
-                    <td style="padding: 2px 0 0 2px;">Karya cipta bersertifikat Dirjen</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td class="checkbox">
-                        {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
-                            V
-                        {% endif %}
-                    </td>
-                    <td style="padding: 2px 0 0 2px;">Karya cipta bahan ajar</td>
-                </tr>
-            </table>
-            <p>Hasil Penilaian Peer Review :</p>
-            <table style="border-collapse: collapse;">
-                <tr class="bordernilai">
-                    <td style="text-align: center;">Komponen Yang Dinilai</td>
-                    <td style="text-align: center;" colspan="6">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
-                    <td style="text-align: center;">Nilai Akhir Yang Diperoleh</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td style="width: 25%;"></td>
-                    <td style="text-align: center; width: 12%">Internasional<br>(sudah di implementasikan di industri)</td>
-                    <td style="text-align: center; width: 9.4%">Internasional</td>
-                    <td style="text-align: center; width: 12%">Nasional<br>(sudah di implementasikan di industri)</td>
-                    <td style="text-align: center; width: 9.4%">Nasional</td>
-                    <td style="text-align: center; width: 9.4%">Karya cipta bersertifikat Dirjen</td>
-                    <td style="text-align: center; width: 9.4%">Karya cipta bahan ajar</td>
-                    <td style="text-align: center; width: 9.4%;"></td>
-                </tr>
-                <tr class="bordernilai">
-                    <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
-                        <td style="text-align: center; width: 13%">6</td>
-                    {% else %}
-                        <td style="text-align: center; width: 13%;"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
-                        <td style="text-align: center; width: 9.4%">5</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%;"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
-                        <td style="text-align: center; width: 13%">4</td>
-                    {% else %}
-                        <td style="text-align: center; width: 13%;"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
-                        <td style="text-align: center; width: 9.4%">3</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%;"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
-                        <td style="text-align: center; width: 9.4%">2</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%;"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
-                        <td style="text-align: center; width: 9.4%">1.5</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%;"></td>
-                    {% endif %}
-                    <td style="text-align: center; width: 9.4%;">{{rekap_haki.unsur_isi}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
-                        <td style="text-align: center; width: 13%">18</td>
-                    {% else %}
-                        <td style="text-align: center; width: 13%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
-                        <td style="text-align: center; width: 9.4%">15</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
-                        <td style="text-align: center; width: 13%">12</td>
-                    {% else %}
-                        <td style="text-align: center; width: 13%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
-                        <td style="text-align: center; width: 9.4%">9</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
-                        <td style="text-align: center; width: 9.4%">6</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
-                        <td style="text-align: center; width: 9.4%">4.5</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    <td style="text-align: center; width: 9.4%;">{{rekap_haki.pembahasan}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
-                        <td style="text-align: center; width: 13%">18</td>
-                    {% else %}
-                        <td style="text-align: center; width: 13%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
-                        <td style="text-align: center; width: 9.4%">15</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
-                        <td style="text-align: center; width: 13%">12</td>
-                    {% else %}
-                        <td style="text-align: center; width: 13%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
-                        <td style="text-align: center; width: 9.4%">9</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
-                        <td style="text-align: center; width: 9.4%">6</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
-                        <td style="text-align: center; width: 9.4%">4.5</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    <td style="text-align: center; width: 9.4%;">{{rekap_haki.informasi}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
-                        <td style="text-align: center; width: 13%">18</td>
-                    {% else %}
-                        <td style="text-align: center; width: 13%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
-                        <td style="text-align: center; width: 9.4%">15</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
-                        <td style="text-align: center; width: 13%">12</td>
-                    {% else %}
-                        <td style="text-align: center; width: 13%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
-                        <td style="text-align: center; width: 9.4%">9</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
-                        <td style="text-align: center; width: 9.4%">6</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
-                        <td style="text-align: center; width: 9.4%">4.5</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    <td style="text-align: center; width: 9.4%;">{{rekap_haki.kualitas_penerbit}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td>Total</td>
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
-                        <td style="text-align: center; width: 13%">60</td>
-                    {% else %}
-                        <td style="text-align: center; width: 13%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
-                        <td style="text-align: center; width: 9.4%">50</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
-                        <td style="text-align: center; width: 13%">40</td>
-                    {% else %}
-                        <td style="text-align: center; width: 13%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
-                        <td style="text-align: center; width: 9.4%">30</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
-                        <td style="text-align: center; width: 9.4%">20</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
-                        <td style="text-align: center; width: 9.4%">15</td>
-                    {% else %}
-                        <td style="text-align: center; width: 9.4%"></td>
-                    {% endif %}
-                    <td style="text-align: center; width: 9.4%;">{{rekap_haki.total}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
-                    <td colspan="6">Pemegang Berkas Utama dari {{rekap_haki.berkas.jmlh_penulis}} penulis 
-                    {% if rekap_haki.berkas.penulis_lain.exists %}
-                        80%
-                    {% elif rekap_haki.berkas.penulis_lain.exists == False %}
-                        100%
-                    {% endif %}
-                        x ({{rekap_haki.total}})</td>
-                    <td>{{rekap_haki.nilai_pu|floatformat}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td colspan="8">KOMENTAR/ULASAN PEER REVIEW</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
-                    <td colspan="7">{{rekap_haki.cmnt_unsur_isi}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
-                    <td colspan="7">{{rekap_haki.cmnt_pembahasan}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
-                    <td colspan="7">{{rekap_haki.cmnt_informasi}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
-                    <td colspan="7">{{rekap_haki.cmnt_kualitas_penerbit}}</td>
-                </tr>
-            </table>
-            <table style="margin-top: 10px;">
-                <tr>
-                    <td style="width: 72%;"></td>
-                    <td style="width: 40%;">Jatinangor, {{rekap_haki.created|date}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Reviewer</td>
-                </tr>
-            </table>
-            {% if rekap_haki.berkas.reviewer.ttd %}
-            <table style="width: 100%;">
-                <tr>
-                    <td style="width: 72%;"></td>
-                    <td style="width: 40%;">
-                        <img style="width: 100px; position: absolute;" src="{{rekap_haki.berkas.reviewer.ttd}}" alt="">
-                        <!-- <div style="position: relative; top: 10px;">{{rekap_haki.berkas.reviewer}}</div> -->
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 72%;"></td>
-                    <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <p class="spacing-kecil">
-                            <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
-                            <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
-                            <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
-                        </p>
-                    </td>
-                </tr>
-            </table>
-        {% else %}
-            <table style="margin-top: 1.5cm; width: 100%;">
-                <tr>
-                    <td style="width: 72%;"></td>
-                    <td style="width: 40%;"></td>
-                </tr>
-                <tr>
-                    <td style="width: 72%;"></td>
-                    <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <p class="spacing-kecil">
-                            <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
-                            <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
-                            <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
-                        </p>
-                    </td>
-                </tr>
-            </table>
-        {% endif %}
-        </div>
-    {% elif rekap_haki.berkas.penulis_lain.all.exists %}
-        {% for penuliss in rekap_haki.berkas.penulis_lain.all %}
-            {% if usrlogin.id == penuliss.users.id %}
+                <div class="break"></div>
                 <table style="width: 100%;" class="judul">
                     <tr>
                         <th style="text-align: right;">Lampiran 6</th>
@@ -1361,25 +1357,25 @@
                         <tr>
                             <td style="width: 20%;">Judul Artikel Ilmiah</td>
                             <td style="width: 2%">: </td>
-                            <td style="width: 78%;">{{rekap_haki.berkas.judul}}</td>
+                            <td style="width: 78%;">{{berkas_2.berkas.judul}}</td>
                         </tr>
                         <tr>
                             <td>Penulis Artikel Ilmiah</td>
                             <td>:</td>
                             <td>
-                            {% if rekap_haki.berkas.pemegang_berkas_utama != None %}
-                                {{rekap_haki.berkas.pemegang_berkas_utama}},
+                            {% if berkas_2.berkas.pemegang_berkas_utama != None %}
+                                {{berkas_2.berkas.pemegang_berkas_utama}},
                             {% else %}
-                                {{rekap_haki.berkas.pemegang_berkas_utama_selain}},
+                                {{berkas_2.berkas.pemegang_berkas_utama_selain}},
                             {% endif %}
-                            {% for penulis in rekap_haki.berkas.penulis_lain.all %}
+                            {% for penulis in berkas_2.berkas.penulis_lain.all %}
                                 {% if penulis == penuliss %}
                                     <strong>{{penulis}}</strong>,
                                 {% elif penulis != penuliss%}
                                     {{penulis}}
                                 {% endif %}
                             {% endfor %}
-                            {% for penulis_lain in rekap_haki.berkas.pemegang_berkas_selain.all %}
+                            {% for penulis_lain in berkas_2.berkas.pemegang_berkas_selain.all %}
                                 {{penulis_lain}},
                             {% endfor %}</td>
                         </tr>
@@ -1391,7 +1387,7 @@
                             <td style="width: 2%;">a. </td>
                             <td style="width: 20%;">Jenis</td>
                             <td style="width: 2%;">:</td>
-                            <td style="width: 54%;"> {{rekap_haki.berkas.jenis_haki}}</td>
+                            <td style="width: 54%;"> {{berkas_2.berkas.jenis_haki}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -1399,7 +1395,7 @@
                             <td>b. </td>
                             <td>Nomor Paten</td>
                             <td>:</td>
-                            <td>{{rekap_haki.berkas.nomor_paten}}</td>
+                            <td>{{berkas_2.berkas.nomor_paten}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -1407,7 +1403,7 @@
                             <td>c. </td>
                             <td>Tanggal</td>
                             <td>:</td>
-                            <td>{{rekap_haki.berkas.tanggal}}</td>
+                            <td>{{berkas_2.berkas.tanggal}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -1415,7 +1411,7 @@
                             <td>d. </td>
                             <td>Penerbit</td>
                             <td>:</td>
-                            <td>{{rekap_haki.berkas.penerbit}}</td>
+                            <td>{{berkas_2.berkas.penerbit}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -1423,7 +1419,7 @@
                             <td>e. </td>
                             <td>Status Paten</td>
                             <td>:</td>
-                            <td>{{rekap_haki.berkas.status_paten}}</td>
+                            <td>{{berkas_2.berkas.status_paten}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -1431,14 +1427,14 @@
                             <td>f. </td>
                             <td>URL Haki</td>
                             <td>:</td>
-                            <td>{{rekap_haki.berkas.url_repository}}</td>
+                            <td>{{berkas_2.berkas.url_repository}}</td>
                         </tr>
                     </table>
                     <table>
                         <tr>
                             <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
                             <td class="checkbox" style="width: 5%;">
-                                {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                                {% if berkas_2.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                     V
                                 {% endif %}
                             </td>
@@ -1446,7 +1442,7 @@
                         </tr>
                         <tr>
                             <td class="checkbox">
-                                {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                                {% if berkas_2.berkas.kategori_publikasi == 'Internasional' %}
                                     V
                                 {% endif %}
                             </td>
@@ -1454,7 +1450,7 @@
                         </tr>
                         <tr>
                             <td class="checkbox">
-                                {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                                {% if berkas_2.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                     V
                                 {% endif %}
                             </td>
@@ -1463,7 +1459,7 @@
                         <tr>
                             <td></td>
                             <td class="checkbox">
-                                {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                                {% if berkas_2.berkas.kategori_publikasi == 'Nasional' %}
                                     V
                                 {% endif %}
                             </td>
@@ -1472,7 +1468,7 @@
                         <tr>
                             <td></td>
                             <td class="checkbox">
-                                {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                                {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                     V
                                 {% endif %}
                             </td>
@@ -1481,7 +1477,7 @@
                         <tr>
                             <td></td>
                             <td class="checkbox">
-                                {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                                {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                     V
                                 {% endif %}
                             </td>
@@ -1507,267 +1503,266 @@
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%;"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Internasional' %}
                                 <td style="text-align: center; width: 9.4%">5</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%;"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">4</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%;"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Nasional' %}
                                 <td style="text-align: center; width: 9.4%">3</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%;"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                 <td style="text-align: center; width: 9.4%">2</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%;"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                 <td style="text-align: center; width: 9.4%">1.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%;"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 9.4%;">{{rekap_haki.unsur_isi}}</td>
+                            <td style="text-align: center; width: 9.4%;">{{berkas_2.unsur_isi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">18</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Internasional' %}
                                 <td style="text-align: center; width: 9.4%">15</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">12</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Nasional' %}
                                 <td style="text-align: center; width: 9.4%">9</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                 <td style="text-align: center; width: 9.4%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                 <td style="text-align: center; width: 9.4%">4.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 9.4%;">{{rekap_haki.pembahasan}}</td>
+                            <td style="text-align: center; width: 9.4%;">{{berkas_2.pembahasan}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">18</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Internasional' %}
                                 <td style="text-align: center; width: 9.4%">15</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">12</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Nasional' %}
                                 <td style="text-align: center; width: 9.4%">9</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                 <td style="text-align: center; width: 9.4%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                 <td style="text-align: center; width: 9.4%">4.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 9.4%;">{{rekap_haki.informasi}}</td>
+                            <td style="text-align: center; width: 9.4%;">{{berkas_2.informasi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">18</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Internasional' %}
                                 <td style="text-align: center; width: 9.4%">15</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">12</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Nasional' %}
                                 <td style="text-align: center; width: 9.4%">9</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                 <td style="text-align: center; width: 9.4%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                 <td style="text-align: center; width: 9.4%">4.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 9.4%;">{{rekap_haki.kualitas_penerbit}}</td>
+                            <td style="text-align: center; width: 9.4%;">{{berkas_2.kualitas_penerbit}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Total</td>
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Internasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">60</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Internasional' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Internasional' %}
                                 <td style="text-align: center; width: 9.4%">50</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Nasional (sudah diimplementasikan di industri)' %}
                                 <td style="text-align: center; width: 13%">40</td>
                             {% else %}
                                 <td style="text-align: center; width: 13%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Nasional' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Nasional' %}
                                 <td style="text-align: center; width: 9.4%">30</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bersertifikat Dirjen' %}
                                 <td style="text-align: center; width: 9.4%">20</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            {% if rekap_haki.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
+                            {% if berkas_2.berkas.kategori_publikasi == 'Karya cipta bahan ajar' %}
                                 <td style="text-align: center; width: 9.4%">15</td>
                             {% else %}
                                 <td style="text-align: center; width: 9.4%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 9.4%;">{{rekap_haki.total}}</td>
+                            <td style="text-align: center; width: 9.4%;">{{berkas_2.total}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
-                            <td colspan="6">Pemegang Berkas Anggota dari {{rekap_haki.berkas.jmlh_penulis}} penulis 20% x ({{rekap_haki.total}}/{{rekap_haki.jmlh_penulis_lain}})</td>
-                            <td>{{rekap_haki.nilai_pu|floatformat}}</td>
+                            <td colspan="6">Pemegang Berkas Anggota dari {{berkas_2.berkas.jmlh_penulis}} penulis 20% x ({{berkas_2.total}}/{{berkas_2.jmlh_penulis_lain}})</td>
+                            <td>{{berkas_2.nilai_pu|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td colspan="8">KOMENTAR/ULASAN PEER REVIEW</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
-                            <td colspan="7">{{rekap_haki.cmnt_unsur_isi}}</td>
+                            <td colspan="7">{{berkas_2.cmnt_unsur_isi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
-                            <td colspan="7">{{rekap_haki.cmnt_pembahasan}}</td>
+                            <td colspan="7">{{berkas_2.cmnt_pembahasan}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
-                            <td colspan="7">{{rekap_haki.cmnt_informasi}}</td>
+                            <td colspan="7">{{berkas_2.cmnt_informasi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
-                            <td colspan="7">{{rekap_haki.cmnt_kualitas_penerbit}}</td>
+                            <td colspan="7">{{berkas_2.cmnt_kualitas_penerbit}}</td>
                         </tr>
                     </table>
                     <table style="margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
-                            <td style="width: 40%;">Jatinangor, {{rekap_haki.created|date}}</td>
+                            <td style="width: 40%;">Jatinangor, {{berkas_2.created|date}}</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td>Reviewer</td>
+                            <td>Reviewer 2</td>
                         </tr>
                     </table>
-                    {% if rekap_haki.berkas.reviewer.ttd %}
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">
-                                <img style="width: 100px; position: absolute;" src="{{rekap_haki.berkas.reviewer.ttd}}" alt="">
-                                <!-- <div style="position: relative; top: 10px;">{{rekap_haki.berkas.reviewer}}</div> -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                {% else %}
-                    <table style="margin-top: 1.5cm; width: 100%;">
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;"></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">{{rekap_haki.berkas.reviewer}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>NIP. {{rekap_haki.berkas.reviewer.nip}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_haki.berkas.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_haki.berkas.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_haki.berkas.reviewer.jabatan_pangkat}}</small>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                {% endif %}
+                    {% if berkas_2.berkas.reviewer_2.ttd %}
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">
+                                    <img style="width: 100px; position: absolute;" src="{{berkas_2.berkas.reviewer_2.ttd}}" alt="">
+                                    <!-- <div style="position: relative; top: 10px;">{{berkas_2.berkas.reviewer_2}}</div> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">{{berkas_2.berkas.reviewer_2}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>NIP. {{berkas_2.berkas.reviewer_2.nip}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p class="spacing-kecil">
+                                        <small class="sp">Unit Kerja: {{berkas_2.berkas.reviewer_2.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{berkas_2.berkas.reviewer_2.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{berkas_2.berkas.reviewer_2.jabatan_pangkat}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    {% else %}
+                        <table style="margin-top: 1.5cm; width: 100%;">
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">{{berkas_2.berkas.reviewer_2}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>NIP. {{berkas_2.berkas.reviewer_2.nip}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p class="spacing-kecil">
+                                        <small class="sp">Unit Kerja: {{berkas_2.berkas.reviewer_2.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{berkas_2.berkas.reviewer_2.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{berkas_2.berkas.reviewer_2.jabatan_pangkat}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    {% endif %}
                 </div>
             {% endif %}
         {% endfor %}
     {% endif %}
-        
 </body>
 </html>

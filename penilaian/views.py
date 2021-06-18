@@ -14,8 +14,6 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils.text import slugify
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
 # Create your views here.
 
 class ReviewerAccess(UserPassesTestMixin, LoginRequiredMixin):
@@ -31,6 +29,13 @@ class SuperAdminAccess(UserPassesTestMixin, LoginRequiredMixin):
 
 class ErrorMessage(TemplateView):
     template_name='penilaian/error_message.html'
+
+class EditDataDiriView(UpdateView):
+    model = Users
+    form_class = EditDataDiriForm
+    template_name = 'penilaian/edit_data.html'
+    def get_success_url(self):
+        return reverse('home')
     
 ################################################################################################################
 class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
@@ -74,14 +79,12 @@ class ListBerkasJurnalView(LoginRequiredMixin,ListView):
     ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_jurnal.html'
     context_object_name = 'list_berkas_jurnal'
-    list_berkas = PenilaianBerkasJurnal.objects.all()
-    extra_context = {
-        'list_berkas':list_berkas,
-    }
 
     def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super(ListBerkasJurnalView, self).get_context_data(*args, **kwargs)
+        context = super().get_context_data(*args, **kwargs)
+        context['list_berkas'] = PenilaianBerkasJurnal.objects.all()
+        context['list_berkas_2'] = PenilaianBerkasJurnal2.objects.all()
+        return context
 
 class DetailBerkasJurnalView(LoginRequiredMixin,DetailView):
     model = UploadBerkasJurnal
@@ -218,14 +221,7 @@ class PenilaianBerkasJurnalEditView(ReviewerAccess, UpdateView):
     login_url = '/login/'
     form_class = PenilaianBerkasJurnalEditForm
     template_name = 'penilaian/edit_penilaian_jurnal.html'
-    penilaian = PenilaianBerkasJurnal.objects.all()
-    extra_context = {
-        'penilaian':penilaian
-    }
 
-    def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
     def get_success_url(self):
         return reverse('penilaian:list_penilaian_jurnal', kwargs={'page':1})
 
@@ -234,14 +230,7 @@ class PenilaianBerkasJurnal2EditView(ReviewerAccess, UpdateView):
     login_url = '/login/'
     form_class = PenilaianBerkasJurnal2EditForm
     template_name = 'penilaian/edit_penilaian_jurnal2.html'
-    penilaian = PenilaianBerkasJurnal2.objects.all()
-    extra_context = {
-        'penilaian':penilaian
-    }
 
-    def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
     def get_success_url(self):
         return reverse('penilaian:list_penilaian_jurnal', kwargs={'page':1})
 
@@ -293,6 +282,28 @@ class HasilPenilaianJurnal2View(LoginRequiredMixin, DetailView):
         pdf = render_to_pdf(self.template_name, context)
         return HttpResponse(pdf, content_type='application/pdf')
 
+class HasilPenilaianBerkasJurnalGabunganView(LoginRequiredMixin, TemplateView):
+    template_name = 'penilaian/hasil_rekap_gabungan_jurnal.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(HasilPenilaianBerkasJurnalGabunganView, self).get_context_data(*args, **kwargs)
+        berkas = PenilaianBerkasJurnal.objects.get(slug = self.kwargs['slug'])
+        berkas_2 = PenilaianBerkasJurnal2.objects.get(slug = self.kwargs['slug'])
+        context['berkas'] = berkas
+        context['berkas_2'] = berkas_2
+        context['usrlogin'] = self.request.user
+        if berkas.nilai_pu != 0:
+            context['nilaitotal_pu'] = ((berkas.nilai_pu + berkas_2.nilai_pu)/2)
+        if berkas.nilai_ca != None:
+            context['nilaitotal_ca'] = ((berkas.nilai_ca + berkas_2.nilai_ca)/2)
+        if berkas.nilai_pl != None:
+            context['nilaitotal_pl'] = ((berkas.nilai_pl + berkas_2.nilai_pl)/2)
+        return context
+
+    def render_to_response(self, context, **kwargs):
+        pdf = render_to_pdf(self.template_name, context)
+        return HttpResponse(pdf, content_type='application/pdf')
+
 ############# End of Jurnal #############
 
 class UploadBerkasProsidingView(LoginRequiredMixin, CreateView):
@@ -335,13 +346,20 @@ class ListBerkasProsidingView(LoginRequiredMixin,ListView):
     ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_prosiding.html'
     context_object_name = 'list_berkas_prosiding'
-    list_berkas = PenilaianBerkasProsiding.objects.all()
-    extra_context = {
-        'list_berkas':list_berkas,
-    }
+
     def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super(ListBerkasProsidingView,self).get_context_data(*args, **kwargs)
+        context = super().get_context_data(*args, **kwargs)
+        context['list_berkas'] = PenilaianBerkasProsiding.objects.all()
+        context['list_berkas_2'] = PenilaianBerkasProsiding2.objects.all()
+        return context
+
+class PlagiasiLinieritasProsidingView(LoginRequiredMixin, UpdateView):
+    model = UploadBerkasProsiding
+    login_url = '/login/'
+    form_class = PlagiasiLinieritasProsidingForm
+    template_name = 'penilaian/plagiasi_linieritas_prosiding.html'
+    def get_success_url(self):
+        return reverse('penilaian:list_berkas_prosiding', kwargs={'page':1})
 
 class DetailBerkasProsidingView(LoginRequiredMixin,DetailView):
     model = UploadBerkasProsiding
@@ -473,32 +491,16 @@ class PenilaianBerkasProsidingEditView(ReviewerAccess, UpdateView):
     login_url = '/login/'
     form_class = PenilaianBerkasProsidingEditForm
     template_name = 'penilaian/edit_penilaian_prosiding.html'
-    penilaian = PenilaianBerkasProsiding.objects.all()
-    extra_context = {
-        'penilaian':penilaian
-    }
     def get_success_url(self):
         return reverse('penilaian:list_penilaian_prosiding', kwargs={'page':1})
-
-    def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
 
 class PenilaianBerkasProsiding2EditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasProsiding2
     login_url = '/login/'
     form_class = PenilaianBerkasProsiding2EditForm
     template_name = 'penilaian/edit_penilaian_prosiding2.html'
-    penilaian = PenilaianBerkasProsiding2.objects.all()
-    extra_context = {
-        'penilaian':penilaian
-    }
     def get_success_url(self):
         return reverse('penilaian:list_penilaian_prosiding', kwargs={'page':1})
-
-    def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
 
 class HasilPenilaianProsidingView(LoginRequiredMixin,DetailView):
     model = PenilaianBerkasProsiding
@@ -548,6 +550,28 @@ class HasilPenilaianProsiding2View(LoginRequiredMixin,DetailView):
         pdf = render_to_pdf(self.template_name, context)
         return HttpResponse(pdf, content_type='application/pdf')
 
+class HasilPenilaianBerkasProsidingGabunganView(LoginRequiredMixin, TemplateView):
+    template_name = 'penilaian/hasil_rekap_gabungan_prosiding.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(HasilPenilaianBerkasProsidingGabunganView, self).get_context_data(*args, **kwargs)
+        berkas = PenilaianBerkasProsiding.objects.get(slug = self.kwargs['slug'])
+        berkas_2 = PenilaianBerkasProsiding2.objects.get(slug = self.kwargs['slug'])
+        context['berkas'] = berkas
+        context['berkas_2'] = berkas_2
+        context['usrlogin'] = self.request.user
+        if berkas.nilai_pu != 0:
+            context['nilaitotal_pu'] = ((berkas.nilai_pu + berkas_2.nilai_pu)/2)
+        if berkas.nilai_ca != None:
+            context['nilaitotal_ca'] = ((berkas.nilai_ca + berkas_2.nilai_ca)/2)
+        if berkas.nilai_pl != None:
+            context['nilaitotal_pl'] = ((berkas.nilai_pl + berkas_2.nilai_pl)/2)
+        return context
+
+    def render_to_response(self, context, **kwargs):
+        pdf = render_to_pdf(self.template_name, context)
+        return HttpResponse(pdf, content_type='application/pdf')
+
 ############# End of Prosiding #############
 
 class UploadBerkasBukuView(LoginRequiredMixin, CreateView):
@@ -590,14 +614,12 @@ class ListBerkasBukuView(LoginRequiredMixin,ListView):
     ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_buku.html'
     context_object_name = 'list_berkas_buku'
-    list_berkas = PenilaianBerkasBuku.objects.all()
-    extra_context = {
-        'list_berkas':list_berkas,
-    }
 
     def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super(ListBerkasBukuView, self).get_context_data(*args, **kwargs)
+        context = super().get_context_data(*args, **kwargs)
+        context['list_berkas'] = PenilaianBerkasBuku.objects.all()
+        context['list_berkas_2'] = PenilaianBerkasBuku2.objects.all()
+        return context
 
 class DetailBerkasBukuView(LoginRequiredMixin,DetailView):
     model = UploadBerkasBuku
@@ -730,32 +752,18 @@ class PenilaianBerkasBukuEditView(ReviewerAccess, UpdateView):
     login_url = '/login/'
     form_class = PenilaianBerkasBukuEditForm
     template_name = 'penilaian/edit_penilaian_buku.html'
-    penilaian = PenilaianBerkasBuku.objects.all()
-    extra_context = {
-        'penilaian':penilaian
-    }
+    
     def get_success_url(self):
         return reverse('penilaian:list_penilaian_buku', kwargs={'page':1})
-
-    def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
 
 class PenilaianBerkasBuku2EditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasBuku2
     login_url = '/login/'
     form_class = PenilaianBerkasBuku2EditForm
     template_name = 'penilaian/edit_penilaian_buku2.html'
-    penilaian = PenilaianBerkasBuku2.objects.all()
-    extra_context = {
-        'penilaian':penilaian
-    }
+
     def get_success_url(self):
         return reverse('penilaian:list_penilaian_buku', kwargs={'page':1})
-
-    def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
 
 class HasilPenilaianBukuView(LoginRequiredMixin,DetailView):
     model = PenilaianBerkasBuku
@@ -805,6 +813,26 @@ class HasilPenilaianBuku2View(LoginRequiredMixin,DetailView):
         pdf = render_to_pdf(self.template_name, context)
         return HttpResponse(pdf, content_type='application/pdf')
 
+class HasilPenilaianBerkasBukuGabunganView(LoginRequiredMixin, TemplateView):
+    template_name = 'penilaian/hasil_rekap_gabungan_buku.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(HasilPenilaianBerkasBukuGabunganView, self).get_context_data(*args, **kwargs)
+        berkas = PenilaianBerkasBuku.objects.get(slug = self.kwargs['slug'])
+        berkas_2 = PenilaianBerkasBuku2.objects.get(slug = self.kwargs['slug'])
+        context['berkas'] = berkas
+        context['berkas_2'] = berkas_2
+        context['usrlogin'] = self.request.user
+        if berkas.nilai_pu != 0:
+            context['nilaitotal_pu'] = ((berkas.nilai_pu + berkas_2.nilai_pu)/2)
+        if berkas.nilai_pl != 0:
+            context['nilaitotal_pl'] = ((berkas.nilai_pl + berkas_2.nilai_pl)/2)
+        return context
+
+    def render_to_response(self, context, **kwargs):
+        pdf = render_to_pdf(self.template_name, context)
+        return HttpResponse(pdf, content_type='application/pdf')
+
 ############# End of Buku #############
 
 class UploadBerkasHakiView(LoginRequiredMixin, CreateView):
@@ -847,14 +875,12 @@ class ListBerkasHakiView(LoginRequiredMixin,ListView):
     ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_haki.html'
     context_object_name = 'list_berkas_haki'
-    list_berkas = PenilaianBerkasHaki.objects.all()
-    extra_context = {
-        'list_berkas':list_berkas,
-    }
 
     def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super(ListBerkasHakiView, self).get_context_data(*args, **kwargs)
+        context = super().get_context_data(*args, **kwargs)
+        context['list_berkas'] = PenilaianBerkasHaki.objects.all()
+        context['list_berkas_2'] = PenilaianBerkasHaki2.objects.all()
+        return context
 
 class DetailBerkasHakiView(LoginRequiredMixin,DetailView):
     model = UploadBerkasHaki
@@ -987,32 +1013,18 @@ class PenilaianBerkasHakiEditView(ReviewerAccess, UpdateView):
     login_url = '/login/'
     form_class = PenilaianBerkasHakiEditForm
     template_name = 'penilaian/edit_penilaian_haki.html'
-    penilaian = PenilaianBerkasHaki.objects.all()
-    extra_context = {
-        'penilaian':penilaian
-    }
+
     def get_success_url(self):
         return reverse('penilaian:list_penilaian_haki', kwargs={'page':1})
-
-    def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
 
 class PenilaianBerkasHaki2EditView(ReviewerAccess, UpdateView):
     model = PenilaianBerkasHaki2
     login_url = '/login/'
     form_class = PenilaianBerkasHaki2EditForm
     template_name = 'penilaian/edit_penilaian_haki2.html'
-    penilaian = PenilaianBerkasHaki2.objects.all()
-    extra_context = {
-        'penilaian':penilaian
-    }
+
     def get_success_url(self):
         return reverse('penilaian:list_penilaian_haki', kwargs={'page':1})
-
-    def get_context_data(self, *args, **kwargs):
-        kwargs.update(self.extra_context)
-        return super().get_context_data(*args, **kwargs)
 
 class HasilPenilaianHakiView(LoginRequiredMixin, DetailView):
     model = PenilaianBerkasHaki
@@ -1058,6 +1070,26 @@ class HasilPenilaianHaki2View(LoginRequiredMixin, DetailView):
         context['usrlogin'] = self.request.user
         return context
         
+    def render_to_response(self, context, **kwargs):
+        pdf = render_to_pdf(self.template_name, context)
+        return HttpResponse(pdf, content_type='application/pdf')
+
+class HasilPenilaianBerkasHakiGabunganView(LoginRequiredMixin, TemplateView):
+    template_name = 'penilaian/hasil_rekap_gabungan_haki.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(HasilPenilaianBerkasHakiGabunganView, self).get_context_data(*args, **kwargs)
+        berkas = PenilaianBerkasHaki.objects.get(slug = self.kwargs['slug'])
+        berkas_2 = PenilaianBerkasHaki2.objects.get(slug = self.kwargs['slug'])
+        context['berkas'] = berkas
+        context['berkas_2'] = berkas_2
+        context['usrlogin'] = self.request.user
+        if berkas.nilai_pu != 0:
+            context['nilaitotal_pu'] = ((berkas.nilai_pu + berkas_2.nilai_pu)/2)
+        if berkas.nilai_pl != 0:
+            context['nilaitotal_pl'] = ((berkas.nilai_pl + berkas_2.nilai_pl)/2)
+        return context
+
     def render_to_response(self, context, **kwargs):
         pdf = render_to_pdf(self.template_name, context)
         return HttpResponse(pdf, content_type='application/pdf')
@@ -1137,23 +1169,4 @@ class ListReviewerHakiView(ReviewerAccess,ListView):
         return context
 
 ############# END List khusus reviewer #############
-
-# class GabunganPenilaianBerkasJurnalView(DetailView):
-    # model = GabunganPenilaianBerkasJurnal
-    # template_name = 'penilaian/hasil_gabungan.html'
-    # context_object_name = 'gabungan'
-
-class Gabungan(TemplateView):
-    template_name = 'penilaian/hasil_gabungan.html'
-    context_object_name = 'gabungan'
-
-    def get_context_data(self, *args, **kwargs):
-        print(self.kwargs)
-        context = super(Gabungan, self).get_context_data(*args, **kwargs)
-        list_berkas = PenilaianBerkasJurnal.objects.get(id = self.kwargs['pk'])
-        # list_berkas_2 = PenilaianBerkasJurnal2.objects.get(id = self.kwargs['pk'])
-        context['list_berkas'] = list_berkas
-        # context['list_berkas_2'] = list_berkas_2
-        return context
-############# End Gabungan Hasil Penilaian #############
 ################################################################################################################

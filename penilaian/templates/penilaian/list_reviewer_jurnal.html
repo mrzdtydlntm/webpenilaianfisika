@@ -108,19 +108,23 @@
                         </td>
                         <td>
                           {% if user.is_superuser %}
-                            <a class="btn btn-primary" href="{% url 'penilaian:penilaian_jurnal' berkas.pk %}">Nilai</a>
-                            {% for berkus in list_berkas %}
-                              {% if berkas.id == berkus.jurnal.id %}
-                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_jurnal' berkas.slug %}">Edit<a>
-                              {% endif %}
-                            {% endfor %}
+                            {% if berkas.reviewer != None %}
+                              <a class="btn btn-primary" href="{% url 'penilaian:penilaian_jurnal' berkas.pk %}">Nilai</a>
+                              {% for berkus in list_berkas %}
+                                {% if berkas.id == berkus.jurnal.id %}
+                                  <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_jurnal' berkas.slug %}">Edit<a>
+                                {% endif %}
+                              {% endfor %}
+                            {% endif %}
                             <div class="spacing"></div>
-                            <a class="btn btn-primary" href="{% url 'penilaian:penilaian_jurnal2' berkas.pk %}">Nilai</a>
-                            {% for berkus2 in list_berkas_2 %}
-                              {% if berkas.id == berkus2.jurnal.id %}
-                                <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_jurnal2' berkas.slug %}">Edit</a>
-                              {% endif %}
-                            {% endfor %}
+                            {% if berkas.reviewer_2 != None %}
+                              <a class="btn btn-primary" href="{% url 'penilaian:penilaian_jurnal2' berkas.pk %}">Nilai</a>
+                              {% for berkus2 in list_berkas_2 %}
+                                {% if berkas.id == berkus2.jurnal.id %}
+                                  <a class="btn btn-warning" href="{% url 'penilaian:edit_penilaian_jurnal2' berkas.slug %}">Edit</a>
+                                {% endif %}
+                              {% endfor %}
+                            {% endif %}
                           {% endif %}
                         <td>
                           {% for berkus in list_berkas %}

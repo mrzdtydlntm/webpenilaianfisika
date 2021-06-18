@@ -10,6 +10,11 @@
             /* br{
                 line-height: 1px;
             } */
+
+            .spacing-kecil {
+                line-height: 0.7;
+            }
+
             .judul {
                 font-family: "Times New Roman", Times, serif;
                 font-size: 9pt;
@@ -17,16 +22,10 @@
             }
             .paragraf {
                 font-family: "Times New Roman", Times, serif;
-                font-size: 9pt;
-            }
-            .spacing-kecil {
-                line-height: 0.7;
+                font-size: 8.5pt;
             }
             tr {
                 margin-bottom: 50;
-            }
-            .jdl {
-                font-size: 10px;
             }
             p{
                 margin-bottom: 1px;
@@ -50,11 +49,11 @@
                 text-align: center;
             }
     </style>
-    <title>Lembar Penilaian</title>
+    <title>Gabungan Penilaian</title>
 </head>
 <body>
-    {% if usrlogin.is_superuser or usrlogin.id == 22 %}
-        {% if rekap_buku.buku.penulis_utama != None %}
+    {% if usrlogin.is_superuser or usrlogin.id == 22 or usrlogin.id == berkas.buku.penulis_utama.users.id %}
+        {% if berkas.buku.penulis_utama != None %}
             <table style="width: 100%;" class="judul">
                 <tr>
                     <th style="text-align: right;">Lampiran 6</th>
@@ -74,21 +73,21 @@
                     <tr>
                         <td style="width: 20%;">Judul Artikel Ilmiah</td>
                         <td style="width: 2%">: </td>
-                        <td style="width: 78%;">{{rekap_buku.buku.judul}}</td>
+                        <td style="width: 78%;">{{berkas.buku.judul}}</td>
                     </tr>
                     <tr>
                         <td>Penulis Artikel Ilmiah</td>
                         <td>:</td>
                         <td>
-                        {% if rekap_buku.buku.penulis_utama != None %}
-                            <strong>{{rekap_buku.buku.penulis_utama}}</strong>,
+                        {% if berkas.buku.penulis_utama != None %}
+                            <strong>{{berkas.buku.penulis_utama}}</strong>,
                         {% else %}
-                            {{rekap_buku.buku.penulis_utama_selain}},
+                            {{berkas.buku.penulis_utama_selain}},
                         {% endif %}
-                        {% for penulis in rekap_buku.buku.penulis_lain.all %}
+                        {% for penulis in berkas.buku.penulis_lain.all %}
                             {{penulis}},
                         {% endfor %}
-                        {% for penulis_lain in rekap_buku.buku.penulis_selain.all %}
+                        {% for penulis_lain in berkas.buku.penulis_selain.all %}
                             {{penulis_lain}},
                         {% endfor %}</td>
                     </tr>
@@ -100,7 +99,7 @@
                         <td style="width: 2%;">a. </td>
                         <td style="width: 20%;">ISBN</td>
                         <td style="width: 2%;">:</td>
-                        <td style="width: 54%;"> {{rekap_buku.buku.nomor_isbn}}</td>
+                        <td style="width: 54%;"> {{berkas.buku.nomor_isbn}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -108,7 +107,7 @@
                         <td>b. </td>
                         <td>Edisi</td>
                         <td>:</td>
-                        <td>{{rekap_buku.buku.edisi}}</td>
+                        <td>{{berkas.buku.edisi}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -116,7 +115,7 @@
                         <td>c. </td>
                         <td>Tahun Terbit</td>
                         <td>:</td>
-                        <td>{{rekap_buku.buku.tahun_terbit}}</td>
+                        <td>{{berkas.buku.tahun_terbit}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -124,7 +123,7 @@
                         <td>d. </td>
                         <td>Penerbit</td>
                         <td>:</td>
-                        <td>{{rekap_buku.buku.penerbit}}</td>
+                        <td>{{berkas.buku.penerbit}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -132,14 +131,14 @@
                         <td>e. </td>
                         <td>Jumlah Halaman</td>
                         <td>:</td>
-                        <td>{{rekap_buku.buku.jumlah_halaman}}</td>
+                        <td>{{berkas.buku.jumlah_halaman}}</td>
                     </tr>
                 </table>
                 <table>
                     <tr>
                         <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
                         <td class="checkbox" style="width: 5%;">
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                            {% if berkas.buku.kategori_publikasi == 'Buku Referensi' %}
                                 V
                             {% endif %}
                         </td>
@@ -147,7 +146,7 @@
                     </tr>
                     <tr>
                         <td class="checkbox">
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                            {% if berkas.buku.kategori_publikasi == 'Buku Monograf' %}
                                 V
                             {% endif %}
                         </td>
@@ -155,7 +154,7 @@
                     </tr>
                     <tr>
                         <td class="checkbox">
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            {% if berkas.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                 V
                             {% endif %}
                         </td>
@@ -164,7 +163,7 @@
                     <tr>
                         <td></td>
                         <td class="checkbox">
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            {% if berkas.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                 V
                             {% endif %}
                         </td>
@@ -188,189 +187,189 @@
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                        {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                        {% if berkas.buku.kategori_publikasi == 'Buku Referensi' %}
                             <td style="text-align: center; width: 15%">4</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                        {% if berkas.buku.kategori_publikasi == 'Buku Monograf' %}
                             <td style="text-align: center; width: 15%">2</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                        {% if berkas.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                             <td style="text-align: center; width: 15%">1.5</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                        {% if berkas.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                             <td style="text-align: center; width: 15%">1</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 15%;">{{rekap_buku.unsur_isi}}</td>
+                        <td style="text-align: center; width: 15%;">{{berkas.unsur_isi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                        {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                        {% if berkas.buku.kategori_publikasi == 'Buku Referensi' %}
                             <td style="text-align: center; width: 15%">12</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                        {% if berkas.buku.kategori_publikasi == 'Buku Monograf' %}
                             <td style="text-align: center; width: 15%">6</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                        {% if berkas.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                             <td style="text-align: center; width: 15%">4.5</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                        {% if berkas.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                             <td style="text-align: center; width: 15%">3</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 15%;">{{rekap_buku.pembahasan}}</td>
+                        <td style="text-align: center; width: 15%;">{{berkas.pembahasan}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                        {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                        {% if berkas.buku.kategori_publikasi == 'Buku Referensi' %}
                             <td style="text-align: center; width: 15%">12</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                        {% if berkas.buku.kategori_publikasi == 'Buku Monograf' %}
                             <td style="text-align: center; width: 15%">6</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                        {% if berkas.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                             <td style="text-align: center; width: 15%">4.5</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                        {% if berkas.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                             <td style="text-align: center; width: 15%">3</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 15%;">{{rekap_buku.informasi}}</td>
+                        <td style="text-align: center; width: 15%;">{{berkas.informasi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                        {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                        {% if berkas.buku.kategori_publikasi == 'Buku Referensi' %}
                             <td style="text-align: center; width: 15%">12</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                        {% if berkas.buku.kategori_publikasi == 'Buku Monograf' %}
                             <td style="text-align: center; width: 15%">6</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                        {% if berkas.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                             <td style="text-align: center; width: 15%">4.5</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                        {% if berkas.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                             <td style="text-align: center; width: 15%">3</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 15%;">{{rekap_buku.kualitas_penerbit}}</td>
+                        <td style="text-align: center; width: 15%;">{{berkas.kualitas_penerbit}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Total</td>
-                        {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                        {% if berkas.buku.kategori_publikasi == 'Buku Referensi' %}
                             <td style="text-align: center; width: 15%">40</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                        {% if berkas.buku.kategori_publikasi == 'Buku Monograf' %}
                             <td style="text-align: center; width: 15%">20</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                        {% if berkas.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                             <td style="text-align: center; width: 15%">15</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                        {% if berkas.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                             <td style="text-align: center; width: 15%">10</td>
                         {% else %}
                             <td style="text-align: center; width: 15%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 15%;">{{rekap_buku.total}}</td>
+                        <td style="text-align: center; width: 15%;">{{berkas.total}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
-                        <td colspan="4">Penulis Utama dari {{rekap_buku.buku.jmlh_penulis}} penulis 
-                        {% if rekap_buku.buku.penulis_lain.exists %}
+                        <td colspan="4">Penulis Utama dari {{berkas.buku.jmlh_penulis}} penulis 
+                        {% if berkas.buku.penulis_lain.exists %}
                             80%
-                        {% elif rekap_buku.buku.penulis_lain.exists == False %}
+                        {% elif berkas.buku.penulis_lain.exists == False %}
                             100%
                         {% endif %}
-                            x ({{rekap_buku.total}})</td>
-                        <td>{{rekap_buku.nilai_pu|floatformat}}</td>
+                            x ({{berkas.total}})</td>
+                        <td>{{berkas.nilai_pu|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td colspan="6">KOMENTAR/ULASAN PEER REVIEW</td>
                     </tr>
                     <tr class="bordernilai">
                         <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
-                        <td colspan="5">{{rekap_buku.cmnt_unsur_isi}}</td>
+                        <td colspan="5">{{berkas.cmnt_unsur_isi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
-                        <td colspan="5">{{rekap_buku.cmnt_pembahasan}}</td>
+                        <td colspan="5">{{berkas.cmnt_pembahasan}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
-                        <td colspan="5">{{rekap_buku.cmnt_informasi}}</td>
+                        <td colspan="5">{{berkas.cmnt_informasi}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
-                        <td colspan="5">{{rekap_buku.cmnt_kualitas_penerbit}}</td>
+                        <td colspan="5">{{berkas.cmnt_kualitas_penerbit}}</td>
                     </tr>
                 </table>
                 <table style="margin-top: 10px;">
                     <tr>
                         <td style="width: 72%;"></td>
-                        <td style="width: 40%;">Jatinangor, {{rekap_buku.created|date}}</td>
+                        <td style="width: 40%;">Jatinangor, {{berkas.created|date}}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>Reviewer</td>
                     </tr>
                 </table>
-                {% if rekap_buku.buku.reviewer.ttd %}
+                {% if berkas.buku.reviewer.ttd %}
                 <table style="width: 100%;">
                     <tr>
                         <td style="width: 72%;"></td>
                         <td style="width: 40%;">
-                            <img style="width: 100px; position: absolute;" src="{{rekap_buku.buku.reviewer.ttd}}" alt="">
-                            <!-- <div style="position: relative; top: 10px;">{{rekap_buku.buku.reviewer}}</div> -->
+                            <img style="width: 100px; position: absolute;" src="{{berkas.buku.reviewer.ttd}}" alt="">
+                            <!-- <div style="position: relative; top: 10px;">{{berkas.buku.reviewer}}</div> -->
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 72%;"></td>
-                        <td style="width: 40%;">{{rekap_buku.buku.reviewer}}</td>
+                        <td style="width: 40%;">{{berkas.buku.reviewer}}</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>NIP. {{rekap_buku.buku.reviewer.nip}}</td>
+                        <td>NIP. {{berkas.buku.reviewer.nip}}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
                             <p class="spacing-kecil">
-                                <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer.unit_kerja}}</small> <br>
-                                <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer.bidang_ilmu}}</small> <br>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer.jabatan_pangkat}}</small>
+                                <small class="sp">Unit Kerja: {{berkas.buku.reviewer.unit_kerja}}</small> <br>
+                                <small class="sp">Bidang Ilmu: {{berkas.buku.reviewer.bidang_ilmu}}</small> <br>
+                                <small class="sp">Jabatan/Pangkat: {{berkas.buku.reviewer.jabatan_pangkat}}</small>
                             </p>
                         </td>
                     </tr>
@@ -383,29 +382,379 @@
                     </tr>
                     <tr>
                         <td style="width: 72%;"></td>
-                        <td style="width: 40%;">{{rekap_buku.buku.reviewer}}</td>
+                        <td style="width: 40%;">{{berkas.buku.reviewer}}</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>NIP. {{rekap_buku.buku.reviewer.nip}}</td>
+                        <td>NIP. {{berkas.buku.reviewer.nip}}</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
                             <p class="spacing-kecil">
-                                <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer.unit_kerja}}</small> <br>
-                                <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer.bidang_ilmu}}</small> <br>
-                                <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer.jabatan_pangkat}}</small>
+                                <small class="sp">Unit Kerja: {{berkas.buku.reviewer.unit_kerja}}</small> <br>
+                                <small class="sp">Bidang Ilmu: {{berkas.buku.reviewer.bidang_ilmu}}</small> <br>
+                                <small class="sp">Jabatan/Pangkat: {{berkas.buku.reviewer.jabatan_pangkat}}</small>
                             </p>
                         </td>
                     </tr>
                 </table>
             {% endif %}
             </div>
-            <!-- End of PU -->
+            <div class="break"></div>
+            <table style="width: 100%;" class="judul">
+                <tr>
+                    <th style="text-align: right;">Lampiran 6</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">LEMBAR</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">HASIL PENILAIAN SEJAWAT SEBIDANG ATAU PEER REVIEW</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">KARYA ILMIAH : BUKU</th>
+                </tr>
+            </table>
+            <div class="paragraf">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 20%;">Judul Artikel Ilmiah</td>
+                        <td style="width: 2%">: </td>
+                        <td style="width: 78%;">{{berkas_2.buku.judul}}</td>
+                    </tr>
+                    <tr>
+                        <td>Penulis Artikel Ilmiah</td>
+                        <td>:</td>
+                        <td>
+                        {% if berkas_2.buku.penulis_utama != None %}
+                            <strong>{{berkas_2.buku.penulis_utama}}</strong>,
+                        {% else %}
+                            {{berkas_2.buku.penulis_utama_selain}},
+                        {% endif %}
+                        {% for penulis in berkas_2.buku.penulis_lain.all %}
+                            {{penulis}},
+                        {% endfor %}
+                        {% for penulis_lain in berkas_2.buku.penulis_selain.all %}
+                            {{penulis_lain}},
+                        {% endfor %}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="width: 20%;">Identitas Jurnal Ilmiah</td>
+                        <td style="width: 2%;">:</td>
+                        <td style="width: 2%;">a. </td>
+                        <td style="width: 20%;">ISBN</td>
+                        <td style="width: 2%;">:</td>
+                        <td style="width: 54%;"> {{berkas_2.buku.nomor_isbn}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>b. </td>
+                        <td>Edisi</td>
+                        <td>:</td>
+                        <td>{{berkas_2.buku.edisi}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>c. </td>
+                        <td>Tahun Terbit</td>
+                        <td>:</td>
+                        <td>{{berkas_2.buku.tahun_terbit}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>d. </td>
+                        <td>Penerbit</td>
+                        <td>:</td>
+                        <td>{{berkas_2.buku.penerbit}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>e. </td>
+                        <td>Jumlah Halaman</td>
+                        <td>:</td>
+                        <td>{{berkas_2.buku.jumlah_halaman}}</td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
+                        <td class="checkbox" style="width: 5%;">
+                            {% if berkas_2.buku.kategori_publikasi == 'Buku Referensi' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="width: 55%; padding: 2px 0 0 2px;">Buku Referensi</td>                    
+                    </tr>
+                    <tr>
+                        <td class="checkbox">
+                            {% if berkas_2.buku.kategori_publikasi == 'Buku Monograf' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Buku Monograf</td>
+                    </tr>
+                    <tr>
+                        <td class="checkbox">
+                            {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Book Chapter Internasional</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="checkbox">
+                            {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                                V
+                            {% endif %}
+                        </td>
+                        <td style="padding: 2px 0 0 2px;">Book Chapter Nasional</td>
+                    </tr>
+                </table>
+                <p>Hasil Penilaian Peer Review :</p>
+                <table style="border-collapse: collapse;">
+                    <tr class="bordernilai">
+                        <td style="text-align: center;">Komponen Yang Dinilai</td>
+                        <td style="text-align: center;" colspan="4">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
+                        <td style="text-align: center;">Nilai Akhir Yang Diperoleh</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td style="width: 25%;"></td>
+                        <td style="text-align: center; width: 15%">Buku Referensi</td>
+                        <td style="text-align: center; width: 15%">Buku Monograf</td>
+                        <td style="text-align: center; width: 15%">Book Chapter Internasional</td>
+                        <td style="text-align: center; width: 15%">Book Chapter Nasional</td>
+                        <td style="text-align: center; width: 15%;"></td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
+                        {% if berkas_2.buku.kategori_publikasi == 'Buku Referensi' %}
+                            <td style="text-align: center; width: 15%">4</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Buku Monograf' %}
+                            <td style="text-align: center; width: 15%">2</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            <td style="text-align: center; width: 15%">1.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            <td style="text-align: center; width: 15%">1</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 15%;">{{berkas_2.unsur_isi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
+                        {% if berkas_2.buku.kategori_publikasi == 'Buku Referensi' %}
+                            <td style="text-align: center; width: 15%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Buku Monograf' %}
+                            <td style="text-align: center; width: 15%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            <td style="text-align: center; width: 15%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            <td style="text-align: center; width: 15%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 15%;">{{berkas_2.pembahasan}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
+                        {% if berkas_2.buku.kategori_publikasi == 'Buku Referensi' %}
+                            <td style="text-align: center; width: 15%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Buku Monograf' %}
+                            <td style="text-align: center; width: 15%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            <td style="text-align: center; width: 15%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            <td style="text-align: center; width: 15%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 15%;">{{berkas_2.informasi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
+                        {% if berkas_2.buku.kategori_publikasi == 'Buku Referensi' %}
+                            <td style="text-align: center; width: 15%">12</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Buku Monograf' %}
+                            <td style="text-align: center; width: 15%">6</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            <td style="text-align: center; width: 15%">4.5</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            <td style="text-align: center; width: 15%">3</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 15%;">{{berkas_2.kualitas_penerbit}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Total</td>
+                        {% if berkas_2.buku.kategori_publikasi == 'Buku Referensi' %}
+                            <td style="text-align: center; width: 15%">40</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Buku Monograf' %}
+                            <td style="text-align: center; width: 15%">20</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            <td style="text-align: center; width: 15%">15</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            <td style="text-align: center; width: 15%">10</td>
+                        {% else %}
+                            <td style="text-align: center; width: 15%"></td>
+                        {% endif %}
+                        <td style="text-align: center; width: 15%;">{{berkas_2.total}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
+                        <td colspan="4">Penulis Utama dari {{berkas_2.buku.jmlh_penulis}} penulis 
+                        {% if berkas_2.buku.penulis_lain.exists %}
+                            80%
+                        {% elif berkas_2.buku.penulis_lain.exists == False %}
+                            100%
+                        {% endif %}
+                            x ({{berkas_2.total}})</td>
+                        <td>{{berkas_2.nilai_pu|floatformat}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td colspan="6">KOMENTAR/ULASAN PEER REVIEW</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
+                        <td colspan="5">{{berkas_2.cmnt_unsur_isi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
+                        <td colspan="5">{{berkas_2.cmnt_pembahasan}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
+                        <td colspan="5">{{berkas_2.cmnt_informasi}}</td>
+                    </tr>
+                    <tr class="bordernilai">
+                        <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
+                        <td colspan="5">{{berkas_2.cmnt_kualitas_penerbit}}</td>
+                    </tr>
+                </table>
+                <table style="margin-top: 10px;">
+                    <tr>
+                        <td style="width: 72%;"></td>
+                        <td style="width: 40%;">Jatinangor, {{berkas_2.created|date}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Reviewer 2</td>
+                    </tr>
+                </table>
+                {% if berkas_2.buku.reviewer_2.ttd %}
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">
+                                <img style="width: 100px; position: absolute;" src="{{berkas_2.buku.reviewer_2.ttd}}" alt="">
+                                <!-- <div style="position: relative; top: 10px;">{{berkas_2.buku.reviewer_2}}</div> -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{berkas_2.buku.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{berkas_2.buku.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{berkas_2.buku.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{berkas_2.buku.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{berkas_2.buku.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <table style="margin-top: 1.5cm; width: 100%;">
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;"></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 72%;"></td>
+                            <td style="width: 40%;">{{berkas_2.buku.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP. {{berkas_2.buku.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <p class="spacing-kecil">
+                                    <small class="sp">Unit Kerja: {{berkas_2.buku.reviewer_2.unit_kerja}}</small> <br>
+                                    <small class="sp">Bidang Ilmu: {{berkas_2.buku.reviewer_2.bidang_ilmu}}</small> <br>
+                                    <small class="sp">Jabatan/Pangkat: {{berkas_2.buku.reviewer_2.jabatan_pangkat}}</small>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
+            </div>
         {% endif %}
-        {% if rekap_buku.buku.penulis_lain.all.exists %}
-            {% for penuliss in rekap_buku.buku.penulis_lain.all %}
+    {% endif %}
+    {% if berkas.buku.penulis_lain.all.exists %}
+        {% for penuliss in berkas.buku.penulis_lain.all %}
+            {% if usrlogin.is_superuser or usrlogin.id == 22 or usrlogin.id == penuliss.users.id %}
+            <!-- yang aci -->
                 <div class="break"></div>
                 <table style="width: 100%;" class="judul">
                     <tr>
@@ -426,25 +775,25 @@
                         <tr>
                             <td style="width: 20%;">Judul Artikel Ilmiah</td>
                             <td style="width: 2%">: </td>
-                            <td style="width: 78%;">{{rekap_buku.buku.judul}}</td>
+                            <td style="width: 78%;">{{berkas.buku.judul}}</td>
                         </tr>
                         <tr>
                             <td>Penulis Artikel Ilmiah</td>
                             <td>:</td>
                             <td>
-                            {% if rekap_buku.buku.penulis_utama != None %}
-                                {{rekap_buku.buku.penulis_utama}},
+                            {% if berkas.buku.penulis_utama != None %}
+                                {{berkas.buku.penulis_utama}},
                             {% else %}
-                                {{rekap_buku.buku.penulis_utama_selain}},
+                                {{berkas.buku.penulis_utama_selain}},
                             {% endif %}
-                            {% for penulis in rekap_buku.buku.penulis_lain.all %}
+                            {% for penulis in berkas.buku.penulis_lain.all %}
                                 {% if penulis == penuliss %}
                                     <strong>{{penulis}}</strong>,
                                 {% elif penulis != penuliss%}
                                     {{penulis}}
                                 {% endif %}
                             {% endfor %}
-                            {% for penulis_lain in rekap_buku.buku.penulis_selain.all %}
+                            {% for penulis_lain in berkas.buku.penulis_selain.all %}
                                 {{penulis_lain}},
                             {% endfor %}</td>
                         </tr>
@@ -456,7 +805,7 @@
                             <td style="width: 2%;">a. </td>
                             <td style="width: 20%;">ISBN</td>
                             <td style="width: 2%;">:</td>
-                            <td style="width: 54%;"> {{rekap_buku.buku.nomor_isbn}}</td>
+                            <td style="width: 54%;"> {{berkas.buku.nomor_isbn}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -464,7 +813,7 @@
                             <td>b. </td>
                             <td>Edisi</td>
                             <td>:</td>
-                            <td>{{rekap_buku.buku.edisi}}</td>
+                            <td>{{berkas.buku.edisi}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -472,7 +821,7 @@
                             <td>c. </td>
                             <td>Tahun Terbit</td>
                             <td>:</td>
-                            <td>{{rekap_buku.buku.tahun_terbit}}</td>
+                            <td>{{berkas.buku.tahun_terbit}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -480,7 +829,7 @@
                             <td>d. </td>
                             <td>Penerbit</td>
                             <td>:</td>
-                            <td>{{rekap_buku.buku.penerbit}}</td>
+                            <td>{{berkas.buku.penerbit}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -488,14 +837,14 @@
                             <td>e. </td>
                             <td>Jumlah Halaman</td>
                             <td>:</td>
-                            <td>{{rekap_buku.buku.jumlah_halaman}}</td>
+                            <td>{{berkas.buku.jumlah_halaman}}</td>
                         </tr>
                     </table>
                     <table>
                         <tr>
                             <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
                             <td class="checkbox" style="width: 5%;">
-                                {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                                {% if berkas.buku.kategori_publikasi == 'Buku Referensi' %}
                                     V
                                 {% endif %}
                             </td>
@@ -503,7 +852,7 @@
                         </tr>
                         <tr>
                             <td class="checkbox">
-                                {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                                {% if berkas.buku.kategori_publikasi == 'Buku Monograf' %}
                                     V
                                 {% endif %}
                             </td>
@@ -511,7 +860,7 @@
                         </tr>
                         <tr>
                             <td class="checkbox">
-                                {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                                {% if berkas.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                     V
                                 {% endif %}
                             </td>
@@ -520,7 +869,7 @@
                         <tr>
                             <td></td>
                             <td class="checkbox">
-                                {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                                {% if berkas.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                     V
                                 {% endif %}
                             </td>
@@ -544,570 +893,215 @@
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                            {% if berkas.buku.kategori_publikasi == 'Buku Referensi' %}
                                 <td style="text-align: center; width: 15%">4</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                            {% if berkas.buku.kategori_publikasi == 'Buku Monograf' %}
                                 <td style="text-align: center; width: 15%">2</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            {% if berkas.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                 <td style="text-align: center; width: 15%">1.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            {% if berkas.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                 <td style="text-align: center; width: 15%">1</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 15%;">{{rekap_buku.unsur_isi}}</td>
+                            <td style="text-align: center; width: 15%;">{{berkas.unsur_isi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                            {% if berkas.buku.kategori_publikasi == 'Buku Referensi' %}
                                 <td style="text-align: center; width: 15%">12</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                            {% if berkas.buku.kategori_publikasi == 'Buku Monograf' %}
                                 <td style="text-align: center; width: 15%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            {% if berkas.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                 <td style="text-align: center; width: 15%">4.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            {% if berkas.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                 <td style="text-align: center; width: 15%">3</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 15%;">{{rekap_buku.pembahasan}}</td>
+                            <td style="text-align: center; width: 15%;">{{berkas.pembahasan}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                            {% if berkas.buku.kategori_publikasi == 'Buku Referensi' %}
                                 <td style="text-align: center; width: 15%">12</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                            {% if berkas.buku.kategori_publikasi == 'Buku Monograf' %}
                                 <td style="text-align: center; width: 15%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            {% if berkas.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                 <td style="text-align: center; width: 15%">4.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            {% if berkas.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                 <td style="text-align: center; width: 15%">3</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 15%;">{{rekap_buku.informasi}}</td>
+                            <td style="text-align: center; width: 15%;">{{berkas.informasi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                            {% if berkas.buku.kategori_publikasi == 'Buku Referensi' %}
                                 <td style="text-align: center; width: 15%">12</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                            {% if berkas.buku.kategori_publikasi == 'Buku Monograf' %}
                                 <td style="text-align: center; width: 15%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            {% if berkas.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                 <td style="text-align: center; width: 15%">4.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            {% if berkas.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                 <td style="text-align: center; width: 15%">3</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 15%;">{{rekap_buku.kualitas_penerbit}}</td>
+                            <td style="text-align: center; width: 15%;">{{berkas.kualitas_penerbit}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Total</td>
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                            {% if berkas.buku.kategori_publikasi == 'Buku Referensi' %}
                                 <td style="text-align: center; width: 15%">40</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                            {% if berkas.buku.kategori_publikasi == 'Buku Monograf' %}
                                 <td style="text-align: center; width: 15%">20</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            {% if berkas.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                 <td style="text-align: center; width: 15%">15</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            {% if berkas.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                 <td style="text-align: center; width: 15%">10</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 15%;">{{rekap_buku.total}}</td>
+                            <td style="text-align: center; width: 15%;">{{berkas.total}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
-                            <td colspan="4">Penulis Anggota dari {{rekap_buku.buku.jmlh_penulis}} penulis 20% x ({{rekap_buku.total}}/{{rekap_buku.jmlh_penulis_lain}})</td>
-                            <td>{{rekap_buku.nilai_pl|floatformat}}</td>
+                            <td colspan="4">Penulis Anggota dari {{berkas.buku.jmlh_penulis}} penulis 20% x ({{berkas.total}}/{{berkas.jmlh_penulis_lain}})</td>
+                            <td>{{berkas.nilai_pl|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td colspan="6">KOMENTAR/ULASAN PEER REVIEW</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
-                            <td colspan="5">{{rekap_buku.cmnt_unsur_isi}}</td>
+                            <td colspan="5">{{berkas.cmnt_unsur_isi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
-                            <td colspan="5">{{rekap_buku.cmnt_pembahasan}}</td>
+                            <td colspan="5">{{berkas.cmnt_pembahasan}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
-                            <td colspan="5">{{rekap_buku.cmnt_informasi}}</td>
+                            <td colspan="5">{{berkas.cmnt_informasi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
-                            <td colspan="5">{{rekap_buku.cmnt_kualitas_penerbit}}</td>
+                            <td colspan="5">{{berkas.cmnt_kualitas_penerbit}}</td>
                         </tr>
                     </table>
                     <table style="margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
-                            <td style="width: 40%;">Jatinangor, {{rekap_buku.created|date}}</td>
+                            <td style="width: 40%;">Jatinangor, {{berkas.created|date}}</td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>Reviewer</td>
                         </tr>
                     </table>
-                    {% if rekap_buku.buku.reviewer.ttd %}
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">
-                                <img style="width: 100px; position: absolute;" src="{{rekap_buku.buku.reviewer.ttd}}" alt="">
-                                <!-- <div style="position: relative; top: 10px;">{{rekap_buku.buku.reviewer}}</div> -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">{{rekap_buku.buku.reviewer}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>NIP. {{rekap_buku.buku.reviewer.nip}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer.jabatan_pangkat}}</small>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                {% else %}
-                    <table style="margin-top: 1.5cm; width: 100%;">
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;"></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">{{rekap_buku.buku.reviewer}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>NIP. {{rekap_buku.buku.reviewer.nip}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer.jabatan_pangkat}}</small>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                {% endif %}
+                    {% if berkas.buku.reviewer.ttd %}
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">
+                                    <img style="width: 100px; position: absolute;" src="{{berkas.buku.reviewer.ttd}}" alt="">
+                                    <!-- <div style="position: relative; top: 10px;">{{berkas.buku.reviewer}}</div> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">{{berkas.buku.reviewer}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>NIP. {{berkas.buku.reviewer.nip}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p class="spacing-kecil">
+                                        <small class="sp">Unit Kerja: {{berkas.buku.reviewer.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{berkas.buku.reviewer.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{berkas.buku.reviewer.jabatan_pangkat}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    {% else %}
+                        <table style="margin-top: 1.5cm; width: 100%;">
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">{{berkas.buku.reviewer}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>NIP. {{berkas.buku.reviewer.nip}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p class="spacing-kecil">
+                                        <small class="sp">Unit Kerja: {{berkas.buku.reviewer.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{berkas.buku.reviewer.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{berkas.buku.reviewer.jabatan_pangkat}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    {% endif %}
                 </div>
-                <!-- End of PL -->
-            {% endfor %}
-        {% endif %}
-    {% endif %}
-
-    {% if usrlogin.id == rekap_buku.buku.penulis_utama.users.id %}
-        <table style="width: 100%;" class="judul">
-            <tr>
-                <th style="text-align: right;">Lampiran 6</th>
-            </tr>
-            <tr>
-                <th style="text-align: center;">LEMBAR</th>
-            </tr>
-            <tr>
-                <th style="text-align: center;">HASIL PENILAIAN SEJAWAT SEBIDANG ATAU PEER REVIEW</th>
-            </tr>
-            <tr>
-                <th style="text-align: center;">KARYA ILMIAH : BUKU</th>
-            </tr>
-        </table>
-        <div class="paragraf">
-            <table style="width: 100%;">
-                <tr>
-                    <td style="width: 20%;">Judul Artikel Ilmiah</td>
-                    <td style="width: 2%">: </td>
-                    <td style="width: 78%;">{{rekap_buku.buku.judul}}</td>
-                </tr>
-                <tr>
-                    <td>Penulis Artikel Ilmiah</td>
-                    <td>:</td>
-                    <td>
-                    {% if rekap_buku.buku.penulis_utama != None %}
-                        <strong>{{rekap_buku.buku.penulis_utama}}</strong>,
-                    {% else %}
-                        {{rekap_buku.buku.penulis_utama_selain}},
-                    {% endif %}
-                    {% for penulis in rekap_buku.buku.penulis_lain.all %}
-                        {{penulis}},
-                    {% endfor %}
-                    {% for penulis_lain in rekap_buku.buku.penulis_selain.all %}
-                        {{penulis_lain}},
-                    {% endfor %}</td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <td style="width: 20%;">Identitas Jurnal Ilmiah</td>
-                    <td style="width: 2%;">:</td>
-                    <td style="width: 2%;">a. </td>
-                    <td style="width: 20%;">ISBN</td>
-                    <td style="width: 2%;">:</td>
-                    <td style="width: 54%;"> {{rekap_buku.buku.nomor_isbn}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>b. </td>
-                    <td>Edisi</td>
-                    <td>:</td>
-                    <td>{{rekap_buku.buku.edisi}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>c. </td>
-                    <td>Tahun Terbit</td>
-                    <td>:</td>
-                    <td>{{rekap_buku.buku.tahun_terbit}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>d. </td>
-                    <td>Penerbit</td>
-                    <td>:</td>
-                    <td>{{rekap_buku.buku.penerbit}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>e. </td>
-                    <td>Jumlah Halaman</td>
-                    <td>:</td>
-                    <td>{{rekap_buku.buku.jumlah_halaman}}</td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
-                    <td class="checkbox" style="width: 5%;">
-                        {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
-                            V
-                        {% endif %}
-                    </td>
-                    <td style="width: 55%; padding: 2px 0 0 2px;">Buku Referensi</td>                    
-                </tr>
-                <tr>
-                    <td class="checkbox">
-                        {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
-                            V
-                        {% endif %}
-                    </td>
-                    <td style="padding: 2px 0 0 2px;">Buku Monograf</td>
-                </tr>
-                <tr>
-                    <td class="checkbox">
-                        {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
-                            V
-                        {% endif %}
-                    </td>
-                    <td style="padding: 2px 0 0 2px;">Book Chapter Internasional</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td class="checkbox">
-                        {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
-                            V
-                        {% endif %}
-                    </td>
-                    <td style="padding: 2px 0 0 2px;">Book Chapter Nasional</td>
-                </tr>
-            </table>
-            <p>Hasil Penilaian Peer Review :</p>
-            <table style="border-collapse: collapse;">
-                <tr class="bordernilai">
-                    <td style="text-align: center;">Komponen Yang Dinilai</td>
-                    <td style="text-align: center;" colspan="4">Nilai Maksimal Jurnal Ilmiah (isikan di kolom yang sesuai)</td>
-                    <td style="text-align: center;">Nilai Akhir Yang Diperoleh</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td style="width: 25%;"></td>
-                    <td style="text-align: center; width: 15%">Buku Referensi</td>
-                    <td style="text-align: center; width: 15%">Buku Monograf</td>
-                    <td style="text-align: center; width: 15%">Book Chapter Internasional</td>
-                    <td style="text-align: center; width: 15%">Book Chapter Nasional</td>
-                    <td style="text-align: center; width: 15%;"></td>
-                </tr>
-                <tr class="bordernilai">
-                    <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                    {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
-                        <td style="text-align: center; width: 15%">4</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
-                        <td style="text-align: center; width: 15%">2</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
-                        <td style="text-align: center; width: 15%">1.5</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
-                        <td style="text-align: center; width: 15%">1</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    <td style="text-align: center; width: 15%;">{{rekap_buku.unsur_isi}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                    {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
-                        <td style="text-align: center; width: 15%">12</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
-                        <td style="text-align: center; width: 15%">6</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
-                        <td style="text-align: center; width: 15%">4.5</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
-                        <td style="text-align: center; width: 15%">3</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    <td style="text-align: center; width: 15%;">{{rekap_buku.pembahasan}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                    {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
-                        <td style="text-align: center; width: 15%">12</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
-                        <td style="text-align: center; width: 15%">6</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
-                        <td style="text-align: center; width: 15%">4.5</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
-                        <td style="text-align: center; width: 15%">3</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    <td style="text-align: center; width: 15%;">{{rekap_buku.informasi}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                    {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
-                        <td style="text-align: center; width: 15%">12</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
-                        <td style="text-align: center; width: 15%">6</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
-                        <td style="text-align: center; width: 15%">4.5</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
-                        <td style="text-align: center; width: 15%">3</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    <td style="text-align: center; width: 15%;">{{rekap_buku.kualitas_penerbit}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td>Total</td>
-                    {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
-                        <td style="text-align: center; width: 15%">40</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
-                        <td style="text-align: center; width: 15%">20</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
-                        <td style="text-align: center; width: 15%">15</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
-                        <td style="text-align: center; width: 15%">10</td>
-                    {% else %}
-                        <td style="text-align: center; width: 15%"></td>
-                    {% endif %}
-                    <td style="text-align: center; width: 15%;">{{rekap_buku.total}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
-                    <td colspan="4">Penulis Utama dari {{rekap_buku.buku.jmlh_penulis}} penulis 
-                    {% if rekap_buku.buku.penulis_lain.exists %}
-                        80%
-                    {% elif rekap_buku.buku.penulis_lain.exists == False %}
-                        100%
-                    {% endif %}
-                        x ({{rekap_buku.total}})</td>
-                    <td>{{rekap_buku.nilai_pu|floatformat}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td colspan="6">KOMENTAR/ULASAN PEER REVIEW</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
-                    <td colspan="5">{{rekap_buku.cmnt_unsur_isi}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
-                    <td colspan="5">{{rekap_buku.cmnt_pembahasan}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
-                    <td colspan="5">{{rekap_buku.cmnt_informasi}}</td>
-                </tr>
-                <tr class="bordernilai">
-                    <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
-                    <td colspan="5">{{rekap_buku.cmnt_kualitas_penerbit}}</td>
-                </tr>
-            </table>
-            <table style="margin-top: 10px;">
-                <tr>
-                    <td style="width: 72%;"></td>
-                    <td style="width: 40%;">Jatinangor, {{rekap_buku.created|date}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Reviewer</td>
-                </tr>
-            </table>
-            {% if rekap_buku.buku.reviewer.ttd %}
-            <table style="width: 100%;">
-                <tr>
-                    <td style="width: 72%;"></td>
-                    <td style="width: 40%;">
-                        <img style="width: 100px; position: absolute;" src="{{rekap_buku.buku.reviewer.ttd}}" alt="">
-                        <!-- <div style="position: relative; top: 10px;">{{rekap_buku.buku.reviewer}}</div> -->
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 72%;"></td>
-                    <td style="width: 40%;">{{rekap_buku.buku.reviewer}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>NIP. {{rekap_buku.buku.reviewer.nip}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <p class="spacing-kecil">
-                            <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer.unit_kerja}}</small> <br>
-                            <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer.bidang_ilmu}}</small> <br>
-                            <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer.jabatan_pangkat}}</small>
-                        </p>
-                    </td>
-                </tr>
-            </table>
-        {% else %}
-            <table style="margin-top: 1.5cm; width: 100%;">
-                <tr>
-                    <td style="width: 72%;"></td>
-                    <td style="width: 40%;"></td>
-                </tr>
-                <tr>
-                    <td style="width: 72%;"></td>
-                    <td style="width: 40%;">{{rekap_buku.buku.reviewer}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>NIP. {{rekap_buku.buku.reviewer.nip}}</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <p class="spacing-kecil">
-                            <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer.unit_kerja}}</small> <br>
-                            <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer.bidang_ilmu}}</small> <br>
-                            <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer.jabatan_pangkat}}</small>
-                        </p>
-                    </td>
-                </tr>
-            </table>
-        {% endif %}
-        </div>
-    {% elif rekap_buku.buku.penulis_lain.all.exists %}
-        {% for penuliss in rekap_buku.buku.penulis_lain.all %}
-            {% if usrlogin.id == penuliss.users.id %}
+                <div class="break"></div>
                 <table style="width: 100%;" class="judul">
                     <tr>
                         <th style="text-align: right;">Lampiran 6</th>
@@ -1127,25 +1121,25 @@
                         <tr>
                             <td style="width: 20%;">Judul Artikel Ilmiah</td>
                             <td style="width: 2%">: </td>
-                            <td style="width: 78%;">{{rekap_buku.buku.judul}}</td>
+                            <td style="width: 78%;">{{berkas_2.buku.judul}}</td>
                         </tr>
                         <tr>
                             <td>Penulis Artikel Ilmiah</td>
                             <td>:</td>
                             <td>
-                            {% if rekap_buku.buku.penulis_utama != None %}
-                                {{rekap_buku.buku.penulis_utama}},
+                            {% if berkas_2.buku.penulis_utama != None %}
+                                {{berkas_2.buku.penulis_utama}},
                             {% else %}
-                                {{rekap_buku.buku.penulis_utama_selain}},
+                                {{berkas_2.buku.penulis_utama_selain}},
                             {% endif %}
-                            {% for penulis in rekap_buku.buku.penulis_lain.all %}
+                            {% for penulis in berkas_2.buku.penulis_lain.all %}
                                 {% if penulis == penuliss %}
                                     <strong>{{penulis}}</strong>,
                                 {% elif penulis != penuliss%}
                                     {{penulis}}
                                 {% endif %}
                             {% endfor %}
-                            {% for penulis_lain in rekap_buku.buku.penulis_selain.all %}
+                            {% for penulis_lain in berkas_2.buku.penulis_selain.all %}
                                 {{penulis_lain}},
                             {% endfor %}</td>
                         </tr>
@@ -1157,7 +1151,7 @@
                             <td style="width: 2%;">a. </td>
                             <td style="width: 20%;">ISBN</td>
                             <td style="width: 2%;">:</td>
-                            <td style="width: 54%;"> {{rekap_buku.buku.nomor_isbn}}</td>
+                            <td style="width: 54%;"> {{berkas_2.buku.nomor_isbn}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -1165,7 +1159,7 @@
                             <td>b. </td>
                             <td>Edisi</td>
                             <td>:</td>
-                            <td>{{rekap_buku.buku.edisi}}</td>
+                            <td>{{berkas_2.buku.edisi}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -1173,7 +1167,7 @@
                             <td>c. </td>
                             <td>Tahun Terbit</td>
                             <td>:</td>
-                            <td>{{rekap_buku.buku.tahun_terbit}}</td>
+                            <td>{{berkas_2.buku.tahun_terbit}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -1181,7 +1175,7 @@
                             <td>d. </td>
                             <td>Penerbit</td>
                             <td>:</td>
-                            <td>{{rekap_buku.buku.penerbit}}</td>
+                            <td>{{berkas_2.buku.penerbit}}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -1189,14 +1183,14 @@
                             <td>e. </td>
                             <td>Jumlah Halaman</td>
                             <td>:</td>
-                            <td>{{rekap_buku.buku.jumlah_halaman}}</td>
+                            <td>{{berkas_2.buku.jumlah_halaman}}</td>
                         </tr>
                     </table>
                     <table>
                         <tr>
                             <td style="width: 40%;" rowspan="3">Kategori Publikasi Jurnal Ilmiah beri √ pada kategori yang tepat)</td>
                             <td class="checkbox" style="width: 5%;">
-                                {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                                {% if berkas_2.buku.kategori_publikasi == 'Buku Referensi' %}
                                     V
                                 {% endif %}
                             </td>
@@ -1204,7 +1198,7 @@
                         </tr>
                         <tr>
                             <td class="checkbox">
-                                {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                                {% if berkas_2.buku.kategori_publikasi == 'Buku Monograf' %}
                                     V
                                 {% endif %}
                             </td>
@@ -1212,7 +1206,7 @@
                         </tr>
                         <tr>
                             <td class="checkbox">
-                                {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                                {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                     V
                                 {% endif %}
                             </td>
@@ -1221,7 +1215,7 @@
                         <tr>
                             <td></td>
                             <td class="checkbox">
-                                {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                                {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                     V
                                 {% endif %}
                             </td>
@@ -1245,217 +1239,216 @@
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan dan Kesesuaian isi Jurnal(10%)</td>
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Buku Referensi' %}
                                 <td style="text-align: center; width: 15%">4</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Buku Monograf' %}
                                 <td style="text-align: center; width: 15%">2</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                 <td style="text-align: center; width: 15%">1.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                 <td style="text-align: center; width: 15%">1</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 15%;">{{rekap_buku.unsur_isi}}</td>
+                            <td style="text-align: center; width: 15%;">{{berkas_2.unsur_isi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Ruang lingkup dan kedalaman pembahasan(30%)</td>
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Buku Referensi' %}
                                 <td style="text-align: center; width: 15%">12</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Buku Monograf' %}
                                 <td style="text-align: center; width: 15%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                 <td style="text-align: center; width: 15%">4.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                 <td style="text-align: center; width: 15%">3</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 15%;">{{rekap_buku.pembahasan}}</td>
+                            <td style="text-align: center; width: 15%;">{{berkas_2.pembahasan}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kecukupan dan kemutahiran data/iformasi dan metodologi(30%)</td>
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Buku Referensi' %}
                                 <td style="text-align: center; width: 15%">12</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Buku Monograf' %}
                                 <td style="text-align: center; width: 15%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                 <td style="text-align: center; width: 15%">4.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                 <td style="text-align: center; width: 15%">3</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 15%;">{{rekap_buku.informasi}}</td>
+                            <td style="text-align: center; width: 15%;">{{berkas_2.informasi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kelengkapan unsur dan kualitas penerbit(30%)</td>
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Buku Referensi' %}
                                 <td style="text-align: center; width: 15%">12</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Buku Monograf' %}
                                 <td style="text-align: center; width: 15%">6</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                 <td style="text-align: center; width: 15%">4.5</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                 <td style="text-align: center; width: 15%">3</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 15%;">{{rekap_buku.kualitas_penerbit}}</td>
+                            <td style="text-align: center; width: 15%;">{{berkas_2.kualitas_penerbit}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Total</td>
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Referensi' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Buku Referensi' %}
                                 <td style="text-align: center; width: 15%">40</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Buku Monograf' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Buku Monograf' %}
                                 <td style="text-align: center; width: 15%">20</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Internasional' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Internasional' %}
                                 <td style="text-align: center; width: 15%">15</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            {% if rekap_buku.buku.kategori_publikasi == 'Book Chapter Nasional' %}
+                            {% if berkas_2.buku.kategori_publikasi == 'Book Chapter Nasional' %}
                                 <td style="text-align: center; width: 15%">10</td>
                             {% else %}
                                 <td style="text-align: center; width: 15%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 15%;">{{rekap_buku.total}}</td>
+                            <td style="text-align: center; width: 15%;">{{berkas_2.total}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kotribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
-                            <td colspan="4">Penulis Anggota dari {{rekap_buku.buku.jmlh_penulis}} penulis 20% x ({{rekap_buku.total}}/{{rekap_buku.jmlh_penulis_lain}})</td>
-                            <td>{{rekap_buku.nilai_pl|floatformat}}</td>
+                            <td colspan="4">Penulis Anggota dari {{berkas_2.buku.jmlh_penulis}} penulis 20% x ({{berkas_2.total}}/{{berkas_2.jmlh_penulis_lain}})</td>
+                            <td>{{berkas_2.nilai_pl|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td colspan="6">KOMENTAR/ULASAN PEER REVIEW</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Kelengkapan dan Kesesuaian Unsur</td>
-                            <td colspan="5">{{rekap_buku.cmnt_unsur_isi}}</td>
+                            <td colspan="5">{{berkas_2.cmnt_unsur_isi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Ruang Lingkup dan Kedalaman Pembahasan</td>
-                            <td colspan="5">{{rekap_buku.cmnt_pembahasan}}</td>
+                            <td colspan="5">{{berkas_2.cmnt_pembahasan}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Kecukupan & Kemutakhiran Data & Metodologi</td>
-                            <td colspan="5">{{rekap_buku.cmnt_informasi}}</td>
+                            <td colspan="5">{{berkas_2.cmnt_informasi}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td class="bordernilai">Kelengkapan Unsur & Kualitas Penerbit</td>
-                            <td colspan="5">{{rekap_buku.cmnt_kualitas_penerbit}}</td>
+                            <td colspan="5">{{berkas_2.cmnt_kualitas_penerbit}}</td>
                         </tr>
                     </table>
                     <table style="margin-top: 10px;">
                         <tr>
                             <td style="width: 72%;"></td>
-                            <td style="width: 40%;">Jatinangor, {{rekap_buku.created|date}}</td>
+                            <td style="width: 40%;">Jatinangor, {{berkas_2.created|date}}</td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td>Reviewer</td>
+                            <td>Reviewer 2</td>
                         </tr>
                     </table>
-                    {% if rekap_buku.buku.reviewer.ttd %}
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">
-                                <img style="width: 100px; position: absolute;" src="{{rekap_buku.buku.reviewer.ttd}}" alt="">
-                                <!-- <div style="position: relative; top: 10px;">{{rekap_buku.buku.reviewer}}</div> -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">{{rekap_buku.buku.reviewer}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>NIP. {{rekap_buku.buku.reviewer.nip}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer.jabatan_pangkat}}</small>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                {% else %}
-                    <table style="margin-top: 1.5cm; width: 100%;">
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;"></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 72%;"></td>
-                            <td style="width: 40%;">{{rekap_buku.buku.reviewer}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>NIP. {{rekap_buku.buku.reviewer.nip}}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <p class="spacing-kecil">
-                                    <small class="sp">Unit Kerja: {{rekap_buku.buku.reviewer.unit_kerja}}</small> <br>
-                                    <small class="sp">Bidang Ilmu: {{rekap_buku.buku.reviewer.bidang_ilmu}}</small> <br>
-                                    <small class="sp">Jabatan/Pangkat: {{rekap_buku.buku.reviewer.jabatan_pangkat}}</small>
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
-                {% endif %}
+                    {% if berkas_2.buku.reviewer_2.ttd %}
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">
+                                    <img style="width: 100px; position: absolute;" src="{{berkas_2.buku.reviewer_2.ttd}}" alt="">
+                                    <!-- <div style="position: relative; top: 10px;">{{berkas_2.buku.reviewer_2}}</div> -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">{{berkas_2.buku.reviewer_2}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>NIP. {{berkas_2.buku.reviewer_2.nip}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p class="spacing-kecil">
+                                        <small class="sp">Unit Kerja: {{berkas_2.buku.reviewer_2.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{berkas_2.buku.reviewer_2.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{berkas_2.buku.reviewer_2.jabatan_pangkat}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    {% else %}
+                        <table style="margin-top: 1.5cm; width: 100%;">
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;"></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 72%;"></td>
+                                <td style="width: 40%;">{{berkas_2.buku.reviewer_2}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>NIP. {{berkas_2.buku.reviewer_2.nip}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <p class="spacing-kecil">
+                                        <small class="sp">Unit Kerja: {{berkas_2.buku.reviewer_2.unit_kerja}}</small> <br>
+                                        <small class="sp">Bidang Ilmu: {{berkas_2.buku.reviewer_2.bidang_ilmu}}</small> <br>
+                                        <small class="sp">Jabatan/Pangkat: {{berkas_2.buku.reviewer_2.jabatan_pangkat}}</small>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    {% endif %}
                 </div>
             {% endif %}
         {% endfor %}
     {% endif %}
-        
 </body>
 </html>

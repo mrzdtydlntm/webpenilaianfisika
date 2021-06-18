@@ -1,3 +1,4 @@
+from os import name
 from django.views.static import serve
 from django.urls import path
 from . import views
@@ -5,6 +6,8 @@ from webfisika import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('edit_data/<pk>/', views.EditDataDiriView.as_view(), name='edit_data'),
+    ######### End Edit Data User #########
     path('upload_berkas_jurnal/', views.UploadBerkasJurnalView.as_view(), name='upload_berkas_jurnal'),
     path('upload_berkas_prosiding/', views.UploadBerkasProsidingView.as_view(), name='upload_berkas_prosiding'),
     path('upload_berkas_buku/', views.UploadBerkasBukuView.as_view(), name='upload_berkas_buku'),
@@ -26,6 +29,7 @@ urlpatterns = [
     path('histori_pengajuan/haki/edit/<pk>/', views.EditBerkasHakiView.as_view(), name='edit_berkas_haki'),
     ######### End Edit Berkas #########
     path('histori_pengajuan/jurnal/plagiasi_linieritas/<pk>/', views.PlagiasiLinieritasView.as_view(), name='plagiasi'),
+    path('histori_pengajuan/prosiding/plagiasi_linieritas/<pk>/', views.PlagiasiLinieritasProsidingView.as_view(), name='plagiasi_prosiding'),
     ######### End Plagiasi #########
     path('histori_pengajuan/jurnal/verifikasi/<pk>/', views.VerifikasiBerkasJurnalView.as_view(), name='verifikasi_berkas_jurnal'),
     path('histori_pengajuan/prosiding/verifikasi/<pk>/', views.VerifikasiBerkasProsidingView.as_view(), name='verifikasi_berkas_prosiding'),
@@ -53,6 +57,11 @@ urlpatterns = [
     path('rekap_prosiding/R2/<slug>/',views.HasilPenilaianProsiding2View.as_view(), name='rekap_prosiding2'),
     path('rekap_buku/R2/<slug>/',views.HasilPenilaianBuku2View.as_view(), name='rekap_buku2'),
     path('rekap_haki/R2/<slug>/',views.HasilPenilaianHaki2View.as_view(), name='rekap_haki2'),
+    # Gabungan R1 dan R2 #
+    path('rekap_jurnal/<slug>/', views.HasilPenilaianBerkasJurnalGabunganView.as_view(), name='gabungan_jurnal'),
+    path('rekap_prosiding/<slug>/', views.HasilPenilaianBerkasProsidingGabunganView.as_view(), name='gabungan_prosiding'),
+    path('rekap_buku/<slug>/', views.HasilPenilaianBerkasBukuGabunganView.as_view(), name='gabungan_buku'),
+    path('rekap_haki/<slug>/', views.HasilPenilaianBerkasHakiGabunganView.as_view(), name='gabungan_haki'),
     ######### End of Hasil Rekap #########
     path('tambah_penulis/', views.PenulisLainView.as_view(), name='tambah_penulis'),
     ######### End of Tambah Penulis #########
@@ -71,8 +80,6 @@ urlpatterns = [
     path('penilaian_prosiding/edit/R2/<slug>/', views.PenilaianBerkasProsiding2EditView.as_view(), name='edit_penilaian_prosiding2'),
     path('penilaian_buku/edit/R2/<slug>/', views.PenilaianBerkasBuku2EditView.as_view(), name='edit_penilaian_buku2'),
     path('penilaian_haki/edit/R2/<slug>/', views.PenilaianBerkasHaki2EditView.as_view(), name='edit_penilaian_haki2'),
-    path('gabungan/<pk>/', views.Gabungan.as_view()),
-    ######## Gabungan ########
     ######### End of Edit Penilaian #########
     path('error/penilaian_belum_ada', views.ErrorMessage.as_view(), name='error_message'),
 ]

@@ -35,6 +35,7 @@
               <th>Penulis Korespondensi</th>
               <th>Detail</th>
               <th>Status</th>
+              <th>Cek Hasil Turnitin</th>
               <th>Hasil Penilaian</th>
             </tr>
           </thead>
@@ -82,10 +83,29 @@
                       {% endif %}
                     </td>
                     <td>
+                      {% if berkas.tingkat_publikasi == 'Internasional' %}
+                        {% if berkas.plagiasi != None %}
+                          <a href="{{berkas.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
+                        {% else %}
+                          <a class="btn btn-warning" href="{% url 'penilaian:plagiasi_prosiding' berkas.pk %}">Belum Ada</a>
+                        {% endif %}
+                      {% else %}
+                        <button disabled class="btn btn-secondary">Tidak Perlu</button>
+                      {% endif %}
+                    </td>
+                    <td>
                       {% if berkas.is_verificated %}
                         <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}" target="_blank">Reviewer 1</a>
                         <div class="spacing"></div>
                         <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding2' berkas.slug %}" target="_blank">Reviewer 2</a>
+                        <div class="spacing"></div>
+                        {% for list1 in list_berkas %}
+                          {% for list2 in list_berkas_2 %}
+                            {% if list1.prosiding.pk == list2.prosiding.pk and list1.prosiding.pk == berkas.pk %}
+                              <a href="{% url 'penilaian:gabungan_prosiding' berkas.slug%}" class="btn btn-sm btn-primary" target="_blank">R1 dan R2</a>
+                            {% endif %}
+                          {% endfor %}
+                        {% endfor %}
                       {% endif %}
                     </td>
                 </tr>
@@ -133,10 +153,29 @@
                         {% endif %}
                       </td>
                       <td>
+                        {% if berkas.tingkat_publikasi == 'Internasional' %}
+                          {% if berkas.plagiasi != None %}
+                            <a href="{{berkas.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
+                          {% else %}
+                            <a class="btn btn-warning" href="{% url 'penilaian:plagiasi_prosiding' berkas.pk %}">Belum Ada</a>
+                          {% endif %}
+                        {% else %}
+                          <button disabled class="btn btn-secondary">Tidak Perlu</button>
+                        {% endif %}
+                      </td>
+                      <td>
                         {% if berkas.is_verificated %}
                           <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}" target="_blank">Reviewer 1</a>
                           <div class="spacing"></div>
                           <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding2' berkas.slug %}" target="_blank">Reviewer 2</a>
+                          <div class="spacing"></div>
+                          {% for list1 in list_berkas %}
+                            {% for list2 in list_berkas_2 %}
+                              {% if list1.prosiding.pk == list2.prosiding.pk and list1.prosiding.pk == berkas.pk %}
+                                <a href="{% url 'penilaian:gabungan_prosiding' berkas.slug%}" class="btn btn-sm btn-primary" target="_blank">R1 dan R2</a>
+                              {% endif %}
+                            {% endfor %}
+                          {% endfor %}
                         {% endif %}
                       </td>
                   </tr>

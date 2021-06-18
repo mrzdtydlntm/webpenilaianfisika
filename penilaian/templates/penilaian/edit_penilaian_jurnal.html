@@ -25,7 +25,31 @@
             <div class="form-group">
                 {% csrf_token %}
                 <br>
-                {{form.as_p}}
+                <p><label for="id_jurnal">Jurnal:</label> {{form.jurnal}}</p>
+                <p><label for="id_plagiasi">Komentar Plagiasi dari Reviewer</label> {{form.plagiasi}}<small>Nilai Plagiasi dari Jurnal:
+                    {% if upload.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' or upload.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' or upload.kategori_publikasi == 'Jurnal Ilmiah Internasional'  %}
+                        {{upload.plagiasi}}%
+                    {% else %}
+                        Berkas bukan kategori internasional
+                    {% endif %}
+                    </small>
+                </p>
+                <p><label for="id_linieritas">Komentar Linieritas dari Reviewer</label> {{form.linieritas}}<small>Nilai Linieritas dari Jurnal:
+                    {% if upload.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' or upload.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' or upload.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                        {{upload.linieritas}}
+                    {% else %}
+                        Berkas bukan kategori internasional
+                    {% endif %}
+                    </small>
+                </p>
+                <p><label for="id_unsur_isi">Nilai Kelengkapan dan Kesesuaian Unsur Isi Jurnal:</label> {{form.unsur_isi}}</p>
+                <p><label for="id_cmnt_unsur_isi">Komentar Kelengkapan dan Kesesuaian Unsur Isi Jurnal:</label><a class="float-right btn btn-outline-success btn-sm py-0" style="font-size: 0.8em;" data-toggle="modal" data-target="#KomenUnsurIsiJurnal">Panduan Komentar Unsur Isi</a> {{form.cmnt_unsur_isi}}</p>
+                <p><label for="id_pembahasan">Nilai Ruang Lingkup dan Kedalaman Pembahasan:</label> {{form.pembahasan}}</p>
+                <p><label for="id_cmnt_pembahasan">Komentar Ruang Lingkup dan Kedalaman Pembahasan:</label><a class="float-right btn btn-outline-success btn-sm py-0" style="font-size: 0.8em;" data-toggle="modal" data-target="#KomenRuangLingkupJurnal">Panduan Komentar Ruang Lingkup</a> {{form.cmnt_pembahasan}}</p>
+                <p><label for="id_informasi">Nilai Kecukupan dan Kemutahiran Data/Informasi dan Metodologi:</label> {{form.informasi}}</p>
+                <p><label for="id_cmnt_informasi">Komentar Kecukupan dan Kemutahiran Data/Informasi dan Metodologi:</label><a class="float-right btn btn-outline-success btn-sm py-0" style="font-size: 0.8em;" data-toggle="modal" data-target="#KomenInformasiJurnal">Panduan Komentar Kemutahiran Data/Informasi dan Metodologi</a> {{form.cmnt_informasi}}</p>
+                <p><label for="id_kualitas_penerbit">Nilai Kelengkapan Unsur dan Kualitas Penerbit:</label> {{form.kualitas_penerbit}}</p>
+                <p><label for="id_cmnt_kualitas_penerbit">Komentar Kelengkapan Unsur dan Kualitas Penerbit:</label><a class="float-right btn btn-outline-success btn-sm py-0" style="font-size: 0.8em;" data-toggle="modal" data-target="#KomenPenerbitJurnal">Panduan Komentar Unsur dan Kualitas Penerbit</a> {{form.cmnt_kualitas_penerbit}}</p>
                 <button class="btn btn-primary" type="submit">Submit</button>
             </div>
         </form>

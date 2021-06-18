@@ -74,6 +74,14 @@
                         <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_buku' berkas.slug %}" target="_blank">Reviewer 1</a>
                         <div class="spacing"></div>
                         <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_buku2' berkas.slug %}" target="_blank">Reviewer 2</a>
+                        <div class="spacing"></div>
+                        {% for list1 in list_berkas %}
+                          {% for list2 in list_berkas_2 %}
+                            {% if list1.buku.pk == list2.buku.pk and list1.buku.pk == berkas.pk %}
+                              <a href="{% url 'penilaian:gabungan_buku' berkas.slug%}" class="btn btn-sm btn-primary" target="_blank">R1 dan R2</a>
+                            {% endif %}
+                          {% endfor %}
+                        {% endfor %}
                       {% endif %}
                     </td>
                 </tr>     
@@ -108,6 +116,14 @@
                           <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_buku' berkas.slug %}" target="_blank">Reviewer 1</a>
                           <div class="spacing"></div>
                           <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_buku2' berkas.slug %}" target="_blank">Reviewer 2</a>
+                          <div class="spacing"></div>
+                          {% for list1 in list_berkas %}
+                            {% for list2 in list_berkas_2 %}
+                              {% if list1.buku.pk == list2.buku.pk and list1.buku.pk == berkas.pk %}
+                                <a href="{% url 'penilaian:gabungan_buku' berkas.slug%}" class="btn btn-sm btn-primary" target="_blank">R1 dan R2</a>
+                              {% endif %}
+                            {% endfor %}
+                          {% endfor %}
                         {% endif %}
                       </td>
                     </tr>

@@ -82,15 +82,14 @@
                       {% endif %}
                     </td>
                     <td>
-                      {% if berkas.plagiasi != None %}
-                        <a href="{{berkas.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
-                      {% else %}
-                        {% if berkas.is_verificated %}
-                          <a class="btn btn-warning" href="{% url 'penilaian:plagiasi' berkas.pk %}">Belum Ada</a>
+                      {% if berkas.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' or berkas.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' or berkas.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                        {% if berkas.plagiasi != None %}
+                          <a href="{{berkas.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
                         {% else %}
-                          <button disabled class="btn btn-secondary">Belum Verif</button>
+                          <a class="btn btn-warning" href="{% url 'penilaian:plagiasi' berkas.pk %}">Belum Ada</a>
                         {% endif %}
-                          
+                      {% else %}
+                        <button disabled class="btn btn-secondary">Tidak Perlu</button>
                       {% endif %}
                     </td>
                     <td>
@@ -99,7 +98,13 @@
                         <div class="spacing"></div>
                         <a class="btn btn-sm btn-primary" href="{% url 'penilaian:rekap_jurnal2' berkas.slug %}" target="_blank">Reviewer 2</a>
                         <div class="spacing"></div>
-                        <a href="" class="btn btn-sm btn-primary" target="_blank">R1 dan R2</a>
+                        {% for list1 in list_berkas %}
+                          {% for list2 in list_berkas_2 %}
+                            {% if list1.jurnal.pk == list2.jurnal.pk and list1.jurnal.pk == berkas.pk %}
+                              <a href="{% url 'penilaian:gabungan_jurnal' berkas.slug%}" class="btn btn-sm btn-primary" target="_blank">R1 dan R2</a>
+                            {% endif %}
+                          {% endfor %}
+                        {% endfor %}
                       {% endif %}
                     </td>
                 </tr>
@@ -146,10 +151,14 @@
                         {% endif %}
                       </td>
                       <td>
-                        {% if berkas.plagiasi != None %}
-                          <a href="{{berkas.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
+                        {% if berkas.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' or berkas.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' or berkas.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                          {% if berkas.plagiasi != None %}
+                            <a href="{{berkas.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
+                          {% else %}
+                            <a class="btn btn-warning" href="{% url 'penilaian:plagiasi' berkas.pk %}">Belum Ada</a>
+                          {% endif %}
                         {% else %}
-                          <a class="btn btn-warning" href="{% url 'penilaian:plagiasi' berkas.pk %}">Belum Ada</a>
+                          <button disabled class="btn btn-secondary">Tidak Perlu</button>
                         {% endif %}
                       </td>
                       <td>
@@ -157,6 +166,14 @@
                           <a class="btn btn-sm btn-primary" href="{% url 'penilaian:rekap_jurnal' berkas.slug %}" target="_blank">Reviewer 1</a>
                           <div class="spacing"></div>
                           <a class="btn btn-sm btn-primary" href="{% url 'penilaian:rekap_jurnal2' berkas.slug %}" target="_blank">Reviewer 2</a>
+                          <div class="spacing"></div>
+                          {% for list1 in list_berkas %}
+                            {% for list2 in list_berkas_2 %}
+                              {% if list1.jurnal.pk == list2.jurnal.pk and list1.jurnal.pk == berkas.pk %}
+                                <a href="{% url 'penilaian:gabungan_jurnal' berkas.slug%}" class="btn btn-sm btn-primary" target="_blank">R1 dan R2</a>
+                              {% endif %}
+                            {% endfor %}
+                          {% endfor %}
                         {% endif %}
                       </td>
                     </tr>
