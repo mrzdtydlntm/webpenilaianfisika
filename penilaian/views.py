@@ -86,6 +86,14 @@ class ListBerkasJurnalView(LoginRequiredMixin,ListView):
         context['list_berkas_2'] = PenilaianBerkasJurnal2.objects.all()
         return context
 
+    def get_queryset(self):
+        result = super(ListBerkasJurnalView, self).get_queryset()
+        query = self.request.GET.get('search')
+        if query:
+            postresult = UploadBerkasJurnal.objects.filter(judul_artikel__icontains=query)
+            result = postresult
+        return result
+
 class DetailBerkasJurnalView(LoginRequiredMixin,DetailView):
     model = UploadBerkasJurnal
     login_url = '/login/'
@@ -352,6 +360,14 @@ class ListBerkasProsidingView(LoginRequiredMixin,ListView):
         context['list_berkas'] = PenilaianBerkasProsiding.objects.all()
         context['list_berkas_2'] = PenilaianBerkasProsiding2.objects.all()
         return context
+    
+    def get_queryset(self):
+        result = super(ListBerkasProsidingView, self).get_queryset()
+        query = self.request.GET.get('search')
+        if query:
+            postresult = UploadBerkasProsiding.objects.filter(judul_artikel__icontains=query)
+            result = postresult
+        return result
 
 class PlagiasiLinieritasProsidingView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasProsiding
@@ -621,6 +637,14 @@ class ListBerkasBukuView(LoginRequiredMixin,ListView):
         context['list_berkas_2'] = PenilaianBerkasBuku2.objects.all()
         return context
 
+    def get_queryset(self):
+        result = super(ListBerkasBukuView, self).get_queryset()
+        query = self.request.GET.get('search')
+        if query:
+            postresult = UploadBerkasBuku.objects.filter(judul__icontains=query)
+            result = postresult
+        return result
+
 class DetailBerkasBukuView(LoginRequiredMixin,DetailView):
     model = UploadBerkasBuku
     login_url = '/login/'
@@ -882,6 +906,14 @@ class ListBerkasHakiView(LoginRequiredMixin,ListView):
         context['list_berkas_2'] = PenilaianBerkasHaki2.objects.all()
         return context
 
+    def get_queryset(self):
+        result = super(ListBerkasHakiView, self).get_queryset()
+        query = self.request.GET.get('search')
+        if query:
+            postresult = UploadBerkasHaki.objects.filter(judul__icontains=query)
+            result = postresult
+        return result
+
 class DetailBerkasHakiView(LoginRequiredMixin,DetailView):
     model = UploadBerkasHaki
     login_url = '/login/'
@@ -1114,11 +1146,17 @@ class ListReviewerJurnalView(ReviewerAccess,ListView):
     
     def get_context_data(self, *args, **kwargs):
         context = super(ListReviewerJurnalView, self).get_context_data(*args, **kwargs)
-        list_berkas = PenilaianBerkasJurnal.objects.all()
-        list_berkas_2 = PenilaianBerkasJurnal2.objects.all()
-        context['list_berkas'] = list_berkas
-        context['list_berkas_2'] = list_berkas_2
+        context['list_berkas'] = PenilaianBerkasJurnal.objects.all()
+        context['list_berkas_2'] = PenilaianBerkasJurnal2.objects.all()
         return context
+    
+    def get_queryset(self):
+        result = super(ListReviewerJurnalView, self).get_queryset()
+        query = self.request.GET.get('search')
+        if query:
+            postresult = UploadBerkasJurnal.objects.filter(judul_artikel__icontains=query)
+            result = postresult
+        return result
 
 class ListReviewerProsidingView(ReviewerAccess,ListView):
     model = UploadBerkasProsiding
@@ -1130,11 +1168,17 @@ class ListReviewerProsidingView(ReviewerAccess,ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ListReviewerProsidingView, self).get_context_data(*args, **kwargs)
-        list_berkas = PenilaianBerkasProsiding.objects.all()
-        list_berkas_2 = PenilaianBerkasProsiding2.objects.all()
-        context['list_berkas'] = list_berkas
-        context['list_berkas_2'] = list_berkas_2
+        context['list_berkas'] = PenilaianBerkasProsiding.objects.all()
+        context['list_berkas_2'] = PenilaianBerkasProsiding2.objects.all()
         return context
+    
+    def get_queryset(self):
+        result = super(ListReviewerProsidingView, self).get_queryset()
+        query = self.request.GET.get('search')
+        if query:
+            postresult = UploadBerkasProsiding.objects.filter(judul_artikel__icontains=query)
+            result = postresult
+        return result
 
 class ListReviewerBukuView(ReviewerAccess,ListView):
     model = UploadBerkasBuku
@@ -1146,11 +1190,17 @@ class ListReviewerBukuView(ReviewerAccess,ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ListReviewerBukuView, self).get_context_data(*args, **kwargs)
-        list_berkas = PenilaianBerkasBuku.objects.all()
-        list_berkas_2 = PenilaianBerkasBuku2.objects.all()
-        context['list_berkas'] = list_berkas
-        context['list_berkas_2'] = list_berkas_2
+        context['list_berkas'] = PenilaianBerkasBuku.objects.all()
+        context['list_berkas_2'] = PenilaianBerkasBuku2.objects.all()
         return context
+
+    def get_queryset(self):
+        result = super(ListReviewerBukuView, self).get_queryset()
+        query = self.request.GET.get('search')
+        if query:
+            postresult = UploadBerkasBuku.objects.filter(judul__icontains=query)
+            result = postresult
+        return result
 
 class ListReviewerHakiView(ReviewerAccess,ListView):
     model = UploadBerkasHaki
@@ -1162,11 +1212,16 @@ class ListReviewerHakiView(ReviewerAccess,ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ListReviewerHakiView, self).get_context_data(*args, **kwargs)
-        list_berkas = PenilaianBerkasHaki.objects.all()
-        list_berkas_2 = PenilaianBerkasHaki2.objects.all()
-        context['list_berkas'] = list_berkas
-        context['list_berkas_2'] = list_berkas_2
+        context['list_berkas'] = PenilaianBerkasHaki.objects.all()
+        context['list_berkas_2'] = PenilaianBerkasHaki2.objects.all()
         return context
 
+    def get_queryset(self):
+        result = super(ListReviewerHakiView, self).get_queryset()
+        query = self.request.GET.get('search')
+        if query:
+            postresult = UploadBerkasHaki.objects.filter(judul__icontains=query)
+            result = postresult
+        return result
 ############# END List khusus reviewer #############
 ################################################################################################################
