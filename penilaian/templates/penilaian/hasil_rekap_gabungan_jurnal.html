@@ -19,6 +19,15 @@
                 font-family: "Times New Roman", Times, serif;
                 font-size: 9pt;
                 font-weight: bolder;
+                width: 100%;
+                text-align: center;
+            }
+            .judul-lbrgab {
+                font-family: "Times New Roman", Times, serif;
+                font-size: 12pt;
+                font-weight: bolder;
+                width: 100%;
+                text-align: center;
             }
             .paragraf {
                 font-family: "Times New Roman", Times, serif;
@@ -29,6 +38,7 @@
             }
             p{
                 margin-bottom: 1px;
+                width: 100%;
             }
             .break{
                 page-break-before: always;
@@ -48,13 +58,219 @@
                 border-bottom: 1px solid black;
                 text-align: center;
             }
+            .col-num{
+                width: 5%;
+            }
+            .col-1-1{
+                width: 43%;
+            }
+            .col-2-1{
+                width: 2%;
+            }
+            .col-3-1{
+                width: 50%;
+            }
+            .col-1-2{
+                width: 30%;
+            }
+            .col-2-2{
+                width: 2%;
+            }
+            .col-1-3{
+                width: 25%;
+            }
+            .col-2-3{
+                width: 2%;
+            }
+            .col-3-4{
+                width: 55%;
+            }
+            .col-1-ttd-1{
+                width: 35%;
+            }
+            .col-2-ttd-1{
+                width: 30%;
+            }
+            .col-3-ttd-1{
+                width: 35%;
+            }
+            .tb_paragraf{
+                width: 100%;
+                margin-bottom: 50px;
+            }
+            .tb_atasnama{
+                width: 100%;
+                margin-top: 50px;
+                margin-bottom: 50px;
+            }
+            .tb_ttd{
+                width: 100%;
+                margin-bottom: 3cm;
+                margin-top: 50px;
+            }
+            .lbrgab {
+                font-size: 10pt;
+            }
     </style>
     <title>Gabungan Penilaian</title>
 </head>
 <body>
     {% if usrlogin.is_superuser or usrlogin.id == 22 or usrlogin.id == berkas.jurnal.penulis_utama.users.id %}
         {% if berkas.jurnal.penulis_utama != None %}
-            <!-- Masukin yang lembar dari aci disini -->
+            <table class="judul-lbrgab">
+                <tr>
+                    <th>LEMBAR REKAPITULASI</th>
+                </tr>
+                <tr>
+                    <th>HASIL PENILAIAN KARYA ILMIAH</th>
+                </tr>
+            </table>
+            <br>
+            <div class="lbrgab">
+                <p>Yang bertanda tangan di bawah ini </p>
+                <table class="tb_paragraf">
+                    <tr>
+                        <td class="col-num">I.</td>
+                        <td class="col-1-1">Nama</td>
+                        <td class="col-2-1">:</td>
+                        <td class="col-3-1">{{berkas.jurnal.reviewer}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>NIP</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer.nip}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Pangkat/Golongan/Ruang</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer.pangkat}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Jabatan Fungsional</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer.jabatan_pangkat}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Unit Kerja</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer.unit_kerja}}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>II.</td>
+                        <td>Nama</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer_2}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>NIP</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer_2.nip}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Pangkat/Golongan/Ruang</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer_2.pangkat}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Jabatan Fungsional</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer_2.jabatan_pangkat}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Unit Kerja</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer_2.unit_kerja}}</td>
+                    </tr>
+                </table>
+                <p>Menyatakan dengan sebenarnya bahwa : </p>
+                <br>
+                <table class="tb_paragraf">
+                    <tr>
+                        <td class="col-1-2">Karya ilmiah yang berjudul</td>
+                        <td class="col-2-2">:</td>
+                        <td class="col-3-2">{{berkas.jurnal}}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td class="col-1-3">Nilai Rata-rata</td>
+                        <td class="col-2-3">:</td>
+                        <td>({{berkas.nilai_pu|floatformat}} + {{berkas_2.nilai_pu|floatformat}})/2 = {{nilaitotal_pu|floatformat}}</td>
+                    </tr>
+                </table>
+                <p>Yang diajukan untuk kenaikan jabatan akademik/fungsional ke jenjang Lektor Kepala/Guru Besar atas nama :</p>
+                <br>
+                <table class="tb_paragraf">
+                    <tr>
+                        <td class="col-1-1">Nama</td>
+                        <td class="col-2-1">:</td>
+                        <td class="col-3-4">{{berkas.jurnal.penulis_utama}}</td>
+                    </tr>
+                    <tr>
+                        <td>NIP</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.penulis_utama.users.username}}</td>
+                    </tr>
+                    <tr>
+                        <td>Pangkat/Golongan/Ruang</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.penulis_utama.pangkat}}</td>
+                    </tr>
+                    <tr>
+                        <td>Jabatan Fungsional</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.penulis_utama.jabatan}}</td>
+                    </tr>
+                    <tr>
+                        <td>Unit Kerja</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.penulis_utama.unit}}</td>
+                    </tr>
+                </table>
+                <p>Telah diperiksa/divalidasi dan hasilnya telah memenuhi kaidah ilmiah, norma akademik, dan norma hukum sesuai dengan Peraturan Mentri Pendidikan Nasional No. 17 tahun 2010 Tentang Pencegahan Plagiat di Perguruan Tinggi</p>
+                <table class="tb_ttd">
+                    <tr>
+                        <td class="col-1-ttd-1"></td>
+                        <td class="col-2-ttd-1"></td>
+                        <td class="col-3-ttd-1">Jatinangor, {{berkas.created|date}}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>Penilai I</td>
+                        <td></td>
+                        <td>Penilai II</td>
+                    </tr>
+                    <tr>
+                        {% if berkas.jurnal.reviewer.ttd or berkas.jurnal.reviewer_2.ttd %}
+                            <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer.ttd.path}}" alt=""></td>
+                            <td></td>
+                            <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer_2.ttd.path}}" alt=""></td>
+                        {% else %}
+                            <td><br><br><br><br></td>
+                            <td><br><br><br><br></td>
+                            <td><br><br><br><br></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>{{berkas.jurnal.reviewer}}.</td>
+                        <td></td>
+                        <td>{{berkas.jurnal.reviewer_2}}</td>
+                    </tr>
+                    <tr>
+                        <td>NIP. {{berkas.jurnal.reviewer.nip}}</td>
+                        <td></td>
+                        <td>NIP. {{berkas.jurnal.reviewer.nip}}</td>
+                    </tr>
+                </table>
+            </div>
             <div class="break"></div>
             <table style="width: 100%;" class="judul">
                 <tr>
@@ -501,7 +717,7 @@
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">
-                                <img style="width: 100px; position: absolute;" src="{{berkas.jurnal.reviewer.ttd}}" alt="">
+                                <img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer.ttd.path}}" alt="">
                                 <!-- <div style="position: relative; top: 10px;">{{berkas.jurnal.reviewer}}</div> -->
                             </td>
                         </tr>
@@ -997,7 +1213,7 @@
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">
-                                <img style="width: 100px; position: absolute;" src="{{berkas_2.jurnal.reviewer_2.ttd}}" alt="">
+                                <img style="width: 80px; position: absolute;" src="{{berkas_2.jurnal.reviewer_2.ttd.path}}" alt="">
                                 <!-- <div style="position: relative; top: 10px;">{{berkas_2.jurnal.reviewer}}</div> -->
                             </td>
                         </tr>
@@ -1051,7 +1267,165 @@
     {% endif %}
     {% if usrlogin.is_superuser or usrlogin.id == 22 or usrlogin.id == berkas.jurnal.corresponding_author.users.id %}
         {% if berkas.jurnal.corresponding_author != None %}
-            <!-- Dari aci masukin disini -->
+            {% if usrlogin.id == berkas.jurnal.corresponding_author.users.id %}
+                
+            {% else %}
+                <div class="break"></div>
+            {% endif %}
+            <table class="judul-lbrgab">
+                <tr>
+                    <th>LEMBAR REKAPITULASI</th>
+                </tr>
+                <tr>
+                    <th>HASIL PENILAIAN KARYA ILMIAH</th>
+                </tr>
+            </table>
+            <br>
+            <div class="lbrgab">
+                <p>Yang bertanda tangan di bawah ini </p>
+                <table class="tb_paragraf">
+                    <tr>
+                        <td class="col-num">I.</td>
+                        <td class="col-1-1">Nama</td>
+                        <td class="col-2-1">:</td>
+                        <td class="col-3-1">{{berkas.jurnal.reviewer}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>NIP</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer.nip}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Pangkat/Golongan/Ruang</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer.pangkat}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Jabatan Fungsional</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer.jabatan_pangkat}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Unit Kerja</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer.unit_kerja}}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>II.</td>
+                        <td>Nama</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer_2}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>NIP</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer_2.nip}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Pangkat/Golongan/Ruang</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer_2.pangkat}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Jabatan Fungsional</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer_2.jabatan_pangkat}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Unit Kerja</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.reviewer_2.unit_kerja}}</td>
+                    </tr>
+                </table>
+                <p>Menyatakan dengan sebenarnya bahwa : </p>
+                <br>
+                <table class="tb_paragraf">
+                    <tr>
+                        <td class="col-1-2">Karya ilmiah yang berjudul</td>
+                        <td class="col-2-2">:</td>
+                        <td class="col-3-2">{{berkas.jurnal}}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td class="col-1-3">Nilai Rata-rata</td>
+                        <td class="col-2-3">:</td>
+                        <td>({{berkas.nilai_ca|floatformat}} + {{berkas_2.nilai_ca|floatformat}})/2 = {{nilaitotal_ca|floatformat}}</td>
+                    </tr>
+                </table>
+                <p>Yang diajukan untuk kenaikan jabatan akademik/fungsional ke jenjang Lektor Kepala/Guru Besar atas nama :</p>
+                <br>
+                <table class="tb_paragraf">
+                    <tr>
+                        <td class="col-1-1">Nama</td>
+                        <td class="col-2-1">:</td>
+                        <td class="col-3-4">{{berkas.jurnal.corresponding_author}}</td>
+                    </tr>
+                    <tr>
+                        <td>NIP</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.corresponding_author.users.username}}</td>
+                    </tr>
+                    <tr>
+                        <td>Pangkat/Golongan/Ruang</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.corresponding_author.pangkat}}</td>
+                    </tr>
+                    <tr>
+                        <td>Jabatan Fungsional</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.corresponding_author.jabatan}}</td>
+                    </tr>
+                    <tr>
+                        <td>Unit Kerja</td>
+                        <td>:</td>
+                        <td>{{berkas.jurnal.corresponding_author.unit}}</td>
+                    </tr>
+                </table>
+                <p>Telah diperiksa/divalidasi dan hasilnya telah memenuhi kaidah ilmiah, norma akademik, dan norma hukum sesuai dengan Peraturan Mentri Pendidikan Nasional No. 17 tahun 2010 Tentang Pencegahan Plagiat di Perguruan Tinggi</p>
+                <table class="tb_ttd">
+                    <tr>
+                        <td class="col-1-ttd-1"></td>
+                        <td class="col-2-ttd-1"></td>
+                        <td class="col-3-ttd-1">Jatinangor, {{berkas.created|date}}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>Penilai I</td>
+                        <td></td>
+                        <td>Penilai II</td>
+                    </tr>
+                    <tr>
+                        {% if berkas.jurnal.reviewer.ttd or berkas.jurnal.reviewer_2.ttd %}
+                            <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer.ttd.path}}" alt=""></td>
+                            <td></td>
+                            <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer_2.ttd.path}}" alt=""></td>
+                        {% else %}
+                            <td><br><br><br><br></td>
+                            <td><br><br><br><br></td>
+                            <td><br><br><br><br></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <td>{{berkas.jurnal.reviewer}}.</td>
+                        <td></td>
+                        <td>{{berkas.jurnal.reviewer_2}}</td>
+                    </tr>
+                    <tr>
+                        <td>NIP. {{berkas.jurnal.reviewer.nip}}</td>
+                        <td></td>
+                        <td>NIP. {{berkas.jurnal.reviewer.nip}}</td>
+                    </tr>
+                </table>
+            </div>
             <div class="break"></div>
             <table style="width: 100%;" class="judul">
                 <tr>
@@ -1499,7 +1873,7 @@
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">
-                                <img style="width: 100px; position: absolute;" src="{{berkas.jurnal.reviewer.ttd}}" alt="">
+                                <img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer.ttd.path}}" alt="">
                                 <!-- <div style="position: relative; top: 10px;">{{berkas.jurnal.reviewer}}</div> -->
                             </td>
                         </tr>
@@ -1995,7 +2369,7 @@
                         <tr>
                             <td style="width: 72%;"></td>
                             <td style="width: 40%;">
-                                <img style="width: 100px; position: absolute;" src="{{berkas_2.jurnal.reviewer_2.ttd}}" alt="">
+                                <img style="width: 80px; position: absolute;" src="{{berkas_2.jurnal.reviewer_2.ttd.path}}" alt="">
                                 <!-- <div style="position: relative; top: 10px;">{{berkas_2.jurnal.reviewer}}</div> -->
                             </td>
                         </tr>
@@ -2050,7 +2424,165 @@
     {% if berkas.jurnal.penulis_lain.all.exists %}
         {% for penuliss in berkas.jurnal.penulis_lain.all %}
             {% if usrlogin.is_superuser or usrlogin.id == 22 or usrlogin.id == penuliss.users.id %}
-                <!-- Yang aci masukin sini -->
+                {% if usrlogin.id == penuliss.users.id %}
+                    
+                {% else %}
+                    <div class="break"></div>
+                {% endif %}
+                <table class="judul-lbrgab">
+                    <tr>
+                        <th>LEMBAR REKAPITULASI</th>
+                    </tr>
+                    <tr>
+                        <th>HASIL PENILAIAN KARYA ILMIAH</th>
+                    </tr>
+                </table>
+                <br>
+                <div class="lbrgab">
+                    <p>Yang bertanda tangan di bawah ini </p>
+                    <table class="tb_paragraf">
+                        <tr>
+                            <td class="col-num">I.</td>
+                            <td class="col-1-1">Nama</td>
+                            <td class="col-2-1">:</td>
+                            <td class="col-3-1">{{berkas.jurnal.reviewer}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP</td>
+                            <td>:</td>
+                            <td>{{berkas.jurnal.reviewer.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Pangkat/Golongan/Ruang</td>
+                            <td>:</td>
+                            <td>{{berkas.jurnal.reviewer.pangkat}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Jabatan Fungsional</td>
+                            <td>:</td>
+                            <td>{{berkas.jurnal.reviewer.jabatan_pangkat}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Unit Kerja</td>
+                            <td>:</td>
+                            <td>{{berkas.jurnal.reviewer.unit_kerja}}</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td>II.</td>
+                            <td>Nama</td>
+                            <td>:</td>
+                            <td>{{berkas.jurnal.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>NIP</td>
+                            <td>:</td>
+                            <td>{{berkas.jurnal.reviewer_2.nip}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Pangkat/Golongan/Ruang</td>
+                            <td>:</td>
+                            <td>{{berkas.jurnal.reviewer_2.pangkat}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Jabatan Fungsional</td>
+                            <td>:</td>
+                            <td>{{berkas.jurnal.reviewer_2.jabatan_pangkat}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Unit Kerja</td>
+                            <td>:</td>
+                            <td>{{berkas.jurnal.reviewer_2.unit_kerja}}</td>
+                        </tr>
+                    </table>
+                    <p>Menyatakan dengan sebenarnya bahwa : </p>
+                    <br>
+                    <table class="tb_paragraf">
+                        <tr>
+                            <td class="col-1-2">Karya ilmiah yang berjudul</td>
+                            <td class="col-2-2">:</td>
+                            <td class="col-3-2">{{berkas.jurnal}}</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="col-1-3">Nilai Rata-rata</td>
+                            <td class="col-2-3">:</td>
+                            <td>({{berkas.nilai_pl|floatformat}} + {{berkas_2.nilai_pl|floatformat}})/2 = {{nilaitotal_pl|floatformat}}</td>
+                        </tr>
+                    </table>
+                    <p>Yang diajukan untuk kenaikan jabatan akademik/fungsional ke jenjang Lektor Kepala/Guru Besar atas nama :</p>
+                    <br>
+                    <table class="tb_paragraf">
+                        <tr>
+                            <td class="col-1-1">Nama</td>
+                            <td class="col-2-1">:</td>
+                            <td class="col-3-4">{{penuliss}}</td>
+                        </tr>
+                        <tr>
+                            <td>NIP</td>
+                            <td>:</td>
+                            <td>{{penuliss.users.username}}</td>
+                        </tr>
+                        <tr>
+                            <td>Pangkat/Golongan/Ruang</td>
+                            <td>:</td>
+                            <td>{{penuliss.pangkat}}</td>
+                        </tr>
+                        <tr>
+                            <td>Jabatan Fungsional</td>
+                            <td>:</td>
+                            <td>{{penuliss.jabatan}}</td>
+                        </tr>
+                        <tr>
+                            <td>Unit Kerja</td>
+                            <td>:</td>
+                            <td>{{penuliss.unit}}</td>
+                        </tr>
+                    </table>
+                    <p>Telah diperiksa/divalidasi dan hasilnya telah memenuhi kaidah ilmiah, norma akademik, dan norma hukum sesuai dengan Peraturan Mentri Pendidikan Nasional No. 17 tahun 2010 Tentang Pencegahan Plagiat di Perguruan Tinggi</p>
+                    <table class="tb_ttd">
+                        <tr>
+                            <td class="col-1-ttd-1"></td>
+                            <td class="col-2-ttd-1"></td>
+                            <td class="col-3-ttd-1">Jatinangor, {{berkas.created|date}}</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td>Penilai I</td>
+                            <td></td>
+                            <td>Penilai II</td>
+                        </tr>
+                        <tr>
+                            {% if berkas.jurnal.reviewer.ttd or berkas.jurnal.reviewer_2.ttd %}
+                                <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer.ttd.path}}" alt=""></td>
+                                <td></td>
+                                <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer_2.ttd.path}}" alt=""></td>
+                            {% else %}
+                                <td><br><br><br><br></td>
+                                <td><br><br><br><br></td>
+                                <td><br><br><br><br></td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>{{berkas.jurnal.reviewer}}.</td>
+                            <td></td>
+                            <td>{{berkas.jurnal.reviewer_2}}</td>
+                        </tr>
+                        <tr>
+                            <td>NIP. {{berkas.jurnal.reviewer.nip}}</td>
+                            <td></td>
+                            <td>NIP. {{berkas.jurnal.reviewer.nip}}</td>
+                        </tr>
+                    </table>
+                </div>
                 <div class="break"></div>
                 <table style="width: 100%;" class="judul">
                     <tr>
@@ -2497,7 +3029,7 @@
                             <tr>
                                 <td style="width: 72%;"></td>
                                 <td style="width: 40%;">
-                                    <img style="width: 100px; position: absolute;" src="{{berkas.jurnal.reviewer.ttd}}" alt="">
+                                    <img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer.ttd.path}}" alt="">
                                     <!-- <div style="position: relative; top: 10px;">{{berkas.jurnal.reviewer}}</div> -->
                                 </td>
                             </tr>
@@ -2993,7 +3525,7 @@
                             <tr>
                                 <td style="width: 72%;"></td>
                                 <td style="width: 40%;">
-                                    <img style="width: 100px; position: absolute;" src="{{berkas_2.jurnal.reviewer_2.ttd}}" alt="">
+                                    <img style="width: 80px; position: absolute;" src="{{berkas_2.jurnal.reviewer_2.ttd.path}}" alt="">
                                     <!-- <div style="position: relative; top: 10px;">{{berkas_2.jurnal.reviewer}}</div> -->
                                 </td>
                             </tr>

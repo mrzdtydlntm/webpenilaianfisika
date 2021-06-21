@@ -20,7 +20,8 @@ class Reviewer(models.Model):
     nip = models.CharField(max_length=18, verbose_name='Nomor Induk Pegawai', default=None)
     unit_kerja = models.CharField(max_length=100, verbose_name='Unit Kerja')
     bidang_ilmu = models.CharField(max_length=100, verbose_name='Bidang Ilmu')
-    jabatan_pangkat = models.CharField(max_length=100, verbose_name='Jabatan/Pangkat')
+    jabatan_pangkat = models.CharField(max_length=100, verbose_name='Jabatan Fungsional')
+    pangkat = models.CharField(max_length=100, verbose_name='Pangkat/Golongan/Ruang')
     ttd = models.ImageField(upload_to='ttd/', verbose_name='Upload Tanda Tangan', default=None, blank=True)
 
     def __str__(self):
