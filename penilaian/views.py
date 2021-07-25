@@ -107,6 +107,12 @@ class EditBerkasJurnalView(LoginRequiredMixin, UpdateView):
     template_name = 'penilaian/edit_berkas_jurnal.html'
     def get_success_url(self):
         return reverse('penilaian:list_berkas_jurnal', kwargs={'page':1})
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        upload = UploadBerkasJurnal.objects.get(pk = self.kwargs['pk'])
+        context['upload'] = upload
+        return context
 
 class PlagiasiLinieritasView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasJurnal
@@ -396,6 +402,11 @@ class EditBerkasProsidingView(LoginRequiredMixin, UpdateView):
     template_name = 'penilaian/edit_berkas_prosiding.html'
     def get_success_url(self):
         return reverse('penilaian:list_berkas_prosiding', kwargs={'page':1})
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        upload = UploadBerkasProsiding.objects.get(pk = self.kwargs['pk'])
+        context['upload'] = upload
+        return context
 
 class VerifikasiBerkasProsidingView(SuperAdminAccess, UpdateView):
     model = UploadBerkasProsiding
@@ -670,6 +681,11 @@ class EditBerkasBukuView(LoginRequiredMixin, UpdateView):
     template_name = 'penilaian/edit_berkas_buku.html'
     def get_success_url(self):
         return reverse('penilaian:list_berkas_buku', kwargs={'page':1})
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        upload = UploadBerkasBuku.objects.get(pk = self.kwargs['pk'])
+        context['upload'] = upload
+        return context
 
 class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
     model = UploadBerkasBuku
@@ -945,6 +961,11 @@ class EditBerkasHakiView(LoginRequiredMixin, UpdateView):
     template_name = 'penilaian/edit_berkas_haki.html'
     def get_success_url(self):
         return reverse('penilaian:list_berkas_haki', kwargs={'page':1})
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        upload = UploadBerkasHaki.objects.get(pk = self.kwargs['pk'])
+        context['upload'] = upload
+        return context
 
 class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
     model = UploadBerkasHaki
