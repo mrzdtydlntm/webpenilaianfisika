@@ -21,7 +21,27 @@
         <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
             {% csrf_token %}
             <br>
-            {{form.as_p}}
+            <p><label for="id_pengusul">Pengusul:</label> {{form.pengusul}}</p>
+              <p><label for="id_judul">Nama Berkas:</label> {{form.judul}}</p>
+              <p><label for="id_jmlh_penulis">Jumlah Pemegang Berkas:</label> {{form.jmlh_penulis}}</p>
+              <p><label for="id_jenis_haki">Jenis HaKI:</label> {{form.jenis_haki}}</p>
+              <p><label for="id_nomor_paten">Nomor Paten:</label> {{form.nomor_paten}}</p>
+              <p><label for="id_tanggal">Tanggal Berkas:</label> {{form.tanggal}}</p>
+              <p><label for="id_penerbit">Penerbit:</label> {{form.penerbit}}</p>
+              <p><label for="id_status_paten">Status Paten:</label> {{form.status_paten}}</p>
+              <p><label for="id_url_repository">Alamat Repository:</label> {{form.url_repository}}</p>
+              <p><label for="id_kategori_publikasi">Kategori Publikasi:</label> {{form.kategori_publikasi}}</p>
+              <p><label for="id_upload_berkas">Upload Berkas:</label> {{form.upload_berkas}} 
+                {% if upload.upload_berkas != '' %}
+                    Telah diupload: <a href="{{upload.upload_berkas.url}}" target="_blank">{{upload.upload_berkas.name}}</a>
+                {% endif %}</p>
+              <p><label for="id_pemegang_berkas_utama">Pemegang Berkas Utama:</label> {{form.pemegang_berkas_utama}}</p>
+              <p><label for="id_pemegang_berkas_utama_selain">Pemegang Berkas Utama Selain Dosen:</label> {{form.pemegang_berkas_utama_selain}}</p>
+              <p><label for="id_penulis_lain">Pemegang Berkas Lain:</label> {{form.penulis_lain}}</p>
+              <p><label for="id_pemegang_berkas_selain">Pemegang Berkas Selain Dosen:</label> {{form.pemegang_berkas_selain}}</p>
+              <p><label for="id_is_verificated">Is verificated:</label> {{form.is_verificated}}</p>
+              <p><label for="id_reviewer">Reviewer:</label> {{form.reviewer}}</p>
+              <p><label for="id_reviewer_2">Reviewer 2:</label> {{form.reviewer_2}}</p>
             <br>
             <button class="btn btn-primary" type="submit">Submit</button>
             <br>

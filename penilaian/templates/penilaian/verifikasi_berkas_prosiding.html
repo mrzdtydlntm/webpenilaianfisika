@@ -21,7 +21,36 @@
         <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
             {% csrf_token %}
             <br>
-            {{form.as_p}}
+            <p><label for="id_pengusul">Pengusul:</label> {{form.pengusul}}</p>
+              <p><label for="id_judul_artikel">Judul Artikel:</label> {{form.judul_artikel}}</p>
+              <p><label for="id_jmlh_penulis">Jumlah Penulis:</label> {{form.jmlh_penulis}}</p>
+              <p><label for="id_nama_prosiding">Nama Prosiding:</label> {{form.nama_prosiding}}</p>
+              <p><label for="id_nomor_isbn">Nomor ISBN:</label> {{form.nomor_isbn}}</p>
+              <p><label for="id_tahun_terbit">Tahun Terbit:</label> {{form.tahun_terbit}}</p>
+              <p><label for="id_penerbit">Penerbit:</label> {{form.penerbit}}</p>
+              <p><label for="id_url_repository">Link Repository:</label> {{form.url_repository}}</p>
+              <p><label for="id_indeks_prosiding">Terindeks di:</label> {{form.indeks_prosiding}}</p>
+              <p><label for="id_kategori_publikasi">Kategori Publikasi:</label> {{form.kategori_publikasi}}</p>
+              <p><label for="id_tingkat_publikasi">Tingkat Publikasi:</label> {{form.tingkat_publikasi}}</p>
+              <p><label for="id_upload_prosiding">Upload Prosiding (isi):</label> {{form.upload_prosiding}} 
+                {% if upload.upload_prosiding != '' %}
+                    Telah diupload: <a href="{{upload.upload_prosiding.url}}" target="_blank">{{upload.upload_prosiding.name}}</a>
+                {% endif %}
+                </p>
+              <p><label for="id_upload_cover">Upload Prosiding (cover):</label> {{form.upload_cover}} 
+                {% if upload.upload_cover != '' %}
+                    Telah diupload: <a href="{{upload.upload_cover.url}}" target="_blank">{{upload.upload_cover.name}}</a>
+                {% endif %}
+                </p>
+              <p><label for="id_penulis_utama">Penulis Utama:</label> {{form.penulis_utama}}</p>
+              <p><label for="id_penulis_utama_selain">Penulis Utama Selain Dosen:</label> {{form.penulis_utama_selain}}</p>
+              <p><label for="id_corresponding_author">Corresponding Author:</label> {{form.corresponding_author}}</p>
+              <p><label for="id_corresponding_author_selain">Corresponding Author Selain Dosen:</label> {{form.corresponding_author_selain}}</p>
+              <p><label for="id_penulis_lain">Penulis lain:</label> {{form.penulis_lain}}</p>
+              <p><label for="id_penulis_selain">Penulis Lain Selain Dosen:</label> {{form.penulis_selain}}</p>
+              <p><label for="id_is_verificated">Is verificated:</label> {{form.is_verificated}}</p>
+              <p><label for="id_reviewer">Reviewer:</label> {{form.reviewer}}</p>
+              <p><label for="id_reviewer_2">Reviewer 2:</label> {{form.reviewer_2}}</p>
             <br>
             <button class="btn btn-primary" type="submit">Submit</button>
             <br>

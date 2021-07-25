@@ -117,8 +117,10 @@ class PlagiasiLinieritasForm(forms.ModelForm):
         ]
         widgets = {
             'judul_artikel':forms.TextInput(attrs={'class':'form-control'}),
-            'plagiasi':forms.TextInput(attrs={'class':'form-control'}),
-            'linieritas':forms.Select(attrs={'class':'form-control mh'}),
+            'plagiasi':forms.TextInput(attrs={'class':'form-control', 'required':'True'}),
+            'linieritas':forms.Select(attrs={'class':'form-control mh', 'required':'True'}),
+            'bukti_plagiasi':forms.FileInput(attrs={'class':'form-control', 'required':'True'}),
+            
         }
 
 class VerifikasiBerkasJurnalForm(forms.ModelForm):
@@ -162,12 +164,15 @@ class VerifikasiBerkasJurnalForm(forms.ModelForm):
             'indeks_jurnal':forms.Select(attrs={'class':'form-control'}),
             'tingkat_jurnal':forms.TextInput(attrs={'class':'form-control'}),
             'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
+            'upload_jurnal':forms.FileInput(attrs={'class':'form-control mh'}),
+            'upload_cover':forms.FileInput(attrs={'class':'form-control mh'}),
             'penulis_utama':forms.Select(attrs={'class':'form-control mh'}),
             'penulis_utama_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'corresponding_author':forms.Select(attrs={'class':'form-control mh'}),
             'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh'}),
             'penulis_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'is_verificated':forms.NullBooleanSelect(attrs={'class':'form-control'}),
             'reviewer':forms.Select(attrs={'class':'form-control mh'}),
             'reviewer_2':forms.Select(attrs={'class':'form-control mh'}),
         }
@@ -390,7 +395,8 @@ class PlagiasiLinieritasProsidingForm(forms.ModelForm):
         ]
         widgets = {
             'judul_artikel':forms.TextInput(attrs={'class':'form-control'}),
-            'plagiasi':forms.TextInput(attrs={'class':'form-control'}),
+            'plagiasi':forms.TextInput(attrs={'class':'form-control', 'required':'True'}),
+            'bukti_plagiasi':forms.FileInput(attrs={'class':'form-control', 'required':'True'}),
         }
 
 class VerifikasiBerkasProsidingForm(forms.ModelForm):
@@ -432,12 +438,15 @@ class VerifikasiBerkasProsidingForm(forms.ModelForm):
             'indeks_prosiding':forms.TextInput(attrs={'class':'form-control'}),
             'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
             'tingkat_publikasi':forms.Select(attrs={'class':'form-control mh'}),
+            'upload_prosiding':forms.FileInput(attrs={'class':'form-control mh'}),
+            'upload_cover':forms.FileInput(attrs={'class':'form-control mh'}),
             'penulis_utama':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'corresponding_author':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'corresponding_author_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'is_verificated':forms.NullBooleanSelect(attrs={'class':'form-control'}),
             'reviewer':forms.Select(attrs={'class':'form-control mh'}),
             'reviewer_2':forms.Select(attrs={'class':'form-control mh'}),
         }
@@ -677,10 +686,12 @@ class VerifikasiBerkasBukuForm(forms.ModelForm):
             'indeks_jurnal':forms.Select(attrs={'class':'form-control'}),
             'jumlah_halaman':forms.TextInput(attrs={'class':'form-control'}),
             'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
+            'upload_buku':forms.FileInput(attrs={'class':'form-control mh'}),
             'penulis_utama':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_utama_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_lain_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'is_verificated':forms.NullBooleanSelect(attrs={'class':'form-control'}),
             'reviewer':forms.Select(attrs={'class':'form-control mh'}),
             'reviewer_2':forms.Select(attrs={'class':'form-control mh'}),
         }
@@ -897,10 +908,12 @@ class VerifikasiBerkasHakiForm(forms.ModelForm):
             'status_paten':forms.TextInput(attrs={'class':'form-control'}),
             'url_repository':forms.TextInput(attrs={'class':'form-control'}),
             'kategori_publikasi':forms.Select(attrs={'class':'form-control mh'}),
+            'upload_berkas':forms.FileInput(attrs={'class':'form-control mh'}),
             'pemegang_berkas_utama':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'pemegang_berkas_utama_selain':forms.Select(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'pemegang_berkas_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
+            'is_verificated':forms.NullBooleanSelect(attrs={'class':'form-control'}),
             'reviewer':forms.Select(attrs={'class':'form-control mh'}),
             'reviewer_2':forms.Select(attrs={'class':'form-control mh'}),
         }

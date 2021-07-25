@@ -125,6 +125,12 @@ class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
     def get_success_url(self):
         return reverse('penilaian:list_berkas_jurnal', kwargs={'page':1})
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        upload = UploadBerkasJurnal.objects.get(pk = self.kwargs['pk'])
+        context['upload'] = upload
+        return context
+
     def form_valid(self, form):
         if form.cleaned_data.get('is_verificated') == True:
             if form.cleaned_data.get('reviewer') != None:
@@ -400,6 +406,12 @@ class VerifikasiBerkasProsidingView(SuperAdminAccess, UpdateView):
     def get_success_url(self):
         return reverse('penilaian:list_berkas_prosiding', kwargs={'page':1})
     
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        upload = UploadBerkasProsiding.objects.get(pk = self.kwargs['pk'])
+        context['upload'] = upload
+        return context
+    
     def form_valid(self, form):
         if form.cleaned_data.get('is_verificated') == True:
             if form.cleaned_data.get('reviewer') != None:
@@ -667,6 +679,12 @@ class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
     context_object_name = 'verifikasi_buku'
     def get_success_url(self):
         return reverse('penilaian:list_berkas_buku', kwargs={'page':1})
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        upload = UploadBerkasBuku.objects.get(pk = self.kwargs['pk'])
+        context['upload'] = upload
+        return context
 
     def form_valid(self, form):
         if form.cleaned_data.get('is_verificated') == True:
@@ -936,6 +954,12 @@ class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
     context_object_name = 'verifikasi_haki'
     def get_success_url(self):
         return reverse('penilaian:list_berkas_haki', kwargs={'page':1})
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        upload = UploadBerkasHaki.objects.get(pk = self.kwargs['pk'])
+        context['upload'] = upload
+        return context
 
     def form_valid(self, form):
         if form.cleaned_data.get('is_verificated') == True:
