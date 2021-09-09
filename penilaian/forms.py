@@ -127,6 +127,23 @@ class PlagiasiLinieritasForm(forms.ModelForm):
             
         }
 
+class EditPlagiasiLinieritasForm(forms.ModelForm):
+    class Meta:
+        model = UploadBerkasJurnal
+        fields = [
+            'judul_artikel',
+            'plagiasi',
+            'linieritas',
+            'bukti_plagiasi',
+        ]
+        widgets = {
+            'judul_artikel':forms.TextInput(attrs={'class':'form-control'}),
+            'plagiasi':forms.TextInput(attrs={'class':'form-control', 'required':'True'}),
+            'linieritas':forms.Select(attrs={'class':'form-control mh', 'required':'True'}),
+            'bukti_plagiasi':forms.FileInput(attrs={'class':'form-control', 'required':'True'}),
+            
+        }
+
 class VerifikasiBerkasJurnalForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasJurnal
@@ -394,6 +411,20 @@ class EditBerkasProsidingForm(forms.ModelForm):
         }
 
 class PlagiasiLinieritasProsidingForm(forms.ModelForm):
+    class Meta:
+        model = UploadBerkasProsiding
+        fields = [
+            'judul_artikel',
+            'plagiasi',
+            'bukti_plagiasi',
+        ]
+        widgets = {
+            'judul_artikel':forms.TextInput(attrs={'class':'form-control'}),
+            'plagiasi':forms.TextInput(attrs={'class':'form-control', 'required':'True'}),
+            'bukti_plagiasi':forms.FileInput(attrs={'class':'form-control', 'required':'True'}),
+        }
+
+class EditPlagiasiLinieritasProsidingForm(forms.ModelForm):
     class Meta:
         model = UploadBerkasProsiding
         fields = [

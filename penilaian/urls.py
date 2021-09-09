@@ -29,7 +29,9 @@ urlpatterns = [
     path('histori_pengajuan/haki/edit/<pk>/', views.EditBerkasHakiView.as_view(), name='edit_berkas_haki'),
     ######### End Edit Berkas #########
     path('histori_pengajuan/jurnal/plagiasi_linieritas/<pk>/', views.PlagiasiLinieritasView.as_view(), name='plagiasi'),
+    path('histori_pengajuan/jurnal/plagiasi_linieritas/edit/<pk>/', views.EditPlagiasiLinieritasView.as_view(), name='edit_plagiasi'),
     path('histori_pengajuan/prosiding/plagiasi_linieritas/<pk>/', views.PlagiasiLinieritasProsidingView.as_view(), name='plagiasi_prosiding'),
+    path('histori_pengajuan/prosiding/plagiasi_linieritas/edit/<pk>/', views.EditPlagiasiLinieritasProsidingView.as_view(), name='edit_plagiasi_prosiding'),
     ######### End Plagiasi #########
     path('histori_pengajuan/jurnal/verifikasi/<pk>/', views.VerifikasiBerkasJurnalView.as_view(), name='verifikasi_berkas_jurnal'),
     path('histori_pengajuan/prosiding/verifikasi/<pk>/', views.VerifikasiBerkasProsidingView.as_view(), name='verifikasi_berkas_prosiding'),

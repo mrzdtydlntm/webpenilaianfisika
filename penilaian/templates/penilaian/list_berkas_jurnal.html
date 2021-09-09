@@ -89,6 +89,7 @@
                       {% if berkas.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' or berkas.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' or berkas.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
                         {% if berkas.plagiasi != None %}
                           <a href="{{berkas.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
+                          <a href="{% url 'penilaian:edit_plagiasi' berkas.pk %}" class="btn btn-link">Edit</a>
                         {% else %}
                           <a class="btn btn-warning" href="{% url 'penilaian:plagiasi' berkas.pk %}">Belum Ada</a>
                         {% endif %}

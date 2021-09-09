@@ -122,6 +122,14 @@ class PlagiasiLinieritasView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('penilaian:list_berkas_jurnal', kwargs={'page':1})
 
+class EditPlagiasiLinieritasView(LoginRequiredMixin, UpdateView):
+    model = UploadBerkasJurnal
+    login_url = '/login/'
+    form_class = EditPlagiasiLinieritasForm
+    template_name = 'penilaian/plagiasi_linieritas.html'
+    def get_success_url(self):
+        return reverse('penilaian:list_berkas_jurnal', kwargs={'page':1})
+
 class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
     model = UploadBerkasJurnal
     login_url = '/login/'
@@ -385,6 +393,14 @@ class PlagiasiLinieritasProsidingView(LoginRequiredMixin, UpdateView):
     model = UploadBerkasProsiding
     login_url = '/login/'
     form_class = PlagiasiLinieritasProsidingForm
+    template_name = 'penilaian/plagiasi_linieritas_prosiding.html'
+    def get_success_url(self):
+        return reverse('penilaian:list_berkas_prosiding', kwargs={'page':1})
+
+class EditPlagiasiLinieritasProsidingView(LoginRequiredMixin, UpdateView):
+    model = UploadBerkasProsiding
+    login_url = '/login/'
+    form_class = EditPlagiasiLinieritasForm
     template_name = 'penilaian/plagiasi_linieritas_prosiding.html'
     def get_success_url(self):
         return reverse('penilaian:list_berkas_prosiding', kwargs={'page':1})

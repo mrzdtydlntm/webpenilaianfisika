@@ -90,6 +90,7 @@
                       {% if berkas.tingkat_publikasi == 'Internasional' %}
                         {% if berkas.plagiasi != None %}
                           <a href="{{berkas.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
+                          <a href="{% url 'penilaian:edit_plagiasi_prosiding' berkas.pk %}" class="btn btn-link">Edit</a>
                         {% else %}
                           <a class="btn btn-warning" href="{% url 'penilaian:plagiasi_prosiding' berkas.pk %}">Belum Ada</a>
                         {% endif %}
