@@ -21,6 +21,9 @@
         <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
             {% csrf_token %}
             <br>
+            {% if form.errors %}
+                {{form.errors}}
+            {% endif %}
             <p><label for="id_judul">Judul Buku:</label> {{form.judul}}</p>
             <p><label for="id_jmlh_penulis">Jumlah Penulis:</label> {{form.jmlh_penulis}}</p>
             <p><label for="id_nomor_isbn">Nomor ISBN:</label> {{form.nomor_isbn}}</p>

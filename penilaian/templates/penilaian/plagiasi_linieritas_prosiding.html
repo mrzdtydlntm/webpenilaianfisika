@@ -21,6 +21,9 @@
         <form method="POST" enctype="multipart/form-data" data-aos="zoom-in">
             {% csrf_token %}
             <br>
+            {% if form.errors %}
+                {{form.errors}}
+            {% endif %}
             <p><label for="id_judul_artikel">Judul Artikel:</label> {{form.judul_artikel}}</p>
             <p><label for="id_plagiasi">Similarity Index:</label> {{form.plagiasi}}</p>
             <p><label for="id_bukti_plagiasi">Upload Bukti Plagiasi:</label> {{form.bukti_plagiasi}}
