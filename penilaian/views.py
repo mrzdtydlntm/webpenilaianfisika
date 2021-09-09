@@ -130,6 +130,12 @@ class EditPlagiasiLinieritasView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('penilaian:list_berkas_jurnal', kwargs={'page':1})
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        upload = UploadBerkasJurnal.objects.get(pk = self.kwargs['pk'])
+        context['upload'] = upload
+        return context
+
 class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
     model = UploadBerkasJurnal
     login_url = '/login/'
@@ -404,6 +410,12 @@ class EditPlagiasiLinieritasProsidingView(LoginRequiredMixin, UpdateView):
     template_name = 'penilaian/plagiasi_linieritas_prosiding.html'
     def get_success_url(self):
         return reverse('penilaian:list_berkas_prosiding', kwargs={'page':1})
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        upload = UploadBerkasProsiding.objects.get(pk = self.kwargs['pk'])
+        context['upload'] = upload
+        return context
 
 class DetailBerkasProsidingView(LoginRequiredMixin,DetailView):
     model = UploadBerkasProsiding
