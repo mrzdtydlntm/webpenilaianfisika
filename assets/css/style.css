@@ -47,6 +47,18 @@ small {
   display: none;
 }
 
+.add-pu{
+  cursor: pointer;
+}
+
+.add-penulis{
+  cursor: pointer;
+}
+
+.add-ca{
+  cursor: pointer;
+}
+
 .penilaian{
   background-color: #37517e;
   height: 30vh;
@@ -71,6 +83,10 @@ small {
   background-color: #37517e;
   box-shadow: 0 0 5px rgba(0,0,0,.5);
   color: #fff;
+}
+
+.judul-artikel {
+  color: black !important;
 }
 
 a {
