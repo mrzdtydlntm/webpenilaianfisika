@@ -49,8 +49,14 @@
             <p><label for="id_tingkat_publikasi">Tingkat Publikasi*:</label>
                 {{form.tingkat_publikasi}}
             </p>
-            <p><label for="id_upload_prosiding">Upload Prosiding (isi)*:</label> {{form.upload_prosiding}}</p>
-            <p><label for="id_upload_cover">Upload Prosiding (cover):</label> {{form.upload_cover}}</p>
+            <p>
+                <label for="id_upload_prosiding">Upload Prosiding Lengkap*:</label> {{form.upload_prosiding}}
+                <small>Prosiding yang diupload harus lengkap (Cover, Editorial Board, dll)</small>
+            </p>
+            <p>
+                <label for="id_upload_cover">Upload Prosiding (cover):</label> {{form.upload_cover}}
+                <small>Jurnal Cover yang diupload minimal mengandung Cover, Daftar Isi dan Editorial Board</small>
+            </p>
             <p><label for="id_penulis_utama">Penulis Utama*:</label>
                 {{form.penulis_utama}}
             </p>

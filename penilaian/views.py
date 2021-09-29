@@ -142,6 +142,7 @@ class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
     form_class = VerifikasiBerkasJurnalForm
     template_name = 'penilaian/verifikasi_berkas_jurnal.html'
     context_object_name = 'verifikasi_jurnal'
+
     def get_success_url(self):
         return reverse('penilaian:list_berkas_jurnal', kwargs={'page':1})
 
@@ -187,10 +188,11 @@ class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
             pengusuls = User.objects.get(first_name=pengusul)
             subject = 'Konfirmasi Revisi Upload Jurnal' 
             pk = self.kwargs['pk']
+            alasan = self.request.POST['alasan']
             import os
             dir_path = os.path.dirname(os.path.realpath(__file__))
             mes = open(dir_path + '/emailer/revisi_jurnal.txt', 'r')
-            message = mes.read().format(pengusul, nama_jurnal, pengusul, pk)
+            message = mes.read().format(pengusul, nama_jurnal, pengusul, alasan, pk)
             # print(message)
             send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
         return super(VerifikasiBerkasJurnalView, self).form_valid(form)
@@ -485,10 +487,11 @@ class VerifikasiBerkasProsidingView(SuperAdminAccess, UpdateView):
             pengusuls = User.objects.get(first_name=pengusul)
             subject = 'Konfirmasi Revisi Upload Prosiding'
             pk = self.kwargs['pk']
+            alasan = self.request.POST['alasan']
             import os 
             dir_path = os.path.dirname(os.path.realpath(__file__))
             mes = open(dir_path + '/emailer/revisi_prosiding.txt', 'r')
-            message = mes.read().format(pengusul, nama_prosiding, pengusul, pk)
+            message = mes.read().format(pengusul, nama_prosiding, pengusul, alasan, pk)
             # print(message)
             send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
         return super(VerifikasiBerkasProsidingView, self).form_valid(form)
@@ -765,10 +768,11 @@ class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
             # print(pengusuls.email)
             subject = 'Konfirmasi Revisi Upload Buku'
             pk = self.kwargs['pk']
+            alasan = self.request.POST['alasan']
             import os
             dir_path = os.path.dirname(os.path.realpath(__file__))
             mes = open(dir_path + '/emailer/revisi_buku.txt', 'r')
-            message = mes.read().format(pengusul, nama_buku, pengusul, pk)
+            message = mes.read().format(pengusul, nama_buku, pengusul, alasan, pk)
             # print(message)
             send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
         return super(VerifikasiBerkasBukuView, self).form_valid(form)
@@ -1045,10 +1049,11 @@ class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
             # print(pengusuls.email)
             subject = 'Konfirmasi Revisi Upload Haki'
             pk = self.kwargs['pk']
+            alasan = self.request.POST['alasan']
             import os 
             dir_path = os.path.dirname(os.path.realpath(__file__))
             mes = open(dir_path + '/emailer/revisi_haki.txt', 'r')
-            message = mes.read().format(pengusul, nama_haki, pengusul, pk)
+            message = mes.read().format(pengusul, nama_haki, pengusul, alasan, pk)
             # print(message)
             send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
         return super(VerifikasiBerkasHakiView, self).form_valid(form)

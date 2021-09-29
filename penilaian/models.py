@@ -166,6 +166,7 @@ class UploadBerkasBuku(models.Model):
     edisi = models.CharField(max_length=255, verbose_name='Edisi', null=True, blank=True)
     volume = models.CharField(max_length=255, verbose_name='Volume', null=True, blank=True)
     tahun_terbit = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
+    url_buku = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
     jumlah_halaman = models.CharField(max_length=255, verbose_name='Jumlah Halaman', null=True, blank=True)
     kategori = [

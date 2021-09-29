@@ -43,6 +43,7 @@
           </thead>
           <tbody>
             {% for berkas in list_reviewer_jurnal %}
+              {% if berkas.is_verificated %}
                 {% if user.id == berkas.reviewer.reviewer.id %}
                     <tr>
                         <td style="width: 30%;"><a href="{% url 'penilaian:detail_berkas_jurnal' berkas.pk%}" class="judul-artikel" target="_bl">{{berkas.judul_artikel}}</a></td>
@@ -145,6 +146,7 @@
                         </td>
                     </tr>
                 {% endif %}
+              {% endif %}
             {% endfor %}
           </tbody>
         </table>

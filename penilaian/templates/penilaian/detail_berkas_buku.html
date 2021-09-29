@@ -78,6 +78,14 @@
                   {% endif %}
                 </tr>
                 <tr>
+                  <td><h4>URL Buku</h4></td>
+                  {% if detail_berkas_buku.url_buku == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                  <td><h5>: <a href="{{detail_berkas_buku.url_buku}}" target="_blank">{{detail_berkas_buku.url_buku}}</a></h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
                   <td><h4>Jumlah Halaman</h4></td>
                   {% if detail_berkas_buku.jumlah_halaman == None %}
                       <td><h5>: -</h5></td>

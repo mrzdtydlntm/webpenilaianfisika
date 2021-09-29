@@ -48,8 +48,14 @@
             <p><label for="id_kategori_publikasi">Kategori Publikasi*:</label>
                 {{form.kategori_publikasi}}
             </p>
-            <p><label for="id_upload_jurnal">Upload Jurnal (isi)*:</label> {{form.upload_jurnal}}</p>
-            <p><label for="id_upload_cover">Upload Jurnal (cover):</label> {{form.upload_cover}}</p>
+            <p>
+                <label for="id_upload_jurnal">Upload Jurnal Lengkap*:</label> {{form.upload_jurnal}}
+                <small>Jurnal yang diupload harus lengkap (Cover, Editorial Board, dll)</small>
+            </p>
+            <p>
+                <label for="id_upload_cover">Upload Jurnal (cover):</label> {{form.upload_cover}}
+                <small>Jurnal Cover yang diupload minimal mengandung Cover, Daftar Isi dan Editorial Board</small>
+            </p>
             <p><label for="id_penulis_utama">Penulis Utama*:</label>
                 {{form.penulis_utama}}
             </p>

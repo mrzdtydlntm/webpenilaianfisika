@@ -82,7 +82,7 @@
                   {% if detail_berkas_jurnal.url_jurnal == None %}
                       <td><h5>: -</h5></td>
                   {% else %}
-                      <td><h5>: {{detail_berkas_jurnal.url_jurnal}}</h5></td>
+                      <td><h5>: <a href="{{detail_berkas_jurnal.url_jurnal}}" target="_blank">{{detail_berkas_jurnal.url_jurnal}}</a></h5></td>
                   {% endif %}
                 </tr>
                 <tr>

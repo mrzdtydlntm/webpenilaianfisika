@@ -82,7 +82,7 @@
                   {% if detail_berkas_haki.url_repository == None %}
                       <td><h5>: -</h5></td>
                   {% else %}
-                      <td><h5>: {{detail_berkas_haki.url_repository}}</h5></td>
+                      <td><h5>: <a href="{{detail_berkas_haki.url_repository}}" target="_blank">{{detail_berkas_haki.url_repository}}</a></h5></td>
                   {% endif %}
                 </tr>
                 <tr>
