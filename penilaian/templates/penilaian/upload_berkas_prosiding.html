@@ -39,7 +39,11 @@
             <p><label for="id_nomor_isbn">Nomor ISBN:</label> {{form.nomor_isbn}}</p>
             <p><label for="id_tahun_terbit">Tahun Terbit:</label> {{form.tahun_terbit}}</p>
             <p><label for="id_penerbit">Nama Penerbit:</label> {{form.penerbit}}</p>
-            <p><label for="id_url_repository">Link Repository:</label> {{form.url_repository}}</p>
+            <p><label for="id_url_repository">Link Repository (Dari Penerbit/Publisher):</label> {{form.url_repository}}</p>
+            <p>
+                <label for="id_url_prosiding_lengkap">Link Prosiding Lengkap:</label> {{form.url_prosiding_lengkap}}
+                <small>Prosiding harus lengkap (meliputi Cover, Editorial Board, Daftar Isi, Isi, Kriteria Prosiding, dst)</small>
+            </p>
             <p><label for="id_indeks_prosiding">Terindeks di*:</label>
                 {{form.indeks_prosiding}}
             </p>
@@ -50,13 +54,13 @@
                 {{form.tingkat_publikasi}}
             </p>
             <p>
-                <label for="id_upload_prosiding">Upload Prosiding Lengkap*:</label> {{form.upload_prosiding}}
-                <small>Prosiding yang diupload harus lengkap (Cover, Editorial Board, dll)</small>
+                <label for="id_upload_prosiding">Upload Prosiding Lengkap:</label> {{form.upload_prosiding}}
+                <small>Prosiding harus lengkap (meliputi Cover, Editorial Board, Daftar Isi, Isi, Kriteria Prosiding, dst)</small>
             </p>
-            <p>
+            <!-- <p>
                 <label for="id_upload_cover">Upload Prosiding (cover):</label> {{form.upload_cover}}
-                <small>Jurnal Cover yang diupload minimal mengandung Cover, Daftar Isi dan Editorial Board</small>
-            </p>
+                <small>Prosiding Cover yang diupload minimal mengandung Cover, Daftar Isi dan Editorial Board</small>
+            </p> -->
             <p><label for="id_penulis_utama">Penulis Utama*:</label>
                 {{form.penulis_utama}}
             </p>

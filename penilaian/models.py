@@ -48,7 +48,8 @@ class UploadBerkasJurnal(models.Model):
     vol_no_bln_thn = models.CharField(max_length=255, verbose_name='Volume/No/Bulan/Tahun', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
     doi_artikel = models.CharField(max_length=255, verbose_name='DOI Artikel', null=True, blank=True)
-    url_jurnal = models.CharField(max_length=150,verbose_name='Link Jurnal', null=True, blank=True)
+    url_jurnal = models.CharField(max_length=255,verbose_name='Link Jurnal', null=True, blank=True)
+    url_jurnal_lengkap = models.CharField(max_length=255,verbose_name='Link Jurnal Lengkap', null=True, blank=True)
     indeks = [
         ('Scopus dan Scimagojr','Scopus dan Scimagojr'),
         ('Scopus atau IEEE','Scopus atau IEEE'),
@@ -68,7 +69,7 @@ class UploadBerkasJurnal(models.Model):
         ('Jurnal Ilmiah Nasional terindeks di DOAJ dll','Jurnal Ilmiah Nasional terindeks di DOAJ dll'),
     ]
     kategori_publikasi = models.CharField(max_length=100, choices=kategori, default=None, verbose_name='Kategori Publikasi')
-    upload_jurnal = models.FileField(upload_to='jurnal/isi/', verbose_name='Upload Jurnal')
+    upload_jurnal = models.FileField(upload_to='jurnal/isi/', verbose_name='Upload Jurnal', blank=True, null=True)
     upload_cover = models.FileField(upload_to='jurnal/cover/', verbose_name='Upload Jurnal (cover)', blank=True, null=True)
     penulis_utama = models.ForeignKey(Users, related_name='user_jurnal_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', null=True, blank=True)
     penulis_utama_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='pu_selain', null=True, blank=True, verbose_name='Penulis Utama (selain Dosen)')
@@ -109,7 +110,8 @@ class UploadBerkasProsiding(models.Model):
     nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', null=True, blank=True)
     tahun_terbit = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
-    url_repository = models.CharField(max_length=150,verbose_name='Link Repository', null=True, blank=True)
+    url_repository = models.CharField(max_length=255,verbose_name='Link Repository', null=True, blank=True)
+    url_prosiding_lengkap = models.CharField(max_length=255,verbose_name='Link Prosiding Lengkap', null=True, blank=True)
     indeks = [
         ('Scopus dan Scimagojr','Scopus dan Scimagojr'),
         ('Scopus atau IEEE','Scopus atau IEEE'),
@@ -133,7 +135,7 @@ class UploadBerkasProsiding(models.Model):
     tingkat_publikasi = models.CharField(max_length=100, choices=tingkat, default=None, verbose_name='Tingkat Publikasi')
     plagiasi = models.PositiveIntegerField(verbose_name='Similarity Index', null=True, blank=True)
     bukti_plagiasi = models.FileField(upload_to='plagiasi_prosiding/', verbose_name='Upload Bukti Plagiasi', blank=True, null=True)
-    upload_prosiding = models.FileField(upload_to='prosiding/isi/', verbose_name='Upload Prosiding (isi)')
+    upload_prosiding = models.FileField(upload_to='prosiding/isi/', verbose_name='Upload Prosiding (isi)', blank=True, null=True)
     upload_cover = models.FileField(upload_to='prosiding/cover/', verbose_name='Upload Prosiding (cover)', blank=True, null=True)
     penulis_utama = models.ForeignKey(Users, related_name='user_prosiding_penulis_utama', on_delete=models.CASCADE, verbose_name='Penulis Utama', null=True, blank=True)
     penulis_utama_selain = models.ForeignKey(PenulisLain, on_delete=models.CASCADE, related_name='pu_lain_prosiding', verbose_name='Penulis Utama Selain Dosen', blank=True, null=True)
@@ -166,7 +168,7 @@ class UploadBerkasBuku(models.Model):
     edisi = models.CharField(max_length=255, verbose_name='Edisi', null=True, blank=True)
     volume = models.CharField(max_length=255, verbose_name='Volume', null=True, blank=True)
     tahun_terbit = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
-    url_buku = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
+    url_buku = models.CharField(max_length=255, verbose_name='Url Buku', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
     jumlah_halaman = models.CharField(max_length=255, verbose_name='Jumlah Halaman', null=True, blank=True)
     kategori = [
@@ -216,7 +218,7 @@ class UploadBerkasHaki(models.Model):
     tanggal = models.CharField(max_length=50, verbose_name='Tanggal Berkas', blank=True, null=True)
     penerbit = models.CharField(max_length=100, verbose_name='Penerbit', blank=True, null=True)
     status_paten = models.CharField(max_length=100, verbose_name='Status Paten', blank=True, null=True)
-    url_repository = models.CharField(max_length=100, verbose_name='Alamat Repository', blank=True, null=True)
+    url_repository = models.CharField(max_length=255, verbose_name='Alamat Repository', blank=True, null=True)
     kategori = [
         ('Internasional (sudah diimplementasikan di industri)','Internasional (sudah diimplementasikan di industri)'),
         ('Internasional','Internasional'),

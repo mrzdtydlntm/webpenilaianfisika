@@ -40,7 +40,11 @@
             <p><label for="id_vol_no_bln_thn">Volume/No/Bulan/Tahun:</label> {{form.vol_no_bln_thn}}</p>
             <p><label for="id_penerbit">Nama Penerbit:</label> {{form.penerbit}}</p>
             <p><label for="id_doi_artikel">DOI Artikel:</label> {{form.doi_artikel}}</p>
-            <p><label for="id_url_jurnal">Link Jurnal:</label> {{form.url_jurnal}}</p>
+            <p><label for="id_url_jurnal">Link Jurnal (Dari Penerbit/Publisher):</label> {{form.url_jurnal}}</p>
+            <p>
+                <label for="id_url_jurnal_lengkap">Link Jurnal Lengkap:</label> {{form.url_jurnal_lengkap}}
+                <small>Jurnal harus lengkap (meliputi Cover, Editorial Board, Daftar Isi, Isi, Kriteria Jurnal, dst)</small>
+            </p>
             <p><label for="id_indeks_jurnal">Indeks Jurnal*:</label>
                 {{form.indeks_jurnal}}
             </p>
@@ -49,13 +53,13 @@
                 {{form.kategori_publikasi}}
             </p>
             <p>
-                <label for="id_upload_jurnal">Upload Jurnal Lengkap*:</label> {{form.upload_jurnal}}
-                <small>Jurnal yang diupload harus lengkap (Cover, Editorial Board, dll)</small>
+                <label for="id_upload_jurnal">Upload Jurnal Lengkap:</label> {{form.upload_jurnal}}
+                <small>Jurnal yang diupload harus lengkap (meliputi Cover, Editorial Board, Daftar Isi, Isi, Kriteria Jurnal, dst)</small>
             </p>
-            <p>
-                <label for="id_upload_cover">Upload Jurnal (cover):</label> {{form.upload_cover}}
-                <small>Jurnal Cover yang diupload minimal mengandung Cover, Daftar Isi dan Editorial Board</small>
-            </p>
+            <!-- <p> -->
+                <!-- <label for="id_upload_cover">Upload Jurnal (cover):</label> {{form.upload_cover}} -->
+                <!-- <small>Jurnal Cover yang diupload minimal mengandung Cover, Daftar Isi dan Editorial Board</small> -->
+            <!-- </p> -->
             <p><label for="id_penulis_utama">Penulis Utama*:</label>
                 {{form.penulis_utama}}
             </p>
