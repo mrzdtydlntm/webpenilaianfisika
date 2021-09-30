@@ -124,9 +124,13 @@
                 </tr>
                 <tr>
                   <td><h4>Berkas Prosiding</h4></td>
-                  <td><a href="{{detail_berkas_prosiding.upload_prosiding.url}}" class="btn btn-primary" target="_blank">Lihat</a></td>
+                  {% if detail_berkas_prosiding.upload_prosiding %}
+                    <td><a href="{{detail_berkas_prosiding.upload_prosiding.url}}" class="btn btn-primary" target="_blank">Lihat</a></td>
+                  {% else %}
+                    <td><a href="{{detail_berkas_prosiding.url_prosiding_lengkap}}" class="btn btn-primary" target="_blank">Lihat</a></td>
+                  {% endif %}
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td><h4>Berkas Cover</h4></td>
                   <td>
                       {% if berkas.upload_cover %}
@@ -134,7 +138,7 @@
                           {% else %}
                           <button type="button" class="btn btn-warning" disabled>Belum Ada</button>
                       {% endif %}
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>

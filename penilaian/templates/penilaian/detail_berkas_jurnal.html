@@ -134,9 +134,13 @@
                 </tr>
                 <tr>
                   <td><h4>Berkas Jurnal</h4></td>
-                  <td><a href="{{detail_berkas_jurnal.upload_jurnal.url}}" class="btn btn-primary" target="_blank">Lihat</a></td>
+                  {% if detail_berkas_jurnal.upload_jurnal %}
+                    <td><a href="{{detail_berkas_jurnal.upload_jurnal.url}}" class="btn btn-primary" target="_blank">Lihat</a></td>
+                  {% else %}
+                    <td><a href="{{detail_berkas_jurnal.url_jurnal_lengkap}}" class="btn btn-primary" target="_blank">Lihat</a></td>
+                  {% endif %}
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td><h4>Berkas Cover</h4></td>
                   <td>
                       {% if berkas.upload_cover %}
@@ -145,7 +149,7 @@
                           <button type="button" class="btn btn-warning" disabled>Belum Ada</button>
                       {% endif %}
                   </td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>
