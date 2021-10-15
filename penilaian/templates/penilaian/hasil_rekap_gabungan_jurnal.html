@@ -665,7 +665,7 @@
                         {% else %}
                             <td style="text-align: center; width: 10%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 10%;">{{berkas.total}}</td>
+                        <td style="text-align: center; width: 10%;">{{berkas.total|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kontribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
@@ -679,7 +679,7 @@
                                 50%
                             {% endif %}
                         {% endif %}
-                            x ({{berkas.total}})</td>
+                            x ({{berkas.total|floatformat}})</td>
                         <td>{{berkas.nilai_pu|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -1161,7 +1161,7 @@
                         {% else %}
                             <td style="text-align: center; width: 10%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 10%;">{{berkas_2.total}}</td>
+                        <td style="text-align: center; width: 10%;">{{berkas_2.total|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kontribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
@@ -1175,7 +1175,7 @@
                                 50%
                             {% endif %}
                         {% endif %}
-                            x ({{berkas_2.total}})</td>
+                            x ({{berkas_2.total|floatformat}})</td>
                         <td>{{berkas_2.nilai_pu|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -1820,7 +1820,7 @@
                         {% else %}
                             <td style="text-align: center; width: 10%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 10%;">{{berkas.total}}</td>
+                        <td style="text-align: center; width: 10%;">{{berkas.total|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kontribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
@@ -1834,7 +1834,7 @@
                                 50%
                             {% endif %}
                         {% endif %}
-                            x ({{berkas.total}})</td>
+                            x ({{berkas.total|floatformat}})</td>
                         <td>{{berkas.nilai_ca|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -2317,7 +2317,7 @@
                         {% else %}
                             <td style="text-align: center; width: 10%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 10%;">{{berkas_2.total}}</td>
+                        <td style="text-align: center; width: 10%;">{{berkas_2.total|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kontribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
@@ -2331,7 +2331,7 @@
                                 50%
                             {% endif %}
                         {% endif %}
-                            x ({{berkas_2.total}})</td>
+                            x ({{berkas_2.total|floatformat}})</td>
                         <td>{{berkas_2.nilai_ca|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -2981,7 +2981,7 @@
                             {% else %}
                                 <td style="text-align: center; width: 10%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 10%;">{{berkas.total}}</td>
+                            <td style="text-align: center; width: 10%;">{{berkas.total|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kontribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
@@ -2991,7 +2991,7 @@
                             {% elif berkas.jurnal.corresponding_author != None %}
                                 20%
                             {% endif %}
-                                x ({{berkas.total}}/{{berkas.jmlh_penulis_lain}})</td>
+                                x ({{berkas.total|floatformat}}/{{berkas.jmlh_penulis_lain}})</td>
                             <td>{{berkas.nilai_pl|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
@@ -3477,7 +3477,7 @@
                             {% else %}
                                 <td style="text-align: center; width: 10%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 10%;">{{berkas_2.total}}</td>
+                            <td style="text-align: center; width: 10%;">{{berkas_2.total|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kontribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
@@ -3487,7 +3487,7 @@
                             {% elif berkas_2.jurnal.corresponding_author != None %}
                                 20%
                             {% endif %}
-                                x ({{berkas_2.total}}/{{berkas_2.jmlh_penulis_lain}})</td>
+                                x ({{berkas_2.total|floatformat}}/{{berkas_2.jmlh_penulis_lain}})</td>
                             <td>{{berkas_2.nilai_pl|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">

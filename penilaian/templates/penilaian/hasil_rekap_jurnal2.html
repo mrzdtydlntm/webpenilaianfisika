@@ -445,7 +445,7 @@
                         {% else %}
                             <td style="text-align: center; width: 10%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 10%;">{{rekap_jurnal.total}}</td>
+                        <td style="text-align: center; width: 10%;">{{rekap_jurnal.total|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kontribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
@@ -459,7 +459,7 @@
                                 50%
                             {% endif %}
                         {% endif %}
-                             x ({{rekap_jurnal.total}})</td>
+                             x ({{rekap_jurnal.total|floatformat}})</td>
                         <td>{{rekap_jurnal.nilai_pu|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -943,7 +943,7 @@
                             {% else %}
                                 <td style="text-align: center; width: 10%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 10%;">{{rekap_jurnal.total}}</td>
+                            <td style="text-align: center; width: 10%;">{{rekap_jurnal.total|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kontribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
@@ -957,7 +957,7 @@
                                     50%
                                 {% endif %}
                             {% endif %}
-                                x ({{rekap_jurnal.total}})</td>
+                                x ({{rekap_jurnal.total|floatformat}})</td>
                             <td>{{rekap_jurnal.nilai_ca|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
@@ -1445,7 +1445,7 @@
                             {% else %}
                                 <td style="text-align: center; width: 10%"></td>
                             {% endif %}
-                            <td style="text-align: center; width: 10%;">{{rekap_jurnal.total}}</td>
+                            <td style="text-align: center; width: 10%;">{{rekap_jurnal.total|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
                             <td>Kontribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
@@ -1455,7 +1455,7 @@
                             {% elif rekap_jurnal.jurnal.corresponding_author != None %}
                                 20%
                             {% endif %}
-                                x ({{rekap_jurnal.total}}/{{rekap_jurnal.jmlh_penulis_lain}})</td>
+                                x ({{rekap_jurnal.total|floatformat}}/{{rekap_jurnal.jmlh_penulis_lain}})</td>
                             <td>{{rekap_jurnal.nilai_pl|floatformat}}</td>
                         </tr>
                         <tr class="bordernilai">
@@ -1939,7 +1939,7 @@
                         {% else %}
                             <td style="text-align: center; width: 10%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 10%;">{{rekap_jurnal.total}}</td>
+                        <td style="text-align: center; width: 10%;">{{rekap_jurnal.total|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kontribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
@@ -1953,7 +1953,7 @@
                                 50%
                             {% endif %}
                         {% endif %}
-                            x ({{rekap_jurnal.total}})</td>
+                            x ({{rekap_jurnal.total|floatformat}})</td>
                         <td>{{rekap_jurnal.nilai_pu|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -2435,7 +2435,7 @@
                         {% else %}
                             <td style="text-align: center; width: 10%"></td>
                         {% endif %}
-                        <td style="text-align: center; width: 10%;">{{rekap_jurnal.total}}</td>
+                        <td style="text-align: center; width: 10%;">{{rekap_jurnal.total|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
                         <td>Kontribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
@@ -2449,7 +2449,7 @@
                                 50%
                             {% endif %}
                         {% endif %}
-                            x ({{rekap_jurnal.total}})</td>
+                            x ({{rekap_jurnal.total|floatformat}})</td>
                         <td>{{rekap_jurnal.nilai_ca|floatformat}}</td>
                     </tr>
                     <tr class="bordernilai">
@@ -2937,7 +2937,7 @@
                                 {% else %}
                                     <td style="text-align: center; width: 10%"></td>
                                 {% endif %}
-                                <td style="text-align: center; width: 10%;">{{rekap_jurnal.total}}</td>
+                                <td style="text-align: center; width: 10%;">{{rekap_jurnal.total|floatformat}}</td>
                             </tr>
                             <tr class="bordernilai">
                                 <td>Kontribusi Pengusul (Penulis Pertama/Anggota Utama)</td>
@@ -2947,7 +2947,7 @@
                                 {% elif rekap_jurnal.jurnal.corresponding_author != None %}
                                     20%
                                 {% endif %}
-                                    x ({{rekap_jurnal.total}}/{{rekap_jurnal.jmlh_penulis_lain}})</td>
+                                    x ({{rekap_jurnal.total|floatformat}}/{{rekap_jurnal.jmlh_penulis_lain}})</td>
                                 <td>{{rekap_jurnal.nilai_pl|floatformat}}</td>
                             </tr>
                             <tr class="bordernilai">
