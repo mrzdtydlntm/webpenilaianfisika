@@ -1168,7 +1168,7 @@
                             {% if penulis == penuliss %}
                                 <strong>{{penulis}}</strong>,
                             {% elif penulis != penuliss%}
-                                {{penulis}}
+                                {{penulis}},
                             {% endif %}
                         {% endfor %}
                         {% for penulis_lain in rekap_prosiding.prosiding.penulis_selain.all %}

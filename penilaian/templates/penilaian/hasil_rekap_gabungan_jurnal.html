@@ -2623,7 +2623,7 @@
                                 {% if penulis == penuliss %}
                                     <strong>{{penulis}}</strong>,
                                 {% elif penulis != penuliss%}
-                                    {{penulis}}
+                                    {{penulis}},
                                 {% endif %}
                             {% endfor %}
                             {% for penulis_lain in berkas.jurnal.penulis_selain.all %}
@@ -3119,7 +3119,7 @@
                                 {% if penulis == penuliss %}
                                     <strong>{{penulis}}</strong>,
                                 {% elif penulis != penuliss%}
-                                    {{penulis}}
+                                    {{penulis}},
                                 {% endif %}
                             {% endfor %}
                             {% for penulis_lain in berkas_2.jurnal.penulis_selain.all %}
