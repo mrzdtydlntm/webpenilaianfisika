@@ -130,6 +130,18 @@
                     <td><a href="{{detail_berkas_prosiding.url_prosiding_lengkap}}" class="btn btn-primary" target="_blank">Lihat</a></td>
                   {% endif %}
                 </tr>
+                <tr>
+                  <td><h4>Berkas Turnitin</h4></td>
+                  {% if detail_berkas_prosiding.tingkat_publikasi == 'Internasional' %}
+                    {% if detail_berkas_prosiding.plagiasi != None %}
+                      <a href="{{detail_berkas_prosiding.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
+                    {% else %}
+                      <a class="btn btn-warning">Belum Ada</a>
+                    {% endif %}
+                  {% else %}
+                    <button disabled class="btn btn-secondary">Tidak Perlu</button>
+                  {% endif %}
+                </tr>
                 <!-- <tr>
                   <td><h4>Berkas Cover</h4></td>
                   <td>

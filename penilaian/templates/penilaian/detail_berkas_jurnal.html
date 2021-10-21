@@ -140,6 +140,18 @@
                     <td><a href="{{detail_berkas_jurnal.url_jurnal_lengkap}}" class="btn btn-primary" target="_blank">Lihat</a></td>
                   {% endif %}
                 </tr>
+                <tr>
+                  <td><h4>Berkas Turnitin</h4></td>
+                  {% if detail_berkas_jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi Berdampak' or detail_berkas_jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional Bereputasi' or detail_berkas_jurnal.kategori_publikasi == 'Jurnal Ilmiah Internasional' %}
+                    {% if detail_berkas_jurnal.plagiasi != None %}
+                      <a href="{{detail_berkas_jurnal.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
+                    {% else %}
+                      <a class="btn btn-warning">Belum Ada</a>
+                    {% endif %}
+                  {% else %}
+                    <button disabled class="btn btn-secondary">Tidak Perlu</button>
+                  {% endif %}
+                </tr>
                 <!-- <tr>
                   <td><h4>Berkas Cover</h4></td>
                   <td>
