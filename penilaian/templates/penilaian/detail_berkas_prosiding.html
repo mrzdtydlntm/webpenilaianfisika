@@ -132,15 +132,17 @@
                 </tr>
                 <tr>
                   <td><h4>Berkas Turnitin</h4></td>
-                  {% if detail_berkas_prosiding.tingkat_publikasi == 'Internasional' %}
-                    {% if detail_berkas_prosiding.plagiasi != None %}
-                      <a href="{{detail_berkas_prosiding.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
+                  <td>
+                    {% if detail_berkas_prosiding.tingkat_publikasi == 'Internasional' %}
+                      {% if detail_berkas_prosiding.plagiasi != None %}
+                        <a href="{{detail_berkas_prosiding.bukti_plagiasi.url}}" class="btn btn-primary" target="_blank">Bukti</a>
+                      {% else %}
+                        <a class="btn btn-warning">Belum Ada</a>
+                      {% endif %}
                     {% else %}
-                      <a class="btn btn-warning">Belum Ada</a>
+                      <button disabled class="btn btn-secondary">Tidak Perlu</button>
                     {% endif %}
-                  {% else %}
-                    <button disabled class="btn btn-secondary">Tidak Perlu</button>
-                  {% endif %}
+                  </td>
                 </tr>
                 <!-- <tr>
                   <td><h4>Berkas Cover</h4></td>
