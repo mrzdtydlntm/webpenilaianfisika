@@ -141,7 +141,7 @@
             <span class="active">
               {{i}}
             </span>
-          {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+          {% elif i > page_obj.number|add:'-10' and i < page_obj.number|add:'10' %}
             <a href="{% url 'penilaian:list_berkas_haki' i %}">
               {{i}}
             </a>
