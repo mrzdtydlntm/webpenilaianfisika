@@ -9,7 +9,7 @@ Kami beritahukan bahwa berkas jurnal yang diajukan untuk penilaian,
 masih belum memenuhi persyaratan kelengkapan untuk dinilai dengan catatan sebagai berikut:
 {}.
 
-Untuk link nya dapat diakses di: https://kifisika.finder.ac.id/histori_pengajuan/jurnal/edit/{}/
+Untuk link nya dapat diakses di: https://kifisika.finder.ac.id/penilaian/histori_pengajuan/jurnal/edit/{}/
 Apabila berkas telah diedit, silakan untuk menghubungi kepala departemen fisika agar dapat diverifikasi kembali.
 Mohon Bapak/Ibu segera melengkapi kekurangan berkas.
 
