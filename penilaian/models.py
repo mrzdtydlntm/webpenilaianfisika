@@ -58,6 +58,8 @@ class UploadBerkasJurnal(models.Model):
         ('Tidak Terindeks','Tidak Terindeks'),
     ]
     indeks_jurnal = models.CharField(choices=indeks,max_length=100, verbose_name='Indeks Jurnal')
+    url_sjr  = models.CharField(max_length=255, verbose_name='URL SJR', blank=True, null=True)
+    url_resurchify  = models.CharField(max_length=255, verbose_name='URL Resurchify',blank=True, null=True)
     tingkat_jurnal = models.CharField(max_length=100, verbose_name='Tingkat Jurnal', null=True, blank=True)
     kategori = [
         ('Jurnal Ilmiah Internasional Bereputasi Berdampak','Jurnal Ilmiah Internasional Bereputasi Berdampak'),
@@ -120,6 +122,8 @@ class UploadBerkasProsiding(models.Model):
         ('Tidak Terindeks','Tidak Terindeks'),
     ]
     indeks_prosiding = models.CharField(choices=indeks, max_length=255, verbose_name='Terindeks di')
+    url_sjr  = models.CharField(max_length=255, verbose_name='URL SJR', blank=True, null=True)
+    url_resurchify  = models.CharField(max_length=255, verbose_name='URL Resurchify', blank=True, null=True)
     tingkat = [
         ('Internasional','Internasional'),
         ('Nasional','Nasional'),

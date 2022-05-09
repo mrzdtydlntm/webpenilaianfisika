@@ -75,7 +75,6 @@ class UploadBerkasJurnalView(LoginRequiredMixin, CreateView):
 class ListBerkasJurnalView(LoginRequiredMixin,ListView):
     model = UploadBerkasJurnal
     login_url = '/login/'
-    paginate_by = 5
     ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_jurnal.html'
     context_object_name = 'list_berkas_jurnal'
@@ -378,7 +377,6 @@ class UploadBerkasProsidingView(LoginRequiredMixin, CreateView):
 class ListBerkasProsidingView(LoginRequiredMixin,ListView):
     model = UploadBerkasProsiding
     login_url = '/login/'
-    paginate_by = 5
     ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_prosiding.html'
     context_object_name = 'list_berkas_prosiding'
@@ -680,7 +678,6 @@ class UploadBerkasBukuView(LoginRequiredMixin, CreateView):
 class ListBerkasBukuView(LoginRequiredMixin,ListView):
     model = UploadBerkasBuku
     login_url = '/login/'
-    paginate_by = 5
     ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_buku.html'
     context_object_name = 'list_berkas_buku'
@@ -961,7 +958,6 @@ class UploadBerkasHakiView(LoginRequiredMixin, CreateView):
 class ListBerkasHakiView(LoginRequiredMixin,ListView):
     model = UploadBerkasHaki
     login_url = '/login/'
-    paginate_by = 5
     ordering = ['-uploaded']
     template_name = 'penilaian/list_berkas_haki.html'
     context_object_name = 'list_berkas_haki'
@@ -1219,7 +1215,7 @@ class ListReviewerJurnalView(ReviewerAccess,ListView):
     login_url = '/login/'
     template_name = 'penilaian/list_reviewer_jurnal.html'
     context_object_name = 'list_reviewer_jurnal'
-    # paginate_by = 5
+    
     ordering = ['-uploaded']
     
     def get_context_data(self, *args, **kwargs):
@@ -1241,7 +1237,7 @@ class ListReviewerProsidingView(ReviewerAccess,ListView):
     login_url = '/login/'
     template_name = 'penilaian/list_reviewer_prosiding.html'
     context_object_name = 'list_reviewer_prosiding'
-    # paginate_by = 5
+    
     ordering = ['-uploaded']
 
     def get_context_data(self, *args, **kwargs):
@@ -1263,7 +1259,7 @@ class ListReviewerBukuView(ReviewerAccess,ListView):
     login_url = '/login/'
     template_name = 'penilaian/list_reviewer_buku.html'
     context_object_name = 'list_reviewer_buku'
-    # paginate_by = 5
+    
     ordering = ['-uploaded']
 
     def get_context_data(self, *args, **kwargs):
@@ -1285,7 +1281,7 @@ class ListReviewerHakiView(ReviewerAccess,ListView):
     login_url = '/login/'
     template_name = 'penilaian/list_reviewer_haki.html'
     context_object_name = 'list_reviewer_haki'
-    # paginate_by = 5
+    
     ordering = ['-uploaded']
 
     def get_context_data(self, *args, **kwargs):
