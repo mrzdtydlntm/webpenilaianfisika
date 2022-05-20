@@ -94,6 +94,22 @@
                   {% endif %}
                 </tr>
                 <tr>
+                  <td><h4>URL SJR</h4></td>
+                  {% if detail_berkas_jurnal.url_sjr == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: {{detail_berkas_jurnal.url_sjr}}</h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
+                  <td><h4>URL Resurchify</h4></td>
+                  {% if detail_berkas_jurnal.url_resurchify == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: {{detail_berkas_jurnal.url_resurchify}}</h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
                   <td><h4>Tingkat Jurnal</h4></td>
                   {% if detail_berkas_jurnal.tingkat_jurnal == None %}
                       <td><h5>: -</h5></td>

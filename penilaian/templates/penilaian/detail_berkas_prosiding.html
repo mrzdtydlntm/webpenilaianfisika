@@ -90,6 +90,22 @@
                   {% endif %}
                 </tr>
                 <tr>
+                  <td><h4>URL SJR</h4></td>
+                  {% if detail_berkas_prosiding.url_sjr == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: {{detail_berkas_prosiding.url_sjr}}</h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
+                  <td><h4>URL Resurchify</h4></td>
+                  {% if detail_berkas_prosiding.url_resurchify == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: {{detail_berkas_prosiding.url_resurchify}}</h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
                   <td><h4>Penulis Korespondensi</h4></td>
                   {% if detail_berkas_prosiding.corresponding_author != None %}
                     <td><h5>: {{detail_berkas_prosiding.corresponding_author}}</h5></td>
