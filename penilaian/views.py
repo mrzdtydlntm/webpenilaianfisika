@@ -193,7 +193,7 @@ class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
             mes = open(dir_path + '/emailer/revisi_jurnal.txt', 'r')
             message = mes.read().format(pengusul, nama_jurnal, pengusul, alasan, pk)
             # print(message)
-            send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
+            send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id', 'iwan.kurniawan@unpad.ac.id'], fail_silently = False)
         return super(VerifikasiBerkasJurnalView, self).form_valid(form)
 
 class PenilaianBerkasJurnalView(ReviewerAccess, CreateView):
@@ -221,7 +221,7 @@ class PenilaianBerkasJurnalView(ReviewerAccess, CreateView):
         mes = open(dir_path + '/emailer/penilaian_jurnal.txt', 'r')
         message = mes.read().format(pengusul, jurnal, pengusul, '1', 'R1', slug)
         # print(message)
-        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
+        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id', 'iwan.kurniawan@unpad.ac.id'], fail_silently = False)
         return super(PenilaianBerkasJurnalView, self).form_valid(form)
 
 class PenilaianBerkasJurnal2View(ReviewerAccess, CreateView):
@@ -248,7 +248,7 @@ class PenilaianBerkasJurnal2View(ReviewerAccess, CreateView):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         mes = open(dir_path + '/emailer/penilaian_jurnal.txt', 'r')
         message = mes.read().format(pengusul, jurnal, pengusul, '2', 'R2', slug)
-        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
+        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id', 'iwan.kurniawan@unpad.ac.id'], fail_silently = False)
         return super(PenilaianBerkasJurnal2View, self).form_valid(form)
 
 class PenilaianBerkasJurnalEditView(ReviewerAccess, UpdateView):
@@ -491,7 +491,7 @@ class VerifikasiBerkasProsidingView(SuperAdminAccess, UpdateView):
             mes = open(dir_path + '/emailer/revisi_prosiding.txt', 'r')
             message = mes.read().format(pengusul, nama_prosiding, pengusul, alasan, pk)
             # print(message)
-            send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
+            send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id', 'iwan.kurniawan@unpad.ac.id'], fail_silently = False)
         return super(VerifikasiBerkasProsidingView, self).form_valid(form)
 
 class PenilaianBerkasProsidingView(ReviewerAccess, CreateView):
@@ -521,7 +521,7 @@ class PenilaianBerkasProsidingView(ReviewerAccess, CreateView):
         mes = open(dir_path + '/emailer/penilaian_prosiding.txt', 'r')
         message = mes.read().format(pengusul, prosiding, pengusul, '1', 'R1', slug)
         # print(message)
-        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
+        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id', 'iwan.kurniawan@unpad.ac.id'], fail_silently = False)
         return super(PenilaianBerkasProsidingView, self).form_valid(form)
 
 class PenilaianBerkasProsiding2View(ReviewerAccess, CreateView):
@@ -551,7 +551,7 @@ class PenilaianBerkasProsiding2View(ReviewerAccess, CreateView):
         mes = open(dir_path + '/emailer/penilaian_prosiding.txt', 'r')
         message = mes.read().format(pengusul, prosiding, pengusul, '2', 'R2', slug)
         # print(message)
-        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
+        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id', 'iwan.kurniawan@unpad.ac.id'], fail_silently = False)
         return super(PenilaianBerkasProsiding2View, self).form_valid(form)
 
 class PenilaianBerkasProsidingEditView(ReviewerAccess, UpdateView):
@@ -771,7 +771,7 @@ class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
             mes = open(dir_path + '/emailer/revisi_buku.txt', 'r')
             message = mes.read().format(pengusul, nama_buku, pengusul, alasan, pk)
             # print(message)
-            send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
+            send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id', 'iwan.kurniawan@unpad.ac.id'], fail_silently = False)
         return super(VerifikasiBerkasBukuView, self).form_valid(form)
 
 class PenilaianBerkasBukuView(ReviewerAccess, CreateView):
@@ -801,7 +801,7 @@ class PenilaianBerkasBukuView(ReviewerAccess, CreateView):
         mes = open(dir_path + '/emailer/penilaian_buku.txt', 'r')
         message = mes.read().format(pengusul, buku, pengusul, '1', 'R1', slug)
         # print(message)
-        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
+        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id', 'iwan.kurniawan@unpad.ac.id'], fail_silently = False)
         return super(PenilaianBerkasBukuView, self).form_valid(form)
 
 class PenilaianBerkasBuku2View(ReviewerAccess, CreateView):
@@ -831,7 +831,7 @@ class PenilaianBerkasBuku2View(ReviewerAccess, CreateView):
         mes = open(dir_path + '/emailer/penilaian_buku.txt', 'r')
         message = mes.read().format(pengusul, buku, pengusul, '2', 'R2', slug)
         # print(message)
-        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
+        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id', 'iwan.kurniawan@unpad.ac.id'], fail_silently = False)
         return super(PenilaianBerkasBuku2View, self).form_valid(form)
 
 class PenilaianBerkasBukuEditView(ReviewerAccess, UpdateView):
@@ -1051,7 +1051,7 @@ class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
             mes = open(dir_path + '/emailer/revisi_haki.txt', 'r')
             message = mes.read().format(pengusul, nama_haki, pengusul, alasan, pk)
             # print(message)
-            send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id'], fail_silently = False)
+            send_mail(subject, message, EMAIL_HOST_USER, [pengusuls.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id', 'iwan.kurniawan@unpad.ac.id'], fail_silently = False)
         return super(VerifikasiBerkasHakiView, self).form_valid(form)
 
 class PenilaianBerkasHakiView(ReviewerAccess, CreateView):
@@ -1081,7 +1081,7 @@ class PenilaianBerkasHakiView(ReviewerAccess, CreateView):
         mes = open(dir_path + '/emailer/penilaian_haki.txt', 'r')
         message = mes.read().format(pengusul, berkas, pengusul, '1', 'R1', slug)
         # print(message)
-        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
+        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id', 'iwan.kurniawan@unpad.ac.id'], fail_silently = False)
         return super(PenilaianBerkasHakiView, self).form_valid(form)
 
 class PenilaianBerkasHaki2View(ReviewerAccess, CreateView):
@@ -1111,7 +1111,7 @@ class PenilaianBerkasHaki2View(ReviewerAccess, CreateView):
         mes = open(dir_path + '/emailer/penilaian_haki.txt', 'r')
         message = mes.read().format(pengusul, berkas, pengusul, '2', 'R2', slug)
         # print(message)
-        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email], fail_silently = False)
+        send_mail(subject, message, EMAIL_HOST_USER, [pengusul.email, 'difa_only@yahoo.com', 'yoni.kuwantoro@unpad.ac.id', 'iwan.kurniawan@unpad.ac.id'], fail_silently = False)
         return super(PenilaianBerkasHaki2View, self).form_valid(form)
 
 class PenilaianBerkasHakiEditView(ReviewerAccess, UpdateView):

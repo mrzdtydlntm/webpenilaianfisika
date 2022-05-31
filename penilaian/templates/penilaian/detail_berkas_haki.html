@@ -26,11 +26,11 @@
           <table class="table table-hover">
               <tbody>
                 <tr>
-                  <td><h4>Judul</h4></td>
+                  <td><h4>Nama/Judul HaKI</h4></td>
                   <td><h5>: {{detail_berkas_haki.judul}}</h5></td>
                 </tr>
                 <tr>
-                  <td><h4>Jumlah Penulis</h4></td>
+                  <td><h4>Jumlah Pemegang HaKI</h4></td>
                   <td><h5>: {{detail_berkas_haki.jmlh_penulis}}</h5></td>
                 </tr>
                 <tr>
@@ -46,7 +46,7 @@
                   {% endif %}
                 </tr>
                 <tr>
-                  <td><h4>Nomor Paten</h4></td>
+                  <td><h4>Nomor Sertifikat/Pendaftaran</h4></td>
                   {% if detail_berkas_haki.nomor_paten == None %}
                       <td><h5>: -</h5></td>
                   {% else %}
@@ -54,7 +54,7 @@
                   {% endif %}
                 </tr>
                 <tr>
-                  <td><h4>Tanggal</h4></td>
+                  <td><h4>Tanggal Sertifikat/Pendaftaran</h4></td>
                   {% if detail_berkas_haki.tanggal == None %}
                       <td><h5>: -</h5></td>
                   {% else %}
@@ -62,7 +62,7 @@
                   {% endif %}
                 </tr>
                 <tr>
-                  <td><h4>Penerbit</h4></td>
+                  <td><h4>Penerbit Sertifikat</h4></td>
                   {% if detail_berkas_haki.penerbit == None %}
                       <td><h5>: -</h5></td>
                   {% else %}
@@ -70,7 +70,7 @@
                   {% endif %}
                 </tr>
                 <tr>
-                  <td><h4>Status Paten</h4></td>
+                  <td><h4>Status HaKI</h4></td>
                   {% if detail_berkas_haki.status_paten == None %}
                       <td><h5>: -</h5></td>
                   {% else %}
@@ -78,11 +78,19 @@
                   {% endif %}
                 </tr>
                 <tr>
-                  <td><h4>Alamat Repository</h4></td>
+                  <td><h4>URL Repository (Dokumen Lengkap)</h4></td>
                   {% if detail_berkas_haki.url_repository == None %}
                       <td><h5>: -</h5></td>
                   {% else %}
                       <td><h5>: <a href="{{detail_berkas_haki.url_repository}}" target="_blank">{{detail_berkas_haki.url_repository}}</a></h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
+                  <td><h4>URL Penerbit Sertifikat</h4></td>
+                  {% if detail_berkas_haki.url_penerbit == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: <a href="{{detail_berkas_haki.url_penerbit}}" target="_blank">{{detail_berkas_haki.url_penerbit}}</a></h5></td>
                   {% endif %}
                 </tr>
                 <tr>

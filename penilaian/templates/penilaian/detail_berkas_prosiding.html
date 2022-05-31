@@ -50,7 +50,7 @@
                   <td><h5>: {{detail_berkas_prosiding.tingkat_publikasi}}</h5></td>
                 </tr>
                 <tr>
-                  <td><h4>Nomor ISBN</h4></td>
+                  <td><h4>Nomor ISBN/ISSN</h4></td>
                   {% if detail_berkas_prosiding.nomor_isbn == None %}
                       <td><h5>: -</h5></td>
                   {% else %}
@@ -74,11 +74,27 @@
                   {% endif %}
                 </tr>
                 <tr>
-                  <td><h4>URL Repository</h4></td>
+                  <td><h4>DOI Artikel</h4></td>
+                  {% if detail_berkas_prosiding.doi_artikel == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: {{detail_berkas_prosiding.doi_artikel}}</h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
+                  <td><h4>URL Repository (Penerbit)</h4></td>
                   {% if detail_berkas_prosiding.url_repository == None %}
                       <td><h5>: -</h5></td>
                   {% else %}
                       <td><h5>: <a href="{{detail_berkas_prosiding.url_repository}}" target="_blank">{{detail_berkas_prosiding.url_repository}}</a></h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
+                  <td><h4>URL Repository (Jurnal Lengkap)</h4></td>
+                  {% if detail_berkas_prosiding.url_prosiding_lengkap == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: <a href="{{detail_berkas_prosiding.url_prosiding_lengkap}}" target="_blank">{{detail_berkas_prosiding.url_prosiding_lengkap}}</a></h5></td>
                   {% endif %}
                 </tr>
                 <tr>
@@ -90,11 +106,19 @@
                   {% endif %}
                 </tr>
                 <tr>
+                  <td><h4>URL Pengindeks</h4></td>
+                  {% if detail_berkas_prosiding.url_pengindeks == None %}
+                      <td><h5>: -</h5></td>
+                  {% else %}
+                      <td><h5>: <a href="{{detail_berkas_prosiding.url_pengindeks}}" target="_blank">{{detail_berkas_prosiding.url_pengindeks}}</a></h5></td>
+                  {% endif %}
+                </tr>
+                <tr>
                   <td><h4>URL SJR</h4></td>
                   {% if detail_berkas_prosiding.url_sjr == None %}
                       <td><h5>: -</h5></td>
                   {% else %}
-                      <td><h5>: {{detail_berkas_prosiding.url_sjr}}</h5></td>
+                  <td><h5>: <a href="{{detail_berkas_prosiding.url_sjr}}" target="_blank">{{detail_berkas_prosiding.url_sjr}}</a></h5></td>
                   {% endif %}
                 </tr>
                 <tr>
@@ -102,7 +126,7 @@
                   {% if detail_berkas_prosiding.url_resurchify == None %}
                       <td><h5>: -</h5></td>
                   {% else %}
-                      <td><h5>: {{detail_berkas_prosiding.url_resurchify}}</h5></td>
+                  <td><h5>: <a href="{{detail_berkas_prosiding.url_resurchify}}" target="_blank">{{detail_berkas_prosiding.url_resurchify}}</a></h5></td>
                   {% endif %}
                 </tr>
                 <tr>

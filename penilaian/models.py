@@ -58,6 +58,7 @@ class UploadBerkasJurnal(models.Model):
         ('Tidak Terindeks','Tidak Terindeks'),
     ]
     indeks_jurnal = models.CharField(choices=indeks,max_length=100, verbose_name='Indeks Jurnal')
+    url_pengindeks = models.CharField(max_length=255, verbose_name='URL Pengindeks', blank=True, null=True)
     url_sjr  = models.CharField(max_length=255, verbose_name='URL SJR', blank=True, null=True)
     url_resurchify  = models.CharField(max_length=255, verbose_name='URL Resurchify',blank=True, null=True)
     tingkat_jurnal = models.CharField(max_length=100, verbose_name='Tingkat Jurnal', null=True, blank=True)
@@ -112,6 +113,7 @@ class UploadBerkasProsiding(models.Model):
     nomor_isbn = models.CharField(max_length=255, verbose_name='Nomor ISBN', null=True, blank=True)
     tahun_terbit = models.CharField(max_length=255, verbose_name='Tahun Terbit', null=True, blank=True)
     penerbit = models.CharField(max_length=255, verbose_name='Penerbit', null=True, blank=True)
+    doi_artikel = models.CharField(max_length=255, verbose_name='DOI Artikel', null=True, blank=True)
     url_repository = models.CharField(max_length=255,verbose_name='Link Repository', null=True, blank=True)
     url_prosiding_lengkap = models.CharField(max_length=255,verbose_name='Link Prosiding Lengkap', null=True, blank=True)
     indeks = [
@@ -122,6 +124,7 @@ class UploadBerkasProsiding(models.Model):
         ('Tidak Terindeks','Tidak Terindeks'),
     ]
     indeks_prosiding = models.CharField(choices=indeks, max_length=255, verbose_name='Terindeks di')
+    url_pengindeks = models.CharField(max_length=255, verbose_name='URL Pengindeks', blank=True, null=True)
     url_sjr  = models.CharField(max_length=255, verbose_name='URL SJR', blank=True, null=True)
     url_resurchify  = models.CharField(max_length=255, verbose_name='URL Resurchify', blank=True, null=True)
     tingkat = [
@@ -223,6 +226,7 @@ class UploadBerkasHaki(models.Model):
     penerbit = models.CharField(max_length=100, verbose_name='Penerbit', blank=True, null=True)
     status_paten = models.CharField(max_length=100, verbose_name='Status Paten', blank=True, null=True)
     url_repository = models.CharField(max_length=255, verbose_name='Alamat Repository', blank=True, null=True)
+    url_penerbit = models.CharField(max_length=255, verbose_name='URL Penerbit Sertifikat', blank=True, null=True)
     kategori = [
         ('Internasional (sudah diimplementasikan di industri)','Internasional (sudah diimplementasikan di industri)'),
         ('Internasional','Internasional'),
