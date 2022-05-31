@@ -2,3 +2,4 @@
 media/
 *.json
 *.log
+__pycache__/
