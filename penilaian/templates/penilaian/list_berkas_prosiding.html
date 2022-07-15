@@ -100,9 +100,17 @@
                     </td>
                     <td>
                       {% if berkas.is_verificated %}
-                        <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}" target="_blank">Reviewer 1</a>
+                        {% for list in list_berkas %}
+                          {% if list.prosiding_id == berkas.id %}
+                            <a class="btn btn-sm btn-primary" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}" target="_blank">Reviewer 1</a>
+                          {% endif %}
+                        {% endfor %}
                         <div class="spacing"></div>
-                        <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding2' berkas.slug %}" target="_blank">Reviewer 2</a>
+                        {% for list in list_berkas_2 %}
+                          {% if list.prosiding_id == berkas.id %}
+                            <a class="btn btn-sm btn-primary" href="{% url 'penilaian:rekap_prosiding2' berkas.slug %}" target="_blank">Reviewer 2</a>
+                          {% endif %}
+                        {% endfor %}
                         <div class="spacing"></div>
                         {% for list1 in list_berkas %}
                           {% for list2 in list_berkas_2 %}
@@ -170,9 +178,17 @@
                       </td>
                       <td>
                         {% if berkas.is_verificated %}
-                          <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}" target="_blank">Reviewer 1</a>
+                          {% for list in list_berkas %}
+                            {% if list.prosiding_id == berkas.id %}
+                              <a class="btn btn-sm btn-primary" href="{% url 'penilaian:rekap_prosiding' berkas.slug %}" target="_blank">Reviewer 1</a>
+                            {% endif %}
+                          {% endfor %}
                           <div class="spacing"></div>
-                          <a class="btn btn-primary btn-sm" href="{% url 'penilaian:rekap_prosiding2' berkas.slug %}" target="_blank">Reviewer 2</a>
+                          {% for list in list_berkas_2 %}
+                            {% if list.prosiding_id == berkas.id %}
+                              <a class="btn btn-sm btn-primary" href="{% url 'penilaian:rekap_prosiding2' berkas.slug %}" target="_blank">Reviewer 2</a>
+                            {% endif %}
+                          {% endfor %}
                           <div class="spacing"></div>
                           {% for list1 in list_berkas %}
                             {% for list2 in list_berkas_2 %}
