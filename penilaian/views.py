@@ -187,7 +187,7 @@ class VerifikasiBerkasJurnalView(SuperAdminAccess, UpdateView):
             pengusuls = User.objects.get(first_name=pengusul)
             subject = 'Konfirmasi Revisi Upload Jurnal' 
             pk = self.kwargs['pk']
-            alasan = self.request.POST['alasan']
+            alasan = self.request.POST['verificated_remark']
             import os
             dir_path = os.path.dirname(os.path.realpath(__file__))
             mes = open(dir_path + '/emailer/revisi_jurnal.txt', 'r')
@@ -485,7 +485,7 @@ class VerifikasiBerkasProsidingView(SuperAdminAccess, UpdateView):
             pengusuls = User.objects.get(first_name=pengusul)
             subject = 'Konfirmasi Revisi Upload Prosiding'
             pk = self.kwargs['pk']
-            alasan = self.request.POST['alasan']
+            alasan = self.request.POST['verificated_remark']
             import os 
             dir_path = os.path.dirname(os.path.realpath(__file__))
             mes = open(dir_path + '/emailer/revisi_prosiding.txt', 'r')
@@ -765,7 +765,7 @@ class VerifikasiBerkasBukuView(SuperAdminAccess, UpdateView):
             # print(pengusuls.email)
             subject = 'Konfirmasi Revisi Upload Buku'
             pk = self.kwargs['pk']
-            alasan = self.request.POST['alasan']
+            alasan = self.request.POST['verificated_remark']
             import os
             dir_path = os.path.dirname(os.path.realpath(__file__))
             mes = open(dir_path + '/emailer/revisi_buku.txt', 'r')
@@ -1045,7 +1045,7 @@ class VerifikasiBerkasHakiView(SuperAdminAccess, UpdateView):
             # print(pengusuls.email)
             subject = 'Konfirmasi Revisi Upload Haki'
             pk = self.kwargs['pk']
-            alasan = self.request.POST['alasan']
+            alasan = self.request.POST['verificated_remark']
             import os 
             dir_path = os.path.dirname(os.path.realpath(__file__))
             mes = open(dir_path + '/emailer/revisi_haki.txt', 'r')

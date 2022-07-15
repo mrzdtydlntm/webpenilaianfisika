@@ -189,6 +189,7 @@ class VerifikasiBerkasJurnalForm(forms.ModelForm):
             'penulis_lain',
             'penulis_selain',
             'is_verificated',
+            'verificated_remark',
             'reviewer',
             'reviewer_2'
         ]
@@ -218,6 +219,7 @@ class VerifikasiBerkasJurnalForm(forms.ModelForm):
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh'}),
             'penulis_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'is_verificated':forms.NullBooleanSelect(attrs={'class':'form-control'}),
+            'verificated_remark':forms.Textarea(attrs={'class':'form-control'}),
             'reviewer':forms.Select(attrs={'class':'form-control mh'}),
             'reviewer_2':forms.Select(attrs={'class':'form-control mh'}),
         }
@@ -511,6 +513,7 @@ class VerifikasiBerkasProsidingForm(forms.ModelForm):
             'penulis_lain',
             'penulis_selain',
             'is_verificated',
+            'verificated_remark',
             'reviewer',
             'reviewer_2'
         ]
@@ -540,6 +543,7 @@ class VerifikasiBerkasProsidingForm(forms.ModelForm):
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'is_verificated':forms.NullBooleanSelect(attrs={'class':'form-control'}),
+            'verificated_remark':forms.Textarea(attrs={'class':'form-control'}),
             'reviewer':forms.Select(attrs={'class':'form-control mh'}),
             'reviewer_2':forms.Select(attrs={'class':'form-control mh'}),
         }
@@ -767,6 +771,7 @@ class VerifikasiBerkasBukuForm(forms.ModelForm):
             'penulis_lain',
             'penulis_lain_selain',
             'is_verificated',
+            'verificated_remark',
             'reviewer',
             'reviewer_2'
         ]
@@ -793,6 +798,7 @@ class VerifikasiBerkasBukuForm(forms.ModelForm):
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'penulis_lain_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'is_verificated':forms.NullBooleanSelect(attrs={'class':'form-control'}),
+            'verificated_remark':forms.Textarea(attrs={'class':'form-control'}),
             'reviewer':forms.Select(attrs={'class':'form-control mh'}),
             'reviewer_2':forms.Select(attrs={'class':'form-control mh'}),
         }
@@ -1002,6 +1008,7 @@ class VerifikasiBerkasHakiForm(forms.ModelForm):
             'penulis_lain',
             'pemegang_berkas_selain',
             'is_verificated',
+            'verificated_remark',
             'reviewer',
             'reviewer_2'
         ]
@@ -1023,6 +1030,7 @@ class VerifikasiBerkasHakiForm(forms.ModelForm):
             'penulis_lain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'pemegang_berkas_selain':forms.SelectMultiple(attrs={'class':'form-control selectpicker border rounded mh', 'data-live-search':'True'}),
             'is_verificated':forms.NullBooleanSelect(attrs={'class':'form-control'}),
+            'verificated_remark':forms.Textarea(attrs={'class':'form-control'}),
             'reviewer':forms.Select(attrs={'class':'form-control mh'}),
             'reviewer_2':forms.Select(attrs={'class':'form-control mh'}),
         }
