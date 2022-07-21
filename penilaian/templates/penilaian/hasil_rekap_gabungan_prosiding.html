@@ -250,13 +250,16 @@
                         <td>Penilai II</td>
                     </tr>
                     <tr>
-                        {% if berkas.prosiding.reviewer.ttd or berkas.prosiding.reviewer_2.ttd %}
+                        {% if berkas.prosiding.reviewer.ttd %}
                             <td><img style="width: 80px; position: absolute;" src="{{berkas.prosiding.reviewer.ttd.path}}" alt=""></td>
                             <td></td>
-                            <td><img style="width: 80px; position: absolute;" src="{{berkas.prosiding.reviewer_2.ttd.path}}" alt=""></td>
                         {% else %}
                             <td><br><br><br><br></td>
                             <td><br><br><br><br></td>
+                        {% endif %}
+                        {% if berkas.prosiding.reviewer_2.ttd %}
+                            <td><img style="width: 80px; position: absolute;" src="{{berkas.prosiding.reviewer_2.ttd.path}}" alt=""></td>
+                        {% else %}
                             <td><br><br><br><br></td>
                         {% endif %}
                     </tr>
@@ -1481,13 +1484,16 @@
                         <td>Penilai II</td>
                     </tr>
                     <tr>
-                        {% if berkas.prosiding.reviewer.ttd or berkas.prosiding.reviewer_2.ttd %}
+                        {% if berkas.prosiding.reviewer.ttd %}
                             <td><img style="width: 80px; position: absolute;" src="{{berkas.prosiding.reviewer.ttd.path}}" alt=""></td>
                             <td></td>
-                            <td><img style="width: 80px; position: absolute;" src="{{berkas.prosiding.reviewer_2.ttd.path}}" alt=""></td>
                         {% else %}
                             <td><br><br><br><br></td>
                             <td><br><br><br><br></td>
+                        {% endif %}
+                        {% if berkas.prosiding.reviewer_2.ttd %}
+                            <td><img style="width: 80px; position: absolute;" src="{{berkas.prosiding.reviewer_2.ttd.path}}" alt=""></td>
+                        {% else %}
                             <td><br><br><br><br></td>
                         {% endif %}
                     </tr>
@@ -2713,13 +2719,16 @@
                             <td>Penilai II</td>
                         </tr>
                         <tr>
-                            {% if berkas.prosiding.reviewer.ttd or berkas.prosiding.reviewer_2.ttd %}
+                            {% if berkas.prosiding.reviewer.ttd %}
                                 <td><img style="width: 80px; position: absolute;" src="{{berkas.prosiding.reviewer.ttd.path}}" alt=""></td>
                                 <td></td>
-                                <td><img style="width: 80px; position: absolute;" src="{{berkas.prosiding.reviewer_2.ttd.path}}" alt=""></td>
                             {% else %}
                                 <td><br><br><br><br></td>
                                 <td><br><br><br><br></td>
+                            {% endif %}
+                            {% if berkas.prosiding.reviewer_2.ttd %}
+                                <td><img style="width: 80px; position: absolute;" src="{{berkas.prosiding.reviewer_2.ttd.path}}" alt=""></td>
+                            {% else %}
                                 <td><br><br><br><br></td>
                             {% endif %}
                         </tr>

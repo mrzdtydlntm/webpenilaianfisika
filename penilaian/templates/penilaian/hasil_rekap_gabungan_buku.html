@@ -247,13 +247,16 @@
                         <td>Penilai II</td>
                     </tr>
                     <tr>
-                        {% if berkas.buku.reviewer.ttd or berkas.buku.reviewer_2.ttd %}
+                        {% if berkas.buku.reviewer.ttd %}
                             <td><img style="width: 80px; position: absolute;" src="{{berkas.buku.reviewer.ttd.path}}" alt=""></td>
                             <td></td>
-                            <td><img style="width: 80px; position: absolute;" src="{{berkas.buku.reviewer_2.ttd.path}}" alt=""></td>
                         {% else %}
                             <td><br><br><br><br></td>
                             <td><br><br><br><br></td>
+                        {% endif %}
+                        {% if berkas.buku.reviewer_2.ttd %}
+                            <td><img style="width: 80px; position: absolute;" src="{{berkas.buku.reviewer_2.ttd.path}}" alt=""></td>
+                        {% else %}
                             <td><br><br><br><br></td>
                         {% endif %}
                     </tr>
@@ -1107,13 +1110,16 @@
                             <td>Penilai II</td>
                         </tr>
                         <tr>
-                            {% if berkas.buku.reviewer.ttd or berkas.buku.reviewer_2.ttd %}
-                                <td><img style="width: 80px; position: absolute;" src="{{berkas.buku.reviewer.ttd.path}}" alt=""></td>
+                            {% if berkas.buku.reviewer.ttd %}
+                            <td><img style="width: 80px; position: absolute;" src="{{berkas.buku.reviewer.ttd.path}}" alt=""></td>
                                 <td></td>
-                                <td><img style="width: 80px; position: absolute;" src="{{berkas.buku.reviewer_2.ttd.path}}" alt=""></td>
                             {% else %}
                                 <td><br><br><br><br></td>
                                 <td><br><br><br><br></td>
+                            {% endif %}
+                            {% if berkas.buku.reviewer_2.ttd %}
+                                <td><img style="width: 80px; position: absolute;" src="{{berkas.buku.reviewer_2.ttd.path}}" alt=""></td>
+                            {% else %}
                                 <td><br><br><br><br></td>
                             {% endif %}
                         </tr>

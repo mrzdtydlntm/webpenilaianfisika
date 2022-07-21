@@ -247,13 +247,16 @@
                         <td>Penilai II</td>
                     </tr>
                     <tr>
-                        {% if berkas.berkas.reviewer.ttd or berkas.berkas.reviewer_2.ttd %}
+                        {% if berkas.berkas.reviewer.ttd %}
                             <td><img style="width: 80px; position: absolute;" src="{{berkas.berkas.reviewer.ttd.path}}" alt=""></td>
                             <td></td>
-                            <td><img style="width: 80px; position: absolute;" src="{{berkas.berkas.reviewer_2.ttd.path}}" alt=""></td>
                         {% else %}
                             <td><br><br><br><br></td>
                             <td><br><br><br><br></td>
+                        {% endif %}
+                        {% if berkas.berkas.reviewer_2.ttd %}
+                            <td><img style="width: 80px; position: absolute;" src="{{berkas.berkas.reviewer_2.ttd.path}}" alt=""></td>
+                        {% else %}
                             <td><br><br><br><br></td>
                         {% endif %}
                     </tr>
@@ -1263,13 +1266,16 @@
                             <td>Penilai II</td>
                         </tr>
                         <tr>
-                            {% if berkas.berkas.reviewer.ttd or berkas.berkas.reviewer_2.ttd %}
+                            {% if berkas.berkas.reviewer.ttd %}
                                 <td><img style="width: 80px; position: absolute;" src="{{berkas.berkas.reviewer.ttd.path}}" alt=""></td>
                                 <td></td>
-                                <td><img style="width: 80px; position: absolute;" src="{{berkas.berkas.reviewer_2.ttd.path}}" alt=""></td>
                             {% else %}
                                 <td><br><br><br><br></td>
                                 <td><br><br><br><br></td>
+                            {% endif %}
+                            {% if berkas.berkas.reviewer_2.ttd %}
+                                <td><img style="width: 80px; position: absolute;" src="{{berkas.berkas.reviewer_2.ttd.path}}" alt=""></td>
+                            {% else %}
                                 <td><br><br><br><br></td>
                             {% endif %}
                         </tr>

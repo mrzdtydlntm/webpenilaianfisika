@@ -249,13 +249,16 @@
                         <td>Penilai II</td>
                     </tr>
                     <tr>
-                        {% if berkas.jurnal.reviewer.ttd or berkas.jurnal.reviewer_2.ttd %}
+                        {% if berkas.jurnal.reviewer.ttd %}
                             <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer.ttd.path}}" alt=""></td>
                             <td></td>
-                            <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer_2.ttd.path}}" alt=""></td>
                         {% else %}
                             <td><br><br><br><br></td>
                             <td><br><br><br><br></td>
+                        {% endif %}
+                        {% if berkas.jurnal.reviewer_2.ttd %}
+                            <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer_2.ttd.path}}" alt=""></td>
+                        {% else %}
                             <td><br><br><br><br></td>
                         {% endif %}
                     </tr>
@@ -1404,13 +1407,16 @@
                         <td>Penilai II</td>
                     </tr>
                     <tr>
-                        {% if berkas.jurnal.reviewer.ttd or berkas.jurnal.reviewer_2.ttd %}
+                        {% if berkas.jurnal.reviewer.ttd %}
                             <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer.ttd.path}}" alt=""></td>
                             <td></td>
-                            <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer_2.ttd.path}}" alt=""></td>
                         {% else %}
                             <td><br><br><br><br></td>
                             <td><br><br><br><br></td>
+                        {% endif %}
+                        {% if berkas.jurnal.reviewer_2.ttd %}
+                            <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer_2.ttd.path}}" alt=""></td>
+                        {% else %}
                             <td><br><br><br><br></td>
                         {% endif %}
                     </tr>
@@ -2561,13 +2567,16 @@
                             <td>Penilai II</td>
                         </tr>
                         <tr>
-                            {% if berkas.jurnal.reviewer.ttd or berkas.jurnal.reviewer_2.ttd %}
+                            {% if berkas.jurnal.reviewer.ttd %}
                                 <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer.ttd.path}}" alt=""></td>
                                 <td></td>
-                                <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer_2.ttd.path}}" alt=""></td>
                             {% else %}
                                 <td><br><br><br><br></td>
                                 <td><br><br><br><br></td>
+                            {% endif %}
+                            {% if berkas.jurnal.reviewer_2.ttd %}
+                                <td><img style="width: 80px; position: absolute;" src="{{berkas.jurnal.reviewer_2.ttd.path}}" alt=""></td>
+                            {% else %}
                                 <td><br><br><br><br></td>
                             {% endif %}
                         </tr>
